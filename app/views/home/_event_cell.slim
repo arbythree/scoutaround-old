@@ -1,0 +1,7 @@
+- registration = event.registrations.where(person: person).first
+- if registration.nil?
+  = 'Register now'
+- elsif registration.completed_by?(person)
+  = 'Registered'
+- else
+  = 'Incomplete'

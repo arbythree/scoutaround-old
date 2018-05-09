@@ -1,0 +1,2 @@
+class Pack < Unit
+end

@@ -1,0 +1,2 @@
+class Troop < Unit
+end

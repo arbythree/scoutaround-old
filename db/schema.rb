@@ -10,12 +10,47 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180508194013) do
+ActiveRecord::Schema.define(version: 20180509115028) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.text "document_data"
+    t.integer "requirement_id"
+    t.string "attachable_type"
+    t.integer "attachable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_requirements", force: :cascade do |t|
+    t.integer "event_id"
+    t.string "type"
+    t.string "description"
+    t.boolean "accepted"
+    t.integer "accepted_by"
+    t.datetime "accepted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "events", force: :cascade do |t|
     t.string "name"
-    t.datetime "start_time"
-    t.datetime "end_time"
+    t.integer "unit_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "guardianships", force: :cascade do |t|
+    t.integer "guardian_id"
+    t.integer "guardee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "unit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,6 +91,7 @@ ActiveRecord::Schema.define(version: 20180508194013) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "person_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

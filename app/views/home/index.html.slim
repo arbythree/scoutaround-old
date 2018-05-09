@@ -1,0 +1,16 @@
+h1 Scoutaround
+p = "Hello, #{@current_person.first_name}"
+
+table
+  tr
+    th Event
+    th Me
+    - @current_person.guardees.each do |guardee|
+      th = guardee.first_name
+
+  - @current_person.events.each do |event|
+    tr
+      td = link_to event.name, event
+      td = render partial: 'home/event_cell', locals: { event: event, person: @current_person }
+      - @current_person.guardees.each do |guardee|
+        td = render partial: 'home/event_cell', locals: { event: event, person: guardee }
