@@ -10,9 +10,9 @@ html
 
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
-    p.notice
-      = notice
-    p.alert
-      = alert
     .container
+      p.notice
+        = notice
+      p.alert
+        = alert
       = yield

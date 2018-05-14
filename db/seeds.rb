@@ -1,7 +1,7 @@
-owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara').first_or_create
-luis    = Youth.where(first_name: 'Luis',    last_name: 'Johnson').first_or_create
-jack    = Youth.where(first_name: 'Jack',    last_name: 'Jones').first_or_create
-aidan   = Youth.where(first_name: 'Aidan',   last_name: 'Riordan').first_or_create
+owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara', rank: 'Scout').first_or_create
+luis    = Youth.where(first_name: 'Luis',    last_name: 'Johnson',  rank: 'Scout').first_or_create
+jack    = Youth.where(first_name: 'Jack',    last_name: 'Jones',    rank: 'Star').first_or_create
+aidan   = Youth.where(first_name: 'Aidan',   last_name: 'Riordan',  rank: 'Life').first_or_create
 
 ray     = Adult.where(first_name: 'Ray',     last_name: 'McNamara').first_or_create
 fred    = Adult.where(first_name: 'Fred',    last_name: 'Marquez').first_or_create

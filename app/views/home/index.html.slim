@@ -1,21 +1,26 @@
 - people = [@current_person].concat(@current_person.guardees)
 
-table.table
-  tr
-    th Event
-    - if @current_person.multiple_units?
-      th Unit
-    th Date(s)
-    - people.each do |person|
-      th = person.first_name
+.row
+  .col-md-9
+    table.table
+      tr
+        th Event
+        - if @current_person.multiple_units?
+          th Unit
+        th Date(s)
+        - people.each do |person|
+          th = person.first_name
 
-  - @current_person.events.each do |event|
-    tr
-      td = link_to event.name, event
-      - if @current_person.multiple_units?
-        - present event.unit do |unit|
-          td = unit.display_name
-      - present event do |event|
-        td = event.dates
-      - people.each do |person|
-        td = render partial: 'home/event_cell', locals: { event: event, person: person }
+      - @current_person.events.each do |event|
+        tr
+          td = link_to event.name, event
+          - if @current_person.multiple_units?
+            - present event.unit do |unit|
+              td = unit.display_name
+          - present event do |event|
+            td = event.dates
+          - people.each do |person|
+            td = render partial: 'home/event_cell', locals: { event: event, person: person }
+
+  .col-md-3
+    = render partial: 'home/utilities'

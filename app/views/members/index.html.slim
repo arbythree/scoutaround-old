@@ -1,0 +1,15 @@
+- present @unit do |unit|
+  h1 = unit.display_name
+
+table.table
+  tr
+    th = t('people.type')
+    th = t('people.name')
+    th = t('people.rank_or_role')
+
+  - @members.each do |member|
+    - present member do |m|
+      tr
+        td = m.type
+        td = link_to m.display_name, member_path(member)
+        td = m.rank

@@ -54,3 +54,13 @@ en:
     incomplete: 'Incomplete'
     complete: 'Registered'
     item: 'Item'
+
+  members:
+    roster: 'Roster'
+
+  people:
+    youth: 'Youth'
+    adult: 'Adult'
+    type: 'Type'
+    name: 'Name'
+    rank_or_role: 'Rank or Role'

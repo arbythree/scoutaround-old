@@ -1,0 +1,3 @@
+dl
+  dt = @current_person.units.first.number
+  dd = link_to t('members.roster'), unit_members_path(unit_id: @current_person.units.first.id)
