@@ -35,6 +35,8 @@ en:
   or: 'or'
   action: 'Action'
   sign_out: 'Sign Out'
+  view: 'View'
+  search: 'Search'
 
   events:
     roster: 'Roster'
@@ -57,6 +59,13 @@ en:
 
   members:
     roster: 'Roster'
+    add: 'Add a Member'
+    add_new: 'Add Member'
+    first_name: 'First'
+    last_name: 'Last'
+    added: 'Added new member'
+    administrator: 'administrator'
+    log_in: 'Allow login'
 
   people:
     youth: 'Youth'

@@ -6,4 +6,5 @@ class Membership < ApplicationRecord
     normal: 0,
     admin: 1,
   }
+  scope :active, -> { where(active: true) }
 end

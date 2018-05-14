@@ -53,3 +53,16 @@ header {
     color: $white;
   }
 }
+
+label {
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', sans-serif;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 300;
+}
+
+#roster {
+  .inactive {
+    text-decoration: line-through;
+  }
+}

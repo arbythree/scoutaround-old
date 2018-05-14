@@ -1,0 +1,58 @@
+.row
+  .col-md-3
+  .col-md-6
+    = form_for @member, url: unit_members_path(unit_id: @unit.id) do |f|
+      .form-group
+        .row
+          .col-md-3
+            = f.radio_button :type, 'Youth', class: 'person-type'
+            | &nbsp;&nbsp;
+            = f.label :youth
+          .col-md-3
+            = f.radio_button :type, 'Adult', class: 'person-type'
+            | &nbsp;&nbsp;
+            = f.label :adult
+      .form-group
+        = f.label :name
+        .row
+          .col-md-12
+            = f.text_field :first_name, class: 'form-control', style: 'width: 49%; float: left;', placeholder: t('members.first_name')
+            = f.text_field :last_name, class: 'form-control', style: 'width: 49%; float: right;', placeholder: t('members.last_name')
+
+      .form-group
+        = f.label :email
+        = f.email_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :phone
+        = f.phone_field :phone, class: 'form-control'
+
+      .form-group#guardian-section(style="display: none;")
+        = f.label :guardian
+        = collection_select :foo, :guardian, Adult.all, :id, :first_name, {}, class: 'form-control'
+
+      .form-group
+        = check_box_tag :login
+        | &nbsp;&nbsp;
+        = f.label :admin, "#{t('members.log_in')}"
+
+      .form-group
+        = check_box_tag :admin
+        | &nbsp;&nbsp;
+        = f.label :admin, "#{UnitPresenter.unit_display_name(@unit)} #{t('members.administrator')}"
+
+      .form-group
+        = f.submit t('members.add_new'), class: 'btn btn-primary'
+        | &nbsp;&nbsp;
+        = t('or')
+        | &nbsp;&nbsp;
+        = link_to t('cancel'), unit_members_path(unit_id: @unit.id)
+
+javascript:
+  $('#person_type_youth').click(function() {
+    $('#guardian-section').show(250);
+  });
+
+  $('#person_type_adult').click(function() {
+    $('#guardian-section').hide(250);
+  });

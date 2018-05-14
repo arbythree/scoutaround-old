@@ -2,6 +2,7 @@ owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara', rank: 'Scout
 luis    = Youth.where(first_name: 'Luis',    last_name: 'Johnson',  rank: 'Scout').first_or_create
 jack    = Youth.where(first_name: 'Jack',    last_name: 'Jones',    rank: 'Star').first_or_create
 aidan   = Youth.where(first_name: 'Aidan',   last_name: 'Riordan',  rank: 'Life').first_or_create
+marc    = Youth.where(first_name: 'Marc',    last_name: 'Wilson',   rank: 'First Class').first_or_create
 
 ray     = Adult.where(first_name: 'Ray',     last_name: 'McNamara').first_or_create
 fred    = Adult.where(first_name: 'Fred',    last_name: 'Marquez').first_or_create
@@ -28,6 +29,10 @@ puts "Memberships: #{Membership.count}"
 # Ray is an admin
 m = Membership.where(unit: troop, person: ray).first
 m.role = :admin
+m.save
+
+m = Membership.where(unit: troop, person: marc).first
+m.active = false
 m.save
 
 # Ray is a user
