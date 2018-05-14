@@ -1,4 +1,5 @@
 class Event < ApplicationRecord
+  # encrypted_id key: 'c055cafa7225635b'
   belongs_to :unit
   has_many :registrations
   has_many :registrants, through: :registrations, source: :person

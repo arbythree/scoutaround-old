@@ -1,4 +1,5 @@
 class Registration < ApplicationRecord
+  # encrypted_id key: 'c055cafa7225635b'
   belongs_to :person
   belongs_to :event
   has_many :event_submissions

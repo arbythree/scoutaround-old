@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/fclebinho/encrypted_id.git
+  revision: 99e4be1844fbc9e50653bff4ec5e27ceef098962
+  specs:
+    encrypted_id (1.1.1)
+      activerecord (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,6 +50,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (8.4.1)
       execjs
+    awesome_print (1.8.0)
     bcrypt (3.1.11)
     bindex (0.5.0)
     bootstrap (4.1.1)
@@ -234,12 +242,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bootstrap (~> 4.1.1)
   bootstrap-datepicker-rails
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
   devise
+  encrypted_id!
   factory_bot_rails
   jbuilder (~> 2.5)
   jquery-rails

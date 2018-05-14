@@ -1,0 +1,10 @@
+header
+  .container
+    - if @current_person.present?
+      p
+        = "Hello, #{@current_person.first_name}"
+        - if !@current_person.multiple_units?
+          - present @current_person.units.first do |unit|
+            = " @ #{unit.display_name}"
+
+        = link_to t('sign_out'), destroy_user_session_path, method: :delete

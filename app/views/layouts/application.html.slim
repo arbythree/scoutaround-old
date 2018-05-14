@@ -9,6 +9,7 @@ html
     = stylesheet_link_tag    'https://cloud.typography.com/7513036/6345792/css/fonts.css', media: 'all'
 
   body(class="#{additional_classes}")
+    = render partial: 'layouts/header'
     p.notice
       = notice
     p.alert

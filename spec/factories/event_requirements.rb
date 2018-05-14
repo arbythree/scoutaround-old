@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :event_requirement do
     association :event
+    sequence(:description) { |n| "Event requirement #{n}" }
   end
 
   factory :document_event_requirement, class: DocumentEventRequirement, parent: :event_requirement do
