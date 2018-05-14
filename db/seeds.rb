@@ -1,3 +1,13 @@
+1234.times do
+  person = Person.create(first_name: 'first', last_name: 'last')
+  person.destroy
+end
+
+1234.times do
+  m = Membership.create
+  m.destroy
+end
+
 owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara', rank: 'Scout').first_or_create
 luis    = Youth.where(first_name: 'Luis',    last_name: 'Johnson',  rank: 'Scout').first_or_create
 jack    = Youth.where(first_name: 'Jack',    last_name: 'Jones',    rank: 'Star').first_or_create

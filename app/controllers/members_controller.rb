@@ -2,7 +2,7 @@ class MembersController < AuthenticatedController
   before_action :find_unit
 
   def index
-    if params[:show].split(',').include? 'inactive'
+    if (params[:show] || '').split(',').include? 'inactive'
       @memberships = @unit.memberships
     else
       @memberships = @unit.memberships.active
