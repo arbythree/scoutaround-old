@@ -1,16 +1,24 @@
+- people = [@current_person].concat(@current_person.guardees)
+
 h1 Scoutaround
 p = "Hello, #{@current_person.first_name}"
 
-table
+table.table
   tr
     th Event
-    th Me
-    - @current_person.guardees.each do |guardee|
-      th = guardee.first_name
+    - if @current_person.multiple_units?
+      th Unit
+    th Date(s)
+    - people.each do |person|
+      th = person.first_name
 
   - @current_person.events.each do |event|
     tr
       td = link_to event.name, event
-      td = render partial: 'home/event_cell', locals: { event: event, person: @current_person }
-      - @current_person.guardees.each do |guardee|
-        td = render partial: 'home/event_cell', locals: { event: event, person: guardee }
+      - if @current_person.multiple_units?
+        - present event.unit do |unit|
+          td = unit.display_name
+      - present event do |event|
+        td = event.dates
+      - people.each do |person|
+        td = render partial: 'home/event_cell', locals: { event: event, person: person }

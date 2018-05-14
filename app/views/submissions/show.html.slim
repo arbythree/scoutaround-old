@@ -1,0 +1,8 @@
+.row
+  .col-md-3
+    p = @submission.person.full_name
+    p = @submission.event_requirement.description
+    p = @submission.created_at.to_formatted_s
+
+  .col-md-9
+

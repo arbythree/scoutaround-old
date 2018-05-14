@@ -1,0 +1,2 @@
+class YouthPresenter < PersonPresenter
+end

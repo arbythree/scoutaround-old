@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180509115028) do
+ActiveRecord::Schema.define(version: 20180512215526) do
 
   create_table "attachments", force: :cascade do |t|
     t.text "document_data"
@@ -25,9 +25,17 @@ ActiveRecord::Schema.define(version: 20180509115028) do
     t.integer "event_id"
     t.string "type"
     t.string "description"
-    t.boolean "accepted"
-    t.integer "accepted_by"
-    t.datetime "accepted_at"
+    t.decimal "amount", precision: 8, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_submissions", force: :cascade do |t|
+    t.integer "event_requirement_id"
+    t.integer "submitter_id"
+    t.integer "approver_id"
+    t.datetime "approved_at"
+    t.integer "registration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,6 +47,7 @@ ActiveRecord::Schema.define(version: 20180509115028) do
     t.datetime "ends_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "location"
   end
 
   create_table "guardianships", force: :cascade do |t|
@@ -53,6 +62,7 @@ ActiveRecord::Schema.define(version: 20180509115028) do
     t.integer "unit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role"
   end
 
   create_table "people", force: :cascade do |t|

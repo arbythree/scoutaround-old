@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Scoutaround
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'https://use.fontawesome.com/b0adff9e8a.js'
+    = stylesheet_link_tag    'https://cloud.typography.com/7513036/6345792/css/fonts.css', media: 'all'
+
+  body(class="#{additional_classes}")
+    p.notice
+      = notice
+    p.alert
+      = alert
+    .container
+      = yield

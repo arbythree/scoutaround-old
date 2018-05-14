@@ -1,0 +1,15 @@
+.row
+  .col-md-9
+    h1 = @registration.event.name
+    - present @registration.person do |person|
+      h2 = person.display_name
+
+    table.table
+      tr
+        th = t('registrations.item')
+        th = t('action')
+
+      = render partial: 'registrations/event_requirement', collection: @registration.event.event_requirements
+
+  .col-md-3
+    = render partial: 'registrations/person_actions'

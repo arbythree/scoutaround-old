@@ -1,0 +1,7 @@
+tr
+  td = event_requirement.description
+  - if event_requirement.completed_for?(@registration.person)
+    td = I18n.t('submissions.completed')
+  - else
+    td = link_to event_requirement.is_a?(DocumentEventRequirement) ? I18n.t('submissions.upload') : I18n.t('submissions.pay'),
+      new_registration_event_requirement_submission_path(registration_id: @registration.id, event_requirement_id: event_requirement.id)

@@ -1,9 +1,12 @@
 class Registration < ApplicationRecord
   belongs_to :person
   belongs_to :event
+  has_many :event_submissions
+  validates_uniqueness_of :person, scope: :event
+  delegate :full_name, to: :person
 
-  def completed_by?(person)
-    completions = event.event_requirements.map { |r| r.completed_by?(person) }
+  def completed_for?(person)
+    completions = event.event_requirements.map { |r| r.completed_for?(person) }
     !completions.include? false
   end
 end

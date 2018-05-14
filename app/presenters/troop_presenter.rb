@@ -1,0 +1,2 @@
+class TroopPresenter < UnitPresenter
+end

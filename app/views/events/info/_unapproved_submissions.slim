@@ -1,0 +1,5 @@
+table.table
+
+  - @event.event_submissions.unapproved.each do |submission|
+    tr
+      td = link_to submission_name(submission), submission_path(submission)

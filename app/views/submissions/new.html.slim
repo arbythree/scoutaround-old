@@ -1,0 +1,20 @@
+.row
+  .col-md-3
+  .col-md-6
+    h1 Event Submission
+    p = @event.name
+    = form_for @submission do |f|
+      .form-group
+        = f.label :person
+        = f.collection_select :registration, @event.registrations, :id, :full_name, {}, class: 'form-control'
+      .form-group
+        = f.label :item
+        = f.collection_select :event_requirement, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {}, class: 'form-control'
+      .form-group
+        = f.file_field :attachment
+      .form-group
+        = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'
+        | &nbsp;
+        = I18n.t('or')
+        | &nbsp;
+        = link_to I18n.t('cancel'), event_info_path(@event)

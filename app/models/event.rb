@@ -1,11 +1,14 @@
 class Event < ApplicationRecord
   belongs_to :unit
   has_many :registrations
-  has_many :people, through: :registrations
+  has_many :registrants, through: :registrations, source: :person
+  has_many :event_submissions, through: :registrations
   has_many :event_requirements
   has_many :attachments, as: :attachable
+  has_many :event_submissions, through: :registrations
+  validates_presence_of :name
 
   def registered_for?(person)
-    registrations.exists?(person_id: id)
+    registrations.exists?(person_id: person.id)
   end
 end

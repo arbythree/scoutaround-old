@@ -5,9 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'bootstrap', '~> 4.1.1'
+gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'
+gem 'jquery-rails'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.6'
 gem 'sass-rails', '~> 5.0'
@@ -19,7 +22,9 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'
+
   gem 'selenium-webdriver'
   gem 'sqlite3'
 end
@@ -33,4 +38,8 @@ end
 
 group :production do
   gem 'pg'
+end
+
+group :test do
+  gem 'shoulda-matchers', '~> 3.1'
 end

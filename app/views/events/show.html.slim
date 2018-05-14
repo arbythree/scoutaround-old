@@ -1,14 +1,24 @@
-h1 = @event.name
-p = @event.starts_at
-p = @event.ends_at
+- people = [@current_person].concat(@current_person.guardees)
 
-table
+= render partial: 'events/header'
+
+h3 Checklist
+table.table
   tr
-    th
-    th Me
-    - @current_person.guardees.each do |guardee|
-      th = guardee.first_name
-  tr
-    - @event.event_requirements.each do |requirement|
+    th Item
+    - people.each do |person|
+      th = person.first_name
+  - @event.event_requirements.each do |requirement|
+    tr
       td = requirement.description
-      td =
+      - people.each do |person|
+        td = render partial: 'events/submission_cell', locals: { person: person, event_requirement: requirement }
+
+  tr
+    td
+    - people.each do |person|
+      - registration = @event.registrations.where(person: person)
+      - if registration.present?
+        td = link_to 'Unregister', ''
+      - else
+        td = link_to 'Register', ''

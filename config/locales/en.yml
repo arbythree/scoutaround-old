@@ -31,3 +31,25 @@
 
 en:
   hello: "Hello world"
+  cancel: 'Cancel'
+  or: 'or'
+  action: 'Action'
+
+  events:
+    roster: 'Roster'
+
+  submissions:
+    upload: 'Upload'
+    pay: 'Pay Now'
+    completed: 'Completed'
+
+  units:
+    troop: 'Troop'
+    pack: 'Pack'
+    crew: 'Crew'
+    post: 'Post'
+
+  registrations:
+    incomplete: 'Incomplete'
+    complete: 'Registered'
+    item: 'Item'

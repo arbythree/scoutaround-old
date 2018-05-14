@@ -1,0 +1,2 @@
+class AdultPresenter < PersonPresenter
+end

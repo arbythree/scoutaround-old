@@ -1,0 +1,2 @@
+class PaymentEventRequirement < EventRequirement
+end
