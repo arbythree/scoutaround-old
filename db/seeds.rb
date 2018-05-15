@@ -3,9 +3,14 @@
   person.destroy
 end
 
-1234.times do
+666.times do
   m = Membership.create
   m.destroy
+end
+
+999.times do
+  e = Event.create
+  e.destroy
 end
 
 owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara', rank: 'Scout').first_or_create
@@ -66,6 +71,11 @@ troop.events.create_with(
   starts_at: 4.weeks.from_now,
   ends_at: 4.weeks.from_now
 ).find_or_create_by(name: 'Whitewater Rafting')
+
+troop.events.create_with(
+  starts_at: 56.weeks.ago,
+  ends_at: 55.weeks.ago
+).find_or_create_by(name: '2017 Summer Camp')
 
 puts "Events: #{Event.count}"
 

@@ -41,9 +41,11 @@ en:
 
   events:
     title: 'Events'
-    roster: 'Roster'
+    roster: 'Registrations'
     back_to_index: 'Back to Event List'
     add: 'Add Event'
+    edit: 'Edit Details'
+    info: 'Manage Event'
 
   submissions:
     upload: 'Upload'

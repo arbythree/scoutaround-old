@@ -15,10 +15,10 @@ Rails.application.routes.draw do
   end
 
   get 'units/:unit_id/members/roster', to: 'members#roster'
+  get 'units/:unit_id/events/:event_id/info', to: 'events#info', as: 'unit_event_info'
 
   resources :units do
-    resources :members do
-    end
+    resources :members
     resources :events
   end
 

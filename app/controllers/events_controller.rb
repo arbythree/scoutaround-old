@@ -3,7 +3,7 @@ class EventsController < AuthenticatedController
   before_action :find_event, except: :index
 
   def index
-    @events = @unit.present? ? @unit.events : @current_person.events
+    @events = @unit.present? ? @unit.events.future : @current_person.events.future
   end
 
   def show

@@ -2,4 +2,3 @@
   h1 = @event.name
   p = event.dates
   p = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
-  p = link_to 'Edit', edit_event_path(@event) if @membership.admin?

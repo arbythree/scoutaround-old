@@ -8,6 +8,7 @@ class Event < ApplicationRecord
   has_many :attachments, as: :attachable
   has_many :event_submissions, through: :registrations
   validates_presence_of :name
+  scope :future, -> { where('ends_at > ?', Date.today) }
 
   def registered_for?(person)
     registrations.exists?(person_id: person.id)

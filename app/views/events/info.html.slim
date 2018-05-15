@@ -1,14 +1,22 @@
 .row
-  .col-md-12
+  .col-md-2
+  .col-md-10
     = render partial: 'events/header'
 
 .row
-  .col-md-8
+  .col-md-2
+    p = link_to 'Registrations'
+    p = link_to 'Submissions'
+
+  .col-md-7
     h3 = I18n.t('events.roster')
     = render partial: 'events/info/registrations'
 
-  .col-md-4
-    h3 New Submissions
-    = render partial: 'events/info/unapproved_submissions'
-
-    = link_to I18n.t('submissions.upload'), new_event_submission_path, class: 'btn btn-secondary'
+  .col-md-3
+    .card
+      .card-header
+        = t('events.info')
+      .card-body
+        p = link_to t('submissions.upload'), new_event_submission_path
+        p = link_to t('events.edit'), event_info_path(@event) if @event.unit.role(@current_person) == 'admin'
+        p = link_to t('events.back_to_index'), unit_events_path(@event.unit)
