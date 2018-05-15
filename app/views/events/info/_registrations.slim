@@ -1,11 +1,9 @@
 table.table
   tr
     th Name
-    - @event.event_requirements.each do |requirement|
-      th = requirement.description
+    th Status
 
   - @event.registrations.each do |registration|
     tr
       td = registration.person.full_name
-      - @event.event_requirements.each do |requirement|
-        td = render partial: 'events/info/submission_status_cell', locals: { registration: registration, event_requirement: requirement }
+      td = registration.completed_for?(registration.person) ? 'Complete' : 'Incomplete'
