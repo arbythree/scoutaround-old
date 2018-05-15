@@ -30,6 +30,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', sans-serif;
 }
 
+.btn {
+  font-weight: 700;
+}
+
 .btn-primary {
   background-color: rgb(182, 24, 24);
   border-color: rgb(182, 20, 20);
@@ -63,6 +67,26 @@ label {
 
 #roster {
   .inactive {
+    background: repeating-linear-gradient(
+      -45deg,
+      #fff,
+      #fff 10px,
+      #e4e4e4 10px,
+      #e4e4e4 11px
+    );
     text-decoration: line-through;
+  }
+
+  .rank {
+    background-size: auto 22px;
+    background-repeat: no-repeat;
+    background-position: 12px 50%;
+    padding-left: 40px;
+  }
+
+  @each $rank in scout, tenderfoot, second_class, first_class, star, life, eagle {
+    .rank_#{$rank} .rank {
+      background-image: image-url("bsa/rank_#{$rank}");
+    }
   }
 }

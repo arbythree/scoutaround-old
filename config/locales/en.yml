@@ -37,6 +37,7 @@ en:
   sign_out: 'Sign Out'
   view: 'View'
   search: 'Search'
+  search_action: 'Go'
 
   events:
     roster: 'Roster'
@@ -66,6 +67,10 @@ en:
     added: 'Added new member'
     administrator: 'administrator'
     log_in: 'Allow login'
+    view_all: 'All'
+    view_youths: 'Youths'
+    view_adults: 'Adults'
+    view_inactive: 'Include inactive'
 
   people:
     youth: 'Youth'

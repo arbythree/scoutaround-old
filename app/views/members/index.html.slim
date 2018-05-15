@@ -18,22 +18,23 @@
         p
           = radio_button_tag 'view', 'both', true
           | &nbsp;&nbsp;
-          = label_tag :both
+          = label_tag t('members.view_all')
 
           br
 
           = radio_button_tag 'view', 'youths'
           | &nbsp;&nbsp;
-          = label_tag :youths
+          = label_tag t('members.view_youths')
 
           br
 
           = radio_button_tag 'view', 'adults'
           | &nbsp;&nbsp;
-          = label_tag :adults
+          = label_tag t('members.view_adults')
 
           br
-                        
+          br
+
           = check_box_tag 'show_inactive', 'yes', true
           | &nbsp;&nbsp;
-          = label_tag :inactive
+          = label_tag t('members.view_inactive')

@@ -1,8 +1,11 @@
-= text_field_tag :search, '', class: 'form-control', placeholder: t('search')
+.input-group.mb-3
+  = text_field_tag :search, '', class: 'form-control search', placeholder: t('search'), autofocus: true, onkeyup: 'performNameSearch();'
+  .input-group-append
+    button.btn.btn-outline-secondary = t('search_action')
 
 br
 
-table.table
+table.table#names-table
   tr
     th = t('people.type')
     th = t('people.name')
@@ -10,7 +13,26 @@ table.table
 
   - @memberships.each do |membership|
     - present membership.person do |member|
-      tr(class="#{membership.active ? 'active' : 'inactive'}")
-        td = member.type
-        td = link_to member.display_name, unit_member_path(id: membership.person.id)
-        td = member.rank
+      tr(class="person #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
+        td.type = member.type
+        td.name = link_to member.display_name, unit_member_path(id: membership.person.id)
+        td.rank = member.rank
+
+javascript:
+  // adapted from https://www.w3schools.com/howto/howto_js_filter_table.asp
+  function performNameSearch() {
+    var input = $('#search');
+    var filter = input.val().toUpperCase();
+    var rows  = $('tr.person');
+
+    rows.each(function() {
+      $this = $(this);
+      var td = $(this).find('td.name').first();
+      var value = td.html();
+      if (value.toUpperCase().indexOf(filter) > -1) {
+        $this.show();
+      } else {
+        $this.hide();
+      }
+    });
+  }
