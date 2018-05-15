@@ -40,7 +40,10 @@ en:
   search_action: 'Go'
 
   events:
+    title: 'Events'
     roster: 'Roster'
+    back_to_index: 'Back to Event List'
+    add: 'Add Event'
 
   submissions:
     upload: 'Upload'
@@ -52,6 +55,7 @@ en:
     pack: 'Pack'
     crew: 'Crew'
     post: 'Post'
+    roster: 'Roster'
 
   registrations:
     incomplete: 'Incomplete'

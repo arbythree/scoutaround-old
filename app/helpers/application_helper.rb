@@ -8,8 +8,8 @@ module ApplicationHelper
     presenter
   end
 
-  def additional_classes
-    ""
+  def additional_classes(class_list = [])
+    class_list.concat([controller.controller_name, controller.action_name]).join(' ')
   end
 
   def submission_name(submission)

@@ -7,4 +7,5 @@ class Membership < ApplicationRecord
     admin: 1,
   }
   scope :active, -> { where(active: true) }
+  scope :admins, -> { where(role: :admin) }
 end

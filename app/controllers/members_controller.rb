@@ -6,7 +6,7 @@ class MembersController < AuthenticatedController
     if (params[:show] || '').split(',').include? 'inactive'
       @memberships = @unit.memberships.includes(:person).order('people.first_name')
     else
-      @memberships = @unit.memberships.active(include: :person).order(:first_name)
+      @memberships = @unit.memberships.active.includes(:person).order('people.first_name')
     end
     @members = @memberships.map { |m| m.person }
   end

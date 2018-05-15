@@ -1,24 +1,32 @@
 - people = [@current_person].concat(@current_person.guardees)
 
-= render partial: 'events/header'
+.row
+  .col-md-12
+    = render partial: 'events/header'
 
-h3 Checklist
-table.table
-  tr
-    th Item
-    - people.each do |person|
-      th = person.first_name
-  - @event.event_requirements.each do |requirement|
-    tr
-      td = requirement.description
-      - people.each do |person|
-        td = render partial: 'events/submission_cell', locals: { person: person, event_requirement: requirement }
+.row
+  .col-md-9
+    h3 Checklist
+    table.table
+      tr
+        th Item
+        - people.each do |person|
+          th = person.first_name
+      - @event.event_requirements.each do |requirement|
+        tr
+          td = requirement.description
+          - people.each do |person|
+            td = render partial: 'events/submission_cell', locals: { person: person, event_requirement: requirement }
 
-  tr
-    td
-    - people.each do |person|
-      - registration = @event.registrations.where(person: person)
-      - if registration.present?
-        td = link_to 'Unregister', ''
-      - else
-        td = link_to 'Register', ''
+      tr
+        td
+        - people.each do |person|
+          - registration = @event.registrations.where(person: person)
+          - if registration.present?
+            td = link_to 'Unregister', ''
+          - else
+            td = link_to 'Register', ''
+
+  .col-md-3
+    = link_to raw("&uarr; #{t('events.back_to_index')}"), unit_events_path
+    = link_to t('events.info'), event_info_path(@event), class: 'btn btn-primary' if @unit.role(@current_person) == 'admin'

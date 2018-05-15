@@ -1,5 +1,10 @@
 class EventsController < AuthenticatedController
-  before_action :find_event
+  before_action :find_unit
+  before_action :find_event, except: :index
+
+  def index
+    @events = @unit.present? ? @unit.events : @current_person.events
+  end
 
   def show
   end
@@ -17,6 +22,11 @@ class EventsController < AuthenticatedController
   end
 
   private
+
+  def find_unit
+    return unless params[:unit_id].present?
+    @unit = @current_person.units.find(params[:unit_id])
+  end
 
   def find_event
     @current_person = current_user.person

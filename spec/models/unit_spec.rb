@@ -12,4 +12,9 @@ RSpec.describe Unit, type: :model do
   it 'requires a location' do
     expect(FactoryBot.build(:unit, location: nil)).not_to be_valid
   end
+
+  it 'prevents duplicates' do
+    unit = FactoryBot.create(:unit)
+    expect(FactoryBot.build(:unit, number: unit.number, location: unit.location)).not_to be_valid
+  end
 end

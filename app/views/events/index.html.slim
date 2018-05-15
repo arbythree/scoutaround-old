@@ -1,0 +1,15 @@
+.row
+  .col-md-2
+  .col-md-7
+    h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
+
+.row
+  .col-md-2
+    = render partial: 'units/header'
+
+  .col-md-7
+    table.table
+      = render partial: 'events/event', collection: @events
+
+  .col-md-3
+    = render partial: 'events/utilities'

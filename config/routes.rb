@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :units do
     resources :members
+    resources :events
   end
 
   resources :members

@@ -1,0 +1,4 @@
+tr
+  td = link_to event.name, unit_event_path(event.unit, event)
+  - present event do |event|
+    td = event.dates

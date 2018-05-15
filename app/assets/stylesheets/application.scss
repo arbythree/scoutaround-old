@@ -90,3 +90,25 @@ label {
     }
   }
 }
+
+@mixin active_link {
+  color: #aaa;
+  cursor: default;
+
+  &:hover {
+    text-decoration: none;
+    color: #aaa;
+  }
+}
+
+body.members.index {
+  #unit-nav-roster {
+    @include active_link;
+  }
+}
+
+body.events.index {
+  #unit-nav-events {
+    @include active_link;
+  }
+}
