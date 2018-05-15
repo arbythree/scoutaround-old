@@ -10,35 +10,9 @@
 
   .col-md-7
     #roster
-      = render partial: 'members/roster'
+      = render 'members/roster'
 
   .col-md-3
     p = link_to t('members.add'), new_unit_member_path(unit_id: @unit), class: 'btn btn-primary'
 
-    #view-options.card
-      .card-header
-        | View
-      .card-body
-        p
-          = radio_button_tag 'view', 'both', true
-          | &nbsp;&nbsp;
-          = label_tag t('members.view_all')
-
-          br
-
-          = radio_button_tag 'view', 'youths'
-          | &nbsp;&nbsp;
-          = label_tag t('members.view_youths')
-
-          br
-
-          = radio_button_tag 'view', 'adults'
-          | &nbsp;&nbsp;
-          = label_tag t('members.view_adults')
-
-          br
-          br
-
-          = check_box_tag 'show_inactive', 'yes', true
-          | &nbsp;&nbsp;
-          = label_tag t('members.view_inactive')
+    = render partial: 'members/utilities'

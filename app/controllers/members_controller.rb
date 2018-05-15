@@ -1,14 +1,9 @@
 class MembersController < AuthenticatedController
   before_action :find_unit
-  before_action :find_member, only: :show
+  before_action :find_member, only: [:show]
+  before_action :find_members, only: [:index, :roster]
 
   def index
-    if (params[:show] || '').split(',').include? 'inactive'
-      @memberships = @unit.memberships.includes(:person).order('people.first_name')
-    else
-      @memberships = @unit.memberships.active.includes(:person).order('people.first_name')
-    end
-    @members = @memberships.map { |m| m.person }
   end
 
   def new
@@ -25,7 +20,29 @@ class MembersController < AuthenticatedController
   def show
   end
 
+  def roster
+    render 'members/_roster', layout: false
+  end
+
   private
+
+  def find_members
+    show = (params[:show] || '').split(',')
+
+
+    ap show
+
+    if show.include? 'inactive'
+      @memberships = @unit.memberships.includes(:person).order('people.first_name')
+    else
+      @memberships = @unit.memberships.active.includes(:person).order('people.first_name')
+    end
+
+    @memberships = @memberships.select { |m| m.person.type == 'Adult' } if show.include? 'adults'
+    @memberships = @memberships.select { |m| m.person.type == 'Youth' } if show.include? 'youths'
+
+    @members = @memberships.map { |m| m.person }
+  end    
 
   def find_unit
     @unit = @current_person.units.find(params[:unit_id])

@@ -1,0 +1,56 @@
+#view-options.card
+  .card-header
+    | View
+  .card-body
+    p
+      = radio_button_tag 'type', 'both', true, class: 'type-selector'
+      | &nbsp;&nbsp;
+      = label_tag t('members.view_all')
+
+      br
+
+      = radio_button_tag 'type', 'youths', false, class: 'type-selector'
+      | &nbsp;&nbsp;
+      = label_tag t('members.view_youths')
+
+      br
+
+      = radio_button_tag 'type', 'adults', false, class: 'type-selector'
+      | &nbsp;&nbsp;
+      = label_tag t('members.view_adults')
+
+      br
+      br
+
+      = check_box_tag 'show_inactive', 'yes', false
+      | &nbsp;&nbsp;
+      = label_tag t('members.view_inactive')
+
+javascript:
+  function applyFilter() {
+    var status = $('input[name=type]:checked').val();
+    var unitId = #{params[:unit_id]};
+    var showInactive = $('#show_inactive').prop('checked');
+    var url = '/units/' + unitId + '/members/roster';
+    if (status != 'both' || showInactive) {
+      url += '?show=';
+    }
+
+    if (status != 'both') {
+      url += status + ',';
+    }
+
+    if (showInactive) {
+      url += 'inactive,';
+    }
+
+    $('#roster').load(url);
+  }
+
+  $('.type-selector').click(function() {
+    applyFilter();
+  })
+
+  $('#show_inactive').click(function() {
+    applyFilter();
+  });
