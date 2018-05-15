@@ -1,7 +1,7 @@
 class Person < ApplicationRecord
   has_many :memberships
   has_many :units, through: :memberships
-  has_many :registrations
+  has_many :event_registrations
   has_many :events, through: :units
   has_one :user
   validates_presence_of :first_name, :last_name

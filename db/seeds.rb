@@ -95,29 +95,29 @@ summer_camp.event_requirements.where(
   amount: 250
 ).first_or_create
 
-owen_registration = Registration.where(
+owen_registration = EventRegistration.where(
   person: owen,
   event: summer_camp
 ).first_or_create
 
-ray_registration = Registration.where(
+ray_registration = EventRegistration.where(
   person: ray,
   event: summer_camp
 ).first_or_create
 
-Registration.where(
+EventRegistration.where(
   person: luis,
   event: summer_camp
 ).first_or_create
 
-Registration.where(
+EventRegistration.where(
   person: aidan,
   event: summer_camp
 ).first_or_create
 
 EventSubmission.where(
   event_requirement: medical_form,
-  registration: owen_registration,
+  event_registration: owen_registration,
   submitter: ray,
   approver: ray,
   approved_at: Time.now
@@ -125,6 +125,6 @@ EventSubmission.where(
 
 EventSubmission.where(
   event_requirement: waiver,
-  registration: ray_registration,
+  event_registration: ray_registration,
   submitter: ray
 ).first_or_create

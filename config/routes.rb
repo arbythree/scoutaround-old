@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :submissions
   end
 
-  resources :registrations do
+  resources :event_registrations do
     resources :event_requirements do
       resources :submissions
     end

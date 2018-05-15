@@ -4,7 +4,7 @@ class EventRequirement < ApplicationRecord
   has_many :event_submissions
 
   def completed_for?(person)
-    registration = event.registrations.find_by(person: person)
-    event_submissions.exists?(registration: registration)
+    registration = event.event_registrations.find_by(person: person)
+    event_submissions.exists?(event_registration: registration)
   end
 end

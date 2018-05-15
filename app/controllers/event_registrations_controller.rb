@@ -1,4 +1,4 @@
-class RegistrationsController < AuthenticatedController
+class EventRegistrationsController < AuthenticatedController
   before_action :find_registration
 
   def show

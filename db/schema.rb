@@ -10,13 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180514172421) do
+ActiveRecord::Schema.define(version: 20180515174719) do
 
   create_table "attachments", force: :cascade do |t|
     t.text "document_data"
     t.integer "requirement_id"
     t.string "attachable_type"
     t.integer "attachable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_registrations", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,7 +42,7 @@ ActiveRecord::Schema.define(version: 20180514172421) do
     t.integer "submitter_id"
     t.integer "approver_id"
     t.datetime "approved_at"
-    t.integer "registration_id"
+    t.integer "event_registration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -75,13 +82,6 @@ ActiveRecord::Schema.define(version: 20180514172421) do
     t.string "rank"
     t.string "email"
     t.string "phone"
-  end
-
-  create_table "registrations", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "person_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "units", force: :cascade do |t|

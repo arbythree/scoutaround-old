@@ -11,9 +11,7 @@ RSpec.describe EventRequirement, type: :model do
 
   it 'completed_for is truthy when a submission is present' do
     submission = FactoryBot.create(:event_submission)
-    requirement = submission.event_requirement
-    person = submission.registration.person
-    expect(requirement.completed_for?(person)).to be_truthy
+    expect(submission.event_requirement.completed_for?(submission.event_registration.person)).to be_truthy
   end
 
   it 'completed_for is falsey when a submission is absent' do
