@@ -9,7 +9,7 @@ table.table
       td = requirement.description
       - if submission.present?
         td = 'Completed'
-        td = link_to 'View', submission_path(submission)
+        td = link_to 'View', event_submission_path(@registration.event, submission)
       - else
         td
         td

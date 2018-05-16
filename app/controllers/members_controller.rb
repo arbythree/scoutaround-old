@@ -11,6 +11,9 @@ class MembersController < AuthenticatedController
   end
 
   def create
+    parameters = member_params
+    parameters[:email]    = "anonymous_SecureRandom.hex(12)@scoutaround.org" if parameters[:email].blank?
+    parameters[:password] = Devise.friendly_token.first(8)
     if @member = @unit.members.create(member_params)
       flash[:notice] = t('members.added')
       redirect_to unit_members_path(@unit)
@@ -28,10 +31,7 @@ class MembersController < AuthenticatedController
 
   def find_members
     show = (params[:show] || '').split(',')
-    @memberships = @unit.memberships.includes(:user).order('people.first_name')
-    @memberships = @memberships.select { |m| m.active } if show.include? 'inactive'
-    @memberships = @memberships.select { |m| m.user.type == 'Adult' } if show.include? 'adults'
-    @memberships = @memberships.select { |m| m.user.type == 'Youth' } if show.include? 'youths'
+    @memberships = @unit.memberships.includes(:user).order('users.first_name')
     @members = @memberships.map { |m| m.user }
   end
 

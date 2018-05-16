@@ -4,6 +4,7 @@ def create_user(type, first_name, last_name, email, rank = nil)
     last_name: last_name,
     type: type,
     rank: rank,
+    active: true,
     password: 'goscoutaround'
   ).find_or_create_by(email: email)
 end

@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   resources :submissions
 
   resources :events do
-    get 'info'
+    resources :event_registrations
+    resources :event_submissions
     resources :submissions
   end
 

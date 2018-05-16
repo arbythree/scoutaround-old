@@ -27,30 +27,32 @@
       = label_tag t('members.view_inactive')
 
 javascript:
-  function applyFilter() {
-    var status = $('input[name=type]:checked').val();
-    var unitId = #{params[:unit_id]};
-    var showInactive = $('#show_inactive').prop('checked');
-    var url = '/units/' + unitId + '/members/roster';
-    if (status != 'both' || showInactive) {
-      url += '?show=';
-    }
-
-    if (status != 'both') {
-      url += status + ',';
-    }
-
-    if (showInactive) {
-      url += 'inactive,';
-    }
-
-    $('#roster').load(url);
-  }
-
   $('.type-selector').click(function() {
-    applyFilter();
+    var userType = $('input[name=type]:checked').val();
+    $('body').removeClass('type-both');
+    $('body').removeClass('type-adults');
+    $('body').removeClass('type-youths');
+    $('body').addClass('type-' + userType);
   })
 
   $('#show_inactive').click(function() {
-    applyFilter();
+    var showInactive = $('#show_inactive').prop('checked');
+    $('body').toggleClass('inactive-members', showInactive);
   });
+
+css:
+  body.type-youths tr.user.adult {
+    display: none;
+  }
+
+  body.type-adults tr.user.youth {
+    display: none;
+  }
+
+  tr.user.inactive {
+    display: none;
+  }
+
+  body.inactive-members tr.user.inactive {
+    display: table-row;  
+  }

@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20180511014116) do
   create_table "memberships", force: :cascade do |t|
     t.integer "user_id"
     t.integer "unit_id"
-    t.boolean "active"
+    t.boolean "active", default: true
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(version: 20180511014116) do
     t.string "type"
     t.string "rank"
     t.string "phone"
-    t.string "email", default: "", null: false
-    t.string "encrypted_password", default: "", null: false
+    t.string "email", default: ""
+    t.string "encrypted_password", default: ""
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
