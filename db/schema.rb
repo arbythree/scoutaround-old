@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515174719) do
+ActiveRecord::Schema.define(version: 20180515215433) do
 
   create_table "attachments", force: :cascade do |t|
     t.text "document_data"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180515174719) do
     t.integer "event_registration_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "file_data"
   end
 
   create_table "events", force: :cascade do |t|

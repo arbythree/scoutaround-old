@@ -1,8 +1,28 @@
 .row
+  .col-md-9
+    #file-viewer
+
   .col-md-3
     p = @submission.person.full_name
     p = @submission.event_requirement.description
     p = @submission.created_at.to_formatted_s
+    p = button_to 'Approve', '', class: 'btn btn-primary'
+    p
+      | or
+      | &nbsp;&nbsp;
+      = link_to 'Request Changes', ''
 
-  .col-md-9
+<script src="/assets/pdfobject.js"></script>
+
+javascript:
+  PDFObject.embed("#{ @submission.file_url }#view=FitH", "#file-viewer");
+
+css:
+  #file-viewer {
+    min-height: 800px;
+  }
+
+
+  .pdfobject-container { height: 500px;}
+  .pdfobject { border: 1px solid #666; }
 

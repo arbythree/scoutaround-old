@@ -1,0 +1,19 @@
+- present @registration do |registration|
+  h1 = registration.event_name
+  h2 = registration.person_name
+
+table.table
+  - @registration.event.event_requirements.each do |requirement|
+    - submission = requirement.event_submissions.where(event_registration: @registration).first
+    tr
+      td = requirement.description
+      - if submission.present?
+        td = 'Completed'
+        td = link_to 'View', submission_path(submission)
+      - else
+        td
+        td
+          - if requirement.type == 'DocumentEventRequirement'
+            = link_to 'Upload'
+          - elsif requirement.type == 'PaymentEventRequirement'
+            = link_to 'Record Payment'

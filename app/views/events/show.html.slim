@@ -21,7 +21,7 @@
       tr
         td
         - people.each do |person|
-          - registration = @event.registrations.where(person: person)
+          - registration = @event.event_registrations.where(person: person)
           - if registration.present?
             td = link_to 'Unregister', ''
           - else

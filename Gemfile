@@ -6,13 +6,14 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'aws-sdk-s3', '~> 1.2'
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
-gem 'encrypted_id', git: 'https://github.com/fclebinho/encrypted_id.git'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'pdfjs_viewer-rails'
 gem 'puma', '~> 3.7'
 gem 'rails', '~> 5.1.6'
 gem 'sass-rails', '~> 5.0'
@@ -24,6 +25,7 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv-rails'
   gem 'capybara', '~> 2.13'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.7'

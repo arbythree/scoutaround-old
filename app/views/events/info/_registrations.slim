@@ -2,8 +2,10 @@ table.table
   tr
     th Name
     th Status
+    th Action
 
-  - @event.registrations.each do |registration|
+  - @event.event_registrations.each do |registration|
     tr
       td = registration.person.full_name
       td = registration.completed_for?(registration.person) ? 'Complete' : 'Incomplete'
+      td = link_to('Details', registration)

@@ -2,11 +2,12 @@ class EventRegistrationsController < AuthenticatedController
   before_action :find_registration
 
   def show
+    # TODO: pundit this
   end
 
   private
 
   def find_registration
-    @registration = @current_person.registrations.find(params[:id])
+    @registration = EventRegistration.find(params[:id])
   end
 end
