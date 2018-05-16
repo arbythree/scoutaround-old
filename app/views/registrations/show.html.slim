@@ -1,8 +1,8 @@
 .row
   .col-md-9
     h1 = @registration.event.name
-    - present @registration.person do |person|
-      h2 = person.display_name
+    - present @registration.user do |user|
+      h2 = user.display_name
 
     table.table
       tr
@@ -12,4 +12,4 @@
       = render partial: 'registrations/event_requirement', collection: @registration.event.event_requirements
 
   .col-md-3
-    = render partial: 'registrations/person_actions'
+    = render partial: 'registrations/user_actions'

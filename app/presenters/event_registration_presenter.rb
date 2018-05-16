@@ -5,7 +5,7 @@ class EventRegistrationPresenter < BasePresenter
     event_registration.event.name
   end
 
-  def person_name
-    "#{event_registration.person.first_name} #{event_registration.person.last_name}"
+  def registrant_name
+    "#{event_registration.user.full_name}"
   end
 end

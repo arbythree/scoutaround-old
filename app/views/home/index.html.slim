@@ -1,4 +1,5 @@
-- people = [@current_person].concat(@current_person.guardees)
+- users = [@current_user]
+- users.concat!(@current_user.guardees) if @current_user.is_a?(Adult)
 
 .row
   .col-md-9
@@ -9,22 +10,22 @@
     table.table
       tr
         th Event
-        - if @current_person.multiple_units?
+        - if @current_user.multiple_units?
           th Unit
         th Date(s)
-        - people.each do |person|
-          th = person.first_name
+        - users.each do |user|
+          th = user.first_name
 
-      - @current_person.events.each do |event|
+      - @current_user.events.each do |event|
         tr
           td = link_to event.name, event
-          - if @current_person.multiple_units?
+          - if @current_user.multiple_units?
             - present event.unit do |unit|
               td = unit.display_name
           - present event do |event|
             td = event.dates
-          - people.each do |person|
-            td = render partial: 'home/event_cell', locals: { event: event, person: person }
+          - users.each do |user|
+            td = render partial: 'home/event_cell', locals: { event: event, user: user }
 
   .col-md-3
     = render partial: 'home/utilities'

@@ -1,30 +1,25 @@
-1234.times do
-  person = Person.create(first_name: 'first', last_name: 'last')
-  person.destroy
+def create_user(type, first_name, last_name, email, rank = nil)
+  User.create_with(
+    first_name: first_name,
+    last_name: last_name,
+    type: type,
+    rank: rank,
+    password: 'goscoutaround'
+  ).find_or_create_by(email: email)
 end
 
-666.times do
-  m = Membership.create
-  m.destroy
-end
+owen  = create_user('Youth', 'Owen', 'McNamara', 'a1@scoutaround.org', 'Scout')
+luis  = create_user('Youth', 'Luis', 'Johnson', 'a2@scoutaround.org', 'Scout')
+jack  = create_user('Youth', 'Jack', 'Jones', 'a3@scoutaround.org', 'Star')
+aidan = create_user('Youth', 'Aidan', 'Riordan', 'a4@scoutaround.org', 'Life')
+marc  = create_user('Youth', 'Marc', 'Wilson', 'a5@scoutaround.org', 'First Class')
 
-999.times do
-  e = Event.create
-  e.destroy
-end
+ray   = create_user('Adult', 'Ray', 'McNamara', 'ray@scoutaround.org')
+fred  = create_user('Adult', 'Fred', 'Marquez', 'a6@scoutaround.org')
+vince = create_user('Adult', 'Vincent', 'Jones', 'a7@scoutaround.org')
+ed    = create_user('Adult', 'Edward',  'Smith', 'a8@scoutaround.org')
 
-owen    = Youth.where(first_name: 'Owen',    last_name: 'McNamara', rank: 'Scout').first_or_create
-luis    = Youth.where(first_name: 'Luis',    last_name: 'Johnson',  rank: 'Scout').first_or_create
-jack    = Youth.where(first_name: 'Jack',    last_name: 'Jones',    rank: 'Star').first_or_create
-aidan   = Youth.where(first_name: 'Aidan',   last_name: 'Riordan',  rank: 'Life').first_or_create
-marc    = Youth.where(first_name: 'Marc',    last_name: 'Wilson',   rank: 'First Class').first_or_create
-
-ray     = Adult.where(first_name: 'Ray',     last_name: 'McNamara').first_or_create
-fred    = Adult.where(first_name: 'Fred',    last_name: 'Marquez').first_or_create
-vince   = Adult.where(first_name: 'Vincent', last_name: 'Jones').first_or_create
-ed      = Adult.where(first_name: 'Edward',  last_name: 'Smith').first_or_create
-
-puts "People: #{Person.count}"
+puts "Users: #{User.count}"
 
 Guardianship.find_or_create_by(
   guardian: ray,
@@ -35,32 +30,20 @@ puts "Guardianships: #{Guardianship.count}"
 
 troop = Troop.where(number: '28', location: 'Santa Ana, CA').first_or_create
 
-Person.all.each do |person|
-  troop.memberships.where(person: person).first_or_create
+User.all.each do |user|
+  troop.memberships.where(user: user).first_or_create
 end
 
 puts "Memberships: #{Membership.count}"
 
 # Ray is an admin
-m = Membership.where(unit: troop, person: ray).first
+m = Membership.where(unit: troop, user: ray).first
 m.role = :admin
 m.save
 
-m = Membership.where(unit: troop, person: marc).first
+m = Membership.where(unit: troop, user: marc).first
 m.active = false
 m.save
-
-# Ray is a user
-user = User.where(
-  email: 'ray@scoutaround.org',
-  person: ray
-).first
-
-user = User.create(
-  email: 'ray@scoutaround.org',
-  person: ray,
-  password: 'goscoutaround'
-) unless user.present?
 
 summer_camp = troop.events.create_with(
   starts_at: 8.weeks.from_now,
@@ -96,22 +79,22 @@ summer_camp.event_requirements.where(
 ).first_or_create
 
 owen_registration = EventRegistration.where(
-  person: owen,
+  user: owen,
   event: summer_camp
 ).first_or_create
 
 ray_registration = EventRegistration.where(
-  person: ray,
+  user: ray,
   event: summer_camp
 ).first_or_create
 
 EventRegistration.where(
-  person: luis,
+  user: luis,
   event: summer_camp
 ).first_or_create
 
 EventRegistration.where(
-  person: aidan,
+  user: aidan,
   event: summer_camp
 ).first_or_create
 

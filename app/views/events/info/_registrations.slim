@@ -6,6 +6,6 @@ table.table
 
   - @event.event_registrations.each do |registration|
     tr
-      td = registration.person.full_name
-      td = registration.completed_for?(registration.person) ? 'Complete' : 'Incomplete'
+      td = registration.user.full_name
+      td = registration.completed_for?(registration.user) ? 'Complete' : 'Incomplete'
       td = link_to('Details', registration)

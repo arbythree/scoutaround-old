@@ -18,5 +18,5 @@
         = t('events.info')
       .card-body
         p = link_to t('submissions.upload'), new_event_submission_path
-        p = link_to t('events.edit'), event_info_path(@event) if @event.unit.role(@current_person) == 'admin'
+        p = link_to t('events.edit'), event_info_path(@event) if @event.unit.role(@current_user) == 'admin'
         p = link_to t('events.back_to_index'), unit_events_path(@event.unit)

@@ -5,7 +5,11 @@ RSpec.describe User, type: :model do
     expect(FactoryBot.create(:user)).to be_valid
   end
 
-  it 'requires associated Person' do
-    expect(FactoryBot.build(:user, person_id: nil)).not_to be_valid
+  it 'has a valid Youth factory' do
+    expect(FactoryBot.build(:youth)).to be_valid
+  end
+
+  it 'has a valid Adult factory' do
+    expect(FactoryBot.build(:adult)).to be_valid
   end
 end

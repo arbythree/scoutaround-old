@@ -1,4 +1,4 @@
-- submission = event_requirement.event_submissions.where(person: @registration.person).first
+- submission = event_requirement.event_submissions.where(user: @registration.user).first
 
 tr
   - if submission.present?

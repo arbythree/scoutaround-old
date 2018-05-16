@@ -12,7 +12,7 @@ class SubmissionsController < AuthenticatedController
 
   def create
     sp = submission_params
-    sp[:submitter_id] = @current_person.id
+    sp[:submitter_id] = @current_user.id
     @submission = EventSubmission.create(sp)
     redirect_to @submission.event_registration
   end

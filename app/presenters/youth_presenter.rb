@@ -1,2 +1,2 @@
-class YouthPresenter < PersonPresenter
+class YouthPresenter < UserPresenter
 end

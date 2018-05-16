@@ -10,10 +10,10 @@ table.table#names-table
     th = t('people.rank_or_role')
 
   - @memberships.each do |membership|
-    - present membership.person do |member|
-      tr(class="person #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
+    - present membership.user do |member|
+      tr(class="user #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
         td.type = member.type
-        td.name = link_to member.display_name, unit_member_path(id: membership.person.id)
+        td.name = link_to member.display_name, unit_member_path(id: membership.user.id)
         td.rank = member.rank
 
 javascript:
@@ -22,7 +22,7 @@ javascript:
   function performNameSearch() {
     var input = $('#search');
     var filter = input.val().toUpperCase();
-    var rows  = $('tr.person');
+    var rows  = $('tr.user');
 
     rows.each(function() {
       $this = $(this);

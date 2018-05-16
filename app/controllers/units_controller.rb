@@ -8,6 +8,6 @@ class UnitsController < AuthenticatedController
   private
 
   def find_unit
-    @unit = @current_person.units.find(params[:id])
+    @unit = @current_unit.units.find(params[:id])
   end
 end

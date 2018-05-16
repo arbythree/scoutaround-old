@@ -5,10 +5,10 @@
     p = @event.name
     = form_for @submission do |f|
       .form-group
-        = f.label :person
+        = f.label :user, t('registrations.registrant')
         = f.collection_select :event_registration_id, @event.event_registrations, :id, :full_name, {}, class: 'form-control'
       .form-group
-        = f.label :item
+        = f.label :item, t('registrations.submission_item')
         = f.collection_select :event_requirement_id, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {}, class: 'form-control'
       .form-group
         = f.file_field :file

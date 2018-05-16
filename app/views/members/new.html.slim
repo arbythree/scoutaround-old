@@ -5,11 +5,11 @@
       .form-group
         .row
           .col-md-3
-            = f.radio_button :type, 'Youth', class: 'person-type'
+            = f.radio_button :type, 'Youth', class: 'user-type'
             | &nbsp;&nbsp;
             = f.label :youth
           .col-md-3
-            = f.radio_button :type, 'Adult', class: 'person-type'
+            = f.radio_button :type, 'Adult', class: 'user-type'
             | &nbsp;&nbsp;
             = f.label :adult
       .form-group
@@ -49,10 +49,10 @@
         = link_to t('cancel'), unit_members_path(unit_id: @unit.id)
 
 javascript:
-  $('#person_type_youth').click(function() {
+  $('#user_type_youth').click(function() {
     $('#guardian-section').show(250);
   });
 
-  $('#person_type_adult').click(function() {
+  $('#user_type_adult').click(function() {
     $('#guardian-section').hide(250);
   });

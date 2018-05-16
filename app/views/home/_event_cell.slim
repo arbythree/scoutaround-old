@@ -1,9 +1,9 @@
-- registration = event.registrations.where(person: person).first
+- registration = event.registrations.where(user: user).first
 - if registration.nil?
   = link_to 'Register', ''
   = " or "
   = link_to 'Decline', ''
-- elsif registration.completed_for?(person)
+- elsif registration.completed_for?(user)
   = link_to I18n.t('registrations.complete'), registration
 - else
   = link_to I18n.t('registrations.incomplete'), registration

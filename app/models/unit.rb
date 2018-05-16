@@ -1,7 +1,7 @@
 class Unit < ApplicationRecord
   has_many :events
   has_many :memberships
-  has_many :members, through: :memberships, source: 'person'
+  has_many :members, through: :memberships, source: 'user'
   validates_presence_of :number, :location
   validates_uniqueness_of :location, scope: :number
 
@@ -9,7 +9,7 @@ class Unit < ApplicationRecord
     "#{id}-#{type.parameterize}-#{number}-#{location.parameterize}"
   end
 
-  def role(person)
-    memberships.where(person: person)&.first&.role
+  def role(user)
+    memberships.where(user: user)&.first&.role
   end
 end

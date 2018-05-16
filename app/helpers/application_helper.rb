@@ -13,7 +13,7 @@ module ApplicationHelper
   end
 
   def submission_name(submission)
-    "#{submission.person.full_name} #{submission.event_requirement.description}"
+    "#{submission.user.full_name} #{submission.event_requirement.description}"
   end
 
   def google_maps_link(location)

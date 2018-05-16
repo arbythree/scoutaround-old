@@ -1,4 +1,4 @@
-- registration = @event.event_registrations.find_by(person_id: person.id)
+- registration = @event.event_registrations.find_by(user_id: user.id)
 - submission = registration.event_submissions.find_by(event_requirement_id: event_requirement.id)
 
 - if event_requirement.type == 'DocumentEventRequirement'

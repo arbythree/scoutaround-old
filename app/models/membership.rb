@@ -1,7 +1,7 @@
 class Membership < ApplicationRecord
-  belongs_to :person
+  belongs_to :user
   belongs_to :unit
-  validates_uniqueness_of :person, scope: :unit
+  validates_uniqueness_of :user, scope: :unit
   enum role: {
     normal: 0,
     admin: 1,

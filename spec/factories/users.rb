@@ -1,7 +1,18 @@
 FactoryBot.define do
   factory :user do
-    association :person, factory: :adult
+    first_name 'first'
+    last_name  'last'
     sequence(:email) { |n| "user_#{n}@scoutaround.org" }
     password 'goscoutaround'
+  end
+
+  factory :youth, class: Youth, parent: :user do
+    first_name 'Youth'
+    last_name  'Jones'
+  end
+
+  factory :adult, class: Adult, parent: :user do
+    first_name 'Parent'
+    last_name 'Jones'
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515215433) do
+ActiveRecord::Schema.define(version: 20180511014116) do
 
   create_table "attachments", force: :cascade do |t|
     t.text "document_data"
@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20180515215433) do
 
   create_table "event_registrations", force: :cascade do |t|
     t.integer "event_id"
-    t.integer "person_id"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -39,13 +39,13 @@ ActiveRecord::Schema.define(version: 20180515215433) do
 
   create_table "event_submissions", force: :cascade do |t|
     t.integer "event_requirement_id"
+    t.integer "event_registration_id"
     t.integer "submitter_id"
     t.integer "approver_id"
     t.datetime "approved_at"
-    t.integer "event_registration_id"
+    t.text "file_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "file_data"
   end
 
   create_table "events", force: :cascade do |t|
@@ -53,9 +53,9 @@ ActiveRecord::Schema.define(version: 20180515215433) do
     t.integer "unit_id"
     t.datetime "starts_at"
     t.datetime "ends_at"
+    t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "location"
   end
 
   create_table "guardianships", force: :cascade do |t|
@@ -66,23 +66,12 @@ ActiveRecord::Schema.define(version: 20180515215433) do
   end
 
   create_table "memberships", force: :cascade do |t|
-    t.integer "person_id"
+    t.integer "user_id"
     t.integer "unit_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean "active"
     t.integer "role"
-    t.boolean "active", default: true
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "rank"
-    t.string "email"
-    t.string "phone"
   end
 
   create_table "units", force: :cascade do |t|
@@ -94,6 +83,11 @@ ActiveRecord::Schema.define(version: 20180515215433) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "type"
+    t.string "rank"
+    t.string "phone"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
@@ -106,7 +100,6 @@ ActiveRecord::Schema.define(version: 20180515215433) do
     t.string "last_sign_in_ip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "person_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

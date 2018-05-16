@@ -1,4 +1,4 @@
-- people = [@current_person].concat(@current_person.guardees)
+- users = [@current_user].concat(@current_user.guardees)
 
 .row
   .col-md-12
@@ -10,18 +10,18 @@
     table.table
       tr
         th Item
-        - people.each do |person|
-          th = person.first_name
+        - users.each do |user|
+          th = user.first_name
       - @event.event_requirements.each do |requirement|
         tr
           td = requirement.description
-          - people.each do |person|
-            td = render partial: 'events/submission_cell', locals: { person: person, event_requirement: requirement }
+          - users.each do |user|
+            td = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
 
       tr
         td
-        - people.each do |person|
-          - registration = @event.event_registrations.where(person: person)
+        - users.each do |user|
+          - registration = @event.event_registrations.where(user: user)
           - if registration.present?
             td = link_to 'Unregister', ''
           - else
@@ -33,4 +33,4 @@
         | Event
       .card-body
         p = link_to raw("&uarr; #{t('events.back_to_index')}"), unit_events_path
-        p = link_to t('events.info'), unit_event_info_path(@event.unit, @event) if @unit.role(@current_person) == 'admin'
+        p = link_to t('events.info'), unit_event_info_path(@event.unit, @event) if @unit.role(@current_user) == 'admin'

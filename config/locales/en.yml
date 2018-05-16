@@ -63,6 +63,8 @@ en:
     incomplete: 'Incomplete'
     complete: 'Registered'
     item: 'Item'
+    registrant: 'Registrant'
+    submission_item: 'Submission Item'
 
   members:
     roster: 'Roster'
@@ -78,7 +80,7 @@ en:
     view_adults: 'Adults'
     view_inactive: 'Include inactive'
 
-  people:
+  users:
     youth: 'Youth'
     adult: 'Adult'
     type: 'Type'

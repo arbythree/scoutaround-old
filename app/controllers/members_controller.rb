@@ -28,24 +28,15 @@ class MembersController < AuthenticatedController
 
   def find_members
     show = (params[:show] || '').split(',')
-
-
-    ap show
-
-    if show.include? 'inactive'
-      @memberships = @unit.memberships.includes(:person).order('people.first_name')
-    else
-      @memberships = @unit.memberships.active.includes(:person).order('people.first_name')
-    end
-
-    @memberships = @memberships.select { |m| m.person.type == 'Adult' } if show.include? 'adults'
-    @memberships = @memberships.select { |m| m.person.type == 'Youth' } if show.include? 'youths'
-
-    @members = @memberships.map { |m| m.person }
-  end    
+    @memberships = @unit.memberships.includes(:user).order('people.first_name')
+    @memberships = @memberships.select { |m| m.active } if show.include? 'inactive'
+    @memberships = @memberships.select { |m| m.user.type == 'Adult' } if show.include? 'adults'
+    @memberships = @memberships.select { |m| m.user.type == 'Youth' } if show.include? 'youths'
+    @members = @memberships.map { |m| m.user }
+  end
 
   def find_unit
-    @unit = @current_person.units.find(params[:unit_id])
+    @unit = @current_user.units.find(params[:unit_id])
   end
 
   def find_member
@@ -53,6 +44,6 @@ class MembersController < AuthenticatedController
   end
 
   def member_params
-    params.require(:person).permit(:first_name, :last_name, :email, :phone)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone)
   end
 end
