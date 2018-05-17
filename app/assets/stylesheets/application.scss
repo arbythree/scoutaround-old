@@ -22,12 +22,22 @@ body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+// h1, h2, h3, h4, h5, h6 {
+//   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+// }
+
+h1 {
+  font-weight: 700;
 }
 
 .datepicker {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+}
+
+.crumbtrail {
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-size: 0.8rem;
 }
 
 .btn {

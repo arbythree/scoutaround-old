@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :submissions
 
   resources :events do
-    resources :event_registrations
+    resources :event_registrations, path: 'registrations'
     resources :event_submissions
     resources :submissions
   end

@@ -1,18 +1,20 @@
 .row
-  .col-md-2
-  .col-md-7
+  .col-md-9
+    .crumbtrail
+      = link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+      = t('crumbtrail_separator')
+      = t('members.roster')
+
     - present @unit do |unit|
       h1 = unit.display_name
 
 .row
-  .col-md-2
-    = render partial: 'units/header'
-
-  .col-md-7
+  .col-md-9
     #roster
       = render 'memberships/roster'
 
   .col-md-3
     p = link_to t('members.add'), new_unit_membership_path(unit_id: @unit), class: 'btn btn-primary'
 
+    = render partial: 'units/header'
     = render partial: 'memberships/utilities'

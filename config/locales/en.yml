@@ -38,6 +38,7 @@ en:
   view: 'View'
   search: 'Search'
   search_action: 'Go'
+  crumbtrail_separator: ' / '
 
   events:
     title: 'Events'
