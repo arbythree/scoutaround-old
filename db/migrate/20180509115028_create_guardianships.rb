@@ -6,5 +6,7 @@ class CreateGuardianships < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    execute('ALTER SEQUENCE guardianships_id_seq RESTART WITH 30193')
   end
 end

@@ -1,0 +1,3 @@
+- if @member.is_a?(Youth)
+  h4 = "#{ t('users.guardians') }"
+  = render partial: 'memberships/show/guardian', collection: @member.guardians

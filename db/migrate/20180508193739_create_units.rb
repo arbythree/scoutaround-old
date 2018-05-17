@@ -7,5 +7,7 @@ class CreateUnits < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    execute('ALTER SEQUENCE units_id_seq RESTART WITH 29483')
   end
 end

@@ -48,9 +48,10 @@ en:
     info: 'Manage Event'
 
   submissions:
-    upload: 'Upload'
+    upload: 'Upload a Submission'
     pay: 'Pay Now'
     completed: 'Completed'
+    back_to_registration: 'Back to Registration'
 
   units:
     troop: 'Troop'
@@ -74,7 +75,7 @@ en:
     last_name: 'Last'
     added: 'Added new member'
     administrator: 'administrator'
-    log_in: 'Allow login'
+    log_in: 'Allow login (email address required)'
     view_all: 'All'
     view_youths: 'Youths'
     view_adults: 'Adults'
@@ -86,3 +87,4 @@ en:
     type: 'Type'
     name: 'Name'
     rank_or_role: 'Rank or Role'
+    guardians: 'Guardian(s)'

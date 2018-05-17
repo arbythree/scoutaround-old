@@ -13,8 +13,4 @@ class Event < ApplicationRecord
   def registered_for?(user)
     registrations.exists?(user_id: user.id)
   end
-
-  def to_param
-    "#{id}-#{name.parameterize}"
-  end
 end

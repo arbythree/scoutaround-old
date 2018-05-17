@@ -6,31 +6,37 @@
 
 .row
   .col-md-9
-    h3 Checklist
+    h3 Your Checklist
     table.table
       tr
         th Item
         - users.each do |user|
           th = user.first_name
+
+      / loop through each requirement
       - @event.event_requirements.each do |requirement|
         tr
           td = requirement.description
           - users.each do |user|
-            td = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+            - registration = @event.event_registrations.find_by(user_id: user.id)
+            - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
+            td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
+              i.fas.fa-check
+              = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
 
       tr
         td
         - users.each do |user|
           - registration = @event.event_registrations.where(user: user)
           - if registration.present?
-            td = link_to 'Unregister', ''
+            td = link_to 'Unregister', '', class: 'btn btn-outline-secondary'
           - else
-            td = link_to 'Register', ''
+            td = link_to 'Register', '', class: 'btn btn-secondary'
 
   .col-md-3
     .card
       .card-header
         | Event
       .card-body
-        p = link_to raw("&uarr; #{t('events.back_to_index')}"), unit_events_path
-        p = link_to t('events.info'), event_event_registrations_path(@event) if @unit.role(@current_user) == 'admin'
+        p = link_to raw("&uarr; #{t('events.back_to_index')}"), unit_events_path(unit_id: @event.unit)
+        p = link_to t('events.info'), event_event_registrations_path(@event) if @event.unit.role(@current_user) == 'admin'

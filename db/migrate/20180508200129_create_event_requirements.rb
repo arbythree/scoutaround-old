@@ -8,5 +8,7 @@ class CreateEventRequirements < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    execute('ALTER SEQUENCE event_requirements_id_seq RESTART WITH 29948')
   end
 end

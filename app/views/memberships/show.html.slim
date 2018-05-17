@@ -1,0 +1,4 @@
+h1 = @member.full_name
+
+- partial_name = @unit.role(@current_user) == 'admin' ? 'admin' : 'non_admin'
+= render partial: "memberships/show/#{partial_name}"

@@ -8,8 +8,10 @@ table.table
     tr
       td = requirement.description
       - if submission.present?
-        td = 'Completed'
-        td = link_to 'View', event_submission_path(@registration.event, submission)
+        td.event-requirement.event-requirement-completed
+          i.fas.fa-check
+          = 'Completed'
+        td = link_to 'View', event_event_submission_path(@registration.event, submission)
       - else
         td
         td

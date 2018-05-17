@@ -13,7 +13,7 @@ table.table#names-table
     - present membership.user do |member|
       tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
         td.type = member.type
-        td.name = link_to member.display_name, unit_member_path(id: membership.user.id)
+        td.name = link_to member.display_name, unit_membership_path(id: membership.id)
         td.rank = member.rank
 
 javascript:

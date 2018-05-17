@@ -1,16 +1,18 @@
 .row
-  .col-md-9
-    #file-viewer
-
   .col-md-3
     p = @submission.user.full_name
     p = @submission.event_requirement.description
     p = @submission.created_at.to_formatted_s
-    p = button_to 'Approve', '', class: 'btn btn-primary'
-    p
-      | or
-      | &nbsp;&nbsp;
-      = link_to 'Request Changes', ''
+    p = link_to t('submissions.back_to_registration'), event_event_registration_path(@submission.event, @submission.event_registration)
+    - unless true
+      p = button_to 'Approve', '', class: 'btn btn-primary'
+      p
+        | or
+        | &nbsp;&nbsp;
+        = link_to 'Request Changes', ''
+
+  .col-md-9
+    #file-viewer
 
 <script src="/assets/pdfobject.js"></script>
 

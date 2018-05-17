@@ -1,6 +1,9 @@
 .row
   .col-md-3
   .col-md-6
+    h1 = t('members.add_new')
+    h2 = UnitPresenter.unit_display_name(@unit)
+
     = form_for @member, url: unit_members_path(unit_id: @unit.id) do |f|
       .form-group
         .row
@@ -27,9 +30,10 @@
         = f.label :phone
         = f.phone_field :phone, class: 'form-control'
 
-      .form-group#guardian-section(style="display: none;")
-        = f.label :guardian
-        = collection_select :foo, :guardian, Adult.all, :id, :first_name, {}, class: 'form-control'
+      = f.fields_for :guardianship
+        .form-group#guardian-section(style="display: none;")
+          = f.label :guardian
+          = collection_select :guardian_id, :guardian, Adult.all, :id, :full_name, {}, class: 'form-control'
 
       .form-group
         = check_box_tag :login

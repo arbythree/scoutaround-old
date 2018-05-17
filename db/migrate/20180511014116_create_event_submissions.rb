@@ -10,5 +10,7 @@ class CreateEventSubmissions < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    execute('ALTER SEQUENCE event_submissions_id_seq RESTART WITH 72830')
   end
 end

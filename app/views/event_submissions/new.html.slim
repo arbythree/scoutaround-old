@@ -7,26 +7,29 @@
       .form-group
         = f.label :user, t('registrations.registrant')
         = f.collection_select :event_registration_id, @event.event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
-      
+
       .form-group
         = f.label :item, t('registrations.submission_item')
         = f.collection_select :event_requirement_id, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
-      
+
       .form-group
         = f.file_field :file
 
       .form-group
         = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'
-        | &nbsp;
+        | &nbsp;&nbsp;
         = I18n.t('or')
-        | &nbsp;
+        | &nbsp;&nbsp;
         = link_to I18n.t('cancel'), event_event_registrations_path(@event)
 
         br
         br
 
-        .alert.alert-danger#submission-dupe-message(style="display:none;")
-          | Item has already been submitted for this registrant. Uploading again will overwrite.
+        .alert.alert-danger#submission-dupe-alert(style="display:none;")
+          i.fas.fa-exclamation-triangle
+          | &nbsp;&nbsp;
+          span#submission-dupe-message
+            | Item has already been submitted for this registrant. Uploading again will overwrite.
 
 javascript:
   function checkSubmissionStatus() {
@@ -43,10 +46,10 @@ javascript:
     var url = '/events/' + "#{@event.id}" + '/event_submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
     $.getJSON(url, function(data) {
       if (data.length > 0) {
-        $('#submission-dupe-message').html(itemName + ' has already been submitted for ' + registrantName + '. Uploading again will overwrite previous submission.');
-        $('#submission-dupe-message').show(250);
+        $('#submission-dupe-message').html(registrantName + ' has already submitted a ' + itemName + '. Uploading again will overwrite the previous submission.');
+        $('#submission-dupe-alert').show(250);
       } else {
-        $('#submission-dupe-message').hide(250);
+        $('#submission-dupe-alert').hide(250);
       }
     });
   }

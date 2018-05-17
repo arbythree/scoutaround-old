@@ -9,5 +9,7 @@ class CreateEvents < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+
+    execute("SELECT setval('events_id_seq', 14536);")
   end
 end

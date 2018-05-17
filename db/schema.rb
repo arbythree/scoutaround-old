@@ -12,14 +12,8 @@
 
 ActiveRecord::Schema.define(version: 20180511014116) do
 
-  create_table "attachments", force: :cascade do |t|
-    t.text "document_data"
-    t.integer "requirement_id"
-    t.string "attachable_type"
-    t.integer "attachable_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "event_registrations", force: :cascade do |t|
     t.integer "event_id"
@@ -88,6 +82,8 @@ ActiveRecord::Schema.define(version: 20180511014116) do
     t.string "type"
     t.string "rank"
     t.string "phone"
+    t.boolean "share_email"
+    t.boolean "share_phone"
     t.string "email", default: ""
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"

@@ -5,8 +5,7 @@ html
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    = javascript_include_tag 'https://use.fontawesome.com/b0adff9e8a.js'
-    = stylesheet_link_tag    'https://cloud.typography.com/7513036/6345792/css/fonts.css', media: 'all'
+    = render partial: 'layouts/proprietary' if lookup_context.exists?('layouts/proprietary', [], true)
 
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
