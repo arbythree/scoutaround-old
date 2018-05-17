@@ -6,6 +6,7 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = render partial: 'layouts/proprietary' if lookup_context.exists?('layouts/proprietary', [], true)
+    - eval(ENV['HTML_HEAD_INJECT'] || '')
 
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
