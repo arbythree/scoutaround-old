@@ -15,7 +15,9 @@ You'll also need to repeat this process for production, using your runtime infra
 
 ## Running the app locally
 
-This presumes you have Ruby 2.4.2 and Rails 5.1.6 or higher installed. If you don't, [RVM](http://rvm.io) is a good way to go. Once done:
+This presumes you have Ruby 2.4.2, Rails 5.1.6 or higher, and PostgreSQL installed. [RVM](http://rvm.io) is a good way to deal with Ruby versioning. You'll need a Postgres user (the code base uses "dev"; update database.yml for other usernames).
+
+Once done:
 
 ```
 bundle install
@@ -39,7 +41,6 @@ The app forces SSL in production. You can get free (!) certificates from [Let's 
 ## Proprietary Services
 
 The commercial deployment of this app relies on third-party paid services (namely, [Cloud Typography](https://www.typography.com/cloud/welcome/) from Hoefler & Co., and [FontAwesome Pro](https://fontawesome.com/pro)). These services' scripts are stored in app/views/layouts/_proprietary.slim and excluded from the repository. Should you wish to restore these, you'll need to start your own accounts, add your domain, and then create a _proprietary.slim file this:
-
 
 ```
 = stylesheet_link_tag    'https://cloud.typography.com/<stuff goes here>/css/fonts.css', media: 'all'

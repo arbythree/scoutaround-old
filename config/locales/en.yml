@@ -47,6 +47,7 @@ en:
     add: 'Add Event'
     edit: 'Edit Details'
     info: 'Manage Event'
+    confirm: 'Added event to unit calendar'
 
   submissions:
     upload: 'Upload a Submission'
