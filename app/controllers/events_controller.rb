@@ -1,6 +1,6 @@
 class EventsController < AuthenticatedController
   before_action :find_unit
-  before_action :find_event, except: :index
+  before_action :find_event, except: [:index, :new, :create]
 
   def index
     @events = @unit.present? ? @unit.events.future : @current_user.events.future
@@ -9,12 +9,22 @@ class EventsController < AuthenticatedController
   def show
   end
 
-  def info
+  def edit
     # TODO: pundit this
   end
 
-  def edit
-    # TODO: pundit this
+  def new
+    @event = Event.new
+    @event.starts_at = 6.weeks.from_now
+    @event.ends_at   = 6.weeks.from_now
+  end
+
+  def create
+    @event = @unit.events.new(event_params)
+    if @event.save
+      flash[:notice] = t('events.confirm')
+      redirect_to unit_events_path(@unit)
+    end
   end
 
   def update
@@ -34,6 +44,6 @@ class EventsController < AuthenticatedController
   end
 
   def event_params
-    params.require(:event).permit(:location, :starts_at, :ends_at)
+    params.require(:event).permit(:name, :location, :starts_at, :ends_at)
   end
 end

@@ -15,7 +15,9 @@ You'll also need to repeat this process for production, using your runtime infra
 
 ## Running the app locally
 
-This presumes you have Ruby 2.4.2 and Rails 5.1.6 or higher installed. If you don't, [RVM](http://rvm.io) is a good way to go. Once done:
+This presumes you have Ruby 2.4.2, Rails 5.1.6 or higher, and PostgreSQL installed. [RVM](http://rvm.io) is a good way to deal with Ruby versioning. You'll need a Postgres user (the code base uses "dev"; update database.yml for other usernames).
+
+Once done:
 
 ```
 bundle install

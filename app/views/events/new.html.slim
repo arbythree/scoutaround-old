@@ -1,0 +1,27 @@
+.row
+  .col-md-3
+  .col-md-6
+    h1 = t('events.add')
+    = form_for @event, url: unit_events_path(@unit) do |f|
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
+
+      .form-group
+        = f.label :location
+        = f.text_field :location, class: 'form-control'        
+
+      .form-group
+        = f.label :starts_at
+        = f.text_field :starts_at, class: 'form-control'
+
+      .form-group
+        = f.label :ends_at
+        = f.text_field :ends_at, class: 'form-control'
+
+      .form-group
+        = f.submit t('events.add'), class: 'btn btn-primary'
+        | &nbsp;&nbsp;
+        = t('or')
+        | &nbsp;&nbsp;
+        = link_to t('cancel'), unit_events_path(@unit)

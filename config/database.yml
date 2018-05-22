@@ -26,7 +26,6 @@ test:
   database: scoutaround_test
   username: dev
 
-
 production:
   <<: *default
   database: db/production.sqlite3

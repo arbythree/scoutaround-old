@@ -11,8 +11,8 @@ html
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
     .container
-      p.notice
+      p.flash.notice.alert-success
         = notice
-      p.alert
+      p.flash.alert.alert-warning
         = alert
       = yield
