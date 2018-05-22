@@ -9,6 +9,7 @@ end
 gem 'aws-sdk-s3', '~> 1.2'
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
+gem 'cocoon'
 gem 'coffee-rails', '~> 4.2'
 gem 'devise'
 gem 'jbuilder', '~> 2.5'

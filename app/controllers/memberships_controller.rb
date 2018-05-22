@@ -8,12 +8,15 @@ class MembershipsController < AuthenticatedController
   end
 
   def show
-    @registrations = @unit.event_registrations.where(user_id: @member.id)
+    @registrations = @unit.event_registrations.where(user_id: @membership.user_id)
   end
 
   def new
     @membership = @unit.memberships.build
     @membership.build_user
+    @membership.user.build_guardeeships
+
+    ap @membership
   end
 
   def create
@@ -28,6 +31,24 @@ class MembershipsController < AuthenticatedController
     end
   end
 
+  def update
+    @membership.assign_attributes(membership_params)
+    @membership.user.email = @user.email if @user.anonymous_email? && @membership.user.email.empty?
+
+    if @membership.save
+      flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
+      redirect_to unit_membership_path(@unit, @membership)
+    else
+      redirect_to edit_unit_membership_path(@unit, @membership)
+    end
+  end
+
+  def edit
+    # ap @membership
+    # ap @membership.user
+    # ap @membership.user.guardeeships
+  end
+
   private
 
   def find_unit
@@ -35,11 +56,15 @@ class MembershipsController < AuthenticatedController
   end
 
   def find_member
-    @membership = @unit.memberships.find(params[:id])
-    @member = @membership.user
+    @membership = @unit.memberships.includes(:user).find(params[:id])
+    @user = @membership.user
   end
 
   def membership_params
-    params.require(:membership).permit(user_attributes: [:first_name, :last_name, :type, :email, :phone])
+    params.require(:membership).permit(
+      user_attributes: [:id, :rank, :first_name, :last_name, :type, :email, :phone,
+        guardeeships: [:guardian_id, :_destroy]
+      ]
+    )
   end
 end

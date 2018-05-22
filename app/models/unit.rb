@@ -6,7 +6,7 @@ class Unit < ApplicationRecord
   validates_presence_of :number, :location
   validates_uniqueness_of :location, scope: :number
 
-  def role(user)
+  def role_for(user: nil)
     memberships.where(user: user)&.first&.role
   end
 end

@@ -86,6 +86,9 @@ en:
   memberships:
     new:
       confirm: 'Added %{full_name} to the unit'
+    edit: 'Edit'
+    add_new: 'Add Member'
+    update: 'Update Member Details'
 
   users:
     youth: 'Youth'
@@ -94,6 +97,7 @@ en:
     name: 'Name'
     rank_or_role: 'Rank or Role'
     guardians: 'Guardian(s)'
+    permissions: 'Permissions'
 
   ranks:
     scout:        'Scout'

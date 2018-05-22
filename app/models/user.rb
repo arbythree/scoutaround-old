@@ -23,6 +23,7 @@ class User < ApplicationRecord
   validates_presence_of :first_name, :last_name, :type
 
   accepts_nested_attributes_for :guardians
+  accepts_nested_attributes_for :guardees
 
   def full_name
     "#{first_name} #{last_name}"
@@ -30,5 +31,9 @@ class User < ApplicationRecord
 
   def multiple_units?
     units.count > 1
+  end
+
+  def anonymous_email?
+    email =~ /anonymous_.*@scoutaround.org/
   end
 end

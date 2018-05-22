@@ -1,4 +1,11 @@
-h1 = @member.full_name
+h1 = @user.full_name
 
-- partial_name = @unit.role(@current_user) == 'admin' ? 'admin' : 'non_admin'
-= render partial: "memberships/show/#{partial_name}"
+= link_to t('memberships.edit'), edit_unit_membership_path(@unit, @membership) if @unit.role_for(user: @current_user)
+
+ul
+  - @user.guardians.each do |guardian|
+    li = guardian.full_name
+
+h4 Registrations
+table.table
+  = render partial: 'memberships/show/registration', collection: @registrations
