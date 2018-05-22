@@ -38,10 +38,8 @@ The app forces SSL in production. You can get free (!) certificates from [Let's 
 
 ## Proprietary Services
 
-The commercial deployment of this app relies on third-party paid services (namely, [Cloud Typography](https://www.typography.com/cloud/welcome/) from Hoefler & Co., and [FontAwesome Pro](https://fontawesome.com/pro)). These services' scripts are stored in app/views/layouts/_proprietary.slim and excluded from the repository. Should you wish to restore these, you'll need to start your own accounts, add your domain, and then create a _proprietary.slim file this:
-
+The commercial deployment of this app relies on third-party paid services (namely, [Cloud Typography](https://www.typography.com/cloud/welcome/) from Hoefler & Co., and [FontAwesome Pro](https://fontawesome.com/pro)). These services' scripts are stored in the HTTP_HEAD_INJECT environment variable. If you do nothing, the app works fine. If you want to use these services (or any others, for that matter), set the envvar thusly:
 
 ```
-= stylesheet_link_tag    'https://cloud.typography.com/<stuff goes here>/css/fonts.css', media: 'all'
-= javascript_include_tag 'https://pro.fontawesome.com/releases/v5.0.13/js/all.js', defer: 'defer', integrity: 'sha384-d84LGg2pm9KhR4mCAs3N29GQ4OYNy+K+FBHX8WhimHpPm86c839++MDABegrZ3gn', crossorigin: 'anonymous'
+stylesheet_link_tag('https://cloud.typography.com/<stuff goes here>/css/fonts.css', media: 'all'); javascript_include_tag('https://pro.fontawesome.com/releases/v5.0.13/js/all.js', defer: 'defer', integrity: '<stuff goes here>', crossorigin: 'anonymous')
 ```

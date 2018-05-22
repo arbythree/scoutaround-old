@@ -82,6 +82,10 @@ en:
     view_adults: 'Adults'
     view_inactive: 'Include inactive'
 
+  memberships:
+    new:
+      confirm: 'Added %{full_name} to the unit'
+
   users:
     youth: 'Youth'
     adult: 'Adult'
@@ -89,3 +93,12 @@ en:
     name: 'Name'
     rank_or_role: 'Rank or Role'
     guardians: 'Guardian(s)'
+
+  ranks:
+    scout:        'Scout'
+    tenderfoot:   'Tenderfoot'
+    second_class: 'Second Class'
+    first_class:  'First Class'
+    star:         'Star'
+    life:         'Life'
+    eagle:        'Eagle'

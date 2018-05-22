@@ -20,7 +20,9 @@ class User < ApplicationRecord
   has_many :guardeeships, class_name: 'Guardianship', foreign_key: 'guardee_id'
   has_many :guardians, through: :guardeeships
 
-  validates_presence_of :first_name, :last_name
+  validates_presence_of :first_name, :last_name, :type
+
+  accepts_nested_attributes_for :guardians
 
   def full_name
     "#{first_name} #{last_name}"

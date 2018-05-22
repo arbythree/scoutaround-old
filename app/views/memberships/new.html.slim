@@ -1,47 +1,58 @@
 .row
   .col-md-3
   .col-md-6
+    - if @membership.errors.full_messages.any?
+      ul
+        - @membership.errors.full_messages.each do |error_message|
+          li = error_message
+
     h1 = t('members.add_new')
     h2 = UnitPresenter.unit_display_name(@unit)
 
-    = form_for @member, url: unit_members_path(unit_id: @unit.id) do |f|
-      .form-group
-        .row
-          .col-md-3
-            = f.radio_button :type, 'Youth', class: 'user-type'
-            | &nbsp;&nbsp;
-            = f.label :youth
-          .col-md-3
-            = f.radio_button :type, 'Adult', class: 'user-type'
-            | &nbsp;&nbsp;
-            = f.label :adult
-      .form-group
-        = f.label :name
-        .row
-          .col-md-12
-            = f.text_field :first_name, class: 'form-control', style: 'width: 49%; float: left;', placeholder: t('members.first_name')
-            = f.text_field :last_name, class: 'form-control', style: 'width: 49%; float: right;', placeholder: t('members.last_name')
+    = form_for @membership, url: unit_memberships_path(@unit) do |f|
+      = f.fields_for :user do |u|
+        .form-group
+          .row
+            .col-md-3
+              = u.radio_button :type, 'Youth', class: 'user-type'
+              | &nbsp;&nbsp;
+              = f.label :youth
+            .col-md-3
+              = u.radio_button :type, 'Adult', class: 'user-type'
+              | &nbsp;&nbsp;
+              = u.label :adult
+        .form-group
+          = u.label :name
+          .row
+            .col-md-12
+              = u.text_field :first_name, class: 'form-control', style: 'width: 49%; float: left;', placeholder: t('members.first_name')
+              = u.text_field :last_name, class: 'form-control', style: 'width: 49%; float: right;', placeholder: t('members.last_name')
+
+        .form-group
+          = u.label :email
+          = u.email_field :email, class: 'form-control'
+
+        .form-group
+          = u.label :phone
+          = u.phone_field :phone, class: 'form-control'
+
+
+        .form-group#rank-section(style="display:none;")
+          = u.label :rank
+          = u.select :rank, @unit.ranks, {}, class: 'form-control'
+          /
+          / end fields_for user
+          /
+
+      /
+      / continue form_for membership
+      /
+      .form-group#guardian-section(style="display: none;")
+        = label :guardian_id, 'Guardian'
+        = collection_select :guardian, :guardian_id, Adult.all, :id, :full_name, { prompt: 'Select a guardian' }, class: 'form-control'
 
       .form-group
-        = f.label :email
-        = f.email_field :email, class: 'form-control'
-
-      .form-group
-        = f.label :phone
-        = f.phone_field :phone, class: 'form-control'
-
-      = f.fields_for :guardianship
-        .form-group#guardian-section(style="display: none;")
-          = f.label :guardian
-          = collection_select :guardian_id, :guardian, Adult.all, :id, :full_name, {}, class: 'form-control'
-
-      .form-group
-        = check_box_tag :login
-        | &nbsp;&nbsp;
-        = f.label :admin, "#{t('members.log_in')}"
-
-      .form-group
-        = check_box_tag :admin
+        = check_box_tag :role, value: 'admin'
         | &nbsp;&nbsp;
         = f.label :admin, "#{UnitPresenter.unit_display_name(@unit)} #{t('members.administrator')}"
 
@@ -50,13 +61,15 @@
         | &nbsp;&nbsp;
         = t('or')
         | &nbsp;&nbsp;
-        = link_to t('cancel'), unit_members_path(unit_id: @unit.id)
+        = link_to t('cancel'), unit_memberships_path(@unit)
 
 javascript:
-  $('#user_type_youth').click(function() {
+  $('#membership_user_attributes_type_youth').click(function() {
     $('#guardian-section').show(250);
+    $('#rank-section').show(250);
   });
 
-  $('#user_type_adult').click(function() {
+  $('#membership_user_attributes_type_adult').click(function() {
     $('#guardian-section').hide(250);
+    $('#rank-section').hide(250);
   });

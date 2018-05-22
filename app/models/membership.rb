@@ -8,4 +8,6 @@ class Membership < ApplicationRecord
   }
   scope :active, -> { where(active: true) }
   scope :admins, -> { where(role: :admin) }
+
+  accepts_nested_attributes_for :user
 end

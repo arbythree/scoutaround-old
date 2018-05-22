@@ -16,8 +16,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'units/:unit_id/events/:event_id/info', to: 'events#info', as: 'unit_event_info'
-
   resources :units do
     resources :memberships, path: 'members'
     resources :events
