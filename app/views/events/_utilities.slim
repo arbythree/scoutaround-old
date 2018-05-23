@@ -1,1 +1,1 @@
-= link_to t('events.add'), new_unit_event_path, class: 'btn btn-primary' if @unit.role(@current_user) == 'admin'
+= link_to t('events.add'), new_unit_event_path(@unit), class: 'btn btn-primary' if @unit.role_for(user: @current_user) == 'admin'

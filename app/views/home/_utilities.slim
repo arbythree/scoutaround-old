@@ -1,3 +1,3 @@
 dl
   dt = @current_user.units.first.number
-  dd = link_to t('members.roster'), unit_members_path(unit_id: @current_user.units.first.id)
+  dd = link_to t('members.roster'), unit_memberships_path(@current_user.units.first)

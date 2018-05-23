@@ -4,6 +4,16 @@ Scoutaround is built to help youth organizations (scouts, etc) manage their unit
 
 # Getting Started
 
+## Set up PostgreSQL
+
+Install [PostgreSQL](https://www.postgresql.org/) locally and ensure you have a "dev" user with a blank password (or, alternately, change your database.yml file). Then:
+
+```
+rake db:create
+rake db:migrate
+rake db:seed
+```
+
 ## Set up environment variables
 
 1. Create or access an AWS account
@@ -15,18 +25,16 @@ You'll also need to repeat this process for production, using your runtime infra
 
 ## Running the app locally
 
-This presumes you have Ruby 2.4.2, Rails 5.1.6 or higher, and PostgreSQL installed. [RVM](http://rvm.io) is a good way to deal with Ruby versioning. You'll need a Postgres user (the code base uses "dev"; update database.yml for other usernames).
+This presumes you have Ruby 2.4.2, Rails 5.1.6 or higher, and PostgreSQL installed. [RVM](http://rvm.io) is a good way to deal with Ruby versioning.
 
 Once done:
 
 ```
 bundle install
-rake db:migrate
-rake db:seed
 foreman s
 ```
 
-Then visit `http://localhost:5000`
+Then visit [http://localhost:5000](http://localhost:5000)
 
 # Running tests
 
