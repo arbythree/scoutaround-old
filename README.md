@@ -1,3 +1,5 @@
+![Travis CI](https://travis-ci.com/goscoutaround/scoutaround.svg?branch=master)
+
 # Overview
 
 Scoutaround is built to help youth organizations (scouts, etc) manage their units.
