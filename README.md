@@ -8,7 +8,7 @@ Scoutaround is built to help youth organizations (scouts, etc) manage their unit
 
 ## Set up PostgreSQL
 
-Install [PostgreSQL](https://www.postgresql.org/) locally and ensure you have a "dev" user with a blank password (or, alternately, change your database.yml file). Then:
+Install [PostgreSQL](https://www.postgresql.org/) locally and ensure you have a "postgres" user with a blank password (or, alternately, change your database.yml file to credentials to your liking). Then:
 
 ```
 rake db:create
