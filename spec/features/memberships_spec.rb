@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.feature "Membership features", :type => :feature do
   before do
-    # Capybara.current_driver = Capybara.javascript_driver
     @user = FactoryBot.create(:adult)
     @unit = FactoryBot.create(:troop)
     Membership.create(user: @user, unit: @unit, role: :admin)

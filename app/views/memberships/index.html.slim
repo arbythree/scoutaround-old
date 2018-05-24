@@ -5,4 +5,4 @@ h1 = UnitPresenter.unit_display_name(@unit)
 = render 'memberships/index/roster'
 
 - content_for :utilities
-  p = link_to t('members.add'), new_unit_membership_path(unit_id: @unit), class: 'btn btn-primary' if @unit.role_for(user: @current_user) == :admin
+  p = link_to t('members.add'), new_unit_membership_path(unit_id: @unit), class: 'btn btn-primary' if @unit.role_for(user: @current_user) == 'admin'
