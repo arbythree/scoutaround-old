@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Membership features", :type => :feature do
   before do
+    # Capybara.current_driver = Capybara.javascript_driver
     @user = FactoryBot.create(:adult)
     @unit = FactoryBot.create(:troop)
     Membership.create(user: @user, unit: @unit, role: :admin)
@@ -26,8 +27,14 @@ RSpec.feature "Membership features", :type => :feature do
     choose I18n.t('users.youth')
     fill_in 'membership_user_attributes_first_name', with: 'Mortimer'
     fill_in 'membership_user_attributes_last_name', with: 'Snerd'
+    select I18n.t('ranks.life'), from: 'Rank'
+
+    # save it
     click_on I18n.t('memberships.add_new')
+
+    # look for correct data on resulting page
     expect(page).to have_content('Mortimer')
     expect(page).to have_content('Snerd')
+    expect(page).to have_content(I18n.t('ranks.life'))
   end
 end

@@ -26,8 +26,6 @@ class MembershipsController < AuthenticatedController
       return
     end
 
-    ap @membership.errors
-
     redirect_to new_unit_membership_path(@unit)
   end
 

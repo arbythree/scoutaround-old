@@ -1,5 +1,6 @@
 .nested-fields
   .form-group
+    = f.label :guardian
     = f.collection_select :guardian_id, Adult.all, :id, :full_name, { prompt: 'Select a guardian' }, class: 'form-control', style: "width:95%; float: left;"
     | &nbsp;&nbsp;
     = link_to_remove_association raw('<i class="fas fa-times"></i>'), f

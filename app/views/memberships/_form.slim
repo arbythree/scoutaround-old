@@ -40,14 +40,14 @@
       = u.label :phone
       = u.phone_field :phone, class: 'form-control'
 
-    #rank.form-group(style="display: #{ @user.is_a?(Youth) ? 'block' : 'none'};")
+    #rank.youth-only.form-group
       = u.label :rank
       = u.select :rank, @unit.ranks, {}, class: 'form-control'
 
     /
     / nested guardianship fields
     /
-    #guardians(style="display: #{ @membership.user.type == 'Youth' ? 'block' : 'none' }")
+    #guardians.youth-only
       label = t('user.guardians')
       br
       = u.fields_for :guardeeships do |g|
@@ -78,11 +78,13 @@
 
 javascript:
   $('#membership_user_attributes_type_youth').click(function() {
-    $('#guardians').show(250);
-    $('#rank').show(250);
+    $('.youth-only').show(250);
   });
 
   $('#membership_user_attributes_type_adult').click(function() {
-    $('#guardians').hide(250);
-    $('#rank').hide(250);
+    $('.youth-only').hide(250);
   });
+
+  $(document).ready(function() {
+    $('.youth-only').hide();
+  })
