@@ -4,67 +4,66 @@
 - @membership.user.email = '' if @membership.user.anonymous_email?
 - url = @membership.new_record? ? unit_memberships_path(@unit) : unit_membership_path(@unit, @membership)
 
--if @user.errors.any?
+-if @membership.errors.any?
   .alert.alert-danger
-    = @user.errors.full_messages.first 
+    = @membership.errors.full_messages.first
 
 = form_for @membership, url: url do |f|
   /
   / nested user fields
   /
   = f.fields_for :user do |u|
-    .form-group
+    #type.form-group
       .row
         .col-md-3
           = u.radio_button :type, 'Youth'
           | &nbsp;&nbsp;
           = f.label :type, 'Youth', value: 'Youth', for: 'membership_user_attributes_type_youth'
-      
+
         .col-md-3
           = u.radio_button :type, 'Adult'
           | &nbsp;&nbsp;
           = u.label :type, 'Adult', value: 'Adult', for: 'membership_user_attributes_type_adult'
 
-    .form-group
+    #name.form-group
       = u.label :name
       .row
         .col-md-12
           = u.text_field :first_name, class: 'form-control', style: 'width: 49%; float: left;', placeholder: t('members.first_name')
           = u.text_field :last_name, class: 'form-control', style: 'width: 49%; float: right;', placeholder: t('members.last_name')
 
-    .form-group
+    #email.form-group
       = u.label :email
       = u.email_field :email, class: 'form-control'
 
-    .form-group
+    #phone.form-group
       = u.label :phone
       = u.phone_field :phone, class: 'form-control'
 
-
-    .form-group#rank-section(style="display: #{ @user.is_a?(Youth) ? 'block' : 'none'};")
+    #rank.form-group(style="display: #{ @user.is_a?(Youth) ? 'block' : 'none'};")
       = u.label :rank
       = u.select :rank, @unit.ranks, {}, class: 'form-control'
 
     /
     / nested guardianship fields
     /
-    #guardian-section(style="display: #{ @membership.user.type == 'Youth' ? 'block' : 'none' }")
+    #guardians(style="display: #{ @membership.user.type == 'Youth' ? 'block' : 'none' }")
       label = t('user.guardians')
-      - @membership.user.guardeeships.each do |guardeeship|
-        = u.fields_for guardeeship do |g|
-          .form-group
-            = g.label :guardian_id
-            = g.collection_select :guardian_id, Adult.all, :id, :full_name, { prompt: 'Select a guardian' }, class: 'form-control'
+      br
+      = u.fields_for :guardeeships do |g|
+        = render partial: 'guardeeship_fields', locals: { f: g }
+      .links
+        br
+        = link_to_add_association 'Add Guardian', u, :guardeeships, class: 'btn btn-outline-secondary btn-sm'
 
-      = link_to_add_association 'Add guardian', u, :guardeeships        
   /
   / end fields_for user
   /
   / continue form_for membership
   /
+  br
   .form-group
     label = t('user.permissions')
-    br
     br
     = check_box_tag :role, value: 'admin'
     | &nbsp;&nbsp;
@@ -79,11 +78,11 @@
 
 javascript:
   $('#membership_user_attributes_type_youth').click(function() {
-    $('#guardian-section').show(250);
-    $('#rank-section').show(250);
+    $('#guardians').show(250);
+    $('#rank').show(250);
   });
 
   $('#membership_user_attributes_type_adult').click(function() {
-    $('#guardian-section').hide(250);
-    $('#rank-section').hide(250);
+    $('#guardians').hide(250);
+    $('#rank').hide(250);
   });

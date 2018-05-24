@@ -1,10 +1,13 @@
 header
-  .container
-    - if @current_user.present?
-      p
-        = "Hello, #{@current_user.first_name}"
-        - if !@current_user.multiple_units?
-          - present @current_user.units.first do |unit|
-            = " @ #{unit.display_name}"
+  .container-fluid
+    .row
+      .col-md-2
+      .col-md-8
+        - if @current_user.present?
+          p
+            = "Hello, #{@current_user.first_name}"
+            - if !@current_user.multiple_units?
+              - present @current_user.units.first do |unit|
+                = " @ #{unit.display_name}"
 
-        = link_to t('sign_out'), destroy_user_session_path, method: :delete
+            = link_to t('sign_out'), destroy_user_session_path, method: :delete

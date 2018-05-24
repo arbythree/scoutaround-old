@@ -63,6 +63,7 @@ en:
     roster: 'Roster'
 
   registrations:
+    title: 'Registrations'
     incomplete: 'Incomplete'
     complete: 'Registered'
     item: 'Item'
@@ -84,11 +85,14 @@ en:
     view_inactive: 'Include inactive'
 
   memberships:
+    title: 'Members'
     new:
       confirm: 'Added %{full_name} to the unit'
-    edit: 'Edit'
+    edit: 'Change Details'
     add_new: 'Add Member'
     update: 'Update Member Details'
+    updated: 'Member details updated'
+    registrations: 'Registrations'
 
   users:
     youth: 'Youth'

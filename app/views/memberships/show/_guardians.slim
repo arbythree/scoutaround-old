@@ -1,3 +1,7 @@
-- if @member.is_a?(Youth)
-  h4 = "#{ t('users.guardians') }"
-  = render partial: 'memberships/show/guardian', collection: @member.guardians
+h3 = t('users.guardians')
+table.table
+  - @user.guardians.each do |guardian|
+    tr
+      td = link_to guardian.full_name, unit_membership_path(@unit, guardian.memberships.find_by(unit: @unit))
+      td = UserPresenter.display_email_for(user: guardian)
+      td = guardian.phone

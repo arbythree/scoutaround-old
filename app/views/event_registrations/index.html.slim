@@ -1,33 +1,23 @@
-.row
-  .col-md-9
-    .crumbtrail
-      = link_to UnitPresenter.unit_display_name(@event.unit), unit_path(@event.unit)
-      | &nbsp;/&nbsp;
-      = link_to 'Events', unit_events_path(@event.unit)
-      | &nbsp;/&nbsp;
-      = link_to @event.name, unit_event_path(@event.unit, @event)
-      | &nbsp;/&nbsp;
-      | Registrations
+- crumbtrail link_to UnitPresenter.unit_display_name(@event.unit), unit_path(@event.unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@event.unit)
+- crumbtrail link_to @event.name, unit_event_path(@event.unit, @event)
+- crumbtrail t('registrations.title')
 
-    = render partial: 'events/header'
+= render partial: 'events/header'
 
-  .col-md-3
+h3 = I18n.t('events.roster')
+table.table
+  tr
+    th Name
+    th Status
+    th Action
+  = render partial: 'event_registrations/registration', collection: @event.event_registrations
 
-.row
-  .col-md-9
-    h3 = I18n.t('events.roster')
-    table.table
-      tr
-        th Name
-        th Status
-        th Action
-      = render partial: 'event_registrations/registration', collection: @event.event_registrations
-
-  .col-md-3
-    .card
-      .card-header
-        = t('events.info')
-      .card-body
-        p = link_to t('submissions.upload'), new_event_event_submission_path
-        p = link_to t('events.edit'), edit_event_path(@event) if @event.unit.role(@current_user) == 'admin'
-        p = link_to t('events.back_to_index'), unit_events_path(@event.unit)
+- content_for :utilities do
+  .card
+    .card-header
+      = t('events.info')
+    .card-body
+      p = link_to t('submissions.upload'), new_event_event_submission_path
+      p = link_to t('events.edit'), edit_event_path(@event) if @event.unit.role_for(user: @current_user) == 'admin'
+      p = link_to t('events.back_to_index'), unit_events_path(@event.unit)

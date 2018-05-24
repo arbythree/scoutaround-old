@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Home page", :type => :feature do
+RSpec.feature "Roster page", :type => :feature do
   before do
     @user = FactoryBot.create(:adult)
     @unit = FactoryBot.create(:troop)
@@ -9,8 +9,8 @@ RSpec.feature "Home page", :type => :feature do
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
     click_on 'Log in'
-    # save_and_open_page
-    click_on I18n.t('members.roster')
+    save_and_open_page
+    first(:link, I18n.t('members.roster')).click
   end
 
   it 'is on the Roster page' do

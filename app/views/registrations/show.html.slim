@@ -1,15 +1,18 @@
-.row
-  .col-md-9
-    h1 = @registration.event.name
-    - present @registration.user do |user|
-      h2 = user.display_name
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
+- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
+- crumbtrail link_to t('registrations.title')
 
-    table.table
-      tr
-        th = t('registrations.item')
-        th = t('action')
+h1 = @registration.event.name
+h2 = user.full_name
 
-      = render partial: 'registrations/event_requirement', collection: @registration.event.event_requirements
+table.table
+  tr
+    th = t('registrations.item')
+    th = t('action')
 
-  .col-md-3
-    = render partial: 'registrations/user_actions'
+  = render partial: 'registrations/event_requirement', collection: @registration.event.event_requirements
+
+
+- content_for :utilities do
+  = render partial: 'registrations/user_actions'

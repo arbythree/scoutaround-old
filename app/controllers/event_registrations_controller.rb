@@ -1,4 +1,5 @@
 class EventRegistrationsController < AuthenticatedController
+  before_action :find_unit
   before_action :find_event
   before_action :find_registration, except: [:index]
 
@@ -11,6 +12,10 @@ class EventRegistrationsController < AuthenticatedController
   end
 
   private
+
+  def find_unit
+    @unit = @current_user.units.find(params[:unit_id])
+  end
 
   def find_event
     @event = @current_user.events.find(params[:event_id])

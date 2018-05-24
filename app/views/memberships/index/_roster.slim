@@ -1,0 +1,38 @@
+#roster
+  .input-group.mb-3
+    = text_field_tag :search, '', class: 'form-control search', placeholder: t('search'), autofocus: true, onkeyup: 'performNameSearch();'
+
+  br
+
+  table.table#names-table
+    tr
+      th = t('people.type')
+      th = t('people.name')
+      th = t('people.rank_or_role')
+
+    - @memberships.each do |membership|
+      - present membership.user do |member|
+        tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
+          td.type = member.type
+          td.name = link_to member.display_name, unit_membership_path(id: membership.id)
+          td.rank = member.rank
+
+javascript:
+  // search functionality
+  // adapted from https://www.w3schools.com/howto/howto_js_filter_table.asp
+  function performNameSearch() {
+    var input = $('#search');
+    var filter = input.val().toUpperCase();
+    var rows  = $('tr.user');
+
+    rows.each(function() {
+      $this = $(this);
+      var td = $(this).find('td.name').first();
+      var value = td.html();
+      if (value.toUpperCase().indexOf(filter) > -1) {
+        $this.show();
+      } else {
+        $this.hide();
+      }
+    });
+  }

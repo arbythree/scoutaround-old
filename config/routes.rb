@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   resources :units do
     resources :memberships, path: 'members'
-    resources :events
+    resources :events do
+      resources :event_registrations, path: 'registrations'
+    end
   end
 
   resources :members

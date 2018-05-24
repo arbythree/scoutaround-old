@@ -1,17 +1,11 @@
-.row
-  .col-md-9
-    .crumbtrail
-      = link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
-      = t('crumbtrail_separator')
-      = t('events.title')
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail t('events.title')
 
-    h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
+h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
 
-.row
-  .col-md-9
-    table.table
-      = render partial: 'events/event', collection: @events
+table.table
+  = render partial: 'events/event', collection: @events
 
-  .col-md-3
-    = render partial: 'units/header'
-    = render partial: 'events/utilities'
+- content_for :utilities do
+  = render partial: 'units/header'
+  = render partial: 'events/utilities'

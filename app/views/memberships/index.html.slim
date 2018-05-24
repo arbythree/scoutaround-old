@@ -1,20 +1,8 @@
-.row
-  .col-md-9
-    .crumbtrail
-      = link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
-      = t('crumbtrail_separator')
-      = t('members.roster')
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail t('members.roster')
 
-    - present @unit do |unit|
-      h1 = unit.display_name
+h1 = UnitPresenter.unit_display_name(@unit)
+= render 'memberships/index/roster'
 
-.row
-  .col-md-9
-    #roster
-      = render 'memberships/roster'
-
-  .col-md-3
-    p = link_to t('members.add'), new_unit_membership_path(unit_id: @unit), class: 'btn btn-primary'
-
-    = render partial: 'units/header'
-    = render partial: 'memberships/utilities'
+- content_for :utilities
+  p = link_to t('members.add'), new_unit_membership_path(unit_id: @unit), class: 'btn btn-primary'

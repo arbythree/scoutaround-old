@@ -1,11 +1,14 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('memberships.title'), unit_memberships_path(@unit)
+- crumbtrail @user.full_name
+
 h1 = @user.full_name
 
-= link_to t('memberships.edit'), edit_unit_membership_path(@unit, @membership) if @unit.role_for(user: @current_user)
+= render partial: 'memberships/show/guardians' if @user.guardians.present?
+= render partial: 'memberships/show/guardees' if @user.guardees.present?
+= render partial: 'memberships/show/registrations'
 
-ul
-  - @user.guardians.each do |guardian|
-    li = guardian.full_name
+- content_for :utilities do
+  .card-body
+    = link_to t('memberships.edit'), edit_unit_membership_path(@unit, @membership) if @unit.role_for(user: @current_user)
 
-h4 Registrations
-table.table
-  = render partial: 'memberships/show/registration', collection: @registrations

@@ -1,0 +1,7 @@
+h3 = t('users.guardees')
+table.table
+  - @user.guardees.each do |guardee|
+    tr
+      td = link_to guardee.full_name, unit_membership_path(@unit, guardee.memberships.find_by(unit: @unit))
+      td = UserPresenter.display_email_for(user: guardee)
+      td = guardee.phone

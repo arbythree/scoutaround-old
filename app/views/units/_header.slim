@@ -1,5 +1,3 @@
-p
-  = link_to t('units.roster'), unit_memberships_path(@unit), id: 'unit-nav-roster'
-  br
-  br
-  = link_to t('units.events'), unit_events_path(@unit), id: 'unit-nav-events'
+ul
+  li = link_to t('members.roster'), unit_memberships_path(@unit)
+  li = link_to t('events.title'), unit_events_path(@unit)

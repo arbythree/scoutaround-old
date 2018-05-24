@@ -12,6 +12,11 @@ module ApplicationHelper
     class_list.concat([controller.controller_name, controller.action_name]).join(' ')
   end
 
+  def crumbtrail(element)
+    @crumbtrail ||= []
+    @crumbtrail << element
+  end
+
   def submission_name(submission)
     "#{submission.user.full_name} #{submission.event_requirement.description}"
   end

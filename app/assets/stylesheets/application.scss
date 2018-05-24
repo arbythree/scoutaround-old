@@ -31,17 +31,29 @@ h1 {
 }
 
 .flash {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;  
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
 .datepicker {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
+#crumbtrail {
+  background: #e8e8e8;
+}
+
 .crumbtrail {
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
+
+  a {
+    display: inline-block;
+    padding: 0.5rem 0;
+  }
 }
 
 .btn {
@@ -143,4 +155,13 @@ td.event-requirement.event-requirement-completed {
   svg {
     display: inline-block;
   }
+}
+
+.remove_fields {
+  float: right;
+  padding-top: 0.5rem;
+}
+
+main {
+  padding-top: 1rem;
 }

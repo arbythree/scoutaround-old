@@ -12,4 +12,8 @@ class UserPresenter < BasePresenter
   def rank
     user.rank
   end
+
+  def self.display_email_for(user: nil)
+    user.anonymous_email? ? '' : user.email
+  end
 end
