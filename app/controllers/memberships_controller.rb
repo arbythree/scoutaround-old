@@ -18,13 +18,15 @@ class MembershipsController < AuthenticatedController
 
   def create
     @membership = @unit.memberships.new(membership_params)
-    @membership.user.email ||= "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" # if @membership.user.email.empty?
+    @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
     @membership.user.password = SecureRandom.hex(12)
     if @membership.save
       flash[:notice] = t('memberships.new.confirm', full_name: @membership.user.full_name)
       redirect_to unit_memberships_path(@unit)
       return
     end
+
+    ap @membership.errors
 
     redirect_to new_unit_membership_path(@unit)
   end
