@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require rails-ujs
-//= require turbolinks
+// require turbolinks
 //= require_tree .
 
 
@@ -20,3 +20,4 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
 //= require cocoon
+//= require activestorage

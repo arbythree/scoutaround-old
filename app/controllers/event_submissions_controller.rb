@@ -1,4 +1,5 @@
 class EventSubmissionsController < AuthenticatedController
+  before_action :find_unit
   before_action :find_event
   before_action :find_submission, except: [:new, :create, :index]
 
@@ -21,21 +22,31 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def new
-    @event = Event.find(params[:event_id])
-    @submission = @event.event_submissions.new
+    @submission = EventSubmission.new
   end
 
   def create
-    sp = submission_params
-    sp[:submitter_id] = @current_user.id
-    @submission = EventSubmission.create(sp)
-    redirect_to @submission.event_registration
+    @submission = EventSubmission.new(submission_params)
+
+    # destroy any 
+    EventSubmission.where(
+      event_requirement_id: @submission.event_requirement_id,
+      event_registration_id: @submission.event_registration_id
+    ).destroy_all
+
+    if @submission.save
+      redirect_to unit_event_event_registrations(@unit, @event, @submission.event_registration)
+    end
   end
 
   private
 
+  def find_unit
+    @unit = @current_user.units.find(params[:unit_id])
+  end
+
   def find_event
-    @event = @current_user.events.find(params[:event_id])
+    @event = @unit.events.find(params[:event_id])
   end
 
   def find_submission
@@ -43,6 +54,9 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def submission_params
-    params.require(:event_submission).permit(:event_requirement_id, :event_registration_id, :file)
+    params
+      .require(:event_submission)
+      .permit(:event_requirement_id, :event_registration_id, :attachment)
+      .merge({ submitter: @current_user })
   end
 end

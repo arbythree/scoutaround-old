@@ -1,5 +1,0 @@
-- present @event do |event|
-  h1 = @event.name
-  p = event.dates
-  p = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
-  p = link_to "#{@event.event_registrations.count} registrations", unit_event_event_registrations_path(@unit, @event)

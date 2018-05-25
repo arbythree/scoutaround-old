@@ -16,7 +16,7 @@ table.table
         td.event-requirement.event-requirement-completed
           i.fas.fa-check
           = 'Completed'
-        td = link_to 'View', event_event_submission_path(@registration.event, submission)
+        td = link_to 'View', unit_event_event_submission_path(@unit, @event, submission)
       - else
         td
         td

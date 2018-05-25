@@ -7,7 +7,7 @@ class EventSubmission < ApplicationRecord
   scope :unapproved, -> { where('approved_at IS NULL') }
   delegate :user, to: :event_registration
   delegate :event,  to: :event_registration
-  include AttachmentUploader.attachment(:file)
+  has_one_attached :attachment
 
   def approved?
     # approved_at.present?

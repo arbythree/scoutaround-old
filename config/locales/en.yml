@@ -54,6 +54,7 @@ en:
     pay: 'Pay Now'
     completed: 'Completed'
     back_to_registration: 'Back to Registration'
+    download: 'Download'
 
   units:
     troop: 'Troop'
@@ -64,6 +65,7 @@ en:
 
   registrations:
     title: 'Registrations'
+    title_public: "Who's Going?"
     incomplete: 'Incomplete'
     complete: 'Registered'
     item: 'Item'

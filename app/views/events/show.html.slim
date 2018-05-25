@@ -2,39 +2,51 @@
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
 - crumbtrail @event.name
 
-= render partial: 'events/header'
+h1 = @event.name
 
 h3 Your Checklist
-table.table
-  tr
-    th Item
-    - @current_user.family.each do |user|
-      th = user.first_name
+.card(style="margin-bottom: 30px;")
+  .card-body
+    table.table
+      tr
+        - (['Member'] + @event.event_requirements.map { |r| r.description } + ['Registration']).each do |caption|
+          th = caption
 
-  / loop through each requirement
-  - @event.event_requirements.each do |requirement|
-    tr
-      td = requirement.description
       - @current_user.family.each do |user|
-        - registration = @event.event_registrations.find_by(user_id: user.id)
-        - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
-        td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
-          i.fas.fa-check
-          = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+          - registration = @event.event_registrations.find_by(user_id: user.id)
 
-  tr
-    td
-    - @current_user.family.each do |user|
-      - registration = @event.event_registrations.where(user: user)
-      - if registration.present?
-        td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
-      - else
-        td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
+          tr
+            td = user.first_name
+
+            - @event.event_requirements.each do |requirement|
+              - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
+              td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
+                i.fas.fa-check
+                = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+
+            - if registration.present?
+              td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
+            - else
+              td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
+
+h3 = t('registrations.title_public')
+.card
+  .card-body
+    ul
+      - @event.event_registrations.each do |registration|
+        li = registration.user.full_name
 
 - content_for :utilities do
   .card
-    .card-header
-      | Event
+    .card-header Details
     .card-body
-      p = link_to raw("&uarr; #{t('events.back_to_index')}"), unit_events_path(unit_id: @event.unit)
-      p = link_to t('events.info'), unit_event_event_registrations_path(@unit, @event) if @event.unit.role_for(user: @current_user) == 'admin'
+      - present @event do |event|    
+        p = event.dates
+        p = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
+
+  - if @event.unit.role_for(user: @current_user) == 'admin'
+  .card
+    .card-header Manage
+    .card-body
+      p = link_to 'Edit Details', edit_unit_event_path(@unit, @event)
+      p = link_to t('events.info'), unit_event_event_registrations_path(@unit, @event)

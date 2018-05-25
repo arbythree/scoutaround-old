@@ -3,7 +3,7 @@
   .col-md-6
     h1 Event Submission
     p = @event.name
-    = form_for @submission do |f|
+    = form_for @submission, url: unit_event_event_submissions_path(@unit, @event) do |f|
       .form-group
         = f.label :user, t('registrations.registrant')
         = f.collection_select :event_registration_id, @event.event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
@@ -13,7 +13,7 @@
         = f.collection_select :event_requirement_id, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
-        = f.file_field :file
+        = f.file_field :attachment, direct_upload: true, multiple: false
 
       .form-group
         = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'
@@ -43,7 +43,7 @@ javascript:
     var registrantName = $('#event_submission_event_registration_id option:selected').text();
     var itemName = $('#event_submission_event_requirement_id option:selected').text();
 
-    var url = '/events/' + "#{@event.id}" + '/event_submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
+    var url = '/units/' + "#{@unit.id}" + '/events/' + "#{@event.id}" + '/submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
     $.getJSON(url, function(data) {
       if (data.length > 0) {
         $('#submission-dupe-message').html(registrantName + ' has already submitted a ' + itemName + '. Uploading again will overwrite the previous submission.');

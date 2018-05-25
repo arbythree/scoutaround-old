@@ -6,8 +6,6 @@ Rails.application.routes.draw do
 
   resources :events do
     resources :event_registrations, path: 'registrations'
-    resources :event_submissions
-    resources :submissions
   end
 
   resources :event_registrations do
@@ -20,6 +18,7 @@ Rails.application.routes.draw do
     resources :memberships, path: 'members'
     resources :events do
       resources :event_registrations, path: 'registrations'
+      resources :event_submissions,   path: 'submissions'
     end
   end
 

@@ -213,8 +213,16 @@ aside {
   bottom: 0;
 }
 
-nav, main, aside {
-  padding-top: 60px;
+nav, aside {
+  padding-top: 105px;
+}
+
+main {
+  padding-top: 30px;
+
+  h1 {
+    height: 75px;
+  }
 }
 
 nav {
@@ -242,5 +250,11 @@ nav {
       text-decoration: none;
       color: $color_brand;
     }
+  }
+}
+
+aside {
+  a.btn {
+    width: 100%;
   }
 }
