@@ -28,4 +28,10 @@ module ApplicationHelper
   def unit_name(unit)
     "#{I18n.t("units.#{unit.type.downcase}")} #{unit.number}"
   end
+
+  def user_synopsis(users)
+    result = users[0..2].map(&:full_name).join(', ')
+    result += " and #{ users.count - 3 } others" if users.count > 3
+    result
+  end
 end

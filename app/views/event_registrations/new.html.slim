@@ -1,0 +1,15 @@
+h1 = @event.name
+
+= form_tag unit_event_event_registrations_path(@unit, @event) do |f|
+  ul
+    - @event.non_registrants.each do |member|
+      li
+        = check_box_tag 'event[registrant_ids][]', member.id
+        = member.full_name
+
+  .form-group
+    = submit_tag t('registrations.add'), class: 'btn btn-primary'
+    |&nbsp;&nbsp;
+    = t('or')
+    |&nbsp;&nbsp;
+    = link_to t('cancel'), unit_event_event_registrations_path(@unit, @event), class: 'cancel'

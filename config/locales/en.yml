@@ -71,6 +71,7 @@ en:
     item: 'Item'
     registrant: 'Registrant'
     submission_item: 'Submission Item'
+    add: 'Add Registrants'
 
   members:
     roster: 'Roster'

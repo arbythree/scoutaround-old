@@ -5,29 +5,28 @@
 h1 = @event.name
 
 h3 Your Checklist
-.card(style="margin-bottom: 30px;")
-  .card-body
-    table.table
-      tr
-        - (['Member'] + @event.event_requirements.map { |r| r.description } + ['Registration']).each do |caption|
-          th = caption
+.card
+  table.table
+    tr
+      - (['Member'] + @event.event_requirements.map { |r| r.description } + ['Registration']).each do |caption|
+        th = caption
 
-      - @current_user.family.each do |user|
-          - registration = @event.event_registrations.find_by(user_id: user.id)
+    - @current_user.family.each do |user|
+        - registration = @event.event_registrations.find_by(user_id: user.id)
 
-          tr
-            td = user.first_name
+        tr
+          td = user.first_name
 
-            - @event.event_requirements.each do |requirement|
-              - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
-              td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
-                i.fas.fa-check
-                = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+          - @event.event_requirements.each do |requirement|
+            - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
+            td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
+              i.fas.fa-check
+              = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
 
-            - if registration.present?
-              td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
-            - else
-              td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
+          - if registration.present?
+            td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
+          - else
+            td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
 
 h3 = t('registrations.title_public')
 .card

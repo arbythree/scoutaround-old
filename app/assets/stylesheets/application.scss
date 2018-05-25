@@ -188,7 +188,8 @@ header#secondary {
   height: $dim_height_header_secondary;
   left: 0;
   right: 0;
-  background: #e8e8e8;
+  background: #f8f8f8;
+  border-bottom: 1px solid #e8e8e8;
   padding: 0 0 0 280px;
 }
 
@@ -223,6 +224,10 @@ main {
   h1 {
     height: 75px;
   }
+
+  .card {
+    margin-bottom: 30px;
+  }
 }
 
 nav {
@@ -256,5 +261,20 @@ nav {
 aside {
   a.btn {
     width: 100%;
+  }
+}
+
+.card table.table {
+  // margin-bottom: 30px;
+  // background-color: #fff;
+  // border: 1px solid #e8e8e8;
+  // border-radius: 4px;
+
+  margin-bottom: 0;
+
+  tr:first-child {
+    th {
+      border-top: none;
+    }
   }
 }

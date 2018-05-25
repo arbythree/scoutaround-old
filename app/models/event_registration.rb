@@ -2,7 +2,7 @@ class EventRegistration < ApplicationRecord
   belongs_to :user
   belongs_to :event
   has_many :event_submissions
-  validates_uniqueness_of :user, scope: :event
+  validates_uniqueness_of :user, scope: :event # prevent duplicate registrations
   delegate :full_name, to: :user
 
   def completed_for?(user)

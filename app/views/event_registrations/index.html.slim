@@ -18,6 +18,6 @@ table.table
     .card-header
       = t('events.info')
     .card-body
-      p = link_to t('submissions.upload'), new_unit_event_event_submission_path(@unit, @event)
-      p = link_to t('events.edit'), edit_event_path(@event) if @event.unit.role_for(user: @current_user) == 'admin'
-      p = link_to t('events.back_to_index'), unit_events_path(@event.unit)
+      p = link_to t('events.edit'),          edit_event_path(@event) if @event.unit.role_for(user: @current_user) == 'admin'
+      p = link_to t('submissions.upload'),   new_unit_event_event_submission_path(@unit, @event)
+      p = link_to t('registrations.add'),    new_unit_event_event_registration_path(@unit, @event)

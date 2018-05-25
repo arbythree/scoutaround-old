@@ -24,3 +24,9 @@ table.table
             = link_to 'Upload'
           - elsif requirement.type == 'PaymentEventRequirement'
             = link_to 'Record Payment'
+
+- content_for :utilities
+  .card
+    .card-header Manage
+    .card-body
+      p = link_to 'Unregister', unit_event_event_registration_path(@unit, @event, @registration), method: :delete, prompt: 'Are you sure?'
