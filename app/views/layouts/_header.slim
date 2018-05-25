@@ -1,4 +1,4 @@
-header
+header#primary
   .container-fluid
     .row
       .col-md-2
@@ -11,3 +11,7 @@ header
                 = " @ #{unit.display_name}"
 
             = link_to t('sign_out'), destroy_user_session_path, method: :delete
+
+header#secondary.crumbtrail
+  - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')
+  = raw((@crumbtrail || []).join(separator))

@@ -12,39 +12,22 @@ html
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
 
-    - if content_for?(:crumbtrail)
-      .container-fluid
-        #crumbtrail.row.crumbtrail
-          .col-md-2
-          .col-md-8
-            = yield :crumbtrail
-
-    - if @crumbtrail.present?
-      .container-fluid
-        #crumbtrail.row.crumbtrail
-          .col-md-2
-          .col-md-8
-            - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')
-            = raw(@crumbtrail.join(separator))
-
-    - if flash[:notice].present? || flash[:alert].present?
-      #alerts.row
-        .col-md-2
-        .col-md-8
-          - if flash[:notice]
-            .notice.alert.alert-success
-              = notice
-          - if flash[:alert]
-            .alert.alert.alert-warning
-              = alert
+    nav
+      = render partial: 'units/nav' if @unit.present?
 
     main
-      .row
-        .col-md-2
-          = render partial: 'units/header' if @unit.present?
+      - if flash[:notice].present? || flash[:alert].present?
+        #alerts.row
+          .col-md-2
+          .col-md-8
+            - if flash[:notice]
+              .notice.alert.alert-success
+                = notice
+            - if flash[:alert]
+              .alert.alert.alert-warning
+                = alert
 
-        .col-md-8
-          = yield
+      = yield
 
-        .col-md-2
-          = yield :utilities
+    aside
+      = yield :utilities

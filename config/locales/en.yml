@@ -112,3 +112,6 @@ en:
     star:         'Star'
     life:         'Life'
     eagle:        'Eagle'
+
+  announcements:
+    title:    'Announcements'

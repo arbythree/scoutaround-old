@@ -18,8 +18,15 @@
 
 @import "bootstrap";
 
+$color_brand: rgb(182, 24, 24);
+
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
+  background-color: #fbfbfb;
+}
+
+.sidebar {
+  background: #fff;
 }
 
 // h1, h2, h3, h4, h5, h6 {
@@ -27,7 +34,9 @@ body {
 // }
 
 h1 {
+  font-size: 3em;
   font-weight: 700;
+  letter-spacing: -1px;
 }
 
 .flash {
@@ -38,13 +47,7 @@ h1 {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
-#crumbtrail {
-  background: #e8e8e8;
-}
-
 .crumbtrail {
-  padding: 0.5rem 0;
-  margin-bottom: 1rem;
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
   font-weight: 600;
   text-transform: uppercase;
@@ -79,8 +82,8 @@ a {
   }
 }
 
-header {
-  background-color: rgb(182, 24, 24);
+header#primary {
+  background-color: #000;
   color: $white;
 
   a {
@@ -162,6 +165,82 @@ td.event-requirement.event-requirement-completed {
   padding-top: 0.5rem;
 }
 
+$dim_width_nav: 250px;
+$dim_width_utilities: 300px;
+$dim_height_header_primary: 90px;
+$dim_height_header_secondary: 36px;
+$dim_height_headers: $dim_height_header_primary + $dim_height_header_secondary;
+
+header, nav, main, aside {
+  position: absolute;
+  padding: 30px;
+}
+
+header#primary {
+  height: $dim_height_header_primary;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+header#secondary {
+  top:    $dim_height_header_primary;
+  height: $dim_height_header_secondary;
+  left: 0;
+  right: 0;
+  background: #e8e8e8;
+  padding: 0 0 0 280px;
+}
+
+nav {
+  width:  $dim_width_nav;
+  top:    $dim_height_headers;
+  bottom: 0px;
+  left: 0;
+}
+
 main {
-  padding-top: 1rem;
+  left:   $dim_width_nav;
+  top:    $dim_height_headers;
+  right:  $dim_width_utilities;
+  bottom: 0;
+}
+
+aside {
+  width:  $dim_width_utilities;
+  top:    $dim_height_headers;
+  right: 0;
+  bottom: 0;
+}
+
+nav, main, aside {
+  padding-top: 60px;
+}
+
+nav {
+  background: #fff;
+  border-right: 1px solid #d8d8d8;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: #333;
+    display: block;
+    padding: 1rem 0;
+    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+
+    span {
+      display: inline-block;
+      width: 1.8rem;
+    }
+
+    &:hover {
+      text-decoration: none;
+      color: $color_brand;
+    }
+  }
 }

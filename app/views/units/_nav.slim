@@ -1,0 +1,18 @@
+ul
+  li#nav-item-announcements
+    = link_to '' do
+      span
+        i.fa-bullhorn.fal
+      = t('announcements.title')
+
+  li#nav-item-roster
+    = link_to unit_memberships_path(@unit) do
+      span
+        i.fa-users.fal
+      = t('members.roster')
+
+  li#nav-item-events
+    = link_to unit_events_path(@unit) do
+      span
+        i.fa-calendar.fal
+      = t('events.title')
