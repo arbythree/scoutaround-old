@@ -12,19 +12,18 @@ h3 Your Checklist
         th = caption
 
     - @current_user.family.each do |user|
-        - registration = @event.event_registrations.find_by(user_id: user.id)
+        - registration = @event.event_registrations.find_by(user: user)
 
         tr
           td = user.first_name
 
-          - @event.event_requirements.each do |requirement|
-            - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
-            td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
-              i.fas.fa-check
-              = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
-
           - if registration.present?
-            td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
+            - @event.event_requirements.each do |requirement|
+              - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
+              td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
+                i.fas.fa-check
+                = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+              td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
           - else
             td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
 

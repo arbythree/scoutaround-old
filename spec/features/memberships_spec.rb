@@ -4,7 +4,7 @@ RSpec.feature "Membership features", :type => :feature do
   before do
     @user = FactoryBot.create(:adult)
     @unit = FactoryBot.create(:troop)
-    Membership.create(user: @user, unit: @unit, role: :admin)
+    @membership = Membership.create(user: @user, unit: @unit, role: :admin)
     visit new_user_session_path
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
@@ -14,6 +14,12 @@ RSpec.feature "Membership features", :type => :feature do
 
   it 'is on the Roster page' do
     expect(page).to have_current_path(unit_memberships_path(@unit))
+  end
+
+  it 'shows a membership' do
+    visit unit_membership_path(@unit, @membership)
+    expect(page).to have_current_path(unit_membership_path(@unit, @membership))
+    expect(page).to have_content(@user.full_name)
   end
 
   it 'goes to the New Member page when New Member is clicked' do

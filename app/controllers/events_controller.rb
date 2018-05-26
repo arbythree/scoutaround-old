@@ -31,7 +31,11 @@ class EventsController < UnitContextController
   end
 
   def update
-    redirect_to @event if @event.update_attributes(event_params)
+    if @event.update_attributes(event_params)
+      redirect_to unit_event_path(@unit, @event)
+    else
+      redirect_to edit_unit_event_path(@unit, @event)
+    end
   end
 
   def find_event

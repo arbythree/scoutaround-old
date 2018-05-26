@@ -40,6 +40,7 @@ en:
   search_action: 'Go'
   crumbtrail_separator: ' / '
   hello: 'Hello, %{name}'
+  update: 'Update'
 
   events:
     title: 'Events'
@@ -66,14 +67,15 @@ en:
     roster: 'Roster'
 
   registrations:
-    title: 'Registrations'
-    title_public: "Who's Going?"
-    incomplete: 'Incomplete'
-    complete: 'Registered'
-    item: 'Item'
-    registrant: 'Registrant'
-    submission_item: 'Submission Item'
-    add: 'Add Registrants'
+    title:            'Registrations'
+    title_public:     "Who's Going?"
+    incomplete:       'Incomplete'
+    complete:         'Registered'
+    item:             'Item'
+    registrant:       'Registrant'
+    submission_item:  'Submission Item'
+    add:              'Add Registrants'
+    destroy:          'Unregister'
 
   members:
     roster: 'Roster'
