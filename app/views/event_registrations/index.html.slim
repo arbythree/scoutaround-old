@@ -14,10 +14,6 @@ table.table
   = render partial: 'event_registrations/registration', collection: @event.event_registrations
 
 - content_for :utilities do
-  .card
-    .card-header
-      = t('events.info')
-    .card-body
-      p = link_to t('events.edit'),          edit_event_path(@event) if @event.unit.role_for(user: @current_user) == 'admin'
-      p = link_to t('submissions.upload'),   new_unit_event_event_submission_path(@unit, @event)
-      p = link_to t('registrations.add'),    new_unit_event_event_registration_path(@unit, @event)
+  = render partial: 'events/details'
+  = render partial: 'event_registrations/admin' if @current_user_is_admin
+  = render partial: 'event_registrations/requirements'

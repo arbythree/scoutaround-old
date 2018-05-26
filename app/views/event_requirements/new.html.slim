@@ -1,0 +1,23 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'),        unit_events_path(@unit)
+- crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
+- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
+- crumbtrail t('requirements.new')
+
+h1 = @event.name
+h2 = t('requirements.new')
+
+.row
+  .col-md-6
+    = form_for @requirement, url: unit_event_event_requirements_path(@unit, @event) do |f|
+      .form-group
+        = f.label :description
+        = f.text_field :description, class: 'form-control'
+
+      .form-group
+        = f.label :due_at
+        = f.text_field :due_at, class: 'form-control'
+
+      .form-group
+        = f.hidden_field :type, value: 'DocumentEventRequirement'
+        = f.submit :add, class: 'btn btn-primary'

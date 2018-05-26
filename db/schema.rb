@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_25_134635) do
+ActiveRecord::Schema.define(version: 2018_05_26_143442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2018_05_25_134635) do
   create_table "event_registrations", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
-    t.boolean "attended"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -51,6 +50,7 @@ ActiveRecord::Schema.define(version: 2018_05_25_134635) do
     t.decimal "amount", precision: 8, scale: 2
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "due_at"
   end
 
   create_table "event_submissions", force: :cascade do |t|

@@ -39,6 +39,7 @@ en:
   search: 'Search'
   search_action: 'Go'
   crumbtrail_separator: ' / '
+  hello: 'Hello, %{name}'
 
   events:
     title: 'Events'
@@ -48,6 +49,7 @@ en:
     edit: 'Edit Details'
     info: 'Manage Event'
     confirm: 'Added event to unit calendar'
+    add_requirement: 'Add Requirement'
 
   submissions:
     upload: 'Upload a Submission'
@@ -118,3 +120,7 @@ en:
 
   announcements:
     title:    'Announcements'
+
+  requirements:
+    new:      'Add an Event Requirement'
+    title:    'Event Checklist'

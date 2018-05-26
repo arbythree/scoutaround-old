@@ -1,16 +1,11 @@
 header#primary
-  .container-fluid
-    .row
-      .col-md-2
-      .col-md-8
-        - if @current_user.present?
-          p
-            = "Hello, #{@current_user.first_name}"
-            - if !@current_user.multiple_units?
-              - present @current_user.units.first do |unit|
-                = " @ #{unit.display_name}"
-
-            = link_to t('sign_out'), destroy_user_session_path, method: :delete
+  .branding
+  .utilities
+    - unless @current_user.blank?
+      .dropdown
+        = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
+        .dropdown-menu
+          = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

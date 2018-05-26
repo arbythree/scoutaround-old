@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     resources :events do
       resources :event_registrations, path: 'registrations'
       resources :event_submissions,   path: 'submissions'
+      resources :event_requirements,  path: 'requirements'
     end
   end
 

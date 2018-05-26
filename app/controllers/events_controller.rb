@@ -1,5 +1,8 @@
-class EventsController < AuthenticatedController
-  before_action :find_unit
+# a handful of controllers rely on @event being set. This base controller
+# takes care of that (and, by virtue of inheriting from UnitContextController,
+# also sets @unit)
+
+class EventsController < UnitContextController
   before_action :find_event, except: [:index, :new, :create]
 
   def index
@@ -29,13 +32,6 @@ class EventsController < AuthenticatedController
 
   def update
     redirect_to @event if @event.update_attributes(event_params)
-  end
-
-  private
-
-  def find_unit
-    return unless params[:unit_id].present?
-    @unit = @current_user.units.find(params[:unit_id])
   end
 
   def find_event

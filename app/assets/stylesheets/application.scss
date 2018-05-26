@@ -85,9 +85,19 @@ a {
 header#primary {
   background-color: #000;
   color: $white;
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 
   a {
     color: $white;
+  }
+
+  .dropdown-menu a {
+    color: #333;
+  }
+
+  .utilities {
+    float: right;
+    margin-right: 105px;
   }
 }
 
@@ -214,8 +224,12 @@ aside {
   bottom: 0;
 }
 
-nav, aside {
+aside {
   padding-top: 105px;
+}
+
+nav {
+  padding-top: 30px;
 }
 
 main {
@@ -261,6 +275,15 @@ nav {
 aside {
   a.btn {
     width: 100%;
+  }
+
+  .card {
+    margin-bottom: 15px;
+
+    ul {
+      margin-left: 0;
+      padding-left: 0;
+    }
   }
 }
 

@@ -1,0 +1,6 @@
+.card
+  .card-header Details
+  .card-body
+    - present @event do |event|
+      p = event.dates
+      p = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?

@@ -1,7 +1,5 @@
-class EventRegistrationsController < AuthenticatedController
+class EventRegistrationsController < EventContextController
   include ApplicationHelper
-  before_action :find_unit
-  before_action :find_event
   before_action :find_registration, except: [:index, :new, :create]
 
   def index
@@ -16,7 +14,6 @@ class EventRegistrationsController < AuthenticatedController
   end
 
   def create
-
     users = @unit.members.find(params['event']['registrant_ids'])
 
     users.each do |user|
@@ -39,14 +36,6 @@ class EventRegistrationsController < AuthenticatedController
   end
 
   private
-
-  def find_unit
-    @unit = @current_user.units.find(params[:unit_id])
-  end
-
-  def find_event
-    @event = @current_user.events.find(params[:event_id])
-  end
 
   def find_registration
     @registration = @event.event_registrations.find(params[:id])

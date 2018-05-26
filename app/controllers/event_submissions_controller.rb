@@ -28,14 +28,14 @@ class EventSubmissionsController < AuthenticatedController
   def create
     @submission = EventSubmission.new(submission_params)
 
-    # destroy any 
+    # destroy any
     EventSubmission.where(
       event_requirement_id: @submission.event_requirement_id,
       event_registration_id: @submission.event_registration_id
     ).destroy_all
 
     if @submission.save
-      redirect_to unit_event_event_registrations(@unit, @event, @submission.event_registration)
+      redirect_to unit_event_event_registrations_path(@unit, @event, @submission.event_registration)
     end
   end
 
