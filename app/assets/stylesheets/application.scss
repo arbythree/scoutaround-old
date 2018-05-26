@@ -301,3 +301,18 @@ aside {
     }
   }
 }
+
+.registration {
+  .completion-glyph {
+    display: none;
+    margin-right: 0.5rem;
+  }
+
+  &.registration-completed {
+    color: $green;
+
+    .completion-glyph {
+      display: inline-block;
+    }
+  }
+}

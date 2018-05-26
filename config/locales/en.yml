@@ -43,7 +43,7 @@ en:
 
   events:
     title: 'Events'
-    roster: 'Registrations'
+    roster: 'Registrations (%{completion_count} of %{registration_count} completed)'
     back_to_index: 'Back to Event List'
     add: 'Add Event'
     edit: 'Edit Details'

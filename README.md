@@ -55,3 +55,35 @@ The commercial deployment of this app relies on third-party paid services (namel
 ```
 stylesheet_link_tag('https://cloud.typography.com/<stuff goes here>/css/fonts.css', media: 'all'); javascript_include_tag('https://pro.fontawesome.com/releases/v5.0.13/js/all.js', defer: 'defer', integrity: '<stuff goes here>', crossorigin: 'anonymous')
 ```
+
+## Active Storage & Amazon S3
+
+The app relies on Active Storage to store attachments. You'll need to set the following environment variables in production for this to work:
+
+- S3_BUCKET
+- S3_REGION
+- S3_ACCESS_KEY_ID
+- S3_SECRET_ACCESS_KEY
+
+You'll need to enable CORS on your bucket. Sample CORS policy:
+
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
+<CORSRule>
+    <AllowedOrigin>https://your.production.domain</AllowedOrigin>
+    <AllowedMethod>GET</AllowedMethod>
+    <AllowedMethod>POST</AllowedMethod>
+    <AllowedMethod>PUT</AllowedMethod>
+    <AllowedMethod>DELETE</AllowedMethod>
+    <MaxAgeSeconds>3000</MaxAgeSeconds>
+    <AllowedHeader>*</AllowedHeader>
+</CORSRule>
+</CORSConfiguration>
+```
+
+If you're deploying to Heroku and wish to leverage Active Storage previews for thumbnails, you'll need to add the appropriate binaries to your Heroku project. From the command line via the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli):
+
+```
+heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-active-storage-preview
+```

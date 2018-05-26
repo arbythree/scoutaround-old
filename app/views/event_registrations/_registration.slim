@@ -1,4 +1,9 @@
-tr(class="registration #{registration.completed_for?(registration.user) ? 'completed' : 'incomplete'}")
-  td.registrant-name     = registration.user.full_name
-  td.registration-status = registration.completed_for?(registration.user) ? 'Complete' : 'Incomplete'
+- is_completed = registration.completed?
+
+tr(class="registration #{is_completed ? 'registration-completed' : 'registration-incomplete'}")
+  td.registrant-name
+    span.completion-glyph
+      i.fa-check.fas
+    = registration.user.full_name
+  td.registration-status = is_completed ? 'Complete' : 'Incomplete'
   td.action              = link_to('Details', unit_event_event_registration_path(@unit, registration.event, registration))
