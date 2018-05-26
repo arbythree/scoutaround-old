@@ -25,3 +25,5 @@
 .env
 
 _proprietary.slim
+
+/storage
