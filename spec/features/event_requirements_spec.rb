@@ -13,6 +13,10 @@ RSpec.feature "Event requirements features", :type => :feature do
     visit unit_event_event_registrations_path(@unit, @event)
   end
 
+  it 'shows an event' do
+    visit unit_event_path(@unit, @event)
+  end
+
   it 'adds a new event requirement' do
     click_on I18n.t('events.add_requirement')
     requirement_name = "I can't believe it's not butter"
