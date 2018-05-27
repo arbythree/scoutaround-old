@@ -26,4 +26,23 @@ RSpec.describe EventRegistration, type: :model do
     user = registration.user
     expect(event.registrants).to include(user)
   end
+
+  describe 'completeness' do
+    before do
+      @registration = FactoryBot.create(:event_registration)
+      @requirement = @registration.event.event_requirements.create(description: 'necessary document')
+    end
+
+    it 'is initially incomplete' do
+      expect(@registration.completed?).to be_falsey
+    end
+
+    it 'is completed when all requirements have submissions' do
+      @registration.event.event_requirements.each do |requirement|
+        submission = FactoryBot.create(:event_submission, event_registration: @registration, event_requirement: requirement)
+      end
+      @registration.reload
+      expect(@registration.completed?).to be_truthy
+    end
+  end
 end

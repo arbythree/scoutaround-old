@@ -5,7 +5,9 @@
 
 h1 = @event.name
 
-h3 = I18n.t('events.roster', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.completed.count)
+h3.inline = I18n.t('registrations.title')
+.badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.completed.count)
+
 table.table
   tr
     th Name

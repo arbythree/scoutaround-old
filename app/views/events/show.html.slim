@@ -4,7 +4,7 @@
 
 h1 = @event.name
 
-h3 Your Checklist
+h3 = t('events.checklist')
 .card
   table.table
     tr
@@ -22,14 +22,16 @@ h3 Your Checklist
               - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
               td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
                 i.fas.fa-check
-                = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
-              td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
+                / = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
+            td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
           - else
             td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
 
-h3 = t('registrations.title_public')
+h3.inline = t('registrations.title_public')
+span.badge.badge-secondary = "#{ @event.event_registrations.count }"
+
 .card
-  .card-body
+  .card-body(style="column-count: 3")
     ul
       - @event.event_registrations.each do |registration|
         li = registration.user.full_name

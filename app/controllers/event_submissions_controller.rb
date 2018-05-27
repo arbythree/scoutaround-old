@@ -35,7 +35,7 @@ class EventSubmissionsController < AuthenticatedController
     ).destroy_all
 
     if @submission.save
-      redirect_to unit_event_event_registrations_path(@unit, @event, @submission.event_registration)
+      redirect_to unit_event_event_registration_path(@unit, @event, @submission.event_registration)
     end
   end
 

@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   mount PdfjsViewer::Rails::Engine => "/pdfjs", as: 'pdfjs'
   devise_for :users
   root to: 'home#index'
-  resources :submissions
+
+  resources :messages
 
   resources :events do
     resources :event_registrations, path: 'registrations'
@@ -20,6 +21,7 @@ Rails.application.routes.draw do
       resources :event_registrations, path: 'registrations'
       resources :event_submissions,   path: 'submissions'
       resources :event_requirements,  path: 'requirements'
+      resources :messages
     end
   end
 

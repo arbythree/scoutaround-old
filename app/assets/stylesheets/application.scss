@@ -157,6 +157,8 @@ body.events.index {
 }
 
 td.event-requirement {
+  padding-left: 23px;
+
   svg {
     display: none;
     margin-right: 0.5rem;
@@ -315,4 +317,13 @@ aside {
       display: inline-block;
     }
   }
+}
+
+h3.inline {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.badge {
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }

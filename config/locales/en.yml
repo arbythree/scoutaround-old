@@ -43,27 +43,28 @@ en:
   update: 'Update'
 
   events:
-    title: 'Events'
-    roster: 'Registrations (%{completion_count} of %{registration_count} completed)'
-    back_to_index: 'Back to Event List'
-    add: 'Add Event'
-    edit: 'Edit Details'
-    info: 'Manage Event'
-    confirm: 'Added event to unit calendar'
-    add_requirement: 'Add Requirement'
+    title:            'Events'
+    back_to_index:    'Back to Event List'
+    add:              'Add Event'
+    edit:             'Edit Details'
+    info:             'Manage Event'
+    confirm:          'Added event to unit calendar'
+    add_requirement:  'Add Requirement'
+    registrations:    'Registrations'
+    checklist:        'Your Checklist'
 
   submissions:
-    upload: 'Upload a Submission'
-    pay: 'Pay Now'
-    completed: 'Completed'
+    upload:               'Upload a Submission'
+    pay:                  'Pay Now'
+    completed:            'Completed'
     back_to_registration: 'Back to Registration'
-    download: 'Download'
+    download:             'Download'
 
   units:
-    troop: 'Troop'
-    pack: 'Pack'
-    crew: 'Crew'
-    post: 'Post'
+    troop:  'Troop'
+    pack:   'Pack'
+    crew:   'Crew'
+    post:   'Post'
     roster: 'Roster'
 
   registrations:
@@ -76,6 +77,7 @@ en:
     submission_item:  'Submission Item'
     add:              'Add Registrants'
     destroy:          'Unregister'
+    completions:      '%{completion_count} of %{registration_count} completed'
 
   members:
     roster: 'Roster'
@@ -92,23 +94,23 @@ en:
     view_inactive: 'Include inactive'
 
   memberships:
-    title: 'Members'
+    title:          'Members'
     new:
       confirm: 'Added %{full_name} to the unit'
-    edit: 'Change Details'
-    add_new: 'Add Member'
-    update: 'Update Member Details'
-    updated: 'Member details updated'
-    registrations: 'Registrations'
+    edit:           'Change Details'
+    add_new:        'Add Member'
+    update:         'Update Member Details'
+    updated:        'Member details updated'
+    registrations:  'Registrations'
 
   users:
-    youth: 'Youth'
-    adult: 'Adult'
-    type: 'Type'
-    name: 'Name'
+    youth:        'Youth'
+    adult:        'Adult'
+    type:         'Type'
+    name:         'Name'
     rank_or_role: 'Rank or Role'
-    guardians: 'Guardian(s)'
-    permissions: 'Permissions'
+    guardians:    'Guardian(s)'
+    permissions:  'Permissions'
     add_guardian: 'Add Guardian'
 
   ranks:
@@ -121,8 +123,12 @@ en:
     eagle:        'Eagle'
 
   announcements:
-    title:    'Announcements'
+    title:  'Announcements'
 
   requirements:
-    new:      'Add an Event Requirement'
-    title:    'Event Checklist'
+    new:    'Add an Event Requirement'
+    title:  'Event Checklist'
+
+
+  messages:
+    registrants:   'Send a Message'
