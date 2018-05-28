@@ -61,7 +61,8 @@ class MembershipsController < AuthenticatedController
 
   def membership_params
     params.require(:membership).permit(
-      user_attributes: [:id, :rank, :first_name, :last_name, :type, :email, :phone,
+      user_attributes: [:id, :rank, :first_name, :last_name,
+        :type, :email, :phone, :avatar,
         guardeeships_attributes: [:id, :guardian_id, :_destroy]
       ]
     )
