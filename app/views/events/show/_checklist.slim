@@ -1,0 +1,47 @@
+- non_registrants = []
+
+- @current_user.family.each do |user|
+  - if user.is_member_of?(unit: @unit)
+    - registration = @event.event_registrations.find_by(user: user)
+    - if registration.present?
+      .card(style="margin-bottom: 1rem;")
+        .card-header = "#{user.first_name}'s Checklist"
+        .card-body
+          table.table.checklist.table-sm
+            - @event.event_requirements.each do |requirement|
+              - is_complete = requirement.completed_for?(user: user)
+              - if requirement.required_for?(user: user)
+                tr
+                  td = requirement.description
+                  td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-completed' : 'event-requirement-incomplete' }")
+                    - if is_complete
+                      span(data-toggle='tooltip', title=t('event_requirements.completed'))
+                        i.fas.fa-check
+                    - elsif requirement.is_a?(DocumentEventRequirement)
+                      = link_to new_unit_event_event_submission_path(@unit, @event, requirement: requirement, registration: registration), data: { toggle: 'tooltip' }, title: "Click to upload #{ user.first_name }'s #{ requirement.description }" do
+                        i.fas.fa-cloud-upload
+                    - elsif requirement.is_a?(PaymentEventRequirement)
+                      = link_to new_unit_event_event_submission_path(@unit, @event, requirement: requirement, registration: registration), data: { toggle: 'tooltip' }, title: t('registrations.cta_payment') do
+                        i.fal.fa-credit-card
+            tr
+              td Registration
+              td.event-requirement
+                = link_to '#', data: { toggle: 'tooltip' }, title: 'Unregister' do
+                  i.far.fa-times
+    - else
+      - non_registrants << user
+
+- if non_registrants.count.positive?
+  .card
+    .card-header
+      = t('event_registrations.non_registrants')
+    .card-body
+      table.table.checklist.table-sm
+        - non_registrants.each do |user|
+          tr
+            td
+              = user.first_name
+
+            td.event-requirement
+              = link_to '#', data: { toggle: 'tooltip' }, title: 'Register' do
+                i.fal.fa-clipboard-list

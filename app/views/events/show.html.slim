@@ -13,10 +13,15 @@
       = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
 
 - content_for :utilities do
-  = render 'events/checklist'
+  = render 'events/show/checklist'
 
-h3 = t('registrations.title_public')
-= render 'events/roster'
+section#messages
+  h3 = t('messages.title')
+  = render 'events/messages/messages'
+
+section#roster
+  h3 = t('registrations.title_public')
+  = render 'events/roster'
 
 
 javascript:
