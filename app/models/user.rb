@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :event_registrations
   has_many :registered_events, through: :event_registrations, class_name: 'Event'
   has_many :events, through: :units
+  has_one_attached :avatar
 
   #
   # let's pause here for a second. This is complicated.

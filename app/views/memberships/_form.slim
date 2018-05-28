@@ -40,6 +40,10 @@
       = u.label :phone
       = u.phone_field :phone, class: 'form-control'
 
+    #avatar.form-group
+      = u.label :photo
+      = u.file_field :avatar
+
     #rank.youth-only.form-group
       = u.label :rank
       = u.select :rank, @unit.ranks, {}, class: 'form-control'
