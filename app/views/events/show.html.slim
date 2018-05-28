@@ -2,40 +2,30 @@
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
 - crumbtrail @event.name
 
-h1 = @event.name
 
-h3 = t('events.checklist')
-.card
-  table.table
-    tr
-      - (['Member'] + @event.event_requirements.map { |r| r.description } + ['Registration']).each do |caption|
-        th = caption
-
-    - @current_user.family.each do |user|
-        - registration = @event.event_registrations.find_by(user: user)
-
-        tr
-          td = user.first_name
-
-          - if registration.present?
-            - @event.event_requirements.each do |requirement|
-              - submission = requirement.event_submissions.find_by(event_registration_id: registration.id)
-              td(class="event-requirement event-requirement-#{ submission.present? ? 'completed' : 'incomplete' }")
-                i.fas.fa-check
-                / = render partial: 'events/submission_cell', locals: { user: user, event_requirement: requirement }
-            td = link_to 'Unregister', '', class: 'btn btn-outline-secondary btn-sm'
-          - else
-            td = link_to 'Register', '', class: 'btn btn-secondary btn-sm'
-
-h3.inline = t('registrations.title_public')
-span.badge.badge-secondary = "#{ @event.event_registrations.count }"
-
-.card
-  .card-body(style="column-count: 3")
-    ul
-      - @event.event_registrations.each do |registration|
-        li = registration.user.full_name
+- content_for :title do
+  = render 'events/admin' if @current_user_is_admin
+  h1 = @event.name
+  - present @event do |event|
+    p
+      = event.dates
+      | &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+      = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
 
 - content_for :utilities do
-  = render 'events/details'
-  = render 'events/admin' if @current_user_is_admin
+  = render 'events/checklist'
+
+  .card
+    .card-header
+      | Who's Going?
+      | &nbsp;&nbsp;
+      span.badge.badge-primary = "#{ @event.event_registrations.count }"
+
+    .card-body
+      = render 'events/roster'
+
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

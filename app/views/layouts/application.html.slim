@@ -12,9 +12,6 @@ html
   body(class="#{additional_classes}")
     = render partial: 'layouts/header'
 
-    nav
-      = render partial: 'units/nav' if @unit.present?
-
     main
       - if flash[:notice].present? || flash[:alert].present?
         #alerts.row
@@ -27,7 +24,13 @@ html
               .alert.alert.alert-warning
                 = alert
 
-      = yield
+      .row
+        .col-md-12
+          = yield :title
 
-    aside
-      = yield :utilities
+      .row
+        .col-md-8
+          = yield
+
+        .col-md-4
+          = yield :utilities

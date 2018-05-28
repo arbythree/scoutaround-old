@@ -1,11 +1,37 @@
 header#primary
-  .branding
-  .utilities
-    - unless @current_user.blank?
-      .dropdown
-        = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
-        .dropdown-menu
-          = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+  - if @unit.present?
+    nav
+      ul
+        li#nav-item-announcements
+          = link_to '' do
+            span
+              i.fas.fa-broadcast-tower
+            = t('announcements.title')
+
+        li#nav-item-roster
+          = link_to unit_memberships_path(@unit) do
+            span
+              i.fas.fa-users
+            = t('members.roster')
+
+        li#nav-item-events
+          = link_to unit_events_path(@unit) do
+            span
+              i.fas.fa-calendar-alt
+            = t('events.title')
+
+        li#nav-item-events
+          = link_to unit_document_library_items_path(@unit) do
+            span
+              i.fas.fa-file-alt
+            = t('documents.title')
+
+  / .utilities
+  /   - unless @current_user.blank?
+  /     .dropdown
+  /       = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
+  /       .dropdown-menu
+  /         = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

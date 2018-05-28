@@ -1,6 +1,7 @@
-.card
-  .card-header Manage
-  .card-body
-    p = link_to 'Edit Details', edit_unit_event_path(@unit, @event)
-    p = link_to t('events.registrations'), unit_event_event_registrations_path(@unit, @event)
-    p = link_to t('events.add_requirement'), new_unit_event_event_requirement_path(@unit, @event)
+.admin.dropdown
+  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+    i.fas.fa-ellipsis-h
+  .dropdown-menu
+    = link_to 'Edit Details', edit_unit_event_path(@unit, @event), class: 'dropdown-item'
+    = link_to t('events.registrations'), unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item'
+    = link_to t('events.add_requirement'), new_unit_event_event_requirement_path(@unit, @event), class: 'dropdown-item'

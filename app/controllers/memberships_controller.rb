@@ -38,7 +38,6 @@ class MembershipsController < AuthenticatedController
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
       redirect_to unit_membership_path(@unit, @membership)
     else
-      ap @membership.errors
       redirect_to edit_unit_membership_path(@unit, @membership)
     end
   end

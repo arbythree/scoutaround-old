@@ -19,10 +19,11 @@
 @import "bootstrap";
 
 $color_brand: rgb(182, 24, 24);
+$color_background: rgb(235, 233, 232);
 
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
-  background-color: #fbfbfb;
+  background-color: $color_background;
 }
 
 .sidebar {
@@ -55,7 +56,7 @@ h1 {
 
   a {
     display: inline-block;
-    padding: 0.5rem 0;
+    padding: 1rem 0;
   }
 }
 
@@ -83,13 +84,9 @@ a {
 }
 
 header#primary {
-  background-color: #000;
-  color: $white;
+  @extend .container;
+  max-width: 1332px;
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
-
-  a {
-    color: $white;
-  }
 
   .dropdown-menu a {
     color: #333;
@@ -97,8 +94,56 @@ header#primary {
 
   .utilities {
     float: right;
-    margin-right: 105px;
   }
+
+  nav {
+    ul {
+      display: block;
+      margin: 0 auto;
+      padding: 0;
+      display: inline-block;
+      list-style: none;
+    }
+
+    li {
+      display: inline-block;
+    }
+
+    a {
+      color: #333;
+      font-weight: 600;
+      display: inline-block;
+      padding: 1rem;
+      font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+
+      svg {
+        margin-right: 0.3rem;
+      }
+
+      &:hover {
+        text-decoration: none;
+        color: $color_brand;
+      }
+    }
+
+    li:first-child a {
+      padding-left: 0;
+    }
+  }
+}
+
+header#secondary {
+  @extend .container;
+  max-width: 1332px;
+}
+
+main {
+  @extend .container;
+  max-width: 1332px;
+  background: #fff;
+  padding: 3rem 6rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -157,12 +202,8 @@ body.events.index {
 }
 
 td.event-requirement {
-  padding-left: 23px;
-
-  svg {
-    display: none;
-    margin-right: 0.5rem;
-  }
+  text-align: center;
+  width: 2.5rem;
 }
 
 td.event-requirement.event-requirement-completed {
@@ -172,106 +213,15 @@ td.event-requirement.event-requirement-completed {
   }
 }
 
+td.event-requirement.event-requirement-incomplete {
+  svg {
+    color: #aaa;
+  }
+}
+
 .remove_fields {
   float: right;
   padding-top: 0.5rem;
-}
-
-$dim_width_nav: 250px;
-$dim_width_utilities: 300px;
-$dim_height_header_primary: 90px;
-$dim_height_header_secondary: 36px;
-$dim_height_headers: $dim_height_header_primary + $dim_height_header_secondary;
-
-header, nav, main, aside {
-  position: absolute;
-  padding: 30px;
-}
-
-header#primary {
-  height: $dim_height_header_primary;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-header#secondary {
-  top:    $dim_height_header_primary;
-  height: $dim_height_header_secondary;
-  left: 0;
-  right: 0;
-  background: #f8f8f8;
-  border-bottom: 1px solid #e8e8e8;
-  padding: 0 0 0 280px;
-}
-
-nav {
-  width:  $dim_width_nav;
-  top:    $dim_height_headers;
-  bottom: 0px;
-  left: 0;
-}
-
-main {
-  left:   $dim_width_nav;
-  top:    $dim_height_headers;
-  right:  $dim_width_utilities;
-  bottom: 0;
-}
-
-aside {
-  width:  $dim_width_utilities;
-  top:    $dim_height_headers;
-  right: 0;
-  bottom: 0;
-}
-
-aside {
-  padding-top: 105px;
-}
-
-nav {
-  padding-top: 30px;
-}
-
-main {
-  padding-top: 30px;
-
-  h1 {
-    height: 75px;
-  }
-
-  .card {
-    margin-bottom: 30px;
-  }
-}
-
-nav {
-  background: #fff;
-  border-right: 1px solid #d8d8d8;
-
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  a {
-    color: #333;
-    display: block;
-    padding: 1rem 0;
-    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
-
-    span {
-      display: inline-block;
-      width: 1.8rem;
-    }
-
-    &:hover {
-      text-decoration: none;
-      color: $color_brand;
-    }
-  }
 }
 
 aside {
@@ -326,4 +276,59 @@ h3.inline {
 
 .badge {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+}
+
+table.checklist {
+  tr.name {
+    td {
+      border-top-color: #000;
+      border-top-width: 2px;
+    }
+    td.name {
+      font-weight: 600;
+    }
+  }
+}
+
+.card .table {
+  tr:first-child {
+    td {
+      border-top: none;
+    }
+  }
+}
+
+.card-header {
+  background: darken($color_background, 30%);
+  border-color: darken($color_background, 30%);
+  color: #fff;
+  font-weight: 600;
+
+  .badge {
+    background: #fff !important;
+    color: darken($color_background, 50%);
+  }
+}
+
+.admin.dropdown {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+
+  a.glyph {
+    display: inline-block;
+    text-align: center;
+    border: 1px solid darken($color_background, 30%);
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    position: relative;
+
+    svg {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      top: 50%;
+      left: 50%;
+    }
+  }
 }

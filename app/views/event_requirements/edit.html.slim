@@ -2,14 +2,13 @@
 - crumbtrail link_to t('events.title'),        unit_events_path(@unit)
 - crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
 - crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
-- crumbtrail t('event_requirements.new')
+- crumbtrail @event_requirement.description
 
-h1 = @event.name
-h2 = t('event_requirements.new')
+h1 Edit Event Requirement
 
 .row
   .col-md-6
-    = form_for @event_requirement, url: unit_event_event_requirements_path(@unit, @event) do |f|
+    = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
       .form-group
         = f.label :description
         = f.text_field :description, class: 'form-control'
@@ -25,5 +24,10 @@ h2 = t('event_requirements.new')
           = f.label audience.to_sym
 
       .form-group
+        = f.label :document_library_item
+        = f.collection_select :document_library_item_id, @unit.document_library_items, :id, :name, \
+          { prompt: 'Select a document from the library (optional)' }, class: 'form-control'
+
+      .form-group
         = f.hidden_field :type, value: 'DocumentEventRequirement'
-        = f.submit :add, class: 'btn btn-primary'
+        = f.submit :update, class: 'btn btn-primary'

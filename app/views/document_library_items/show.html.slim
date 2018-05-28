@@ -1,0 +1,3 @@
+h1 = @document_library_item.name
+
+= link_to t('documents.download'), rails_blob_path(@document_library_item.document, disposition: 'attachment')

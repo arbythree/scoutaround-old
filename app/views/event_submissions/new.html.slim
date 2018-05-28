@@ -6,7 +6,7 @@
     = form_for @submission, url: unit_event_event_submissions_path(@unit, @event) do |f|
       .form-group
         = f.label :user, t('registrations.registrant')
-        = f.collection_select :event_registration_id, @event.event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+        = f.collection_select :event_registration_id, @visible_event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
         = f.label :item, t('registrations.submission_item')

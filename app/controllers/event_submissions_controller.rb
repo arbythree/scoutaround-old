@@ -1,6 +1,4 @@
-class EventSubmissionsController < AuthenticatedController
-  before_action :find_unit
-  before_action :find_event
+class EventSubmissionsController < EventContextController
   before_action :find_submission, except: [:new, :create, :index]
 
   def index
@@ -23,6 +21,25 @@ class EventSubmissionsController < AuthenticatedController
 
   def new
     @submission = EventSubmission.new
+    @submission.event_requirement_id  = params[:requirement]
+    @submission.event_registration_id = params[:registration]
+
+    # iterate through all event registrations and determine whether current user is allowed to
+    # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
+    # on their own behalf. Guardian can submit on behalf of their guardees. All others are prohibited.
+    # TODO: extract this
+    @visible_event_registrations = []
+    @event.event_registrations.each do |registration|
+      if @current_user_is_admin
+        @visible_event_registrations << registration
+      elsif registration.user == @current_user
+        @visible_event_registrations << registration
+      elsif @current_user.guardees.include? registration.user
+        @visible_event_registrations << registration
+      else
+        # nope
+      end
+    end
   end
 
   def create
@@ -41,14 +58,6 @@ class EventSubmissionsController < AuthenticatedController
 
   private
 
-  def find_unit
-    @unit = @current_user.units.find(params[:unit_id])
-  end
-
-  def find_event
-    @event = @unit.events.find(params[:event_id])
-  end
-
   def find_submission
     @submission = EventSubmission.find(params[:id])
   end
@@ -56,7 +65,7 @@ class EventSubmissionsController < AuthenticatedController
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_requirement_id, :event_registration_id, :attachment)
+      .permit(:event_requirement_id, :event_registration_id, :attachment, :audience)
       .merge({ submitter: @current_user })
   end
 end

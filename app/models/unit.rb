@@ -3,6 +3,7 @@ class Unit < ApplicationRecord
   has_many :event_registrations, through: :events
   has_many :memberships
   has_many :members, through: :memberships, source: 'user'
+  has_many :document_library_items
   validates_presence_of :number, :location
   validates_uniqueness_of :location, scope: :number
 

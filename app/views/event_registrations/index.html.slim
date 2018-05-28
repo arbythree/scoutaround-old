@@ -3,7 +3,13 @@
 - crumbtrail link_to @event.name, unit_event_path(@event.unit, @event)
 - crumbtrail t('registrations.title')
 
-h1 = @event.name
+- content_for :title do
+  h1 = @event.name
+  - present @event do |event|
+    p
+      = event.dates
+      | &nbsp;&nbsp;/&nbsp;&nbsp;
+      = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
 
 h3.inline = I18n.t('registrations.title')
 .badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.completed.count)
@@ -16,6 +22,5 @@ table.table
   = render partial: 'event_registrations/registration', collection: @event.event_registrations
 
 - content_for :utilities do
-  = render partial: 'events/details'
   = render partial: 'event_registrations/admin' if @current_user_is_admin
   = render partial: 'event_registrations/requirements'

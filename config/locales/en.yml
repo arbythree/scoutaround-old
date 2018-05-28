@@ -43,7 +43,7 @@ en:
   update: 'Update'
 
   events:
-    title:            'Events'
+    title:            'Calendar'
     back_to_index:    'Back to Event List'
     add:              'Add Event'
     edit:             'Edit Details'
@@ -68,16 +68,19 @@ en:
     roster: 'Roster'
 
   registrations:
-    title:            'Registrations'
-    title_public:     "Who's Going?"
-    incomplete:       'Incomplete'
-    complete:         'Registered'
-    item:             'Item'
-    registrant:       'Registrant'
-    submission_item:  'Submission Item'
-    add:              'Add Registrants'
-    destroy:          'Unregister'
-    completions:      '%{completion_count} of %{registration_count} completed'
+    title:             'Registrations'
+    title_public:      "Who's Going?"
+    incomplete:        'Incomplete'
+    complete:          'Registered'
+    item:              'Item'
+    registrant:        'Registrant'
+    submission_item:   'Submission Item'
+    add:               'Add Registrants'
+    destroy:           'Unregister'
+    completions:       '%{completion_count} of %{registration_count} completed'
+    submission_due_in: 'Due in %{deictic}'
+    cta_payment:       'Click to pay'
+    cta_document:      "Click to upload %{name}\'s %{document}"
 
   members:
     roster: 'Roster'
@@ -125,10 +128,22 @@ en:
   announcements:
     title:  'Announcements'
 
-  requirements:
-    new:    'Add an Event Requirement'
-    title:  'Event Checklist'
+  event_requirements:
+    new:            'Add an Event Requirement'
+    title:          'Event Checklist'
+    confirm_update: 'Event requirement was updated'
+    confirm_create: 'Added the new requirement to the event'
+    completed:      'Done'
 
+  event_submissions:
+    confirm_create: "%{name}'s %{requirement} was received"
 
   messages:
     registrants:   'Send a Message'
+
+  documents:
+    title:      'Document Library'
+    confirm:    'Document added to library'
+    new:        'Upload a Document'
+    new_cta:    'Upload'
+    download:   'Download'

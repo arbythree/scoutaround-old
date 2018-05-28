@@ -1,8 +1,8 @@
 .card
-  .card-header = t('requirements.title')
+  .card-header = t('event_requirements.title')
   .card-body
     ul
       - @event.event_requirements.each do |requirement|
-        li = requirement.description
+        li = link_to requirement.description, edit_unit_event_event_requirement_path(@unit, @event, requirement)
 
     p = link_to t('events.add_requirement'), new_unit_event_event_requirement_path(@unit, @event), class: 'btn btn-outline-secondary'
