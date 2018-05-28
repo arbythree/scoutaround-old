@@ -179,7 +179,7 @@ label {
   }
 
   @each $rank in scout, tenderfoot, second_class, first_class, star, life, eagle {
-    .rank_#{$rank} .rank {
+    .youth.rank_#{$rank} .rank {
       background-image: image-url("bsa/rank_#{$rank}");
     }
   }

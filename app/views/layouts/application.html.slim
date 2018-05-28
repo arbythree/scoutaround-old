@@ -29,8 +29,14 @@ html
           br
 
       .row
-        .col-md-8
-          = yield
 
-        .col-md-4
-          = yield :utilities
+        - if content_for?(:utilities)
+          .col-md-8
+            = yield
+
+          .col-md-4
+            = yield :utilities
+
+        - else
+          .col-md-12
+            = yield
