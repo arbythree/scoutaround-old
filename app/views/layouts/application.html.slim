@@ -14,19 +14,19 @@ html
 
     main
       - if flash[:notice].present? || flash[:alert].present?
-        #alerts.row
-          .col-md-2
-          .col-md-8
-            - if flash[:notice]
-              .notice.alert.alert-success
-                = notice
-            - if flash[:alert]
-              .alert.alert.alert-warning
-                = alert
+        #alerts
+          - if flash[:notice]
+            .notice.alert.alert-success
+              = notice
+          - if flash[:alert]
+            .alert.alert.alert-warning
+              = alert
 
       .row
         .col-md-12
           = yield :title
+          br
+          br
 
       .row
         .col-md-8

@@ -1,7 +1,8 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail t('events.title')
 
-h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
+- content_for :title
+  h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
 
 table.table
   = render partial: 'events/event', collection: @events

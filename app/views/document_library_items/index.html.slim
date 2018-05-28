@@ -1,7 +1,16 @@
-h1 = t('documents.title')
-ul
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit)
+- crumbtrail t('documents.title')
+
+- content_for :title do
+  h1 = t('documents.title')
+
+ul.documents
   - @document_library_items.each do |document_library_item|
-    li = document_library_item.name
+    li
+      = link_to rails_blob_path(document_library_item.document) do
+        = image_tag document_library_item.document.preview(resize: '200x200')
+        .name
+          = document_library_item.name
 
 - content_for :utilities do
   = render 'document_library_items/admin' if @current_user_is_admin

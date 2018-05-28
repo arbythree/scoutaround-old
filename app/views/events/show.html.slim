@@ -15,14 +15,8 @@
 - content_for :utilities do
   = render 'events/checklist'
 
-  .card
-    .card-header
-      | Who's Going?
-      | &nbsp;&nbsp;
-      span.badge.badge-primary = "#{ @event.event_registrations.count }"
-
-    .card-body
-      = render 'events/roster'
+h3 = t('registrations.title_public')
+= render 'events/roster'
 
 
 javascript:

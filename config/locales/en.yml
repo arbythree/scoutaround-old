@@ -46,7 +46,7 @@ en:
     title:            'Calendar'
     back_to_index:    'Back to Event List'
     add:              'Add Event'
-    edit:             'Edit Details'
+    edit:             'Edit Event Details'
     info:             'Manage Event'
     confirm:          'Added event to unit calendar'
     add_requirement:  'Add Requirement'

@@ -1,7 +1,9 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail t('members.roster')
 
-h1 = UnitPresenter.unit_display_name(@unit)
+- content_for :title do
+  h1 = UnitPresenter.unit_display_name(@unit)
+
 = render 'memberships/index/roster'
 
 - content_for :utilities

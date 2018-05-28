@@ -15,7 +15,6 @@
  *= require bootstrap-datepicker
  */
 
-
 @import "bootstrap";
 
 $color_brand: rgb(182, 24, 24);
@@ -329,6 +328,25 @@ table.checklist {
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
+    }
+  }
+}
+
+ul.documents {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin: 1rem;
+    width: 25%;
+    float: left;
+    // text-align: center;
+
+    img {
+      border: 1px solid #ddd;
+      box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
     }
   }
 }
