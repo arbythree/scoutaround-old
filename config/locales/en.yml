@@ -30,17 +30,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-  cancel: 'Cancel'
-  or: 'or'
-  action: 'Action'
-  sign_out: 'Sign Out'
-  view: 'View'
-  search: 'Search'
-  search_action: 'Go'
+  cancel:               'Cancel'
+  or:                   'or'
+  action:               'Action'
+  sign_out:             'Sign Out'
+  view:                 'View'
+  search:               'Search'
+  search_action:        'Go'
   crumbtrail_separator: ' / '
-  hello: 'Hello, %{name}'
-  update: 'Update'
+  hello:                'Hello, %{name}'
+  update:               'Update'
+  time_ago:             '%{deictic} ago'
 
   events:
     title:            'Calendar'
@@ -52,6 +52,7 @@ en:
     add_requirement:  'Add Requirement'
     registrations:    'Registrations'
     checklist:        'Your Checklist'
+    administration:   'Event Administration'
 
   submissions:
     upload:               'Upload a Submission'
@@ -81,6 +82,9 @@ en:
     submission_due_in: 'Due in %{deictic}'
     cta_payment:       'Click to pay'
     cta_document:      "Click to upload %{name}\'s %{document}"
+
+  event_registrations:
+    non_registrants:    'Not Registered'
 
   members:
     roster: 'Roster'
@@ -147,3 +151,8 @@ en:
     new:        'Upload a Document'
     new_cta:    'Upload'
     download:   'Download'
+
+  messages:
+    title:       'Messages'
+    blank:       "There aren't any messages here yet."
+    placeholder: 'Type a message'

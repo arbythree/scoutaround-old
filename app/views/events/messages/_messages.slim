@@ -1,0 +1,5 @@
+#message-list
+  = render partial: 'events/messages/message_list'
+
+= render partial: 'events/messages/new'
+= render partial: 'events/messages/blank' if @event.messages.count.zero?

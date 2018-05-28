@@ -26,12 +26,12 @@ header#primary
               i.fas.fa-file-alt
             = t('documents.title')
 
-  / .utilities
-  /   - unless @current_user.blank?
-  /     .dropdown
-  /       = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
-  /       .dropdown-menu
-  /         = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+      .utilities
+        - if @current_user.present?
+          .dropdown
+            = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
+            .dropdown-menu
+              = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

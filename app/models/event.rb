@@ -5,8 +5,9 @@ class Event < ApplicationRecord
   has_many :registrants, through: :event_registrations, source: :user
   has_many :event_submissions, through: :event_registrations
   has_many :event_requirements
-  has_many :attachments, as: :attachable
+  has_many :messages, as: :messagable
   has_many :event_submissions, through: :event_registrations
+
   validates_presence_of :name
   scope :future, -> { where('ends_at > ?', Date.today) }
 

@@ -1,6 +1,7 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    i.fas.fa-ellipsis-h
+    span(data-toggle="tooltip" title="#{t('events.administration')}")
+      i.fas.fa-ellipsis-h
   .dropdown-menu.dropdown-menu-right
     = link_to t('events.edit'), edit_unit_event_path(@unit, @event), class: 'dropdown-item'
     = link_to t('events.registrations'), unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item'
