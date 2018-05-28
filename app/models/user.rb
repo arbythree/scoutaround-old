@@ -28,6 +28,14 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def short_name
+    "#{first_name} #{last_name[0]}"
+  end
+
+  def initials
+    "#{first_name[0]} #{last_name[0]}"
+  end
+
   def multiple_units?
     units.count > 1
   end

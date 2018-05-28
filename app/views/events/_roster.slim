@@ -1,3 +1,5 @@
 ul.roster
   - @event.event_registrations.each do |registration|
-    li = registration.user.full_name
+    li(class="roster-variation-#{ Digest::SHA256.hexdigest(registration.user.short_name).to_i % 30 }")
+      .avatar(data-toggle="tooltip" title="#{ registration.user.short_name }")
+        .name = "#{ registration.user.initials }"

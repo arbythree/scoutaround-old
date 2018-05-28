@@ -350,3 +350,50 @@ ul.documents {
     }
   }
 }
+
+ul.roster {
+  list-style: none;
+  padding: 0;
+
+  li {
+    display: inline-block;
+    margin: 0.5rem;
+    width: 90px;
+    height: 90px;
+    float: left;
+
+    .avatar {
+      width: 100%;
+      padding-top: 100%;
+      border-radius: 50%;
+      background-color: #ddd;
+      position: relative;
+      text-align: center;
+    }
+
+    .name {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    img {
+      border: 1px solid #ddd;
+      box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+$colors: (
+  'PALEGREEN', 'PALETURQUOISE', 'KHAKI', 'DARKKHAKI', 'PLUM', 'CORNFLOWERBLUE', 'BLANCHEDALMOND',
+  'DEEPSKYBLUE', 'SKYBLUE', 'LIGHTBLUE', 'LIGHTSTEELBLUE', 'LIGHTGREEN', 'THISTLE', 'LIGHTSALMON',
+  'ANTIQUEWHITE', 'LAVENDERBLUSH', 'MISTYROSE', 'WHEAT', 'BISQUE', 'AQUAMARINE', 'MEDIUMTURQUOISE'
+);
+
+@for $i from 1 through length($colors) {
+  li.roster-variation-#{$i} .avatar { background-color: #{nth($colors, $i)} !important; }
+}
