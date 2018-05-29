@@ -1,4 +1,5 @@
 tr
-  td = link_to event.name, unit_event_path(event.unit, event)
-  - present event do |event|
-    td = event.dates
+  td.name = link_to event.name, unit_event_path(event.unit, event)
+  - present event do |e|
+    td.dates     = e.dates
+    td.attendees = event.event_registrations.count

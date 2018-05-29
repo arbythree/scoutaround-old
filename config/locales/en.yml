@@ -41,6 +41,7 @@ en:
   hello:                'Hello, %{name}'
   update:               'Update'
   time_ago:             '%{deictic} ago'
+  utilities:            'Tools'
 
   events:
     title:            'Calendar'
@@ -53,6 +54,17 @@ en:
     registrations:    'Registrations'
     checklist:        'Your Checklist'
     administration:   'Event Administration'
+    feed:             'Subscribe to Calendar'
+    table:
+      name:           'Name'
+      dates:          'Dates'
+      attendees:      'Attendees'
+    view:
+      calendar:       'Switch to Calendar View'
+      list:           'Switch to List View'
+    delete:           'Cancel'
+    confirmations:
+      cancel:         'Event was removed from unit calendar'
 
   submissions:
     upload:               'Upload a Submission'
@@ -82,9 +94,15 @@ en:
     submission_due_in: 'Due in %{deictic}'
     cta_payment:       'Click to pay'
     cta_document:      "Click to upload %{name}\'s %{document}"
+    ctas:
+      register:        'Register'
 
   event_registrations:
     non_registrants:    'Not Registered'
+    success:
+      created:
+        single:         'Registered %{user_name} for %{event_name}'
+        bulk:           'Registered %{count} for the event'
 
   members:
     roster: 'Roster'
@@ -156,3 +174,8 @@ en:
     title:       'Messages'
     blank:       "There aren't any messages here yet."
     placeholder: 'Type a message'
+
+  calendar:
+    event:
+      no_family_attendees: 'No one from your family is registered'
+      attendees: 'Registered: %{names}'
