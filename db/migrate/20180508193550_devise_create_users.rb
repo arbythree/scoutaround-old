@@ -9,6 +9,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.1]
       t.string :phone
       t.boolean :share_email
       t.boolean :share_phone
+      t.boolean :active, default: true
 
       ## Database authenticatable
       t.string :email, default: ""

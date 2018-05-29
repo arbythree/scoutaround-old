@@ -113,52 +113,12 @@ EventSubmission.where(
   submitter: ray
 ).first_or_create
 
-# ranks
-scout         = Rank.where(name: 'Scout').first_or_create
-tenderfoot    = Rank.where(name: 'Tenderfoot').first_or_create
-second_class  = Rank.where(name: 'Second Class').first_or_create
-first_class   = Rank.where(name: 'First Class').first_or_create
-star          = Rank.where(name: 'Star').first_or_create
-life          = Rank.where(name: 'Life').first_or_create
-eagle         = Rank.where(name: 'Eagle').first_or_create
-
-# required merit badges
-
-required_merit_badges_names = [
+# merit badges
+merit_badge_names = [
   'Personal Management', 'Swimming', 'Emrgency Preparedness', 'Personal Fitness', 'First Aid',
   'Citizenship in the Community', 'Citizenship in the Nation', 'Citizenship in the World',
   'Lifesaving', 'Camping', 'Communication', 'Cooking', 'Cycling', 'Environmental Science',
-  'Family Life', 'Hiking', 'Sustainability'
-]
-
-required_merit_badges_names.each do |name|
-  badge = MeritBadge.where(program_code: 'bsa', name: name).first_or_create
-  AchievementRequirement.where(achievable: eagle, required: badge).first_or_create
-end
-
-# tenderfoot requirements
-TenureRequirement.where(achievable: tenderfoot, parameter: '3.months').first_or_create
-AchievementRequirement.where(achievable: tenderfoot, required: scout).first_or_create
-
-# second class requirements
-AchievementRequirement.where(achievable: second_class, required: tenderfoot).first_or_create
-
-# first class requirements
-AchievementRequirement.where(achievable: first_class, required: second_class).first_or_create
-AchievementRequirement.where(achievable: first_class, required: first_aid).first_or_create
-
-# star requirements
-AchievementRequirement.where(achievable: star, required: first_class).first_or_create
-
-# life requirements
-AchievementRequirement.where(achievable: life, required: star).first_or_create
-
-# eagle requirements
-TenureRequirement.where(achievable: eagle, parameter: '6.months').first_or_create
-
-
-# all other merit badges
-merit_badge_names = [
+  'Family Life', 'Hiking', 'Sustainability',  
   'American Business', 'American Cultures', 'American Heritage', 'American Labor', 'Animal Science',
   'Animation', 'Archaeology', 'Archery', 'Architecture', 'Art', 'Astronomy', 'Athletics', 'Automotive Maintenance',
   'Aviation', 'Backpacking', 'Basketry', 'Bird Study', 'Bugling', 'Canoeing', 'Chemistry', 'Chess',
@@ -167,7 +127,7 @@ merit_badge_names = [
   'Energy', 'Engineering', 'Entrepreneurship', 'Exploration', 'Farm Mechanics', 'Fire Safety', 'Fish and Wildlife Management',
   'Fishing', 'Fly Fishing', 'Forestry', 'Game Design', 'Gardening', 'Geneology', 'Geocaching', 'Geology', 'Golf',
   'Graphic Arts', 'Home Repairs', 'Horsemanship', 'Indian Lore', 'Insect Study', 'Inventing', 'Journalism', 'Kayaking',
-  'Landscape Architecture', 'Law', 'Leatherworking', 'Mammal Study', 'Medicine', 'Metalwork', 'Mining in Society'
+  'Landscape Architecture', 'Law', 'Leatherworking', 'Mammal Study', 'Medicine', 'Metalwork', 'Mining in Society',
   'Model Design and Building', 'Motorboating', 'Moviemaking', 'Music', 'Nature', 'Nuclear Science', 'Oceanography',
   'Orienteering', 'Painting', 'Pets', 'Photography', 'Pioneering', 'Plant Science', 'Plumbing', 'Pottery', 'Programming',
   'Public Health', 'Public Speaking', 'Pulp and Paper', 'Radio', 'Railroading', 'Reading', 'Reptile and Amphibian Study',
@@ -181,3 +141,35 @@ merit_badge_names = [
 merit_badge_names.each do |name|
   MeritBadge.where(program_code: 'bsa', name: name).first_or_create
 end
+
+# ranks
+scout         = Rank.where(name: 'Scout').first_or_create
+tenderfoot    = Rank.where(name: 'Tenderfoot').first_or_create
+second_class  = Rank.where(name: 'Second Class').first_or_create
+first_class   = Rank.where(name: 'First Class').first_or_create
+star          = Rank.where(name: 'Star').first_or_create
+life          = Rank.where(name: 'Life').first_or_create
+eagle         = Rank.where(name: 'Eagle').first_or_create
+
+# tenderfoot requirements
+tenderfoot_tenure = Tenure.where(parameter: '3.months', precursor: scout).first_or_create
+Requirement.create(achievable: tenderfoot, required: tenderfoot_tenure)
+
+# eagle requirements
+Tenure.where(achievable: eagle, parameter: '6.months', precursor: life).first_or_create
+
+# earn one of the following two badges:
+green_merit_badge_option = OptionSetRequirement.create(achievable: eagle)
+RequirementOption.create(requirement: green_merit_badge_option, required: MeritBadge.find_by(name: 'Sustainability'))
+RequirementOption.create(requirement: green_merit_badge_option, required: MeritBadge.find_by(name: 'Environmental Science'))
+
+# earn one of the following two badges:
+preparedness_merit_badge_option = OptionSetRequirement.create(achievable: eagle)
+RequirementOption.create(requirement: preparedness_merit_badge_option, required: MeritBadge.find_by(name: 'Emergency Preparedness'))
+RequirementOption.create(requirement: preparedness_merit_badge_option, required: MeritBadge.find_by(name: 'Lifesaving'))
+
+# earn one of the following three badges:
+athletic_merit_badge_option = OptionSetRequirement.create(achievable: eagle)
+RequirementOption.create(achievable: preparedness_merit_badge_option, required: MeritBadge.find_by(name: 'Swimming'))
+RequirementOption.create(achievable: preparedness_merit_badge_option, required: MeritBadge.find_by(name: 'Cycling'))
+RequirementOption.create(achievable: preparedness_merit_badge_option, required: MeritBadge.find_by(name: 'Personal Fitness'))

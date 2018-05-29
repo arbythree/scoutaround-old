@@ -1,0 +1,2 @@
+class RequirementOption < Requirement
+end

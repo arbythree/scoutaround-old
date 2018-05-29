@@ -10,10 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_28_170535) do
+ActiveRecord::Schema.define(version: 2018_05_29_180835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievables", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.string "program_code"
+    t.integer "achievable_id"
+    t.integer "precursor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "achievable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -109,6 +126,18 @@ ActiveRecord::Schema.define(version: 2018_05_28_170535) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "requirements", force: :cascade do |t|
+    t.string "type"
+    t.string "description"
+    t.integer "achievable_id"
+    t.integer "required_id"
+    t.string "parameter"
+    t.string "program_code"
+    t.integer "precursor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "units", force: :cascade do |t|
     t.string "type"
     t.string "number"
@@ -125,6 +154,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_170535) do
     t.string "phone"
     t.boolean "share_email"
     t.boolean "share_phone"
+    t.boolean "active", default: true
     t.string "email", default: ""
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"
