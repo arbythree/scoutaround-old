@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_170535) do
   create_table "event_registrations", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
+    t.boolean "attended"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

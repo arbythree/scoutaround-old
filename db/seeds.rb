@@ -123,14 +123,18 @@ life          = Rank.where(name: 'Life').first_or_create
 eagle         = Rank.where(name: 'Eagle').first_or_create
 
 # required merit badges
-personal_management     = MeritBadge.where(program_code: 'bsa', name: 'Personal Management').first_or_create
-swimming                = MeritBadge.where(program_code: 'bsa', name: 'Swimming').first_or_create
-emergency_preparedness  = MeritBadge.where(program_code: 'bsa', name: 'Emergency Preparedness').first_or_create
-first_aid               = MeritBadge.where(program_code: 'bsa', name: 'First Aid').first_or_create
-citizenship_community   = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Community').first_or_create
-citizenship_nation      = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Nation').first_or_create
-citizenship_world       = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the World').first_or_create
-lifesaving              = MeritBadge.where(program_code: 'bsa', name: 'Lifesaving').first_or_create
+
+required_merit_badges_names = [
+  'Personal Management', 'Swimming', 'Emrgency Preparedness', 'Personal Fitness', 'First Aid',
+  'Citizenship in the Community', 'Citizenship in the Nation', 'Citizenship in the World',
+  'Lifesaving', 'Camping', 'Communication', 'Cooking', 'Cycling', 'Environmental Science',
+  'Family Life', 'Hiking', 'Sustainability'
+]
+
+required_merit_badges_names.each do |name|
+  badge = MeritBadge.where(program_code: 'bsa', name: name).first_or_create
+  AchievementRequirement.where(achievable: eagle, required: badge).first_or_create
+end
 
 # tenderfoot requirements
 TenureRequirement.where(achievable: tenderfoot, parameter: '3.months').first_or_create
@@ -151,12 +155,29 @@ AchievementRequirement.where(achievable: life, required: star).first_or_create
 
 # eagle requirements
 TenureRequirement.where(achievable: eagle, parameter: '6.months').first_or_create
-AchievementRequirement.where(achievable: eagle, required: life).first_or_create
-AchievementRequirement.where(achievable: eagle, required: personal_management).first_or_create
-AchievementRequirement.where(achievable: eagle, required: swimming).first_or_create
-AchievementRequirement.where(achievable: eagle, required: emergency_preparedness).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_community).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_nation).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_world).first_or_create
+
 
 # all other merit badges
+merit_badge_names = [
+  'American Business', 'American Cultures', 'American Heritage', 'American Labor', 'Animal Science',
+  'Animation', 'Archaeology', 'Archery', 'Architecture', 'Art', 'Astronomy', 'Athletics', 'Automotive Maintenance',
+  'Aviation', 'Backpacking', 'Basketry', 'Bird Study', 'Bugling', 'Canoeing', 'Chemistry', 'Chess',
+  'Climbing', 'Coin Collecting', 'Collections', 'Composite Materials', 'Crime Prevention', 'Dentistry',
+  'Digital Technology', 'Disabilities Awareness', 'Dog Care', 'Drafting', 'Electricity', 'Electronics',
+  'Energy', 'Engineering', 'Entrepreneurship', 'Exploration', 'Farm Mechanics', 'Fire Safety', 'Fish and Wildlife Management',
+  'Fishing', 'Fly Fishing', 'Forestry', 'Game Design', 'Gardening', 'Geneology', 'Geocaching', 'Geology', 'Golf',
+  'Graphic Arts', 'Home Repairs', 'Horsemanship', 'Indian Lore', 'Insect Study', 'Inventing', 'Journalism', 'Kayaking',
+  'Landscape Architecture', 'Law', 'Leatherworking', 'Mammal Study', 'Medicine', 'Metalwork', 'Mining in Society'
+  'Model Design and Building', 'Motorboating', 'Moviemaking', 'Music', 'Nature', 'Nuclear Science', 'Oceanography',
+  'Orienteering', 'Painting', 'Pets', 'Photography', 'Pioneering', 'Plant Science', 'Plumbing', 'Pottery', 'Programming',
+  'Public Health', 'Public Speaking', 'Pulp and Paper', 'Radio', 'Railroading', 'Reading', 'Reptile and Amphibian Study',
+  'Rifle Shooting', 'Robotics', 'Rowing', 'Safety', 'Salesmanship', 'Scholarship', 'Scouting Heritage', 'Scuba Diving',
+  'Sculpture', 'Search & Rescue', 'Shotgun Shooting', 'Signals, Signs, and Codes', 'Skating', 'Small-Boat Sailing',
+  'Snow Sports', 'Soil and Water Conservation', 'Space Exploration', 'Sports', 'Stamp Collecting', 'Surveying',
+  'Textile', 'Theater', 'Traffic Safety', 'Truck Transportation', 'Veterinary Medicine', 'Water Sports', 'Weather',
+  'Welding', 'Whitewater', 'Wilderness Survival', 'Wood Carving', 'Woodwork'
+]
+
+merit_badge_names.each do |name|
+  MeritBadge.where(program_code: 'bsa', name: name).first_or_create
+end
