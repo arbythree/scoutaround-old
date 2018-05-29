@@ -7,6 +7,20 @@ class EventsController < UnitContextController
 
   def index
     @events = @unit.present? ? @unit.events.future : @current_user.events.future
+
+    # this is bound to be inefficient, but let's get it working first
+    if params[:filter] == 'registered'
+      @events = @events.reject do |event|
+        family_registrants = []
+
+        @current_user.family.each do |user|
+          family_registrants << user if event.registered_for?(user: user)
+        end
+
+        family_registrants.count.zero?
+      end
+    end
+
     respond_to do |format|
       format.html
       format.ics { render layout: false }

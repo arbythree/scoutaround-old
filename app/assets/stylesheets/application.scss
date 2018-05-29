@@ -528,6 +528,11 @@ table.calendar {
       display: none;
     }
 
+    &.attending {
+      background-color: lighten($color_brand, 0%);
+      color: #fff;
+    }
+
     &.start {
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;

@@ -62,6 +62,8 @@ en:
     view:
       calendar:       'Switch to Calendar View'
       list:           'Switch to List View'
+    filters:
+      registered:     'Only showing events you or your family are registered for. Some events may be hidden.'
     delete:           'Cancel'
     confirmations:
       cancel:         'Event was removed from unit calendar'

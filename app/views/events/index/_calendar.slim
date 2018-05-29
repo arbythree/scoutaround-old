@@ -12,9 +12,14 @@
 
   h3 = current_date.strftime('%B %Y')
   p
-    = link_to previous_month_date.strftime('%B'), unit_events_path(@unit, view: 'calendar', year: previous_month_date.year, month: previous_month_date.month)
+    = link_to previous_month_date.strftime('%B'), unit_events_path(@unit, view: 'calendar', year: previous_month_date.year, month: previous_month_date.month, filter: params[:filter])
     | &nbsp;&nbsp;/&nbsp;&nbsp;
-    = link_to next_month_date.strftime('%B'), unit_events_path(@unit, view: 'calendar', year: next_month_date.year, month: next_month_date.month)
+    = link_to next_month_date.strftime('%B'), unit_events_path(@unit, view: 'calendar', year: next_month_date.year, month: next_month_date.month, filter: params[:filter])
+
+  .alert.alert-warning
+    i.fa-exclamation-triangle.fas
+    | &nbsp;
+    = t('events.filters.registered')
 
   table.table.calendar
     tr
@@ -48,9 +53,6 @@
                 span = current_date.day
 
             - today_events.each do |event|
-              - puts(event.starts_at.to_date)
-              - puts(current_date)
-              - puts(event.starts_at.to_date - current_date.to_date)
               - classes = ['event']
               - classes << 'start' if current_date.year == event.starts_at.year && current_date.month == event.starts_at.month && current_date.day == event.starts_at.day || current_date.wday == first_day_of_week
               - classes << 'ends'  if current_date.year == event.ends_at.year && current_date.month == event.ends_at.month && current_date.day == event.ends_at.day || current_date.wday == last_day_of_week
@@ -61,6 +63,8 @@
 
               - registrant_names = family_registrants.map{ |u| u.first_name }.join(', ')
               - title = family_registrants.count.zero? ? t('calendar.event.no_family_attendees') : t('calendar.event.attendees', names: registrant_names)
+
+              - classes << 'attending' if family_registrants.count.positive?
 
               / render the event link
               = link_to unit_event_path(@unit, event), class: classes.join(' '), data: { toggle: 'tooltip' }, title: title do
