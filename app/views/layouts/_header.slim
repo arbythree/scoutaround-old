@@ -29,7 +29,11 @@ header#primary
       .utilities
         - if @current_user.present?
           .dropdown
-            = link_to t('hello', name: @current_user.first_name), '#', data: {toggle: 'dropdown'}
+            = link_to '#', data: {toggle: 'dropdown'} do
+              = t('hello', name: @current_user.first_name)
+              | &nbsp;
+              i.fa-chevron-down.fas
+
             .dropdown-menu
               = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
