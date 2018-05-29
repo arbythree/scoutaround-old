@@ -28,7 +28,6 @@ class EventsController < UnitContextController
   end
 
   def show
-    ap @event
   end
 
   def edit
