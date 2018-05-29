@@ -1,0 +1,2 @@
+class AchievementRequirement < Requirement
+end

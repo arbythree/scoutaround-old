@@ -112,3 +112,51 @@ EventSubmission.where(
   event_registration: ray_registration,
   submitter: ray
 ).first_or_create
+
+# ranks
+scout         = Rank.where(name: 'Scout').first_or_create
+tenderfoot    = Rank.where(name: 'Tenderfoot').first_or_create
+second_class  = Rank.where(name: 'Second Class').first_or_create
+first_class   = Rank.where(name: 'First Class').first_or_create
+star          = Rank.where(name: 'Star').first_or_create
+life          = Rank.where(name: 'Life').first_or_create
+eagle         = Rank.where(name: 'Eagle').first_or_create
+
+# required merit badges
+personal_management     = MeritBadge.where(program_code: 'bsa', name: 'Personal Management').first_or_create
+swimming                = MeritBadge.where(program_code: 'bsa', name: 'Swimming').first_or_create
+emergency_preparedness  = MeritBadge.where(program_code: 'bsa', name: 'Emergency Preparedness').first_or_create
+first_aid               = MeritBadge.where(program_code: 'bsa', name: 'First Aid').first_or_create
+citizenship_community   = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Community').first_or_create
+citizenship_nation      = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Nation').first_or_create
+citizenship_world       = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the World').first_or_create
+lifesaving              = MeritBadge.where(program_code: 'bsa', name: 'Lifesaving').first_or_create
+
+# tenderfoot requirements
+TenureRequirement.where(achievable: tenderfoot, parameter: '3.months').first_or_create
+AchievementRequirement.where(achievable: tenderfoot, required: scout).first_or_create
+
+# second class requirements
+AchievementRequirement.where(achievable: second_class, required: tenderfoot).first_or_create
+
+# first class requirements
+AchievementRequirement.where(achievable: first_class, required: second_class).first_or_create
+AchievementRequirement.where(achievable: first_class, required: first_aid).first_or_create
+
+# star requirements
+AchievementRequirement.where(achievable: star, required: first_class).first_or_create
+
+# life requirements
+AchievementRequirement.where(achievable: life, required: star).first_or_create
+
+# eagle requirements
+TenureRequirement.where(achievable: eagle, parameter: '6.months').first_or_create
+AchievementRequirement.where(achievable: eagle, required: life).first_or_create
+AchievementRequirement.where(achievable: eagle, required: personal_management).first_or_create
+AchievementRequirement.where(achievable: eagle, required: swimming).first_or_create
+AchievementRequirement.where(achievable: eagle, required: emergency_preparedness).first_or_create
+AchievementRequirement.where(achievable: eagle, required: citizenship_community).first_or_create
+AchievementRequirement.where(achievable: eagle, required: citizenship_nation).first_or_create
+AchievementRequirement.where(achievable: eagle, required: citizenship_world).first_or_create
+
+# all other merit badges

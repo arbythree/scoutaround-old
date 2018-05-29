@@ -1,0 +1,2 @@
+class TenureRequirement < Requirement
+end
