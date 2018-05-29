@@ -1,8 +1,18 @@
-.card
-  .card-header
-    = t('events.info')
-  .card-body
-    p = link_to t('events.edit'),           edit_unit_event_path(@unit, @event)
-    p = link_to t('submissions.upload'),    new_unit_event_event_submission_path(@unit, @event)
-    p = link_to t('registrations.add'),     new_unit_event_event_registration_path(@unit, @event)
-    p = link_to t('messages.registrants'),  new_unit_event_message_path(@unit, @event)
+/ .card
+/   .card-header
+/     = t('events.info')
+/   .card-body
+/     p = link_to t('events.edit'),           edit_unit_event_path(@unit, @event)
+/     p = link_to t('submissions.upload'),    new_unit_event_event_submission_path(@unit, @event)
+/     p = link_to t('registrations.add'),     new_unit_event_event_registration_path(@unit, @event)
+/     p = link_to t('messages.registrants'),  new_unit_event_message_path(@unit, @event)
+
+
+.admin.dropdown
+  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+    span(data-toggle="tooltip" title="#{t('events.administration')}")
+      i.fas.fa-ellipsis-h
+  .dropdown-menu.dropdown-menu-right
+    = link_to t('events.edit'),           edit_unit_event_path(@unit, @event), class: 'dropdown-item'
+    = link_to t('submissions.upload'),    new_unit_event_event_submission_path(@unit, @event), class: 'dropdown-item'
+    = link_to t('registrations.add'),     new_unit_event_event_registration_path(@unit, @event), class: 'dropdown-item'

@@ -1,5 +1,4 @@
-class MembershipsController < AuthenticatedController
-  before_action :find_unit
+class MembershipsController < UnitContextController
   before_action :find_member, except: [:index, :new, :create]
 
   def index
@@ -49,10 +48,6 @@ class MembershipsController < AuthenticatedController
   end
 
   private
-
-  def find_unit
-    @unit = @current_user.units.find(params[:unit_id])
-  end
 
   def find_member
     @membership = @unit.memberships.includes(:user).find(params[:id])

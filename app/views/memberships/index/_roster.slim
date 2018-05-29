@@ -6,16 +6,24 @@
 
   table.table#names-table
     tr
-      th = t('people.type')
       th = t('people.name')
+      th = t('people.type')
+      th = t('people.phone')
+      th = t('people.email')
       th = t('people.rank_or_role')
 
     - @memberships.each do |membership|
       - present membership.user do |member|
         tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member.rank&.underscore&.downcase}")
-          td.type = member.type
-          td.name = link_to member.display_name, unit_membership_path(id: membership.id)
-          td.rank = member.rank
+          td.name
+            = link_to unit_membership_path(id: membership.id) do
+              strong = member.user.first_name
+              | &nbsp;
+              = member.user.last_name
+          td.type  = member.type
+          td.phone = member.user.phone
+          td.email = member.user.email unless member.user.anonymous_email?
+          td.rank  = member.rank if member.type == 'Youth'
 
 javascript:
   // search functionality

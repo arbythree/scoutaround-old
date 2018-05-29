@@ -1,0 +1,11 @@
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+VERSION:2.0
+PRODID:-//UserCalendar//EN
+X-WR-CALNAME:Name Of Website
+CALSCALE:GREGORIAN
+
+<%= render partial: 'events/calendar/event', collection: @events %>
+
+END:VCALENDAR
+

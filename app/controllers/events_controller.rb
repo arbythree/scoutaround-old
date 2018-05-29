@@ -7,9 +7,28 @@ class EventsController < UnitContextController
 
   def index
     @events = @unit.present? ? @unit.events.future : @current_user.events.future
+
+    # this is bound to be inefficient, but let's get it working first
+    if params[:filter] == 'registered'
+      @events = @events.reject do |event|
+        family_registrants = []
+
+        @current_user.family.each do |user|
+          family_registrants << user if event.registered_for?(user: user)
+        end
+
+        family_registrants.count.zero?
+      end
+    end
+
+    respond_to do |format|
+      format.html
+      format.ics { render layout: false }
+    end
   end
 
   def show
+    ap @event
   end
 
   def edit
@@ -37,6 +56,14 @@ class EventsController < UnitContextController
       redirect_to edit_unit_event_path(@unit, @event)
     end
   end
+
+  def destroy
+    @event.destroy
+    flash[:notice] = t('events.confirmations.cancel')
+    redirect_to unit_events_path(@unit)
+  end
+
+  private
 
   def find_event
     @event = @current_user.events.find(params[:id] || params[:event_id])

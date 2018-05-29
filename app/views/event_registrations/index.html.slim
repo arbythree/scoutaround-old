@@ -4,7 +4,9 @@
 - crumbtrail t('registrations.title')
 
 - content_for :title do
+
   h1 = @event.name
+  = render partial: 'event_registrations/admin' if @current_user_is_admin
   - present @event do |event|
     p
       = event.dates
@@ -22,5 +24,4 @@ table.table
   = render partial: 'event_registrations/registration', collection: @event.event_registrations
 
 - content_for :utilities do
-  = render partial: 'event_registrations/admin' if @current_user_is_admin
   = render partial: 'event_registrations/requirements'

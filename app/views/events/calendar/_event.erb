@@ -1,0 +1,7 @@
+BEGIN:VEVENT
+DTSTAMP:<%=Time.now.strftime("%Y%m%dT%H%M%SZ")%>
+UID:<%= event.id%>
+SUMMARY:<%= event.name %>
+DTSTART:<%= event.starts_at.strftime("%Y%m%d") %>
+DTEND:<%= event.ends_at.strftime("%Y%m%d") %>
+END:VEVENT
