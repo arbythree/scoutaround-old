@@ -3,7 +3,7 @@
     span(data-toggle="tooltip" title="#{t('events.administration')}")
       i.fas.fa-ellipsis-h
   .dropdown-menu.dropdown-menu-right
-    = link_to t('events.edit'), edit_unit_event_path(@unit, @event), class: 'dropdown-item'
-    = link_to t('events.registrations'), unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item'
-    = link_to t('events.add_requirement'), new_unit_event_event_requirement_path(@unit, @event), class: 'dropdown-item'
-    = link_to t('events.delete'), unit_event_path(@unit, @event), method: :delete, class: 'dropdown-item'
+    = link_to t('events.edit'), edit_unit_event_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only')
+    = link_to t('events.registrations'), unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only')
+    = link_to t('events.add_requirement'), new_unit_event_event_requirement_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only')
+    = link_to t('events.delete'), unit_event_path(@unit, @event), method: :delete, class: 'dropdown-item admin', title: t('admin_only')

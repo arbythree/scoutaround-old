@@ -1,0 +1,6 @@
+.admin.dropdown
+  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+    span(data-toggle="tooltip" title="")
+      i.fas.fa-ellipsis-h
+  .dropdown-menu.dropdown-menu-right
+    = link_to t('memberships.edit'), edit_unit_membership_path(@unit, @membership), class: 'dropdown-item admin', title: t('admin_only') if @current_user_is_admin

@@ -42,6 +42,7 @@ en:
   update:               'Update'
   time_ago:             '%{deictic} ago'
   utilities:            'Tools'
+  admin_only:           'Admin Only'
 
   events:
     title:            'Calendar'
@@ -51,7 +52,7 @@ en:
     info:             'Manage Event'
     confirm:          'Added event to unit calendar'
     add_requirement:  'Add Requirement'
-    registrations:    'Registrations'
+    registrations:    'Manage Registrations'
     checklist:        'Your Checklist'
     administration:   'Event Administration'
     feed:             'Subscribe to Calendar'
@@ -65,6 +66,7 @@ en:
     filters:
       registered:     'Only showing events you or your family are registered for. Some events may be hidden.'
     delete:           'Cancel'
+    delete_title:          'Cancel Event'
     confirmations:
       cancel:         'Event was removed from unit calendar'
 
@@ -122,9 +124,10 @@ en:
 
   memberships:
     title:          'Members'
+    title_alt:      'Roster'
     new:
       confirm: 'Added %{full_name} to the unit'
-    edit:           'Change Details'
+    edit:           'Update Member Details'
     add_new:        'Add Member'
     update:         'Update Member Details'
     updated:        'Member details updated'

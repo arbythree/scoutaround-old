@@ -23,6 +23,14 @@ section#roster
   h3 = t('registrations.title_public')
   = render 'events/roster'
 
+#cancel-event-dialog.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title = t('events.delete_title')
+      .modal-body
+      .modal-footer
+        button
 
 javascript:
   $(function () {
