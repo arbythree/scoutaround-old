@@ -9,6 +9,7 @@ class CreateAchievables < ActiveRecord::Migration[5.2]
       t.integer :requirable_id
       t.integer :param
       t.integer :precursor_id
+      t.integer :ordinal
 
       t.timestamps
     end

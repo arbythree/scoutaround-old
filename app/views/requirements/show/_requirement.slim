@@ -1,0 +1,5 @@
+li = requirement.name
+
+- if requirement.requirements.present?
+  ul
+    = render partial: 'requirements/show/requirement', collection: requirement.requirements

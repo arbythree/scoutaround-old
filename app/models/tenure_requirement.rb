@@ -4,4 +4,8 @@
 #
 class TenureRequirement < Requirement
   belongs_to :precursor, class_name: 'Achievable'
+
+  def name
+    "Be active in your troop for at least #{ param / 1.month } months as a #{ precursor.name } Scout."
+  end
 end

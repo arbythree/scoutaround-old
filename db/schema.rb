@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 2018_05_29_180835) do
     t.integer "requirable_id"
     t.integer "param"
     t.integer "precursor_id"
+    t.integer "ordinal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

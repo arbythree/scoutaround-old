@@ -1,0 +1,11 @@
+- content_for :title do
+  h1 = @user.full_name
+  h2 = t('advancement.add.merit_badge')
+
+  = form_for Achievement.new, url: unit_membership_achievements_path(@unit, @membership) do |f|
+    .form-group
+      = f.label :name
+      = f.collection_select :achievable_id, MeritBadge.all.order(:name), :id, :name, { prompt: 'Choose merit badge' }, class: 'form-control'
+
+    .form-group
+      = f.submit :add, class: 'btn btn-primary'

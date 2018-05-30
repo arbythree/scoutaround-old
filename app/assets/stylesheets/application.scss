@@ -341,12 +341,9 @@ table.checklist {
     }
   }
 
-  .dropdown-item.admin {
-    &::before {
-      content: "\25B2";
-      color: $color_brand;
-      margin-right: 0.5rem;
-    }
+  svg {
+    color: $color_brand;
+    margin-right: 0.5rem;
   }
 }
 

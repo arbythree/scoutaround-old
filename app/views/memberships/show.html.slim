@@ -3,6 +3,8 @@
 - crumbtrail @user.full_name
 
 - content_for :title do
+  = link_to t('advancement.title'), unit_membership_achievements_path(@unit, @membership)
+
   = render partial: 'memberships/show/utilities' if @current_user_is_admin
   h1 = @user.full_name
 
