@@ -133,24 +133,23 @@ citizenship_world       = MeritBadge.where(program_code: 'bsa', name: 'Citizensh
 lifesaving              = MeritBadge.where(program_code: 'bsa', name: 'Lifesaving').first_or_create
 
 # tenderfoot requirements
-TenureRequirement.where(achievable: tenderfoot, parameter: '3.months').first_or_create
-AchievementRequirement.where(achievable: tenderfoot, required: scout).first_or_create
+TenureRequirement.where(achievable: tenderfoot, parameter: 3.months, precursor: scout).first_or_create
+
 
 # second class requirements
-AchievementRequirement.where(achievable: second_class, required: tenderfoot).first_or_create
+TenureRequirement.where(achievable: second_class, param: 3.months, precursor: tenderfoot).first_or_create
 
 # first class requirements
-AchievementRequirement.where(achievable: first_class, required: second_class).first_or_create
-AchievementRequirement.where(achievable: first_class, required: first_aid).first_or_create
+TenureRequirement.where(achievable: first_class, param: 3.months, precursor: second_class).first_or_create
 
 # star requirements
-AchievementRequirement.where(achievable: star, required: first_class).first_or_create
+TenureRequirement.where(achievable: star, param: 6.months, precursor: first_class).first_or_create
 
 # life requirements
-AchievementRequirement.where(achievable: life, required: star).first_or_create
+TenureRequirement.where(achievable: life, param: 6.months, precursor: star).first_or_create
 
 # eagle requirements
-TenureRequirement.where(achievable: eagle, parameter: '6.months').first_or_create
+TenureRequirement.where(achievable: eagle, param: 6.months, precursor: life).first_or_create
 AchievementRequirement.where(achievable: eagle, required: life).first_or_create
 AchievementRequirement.where(achievable: eagle, required: personal_management).first_or_create
 AchievementRequirement.where(achievable: eagle, required: swimming).first_or_create

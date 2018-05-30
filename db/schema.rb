@@ -10,10 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_28_170535) do
+ActiveRecord::Schema.define(version: 2018_05_29_101212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievables", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.string "description"
+    t.string "program_code"
+    t.integer "parent_achievable_id"
+    t.integer "requirable_id"
+    t.integer "param"
+    t.integer "precursor_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
