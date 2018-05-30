@@ -64,3 +64,5 @@ after :ranks do
   Requirement.where(program_code: 'bsa', achievable: req, name: 'While working toward Tenderfoot rank, and after completing Scout rank requirement 7, participate in a Scoutmaster conference.').first_or_create
   Requirement.where(program_code: 'bsa', achievable: req, name: 'Successfully complete your board of review for the Tenderfoot rank.').first_or_create
 end
+
+puts 'Tenderfoot requirements'

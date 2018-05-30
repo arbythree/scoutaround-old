@@ -42,6 +42,10 @@ h1 {
   letter-spacing: -1px;
 }
 
+h4 {
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+}
+
 .flash {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
@@ -155,12 +159,12 @@ main {
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
 }
 
-label {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  font-weight: 300;
-}
+// label {
+//   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+//   text-transform: uppercase;
+//   font-size: 0.85rem;
+//   font-weight: 300;
+// }
 
 #roster {
   .inactive {
@@ -557,3 +561,38 @@ table.calendar {
     }
   }
 } // table.calendar
+
+ul.requirements, ol.requirements {
+  li {
+    padding-bottom: 1rem;
+
+    input[type="checkbox"] {
+      margin: 0 0.5rem 0 3rem;
+    }
+
+    label {
+      display: inline;
+      // margin-left: 3rem;
+    }
+  }
+}
+
+.custom-checkbox .custom-control-input ~ .custom-control-label {
+  &::before {
+    margin-top: -2px;
+    margin-left: 0.2rem;
+    margin-right: 1rem;
+  }
+
+  &::after {
+    margin-top: -2px;
+    margin-left: 0.2rem;
+    margin-right: 1rem;
+  }
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label {
+  &::before {
+    background-color: $color_brand;
+  }
+}
