@@ -1,7 +1,7 @@
 after :ranks do
   eagle = Rank.find_by(name: 'Eagle')
 
-  TenureRequirement.where(program_code: 'bsa', achievable: eagle, param: 6.months, precursor: life).first_or_create
+  TenureRequirement.where(program_code: 'bsa', achievable: eagle, param: 6.months, precursor: Rank.find_by(name: 'Life')).first_or_create
 
   AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Personal Management').becomes(Achievable)).first_or_create
   AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Citizenship in the Community').becomes(Achievable)).first_or_create
