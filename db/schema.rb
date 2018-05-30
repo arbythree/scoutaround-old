@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_28_170535) do
+ActiveRecord::Schema.define(version: 2018_05_29_180835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "achievables", force: :cascade do |t|
+    t.string "type"
+    t.string "name"
+    t.string "description"
+    t.string "program_code"
+    t.integer "parent_achievable_id"
+    t.integer "requirable_id"
+    t.integer "param"
+    t.integer "precursor_id"
+    t.integer "ordinal"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "achievements", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "achievable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,6 +67,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_170535) do
   create_table "event_registrations", force: :cascade do |t|
     t.integer "event_id"
     t.integer "user_id"
+    t.boolean "attended"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -124,6 +146,7 @@ ActiveRecord::Schema.define(version: 2018_05_28_170535) do
     t.string "phone"
     t.boolean "share_email"
     t.boolean "share_phone"
+    t.boolean "active", default: true
     t.string "email", default: ""
     t.string "encrypted_password", default: ""
     t.string "reset_password_token"

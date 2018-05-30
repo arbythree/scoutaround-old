@@ -184,3 +184,13 @@ en:
     event:
       no_family_attendees: 'No one from your family is registered'
       attendees: 'Registered: %{names}'
+
+  advancement:
+    title: 'Advancement'
+    types:
+      merit_badges: 'Merit Badges'
+    add:
+      merit_badge: 'Record a Merit Badge'
+    success:
+      merit_badge: 'Recorded that %{name} has earned the %{badge} merit badge'
+    target_rank: 'Progress Toward %{rank}'

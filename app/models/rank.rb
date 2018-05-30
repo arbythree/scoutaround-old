@@ -1,0 +1,2 @@
+class Rank < Achievable
+end

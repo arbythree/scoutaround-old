@@ -2,8 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
 
+  resources :requirements
+
   resources :units do
-    resources :memberships, path: 'members'
+    resources :memberships, path: 'members' do
+      resources :achievements, path: 'advancement'
+    end
     resources :document_library_items, path: 'documents'
     resources :events do
       resources :messages
