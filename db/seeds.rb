@@ -113,6 +113,35 @@ EventSubmission.where(
   submitter: ray
 ).first_or_create
 
+# merit badges
+merit_badge_names = [
+  'Personal Management', 'Swimming', 'Emergency Preparedness', 'Personal Fitness', 'First Aid',
+  'Citizenship in the Community', 'Citizenship in the Nation', 'Citizenship in the World',
+  'Lifesaving', 'Camping', 'Communication', 'Cooking', 'Cycling', 'Environmental Science',
+  'Family Life', 'Hiking', 'Sustainability',
+  'American Business', 'American Cultures', 'American Heritage', 'American Labor', 'Animal Science',
+  'Animation', 'Archaeology', 'Archery', 'Architecture', 'Art', 'Astronomy', 'Athletics', 'Automotive Maintenance',
+  'Aviation', 'Backpacking', 'Basketry', 'Bird Study', 'Bugling', 'Canoeing', 'Chemistry', 'Chess',
+  'Climbing', 'Coin Collecting', 'Collections', 'Composite Materials', 'Crime Prevention', 'Dentistry',
+  'Digital Technology', 'Disabilities Awareness', 'Dog Care', 'Drafting', 'Electricity', 'Electronics',
+  'Energy', 'Engineering', 'Entrepreneurship', 'Exploration', 'Farm Mechanics', 'Fire Safety', 'Fish and Wildlife Management',
+  'Fishing', 'Fly Fishing', 'Forestry', 'Game Design', 'Gardening', 'Geneology', 'Geocaching', 'Geology', 'Golf',
+  'Graphic Arts', 'Home Repairs', 'Horsemanship', 'Indian Lore', 'Insect Study', 'Inventing', 'Journalism', 'Kayaking',
+  'Landscape Architecture', 'Law', 'Leatherworking', 'Mammal Study', 'Medicine', 'Metalwork', 'Mining in Society',
+  'Model Design and Building', 'Motorboating', 'Moviemaking', 'Music', 'Nature', 'Nuclear Science', 'Oceanography',
+  'Orienteering', 'Painting', 'Pets', 'Photography', 'Pioneering', 'Plant Science', 'Plumbing', 'Pottery', 'Programming',
+  'Public Health', 'Public Speaking', 'Pulp and Paper', 'Radio', 'Railroading', 'Reading', 'Reptile and Amphibian Study',
+  'Rifle Shooting', 'Robotics', 'Rowing', 'Safety', 'Salesmanship', 'Scholarship', 'Scouting Heritage', 'Scuba Diving',
+  'Sculpture', 'Search & Rescue', 'Shotgun Shooting', 'Signals, Signs, and Codes', 'Skating', 'Small-Boat Sailing',
+  'Snow Sports', 'Soil and Water Conservation', 'Space Exploration', 'Sports', 'Stamp Collecting', 'Surveying',
+  'Textile', 'Theater', 'Traffic Safety', 'Truck Transportation', 'Veterinary Medicine', 'Water Sports', 'Weather',
+  'Welding', 'Whitewater', 'Wilderness Survival', 'Wood Carving', 'Woodwork'
+]
+
+merit_badge_names.each do |name|
+  MeritBadge.where(program_code: 'bsa', name: name).first_or_create
+end
+
 # ranks
 scout         = Rank.where(name: 'Scout').first_or_create
 tenderfoot    = Rank.where(name: 'Tenderfoot').first_or_create
@@ -122,40 +151,41 @@ star          = Rank.where(name: 'Star').first_or_create
 life          = Rank.where(name: 'Life').first_or_create
 eagle         = Rank.where(name: 'Eagle').first_or_create
 
-# required merit badges
-personal_management     = MeritBadge.where(program_code: 'bsa', name: 'Personal Management').first_or_create
-swimming                = MeritBadge.where(program_code: 'bsa', name: 'Swimming').first_or_create
-emergency_preparedness  = MeritBadge.where(program_code: 'bsa', name: 'Emergency Preparedness').first_or_create
-first_aid               = MeritBadge.where(program_code: 'bsa', name: 'First Aid').first_or_create
-citizenship_community   = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Community').first_or_create
-citizenship_nation      = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the Nation').first_or_create
-citizenship_world       = MeritBadge.where(program_code: 'bsa', name: 'Citizenship in the World').first_or_create
-lifesaving              = MeritBadge.where(program_code: 'bsa', name: 'Lifesaving').first_or_create
-
-# tenderfoot requirements
-TenureRequirement.where(achievable: tenderfoot, parameter: 3.months, precursor: scout).first_or_create
-
+# tendergood requirements
+TenureRequirement.where(program_code: 'bsa', achievable: tenderfoot, param: 3.months, precursor: scout).first_or_create
 
 # second class requirements
-TenureRequirement.where(achievable: second_class, param: 3.months, precursor: tenderfoot).first_or_create
+TenureRequirement.where(program_code: 'bsa', achievable: second_class, param: 3.months, precursor: tenderfoot).first_or_create
 
 # first class requirements
-TenureRequirement.where(achievable: first_class, param: 3.months, precursor: second_class).first_or_create
+TenureRequirement.where(program_code: 'bsa', achievable: first_class, param: 3.months, precursor: second_class).first_or_create
 
 # star requirements
-TenureRequirement.where(achievable: star, param: 6.months, precursor: first_class).first_or_create
+TenureRequirement.where(program_code: 'bsa', achievable: star, param: 6.months, precursor: first_class).first_or_create
 
 # life requirements
-TenureRequirement.where(achievable: life, param: 6.months, precursor: star).first_or_create
+TenureRequirement.where(program_code: 'bsa', achievable: life, param: 6.months, precursor: star).first_or_create
 
 # eagle requirements
-TenureRequirement.where(achievable: eagle, param: 6.months, precursor: life).first_or_create
-AchievementRequirement.where(achievable: eagle, required: life).first_or_create
-AchievementRequirement.where(achievable: eagle, required: personal_management).first_or_create
-AchievementRequirement.where(achievable: eagle, required: swimming).first_or_create
-AchievementRequirement.where(achievable: eagle, required: emergency_preparedness).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_community).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_nation).first_or_create
-AchievementRequirement.where(achievable: eagle, required: citizenship_world).first_or_create
+TenureRequirement.where(program_code: 'bsa', achievable: eagle, param: 6.months, precursor: life).first_or_create
+AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Personal Management').becomes(Achievable)).first_or_create
+AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Citizenship in the Community').becomes(Achievable)).first_or_create
+AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Citizenship in the Nation').becomes(Achievable)).first_or_create
+AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Citizenship in the World').becomes(Achievable)).first_or_create
 
-# all other merit badges
+# earn one of the following two badges:
+green_merit_badge_option = MultipleChoiceRequirement.create(achievable: eagle, param: 1)
+AchievementRequirement.create(program_code: 'bsa', achievable: green_merit_badge_option, requirable: MeritBadge.find_by(name: 'Sustainability').becomes(Achievable))
+AchievementRequirement.create(program_code: 'bsa', achievable: green_merit_badge_option, requirable: MeritBadge.find_by(name: 'Environmental Science').becomes(Achievable))
+
+# earn one of the following two badges:
+preparedness_merit_badge_option = MultipleChoiceRequirement.create(achievable: eagle)
+AchievementRequirement.create(program_code: 'bsa', achievable: preparedness_merit_badge_option, requirable: MeritBadge.find_by(name: 'Emergency Preparedness').becomes(Achievable))
+AchievementRequirement.create(program_code: 'bsa', achievable: preparedness_merit_badge_option, requirable: MeritBadge.find_by(name: 'Lifesaving').becomes(Achievable))
+
+# earn one of the following three badges:
+athletic_merit_badge_option = MultipleChoiceRequirement.create(achievable: eagle)
+AchievementRequirement.create(program_code: 'bsa', achievable: preparedness_merit_badge_option, requirable: MeritBadge.find_by(name: 'Swimming').becomes(Achievable))
+AchievementRequirement.create(program_code: 'bsa', achievable: preparedness_merit_badge_option, requirable: MeritBadge.find_by(name: 'Cycling').becomes(Achievable))
+AchievementRequirement.create(program_code: 'bsa', achievable: preparedness_merit_badge_option, requirable: MeritBadge.find_by(name: 'Personal Fitness').becomes(Achievable))
+
