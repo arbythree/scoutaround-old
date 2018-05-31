@@ -9,10 +9,12 @@ table.table
   tr
     th Name
     th Current Rank
-    th Next Rank Progress
+    th Next Rank
+    th Progress
 
   - @unit.memberships.each do |membership|
     - if membership.user.is_a?(Youth)
       tr
         td = link_to membership.user.full_name, unit_membership_path(@unit, membership)
         td = membership.user.rank.name
+        td = Rank.find_by(ordinal: membership.user.rank.ordinal + 1).name
