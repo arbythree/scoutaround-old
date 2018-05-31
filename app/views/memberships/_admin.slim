@@ -1,6 +1,6 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('events.administration')}")
+    span(data-toggle="tooltip" title="#{t('memberships.administration')}")
       i.fas.fa-ellipsis-h
   .dropdown-menu.dropdown-menu-right
     - if @current_user_is_admin

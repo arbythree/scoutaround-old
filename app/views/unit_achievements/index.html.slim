@@ -11,7 +11,8 @@ table.table
     th Current Rank
     th Next Rank Progress
 
-  - @unit.members.where(type: 'Youth').each do |user|
-    tr
-      td = user.full_name
-      td = user.rank
+  - @unit.memberships.each do |membership|
+    - if membership.user.is_a?(Youth)
+      tr
+        td = link_to membership.user.full_name, unit_membership_path(@unit, membership)
+        td = membership.user.rank.name

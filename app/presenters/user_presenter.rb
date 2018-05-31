@@ -10,7 +10,7 @@ class UserPresenter < BasePresenter
   end
 
   def rank
-    user.rank
+    user&.rank&.name
   end
 
   def self.display_email_for(user: nil)

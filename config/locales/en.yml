@@ -132,6 +132,7 @@ en:
     update:         'Update Member Details'
     updated:        'Member details updated'
     registrations:  'Registrations'
+    administration: 'Member Management'
 
   users:
     youth:        'Youth'
@@ -193,4 +194,4 @@ en:
       merit_badge: 'Record a Merit Badge'
     success:
       merit_badge: 'Recorded that %{name} has earned the %{badge} merit badge'
-    target_rank: 'Progress Toward %{rank}'
+    target_rank: 'Progress Toward %{rank} Scout'
