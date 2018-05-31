@@ -4,6 +4,6 @@ class AuthenticatedController < ApplicationController
 
   def set_current_user
     @current_user = current_user
-    logger.debug "Set current user: #{ @current_user }"
+    logger.info "Set current user: #{ @current_user }"
   end
 end
