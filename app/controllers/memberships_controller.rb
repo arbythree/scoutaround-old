@@ -56,7 +56,7 @@ class MembershipsController < UnitContextController
 
   def membership_params
     params.require(:membership).permit(
-      user_attributes: [:id, :rank, :first_name, :last_name,
+      user_attributes: [:id, :rank_id, :first_name, :last_name,
         :type, :email, :phone, :avatar,
         guardeeships_attributes: [:id, :guardian_id, :_destroy]
       ]

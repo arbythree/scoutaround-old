@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :rank, optional: true
   has_many :memberships
   has_many :units, through: :memberships
   has_many :event_registrations
