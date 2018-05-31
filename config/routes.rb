@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resources :memberships, path: 'members' do
       resources :achievements, path: 'advancement'
     end
-    resources :achievements, path: 'advancement'
+    resources :achievements, path: 'advancement', controller: :unit_achievements
     resources :document_library_items, path: 'documents'
     resources :events do
       resources :messages

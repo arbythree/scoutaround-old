@@ -1,0 +1,17 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail t('advancement.title')
+
+- content_for :title do
+  h1 = UnitPresenter.unit_display_name(@unit)
+  h4 = t('advancement.title')
+
+table.table
+  tr
+    th Name
+    th Current Rank
+    th Next Rank Progress
+
+  - @unit.members.where(type: 'Youth').each do |user|
+    tr
+      td = user.full_name
+      td = user.rank
