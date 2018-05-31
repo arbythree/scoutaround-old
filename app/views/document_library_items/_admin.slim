@@ -1,5 +1,9 @@
-.card
-  .card-header
-    | Admin
-  .card-body
-    = link_to 'Add a Document', new_unit_document_library_item_path(@unit)
+.admin.dropdown
+  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+    span(data-toggle="tooltip" title="#{t('events.administration')}")
+      i.fas.fa-ellipsis-h
+  .dropdown-menu.dropdown-menu-right
+    - if @current_user_is_admin
+      = link_to new_unit_document_library_item_path(@unit), class: 'dropdown-item' do
+        i.fa-tree.fas
+        = "Add a Document"

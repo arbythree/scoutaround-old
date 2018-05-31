@@ -1,5 +1,52 @@
-li = requirement.name
+- nesting_level ||= 0
+- list_type = 'a' if nesting_level == 0
+- achievement = Achievement.where(user: @user, achievable: requirement).first
+
+li
+  .custom-control.custom-checkbox
+    = check_box_tag "requirement_#{ requirement.id }", requirement.id, achievement.present?, class: 'custom-control-input', onclick: 'recordAchievement(this);', data: { achievement: achievement&.id || 0 }
+    = label_tag "requirement_#{ requirement.id }", requirement.name, class: 'custom-control-label'
 
 - if requirement.requirements.present?
-  ul
+  ol.requirements(type="#{ list_type }")
     = render partial: 'requirements/show/requirement', collection: requirement.requirements
+
+javascript:
+  // $('input[type="checkbox"]').on('click', function(e) {
+    // alert('x');
+    // var requirementId = $(this).val();
+    // var path = "#{ unit_membership_achievements_path(@unit, @membership) }";
+    // var json = JSON.stringify('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
+
+    // alert($(this).attr('checked'));
+    // alert(json);
+
+  // });
+
+  function recordAchievement(box) {
+    var requirementId = $(box).val();
+    var achievementId = $(box).attr('data-achievement');
+
+    if (achievementId == 0) {
+      // POST a new achievement
+      var path = "#{ unit_membership_achievements_path(@unit, @membership) }";
+      var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
+      $.ajax({
+        type:     'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        url:      path,
+        data:     json
+      });
+    } else {
+      // DELETE an existing achievement
+      var path = '/units/' + #{ @unit.id } + '/members/' + #{ @membership.id } + '/advancement/' + achievementId;
+      $.ajax({
+        type:     'DELETE',
+        dataType: 'json',
+        contentType: 'application/json',
+        url:      path,
+      });
+      $(box).attr('data-achievement', '0');
+    }
+  }

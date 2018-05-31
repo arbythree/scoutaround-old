@@ -3,7 +3,6 @@
   - last_day_of_week  = 6 # saturday
   - current_date = Date.today.beginning_of_month
 
-
   - if params[:month].present? && params[:year].present?
     - current_date = Date.new(params[:year].to_i, params[:month].to_i, 1)
 
@@ -16,10 +15,11 @@
     | &nbsp;&nbsp;/&nbsp;&nbsp;
     = link_to next_month_date.strftime('%B'), unit_events_path(@unit, view: 'calendar', year: next_month_date.year, month: next_month_date.month, filter: params[:filter])
 
-  .alert.alert-warning
-    i.fa-exclamation-triangle.fas
-    | &nbsp;
-    = t('events.filters.registered')
+  - if params[:filter] == 'registered'
+    .alert.alert-warning
+      i.fa-exclamation-triangle.fas
+      | &nbsp;
+      = t('events.filters.registered')
 
   table.table.calendar
     tr

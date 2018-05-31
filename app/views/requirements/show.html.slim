@@ -1,4 +1,7 @@
-h1 = @achievable.name
+- content_for :title
+  h1 = @achievable.name
 
-ul
-  = render partial: 'requirements/show/requirement', collection: @achievable.requirements
+.row
+  .col-md-8
+    ul
+      = render partial: 'requirements/show/requirement', collection: @achievable.requirements

@@ -6,10 +6,19 @@
 - content_for :title do
   = render partial: 'achievements/show/utilities' if @current_user_is_admin
   h1 = @user.full_name
+  h4 = t('advancement.title')
 
-h3 = t('advancement.target_rank', rank: @next_rank)
+h3 = t('advancement.target_rank', rank: @next_rank.name)
+
+ol.requirements
+  = render partial: 'requirements/show/requirement', collection: @next_rank.requirements, locals: { include_checkboxes: true }
 
 - content_for :utilities do
   h3 = t('advancement.types.merit_badges')
   ul
     = render partial: 'achievements/show/merit_badge', collection: @user.merit_badges
+
+javascript:
+  $('input.requirement').click(function() {
+
+  });
