@@ -4,5 +4,6 @@ class AuthenticatedController < ApplicationController
 
   def set_current_user
     @current_user = current_user
+    puts "Set current user: #{ @current_user }"
   end
 end
