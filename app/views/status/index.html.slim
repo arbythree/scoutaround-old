@@ -1,2 +1,8 @@
+table.table
+  - session.keys.each do |key|
+    tr
+      td = key
+      td = session[key]
+
 p Session was reset
 p = link_to 'Destroy session', destroy_user_session_path, method: :delete

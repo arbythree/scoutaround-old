@@ -1,48 +1,48 @@
 header#primary
-  - if @unit.present?
-    nav
-      ul
-        li#nav-item-announcements
-          = link_to '' do
-            span
-              i.fas.fa-broadcast-tower
-            = t('announcements.title')
-
-        li#nav-item-roster
-          = link_to unit_memberships_path(@unit) do
-            span
-              i.fas.fa-users
-            = t('members.roster')
-
-        li#nav-item-events
-          = link_to unit_events_path(@unit) do
-            span
-              i.fas.fa-calendar-alt
-            = t('events.title')
-
-        li#nav-item-documents
-          = link_to unit_document_library_items_path(@unit) do
-            span
-              i.fas.fa-file-alt
-            = t('documents.title')
-
-        - if @current_user_is_admin
-          li#nav-item-advancement
-            = link_to unit_achievements_path(@unit) do
+  nav
+    - if @unit.present?
+        ul
+          li#nav-item-announcements
+            = link_to '' do
               span
-                i.fas.fa-trophy
-              = t('advancement.title')
+                i.fas.fa-broadcast-tower
+              = t('announcements.title')
 
-      .utilities
-        - if @current_user.present?
-          .dropdown
-            = link_to '#', data: {toggle: 'dropdown'} do
-              = t('hello', name: @current_user.first_name)
-              | &nbsp;
-              i.fa-chevron-down.fas
+          li#nav-item-roster
+            = link_to unit_memberships_path(@unit) do
+              span
+                i.fas.fa-users
+              = t('members.roster')
 
-            .dropdown-menu
-              = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+          li#nav-item-events
+            = link_to unit_events_path(@unit) do
+              span
+                i.fas.fa-calendar-alt
+              = t('events.title')
+
+          li#nav-item-documents
+            = link_to unit_document_library_items_path(@unit) do
+              span
+                i.fas.fa-file-alt
+              = t('documents.title')
+
+          - if @current_user_is_admin
+            li#nav-item-advancement
+              = link_to unit_achievements_path(@unit) do
+                span
+                  i.fas.fa-trophy
+                = t('advancement.title')
+
+    .utilities
+      - if @current_user.present?
+        .dropdown
+          = link_to '#', data: {toggle: 'dropdown'} do
+            = t('hello', name: @current_user.first_name)
+            | &nbsp;
+            i.fa-chevron-down.fas
+
+          .dropdown-menu
+            = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')
