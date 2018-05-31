@@ -2,6 +2,7 @@
 - crumbtrail t('documents.title')
 
 - content_for :title do
+  = render 'document_library_items/admin' if @current_user_is_admin
   h1 = t('documents.title')
 
 ul.documents
@@ -11,6 +12,3 @@ ul.documents
         = image_tag document_library_item.document.preview(resize: '200x200')
         .name
           = document_library_item.name
-
-- content_for :utilities do
-  = render 'document_library_items/admin' if @current_user_is_admin

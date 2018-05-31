@@ -83,6 +83,7 @@ h4 {
 
 a {
   color: $color_brand;
+  outline: 0;
 
   &:hover {
     color: rgb(172, 14, 14);
@@ -167,7 +168,7 @@ main {
 // }
 
 #roster {
-  .inactive {
+  tr.inactive {
     background: repeating-linear-gradient(
       -45deg,
       #fff,
@@ -503,7 +504,7 @@ table.calendar {
     display: inline-block;
     padding: 0.2rem;
     position: relative;
-    top: -5px;
+    top: -6px;
   }
 
   .date {
@@ -594,5 +595,26 @@ ul.requirements, ol.requirements {
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label {
   &::before {
     background-color: $color_brand;
+  }
+}
+
+body.events.index {
+  #nav-item-events a {
+    color: $color_brand;
+    cursor: default;
+  }
+}
+
+body.document_library_items.index {
+  #nav-item-documents a {
+    color: $color_brand;
+    cursor: default;
+  }
+}
+
+body.memberships.index {
+  #nav-item-roster a {
+    color: $color_brand;
+    cursor: default;
   }
 }

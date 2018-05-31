@@ -13,8 +13,6 @@ h3 = t('advancement.target_rank', rank: @next_rank.name)
 ol.requirements
   = render partial: 'requirements/show/requirement', collection: @next_rank.requirements, locals: { include_checkboxes: true }
 
-
-
 - content_for :utilities do
   h3 = t('advancement.types.merit_badges')
   ul
