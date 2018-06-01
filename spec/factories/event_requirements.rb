@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :event_requirement do
     association :event
+    required true
     sequence(:description) { |n| "Event requirement #{n}" }
   end
 

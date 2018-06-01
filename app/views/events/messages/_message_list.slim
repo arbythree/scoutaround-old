@@ -5,3 +5,6 @@
 
 ul.message-list
   = render partial: 'events/messages/message', collection: @event.messages, locals: { markdown: markdown }
+
+= render partial: 'events/messages/new'
+= render partial: 'events/messages/blank' if @event.messages.count.zero?
