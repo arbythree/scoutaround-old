@@ -9,12 +9,19 @@ table.table
   tr
     th Name
     th Current Rank
+    th Tenure in Rank
     th Next Rank
     th Progress
 
   - @unit.memberships.each do |membership|
+    - achievement = Achievement.find_by(achievable: membership.user.rank, user: membership.user)
     - if membership.user.is_a?(Youth)
       tr
         td = link_to membership.user.full_name, unit_membership_path(@unit, membership)
         td = membership.user.rank.name
+        td
+          - if achievement.present?
+            = distance_of_time_in_words_to_now(achievement.created_at)
         td = Rank.find_by(ordinal: membership.user.rank.ordinal + 1).name
+        td
+          .progress

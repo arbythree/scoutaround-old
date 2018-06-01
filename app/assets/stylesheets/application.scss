@@ -619,3 +619,12 @@ body.memberships.index {
     cursor: default;
   }
 }
+
+
+.progress {
+  display: inline-block;
+  height: 12px;
+  border-radius: 6px;
+  width: 100%;
+  background-color: lighten($color_background, 0%);
+}

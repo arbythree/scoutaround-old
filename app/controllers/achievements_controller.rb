@@ -3,7 +3,7 @@ class AchievementsController < UnitContextController
   before_action :find_achievement, except: [:index, :new, :create]
 
   def index
-    @next_rank = @user.rank.next_rank.name
+    @next_rank = @user&.rank&.next_rank || Rank.find_by(ordinal: 0)
   end
 
   def new
