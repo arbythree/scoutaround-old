@@ -87,3 +87,5 @@ If you're deploying to Heroku and wish to leverage Active Storage previews for t
 ```
 heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-active-storage-preview
 ```
+
+Enabling Versioning on your production storage bucket is never a bad idea.
