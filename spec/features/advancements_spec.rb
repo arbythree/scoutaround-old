@@ -9,6 +9,7 @@ RSpec.feature "Advancement features", :type => :feature do
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
     click_on 'Log in'
+    Rank.where(ordinal: 0, name: 'Scout').first_or_create
   end
 
   it 'works' do
