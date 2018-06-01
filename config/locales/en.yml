@@ -51,7 +51,7 @@ en:
     edit:             'Edit Event Details'
     info:             'Manage Event'
     confirm:          'Added event to unit calendar'
-    add_requirement:  'Add Requirement'
+    add_requirement:  'Add Submission Requirement'
     registrations:    'Manage Registrations'
     checklist:        'Your Checklist'
     administration:   'Event Administration'

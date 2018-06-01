@@ -9,6 +9,7 @@ ul.documents
   - @document_library_items.each do |document_library_item|
     li
       = link_to rails_blob_path(document_library_item.document) do
-        = image_tag document_library_item.document.preview(resize: '200x200')
+        - if document_library_item.document.previewable?
+          = image_tag document_library_item.document.preview(resize: '200x200')
         .name
           = document_library_item.name

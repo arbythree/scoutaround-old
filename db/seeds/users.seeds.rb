@@ -3,7 +3,7 @@ def create_user(type, first_name, last_name, email, rank = nil)
     first_name: first_name,
     last_name: last_name,
     type: type,
-    rank: rank,
+    rank: Rank.find_by(name: rank),
     active: true,
     password: 'goscoutaround'
   ).find_or_create_by(email: email)
