@@ -29,8 +29,7 @@ class EventSubmissionsController < EventContextController
         combined_filename = [
           UnitPresenter.unit_display_name(@unit),
           @unit.city,
-          event_requirement.description.pluralize
-          '.pdf'
+          "#{event_requirement.description.pluralize}.pdf"
         ].join(' ')
 
         send_data pdf_combiner.to_pdf, filename: combined_filename, type: "application/pdf"
