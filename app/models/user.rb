@@ -26,6 +26,8 @@ class User < ApplicationRecord
 
   validates_presence_of :first_name, :last_name, :type
 
+  delegate :next_rank, to: :rank
+
   accepts_nested_attributes_for :guardeeships, reject_if: :all_blank, allow_destroy: true
 
   def full_name

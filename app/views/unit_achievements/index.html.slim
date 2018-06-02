@@ -15,14 +15,20 @@ table.table
 
   - @unit.memberships.each do |membership|
     - user = membership.user
-    - achievement = Achievement.find_by(achievable: user.rank, user: user)
+
     - if user.is_a?(Youth)
+      - achievement = user.achievements.find_by(achievable: user.rank)
+      - next_rank = user&.rank&.next_rank
+      - puts next_rank
+      - requirements = next_rank.requirements
+      - completed_requirements = []
+      - requirements.each { |req| completed_requirements << req if req.completed_for?(user: user) }
+
       tr
         td = link_to user.full_name, unit_membership_path(@unit, membership)
         td = user.rank&.name
-        td
-          - if achievement.present?
-            = distance_of_time_in_words_to_now(achievement.created_at)
+        td = time_ago_in_words(achievement.earned_at || achievement.created_at) if achievement.present?
         td = user&.rank&.next_rank&.name
         td
-          .progress
+          .progress-bar
+            .progress(style="width: 50%;")

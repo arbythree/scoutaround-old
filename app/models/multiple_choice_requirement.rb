@@ -2,7 +2,7 @@
 # for "complete one of the following"-style requirements
 #
 class MultipleChoiceRequirement < Requirement
-  def completed_for?(user: nil)
+  def achieved_by?(user: nil)
     completion_count = 0
 
     requirements.each do |requirement|
