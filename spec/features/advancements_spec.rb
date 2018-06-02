@@ -16,4 +16,11 @@ RSpec.feature "Advancement features", :type => :feature do
     visit unit_membership_achievements_path(@unit, @membership)
     expect(page).to have_current_path(unit_membership_achievements_path(@unit, @membership))
   end
+
+  it 'unit advancement page works when a youth doesn\'t have a rank' do
+    rankless_youth = FactoryBot.create(:youth, rank: nil)
+    Membership.create(user: rankless_youth, unit: @unit)
+    visit unit_achievements_path(@unit)
+    expect(page).to have_current_path(unit_achievements_path(@unit))
+  end
 end
