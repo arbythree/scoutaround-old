@@ -43,6 +43,7 @@ en:
   time_ago:             '%{deictic} ago'
   utilities:            'Tools'
   admin_only:           'Admin Only'
+  download:             'Download'
 
   events:
     title:            'Calendar'
@@ -162,6 +163,7 @@ en:
     confirm_update: 'Event requirement was updated'
     confirm_create: 'Added the new requirement to the event'
     completed:      'Done'
+    download_all:   'Download Combined PDF'
 
   event_submissions:
     confirm_create: "%{name}'s %{requirement} was received"

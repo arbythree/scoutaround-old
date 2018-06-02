@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_01_104246) do
+ActiveRecord::Schema.define(version: 2018_06_02_201929) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2018_06_01_104246) do
     t.integer "achievable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "earned_at"
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(version: 2018_06_01_104246) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "city"
   end
 
   create_table "users", force: :cascade do |t|

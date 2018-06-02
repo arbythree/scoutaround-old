@@ -4,7 +4,6 @@
 - crumbtrail t('registrations.title')
 
 - content_for :title do
-
   h1 = @event.name
   = render partial: 'event_registrations/admin' if @current_user_is_admin
   - present @event do |event|

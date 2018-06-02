@@ -620,11 +620,20 @@ body.memberships.index {
   }
 }
 
-
-.progress {
+.progress-bar {
   display: inline-block;
   height: 12px;
   border-radius: 6px;
   width: 100%;
   background-color: lighten($color_background, 0%);
+  position: relative;
+}
+
+.progress {
+  background-color: $color_brand;
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  height: 12px;
+  border-radius: 6px;
 }

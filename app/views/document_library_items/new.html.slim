@@ -1,17 +1,31 @@
 h1 = t('documents.new')
 
-= form_for @document_library_item, url: unit_document_library_items_path(@unit) do |f|
-  .form-group
-    = f.label :name
-    = f.text_field :name, class: 'form-control'
+.row
+  .col-md-3
+  .col-md-6
+    = form_for @document_library_item, url: unit_document_library_items_path(@unit) do |f|
+      .form-group
+        = f.label :name
+        = f.text_field :name, class: 'form-control'
 
-  .form-group
-    = f.label :document
-    = f.file_field :document
+      .form-group
+        .custom-file
+          = f.file_field :document, class: 'custom-file-input'
+          = f.label :document, class: 'custom-file-label'
 
-  .form-group
-    = f.submit t('documents.new_cta'), class: 'btn btn-primary'
-    |&nbsp;&nbsp;
-    = t('or')
-    |&nbsp;&nbsp;
-    = link_to t('cancel'), unit_document_library_items_path(@unit)
+      .form-group
+        = f.submit t('documents.new_cta'), class: 'btn btn-primary'
+        |&nbsp;&nbsp;
+        = t('or')
+        |&nbsp;&nbsp;
+        = link_to t('cancel'), unit_document_library_items_path(@unit)
+
+
+javascript:
+  $('#document_library_item_document').on('change',function(){
+      //get the file name
+      var fileName = $(this).val();
+      var components = fileName.split('\\');
+      fileName = components[components.length - 1];
+      $(this).next('.custom-file-label').html(fileName);
+  })
