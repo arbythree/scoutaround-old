@@ -1,3 +1,5 @@
+# require 'combine_pdf'
+
 class EventSubmissionsController < EventContextController
   before_action :find_submission, except: [:new, :create, :index]
 
@@ -6,12 +8,33 @@ class EventSubmissionsController < EventContextController
 
     # apply filtering
     event_registration_id = params[:registration]
-    event_requirement_id  = params[:requirement]
+    event_requirement_id  = params[:event_requirement_id]
     @submissions = @submissions.select { |sub| sub.event_registration_id == event_registration_id.to_i } if event_registration_id.present?
     @submissions = @submissions.select { |sub| sub.event_requirement_id  == event_requirement_id.to_i } if event_requirement_id.present?
 
+    event_requirement = @event.event_requirements.find(event_requirement_id) if event_requirement_id.present?
+
+    puts event_requirement_id
+
     respond_to do |format|
       format.json { render json: @submissions }
+      format.pdf do
+        pdf_combiner = CombinePDF.new
+        @submissions.each do |submission|
+          if submission.attachment.attached?
+            pdf_combiner << CombinePDF.parse(submission.attachment.download)
+          end
+        end
+
+        combined_filename = [
+          UnitPresenter.unit_display_name(@unit),
+          @unit.city,
+          event_requirement.description.pluralize
+          '.pdf'
+        ].join(' ')
+
+        send_data pdf_combiner.to_pdf, filename: combined_filename, type: "application/pdf"
+      end
     end
   end
 

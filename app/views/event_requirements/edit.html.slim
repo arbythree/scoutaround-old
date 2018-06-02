@@ -4,6 +4,8 @@
 - crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
 - crumbtrail @event_requirement.description
 
+- submissions = EventSubmission.where(event_requirement: @event_requirement)
+
 h1 Edit Event Requirement
 
 .row
@@ -31,3 +33,12 @@ h1 Edit Event Requirement
       .form-group
         = f.hidden_field :type, value: 'DocumentEventRequirement'
         = f.submit :update, class: 'btn btn-primary'
+
+  .col-md-6
+
+    h4 Received From:
+    ul
+      - submissions.each do |submission|
+        li = submission.user.full_name
+
+    = link_to t('event_requirements.download_all'), unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf), class: 'btn btn-primary'
