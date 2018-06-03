@@ -1,5 +1,5 @@
-- crumbtrail UnitPresenter.unit_display_name(@unit), unit_path(@unit)
-- crumbtrail link_to(t('events.title'), unit_events_path(@unit))
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
 
 - content_for :title do
   h1 = @event.name
