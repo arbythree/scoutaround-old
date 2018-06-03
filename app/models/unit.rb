@@ -11,4 +11,8 @@ class Unit < ApplicationRecord
   def role_for(user: nil)
     memberships.where(user: user)&.first&.role
   end
+
+  def ranks
+    Rank.where(program_code: self.program_code).order(:ordinal)
+  end
 end

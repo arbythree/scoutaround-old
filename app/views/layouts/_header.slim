@@ -3,7 +3,7 @@ header#primary
     - if @unit.present?
         ul
           li#nav-item-announcements
-            = link_to '' do
+            = link_to unit_path(@unit) do
               span
                 i.fas.fa-broadcast-tower
               = t('announcements.title')
@@ -32,6 +32,12 @@ header#primary
                 span
                   i.fas.fa-trophy
                 = t('advancement.title')
+
+            li#nav-item-unit-settings
+              = link_to edit_unit_path(@unit) do
+                span
+                  i.fas.fa-screwdriver
+                = t('units.settings', unit_type: @unit.type)
 
     .utilities
       - if @current_user.present?

@@ -1,5 +1,5 @@
 ul.roster
-  - @event.event_registrations.each do |registration|
+  - @registrations.each do |registration|
     - style = ''
     - li_class = ''
     - if registration.user.avatar.attached?

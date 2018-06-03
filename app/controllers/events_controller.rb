@@ -6,7 +6,7 @@ class EventsController < UnitContextController
   before_action :find_event, except: [:index, :new, :create]
 
   def index
-    @events = @unit.present? ? @unit.events.future : @current_user.events.future
+    @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
 
     # this is bound to be inefficient, but let's get it working first
     if params[:filter] == 'registered'
@@ -28,6 +28,7 @@ class EventsController < UnitContextController
   end
 
   def show
+    @registrations = @event.event_registrations.includes(:user).order('users.first_name', 'users.last_name')
   end
 
   def edit

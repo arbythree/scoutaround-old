@@ -2,6 +2,7 @@ class MembershipsController < UnitContextController
   before_action :find_member, except: [:index, :new, :create]
 
   def index
+    @body_classes = ['hide-none']
     @memberships = @unit.memberships.includes(:user).order('users.first_name')
     @members = @memberships.map { |m| m.user }
   end

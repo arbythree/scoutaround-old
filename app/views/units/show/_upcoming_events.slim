@@ -1,0 +1,7 @@
+.card
+  .card-header = t('units.upcoming')
+  .card-body
+    table.table
+      = render partial: 'units/show/upcoming_event', collection: @upcoming_events
+
+    = render partial: 'units/show/upcoming_empty' if @upcoming_events.empty?
