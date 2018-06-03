@@ -1,4 +1,4 @@
-class UnitPolicy
+class UnitPolicy < ApplicationPolicy
   def initialize(user, unit)
     @user = user
     @unit = unit

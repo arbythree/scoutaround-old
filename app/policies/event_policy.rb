@@ -1,4 +1,4 @@
-class EventPolicy
+class EventPolicy < ApplicationPolicy
   def initialize(user, event)
     @user = user
     @event = event

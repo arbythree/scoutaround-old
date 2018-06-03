@@ -15,4 +15,13 @@ class Unit < ApplicationRecord
   def ranks
     Rank.where(program_code: self.program_code).order(:ordinal)
   end
+
+  def self.types
+    [
+      { id: 'Troop', name: 'Scout Troop',    program_code: 'bsa' },
+      { id: 'Pack',  name: 'Cub Pack',       program_code: 'cubs' },
+      { id: 'Crew',  name: 'Venturing Crew', program_code: 'venturing'},
+      { id: 'Post',  name: 'Explorer Post',  program_code: 'exploring'}
+    ]
+  end
 end

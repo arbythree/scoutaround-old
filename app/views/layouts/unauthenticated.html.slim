@@ -21,13 +21,6 @@ html
               = alert
 
       .row
-        .col-md-12
-          = yield :title
-          br
-          br
-
-      .row
-
         - if content_for?(:utilities)
           .col-md-8
             = yield

@@ -18,6 +18,13 @@ en:
   auth:
     sign_in:          'Sign In'
 
+  sign_up:
+    welcome:          'Welcome.'
+    tagline:          "Let's go Scout Around!"
+    placeholders:
+      first_name:     'First'
+      last_name:      'Last'
+
   events:
     title:            'Calendar'
     back_to_index:    'Back to Event List'
@@ -63,6 +70,7 @@ en:
     upcoming:   'Coming Up'
     upcoming_deictic: 'In %{deictic}'
     success_update: 'Unit settings have been updated.'
+    city:       'City'
 
   registrations:
     title:             'Registrations'
