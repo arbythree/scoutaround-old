@@ -46,7 +46,7 @@
 
     #rank.youth-only.form-group
       = u.label :rank
-      = u.select :rank, @unit.ranks, {}, class: 'form-control'
+      = u.collection_select :rank_id, @unit.ranks, :id, :name, {}, class: 'form-control'
 
     /
     / nested guardianship fields

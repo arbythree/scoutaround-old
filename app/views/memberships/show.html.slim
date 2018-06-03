@@ -6,6 +6,7 @@
   = link_to t('advancement.title'), unit_membership_achievements_path(@unit, @membership)
 
   = render partial: 'memberships/show/utilities' if @current_user_is_admin
+  = content_tag 'h4', @user.rank.name if @user.rank.present?
   h1 = @user.full_name
 
 = render partial: 'memberships/show/guardians' if @user.guardians.present?

@@ -1,0 +1,73 @@
+css:
+  body {
+    background: url('/assets/chris-schog-271197-unsplash.jpg') no-repeat fixed;
+    background-size: cover;
+  }
+
+  h1 {
+    color: #fff;
+  }
+
+.row
+  .col-md-2
+  .col-md-8
+    h1 = t('sign_up.welcome')
+    h1 = t('sign_up.tagline')
+    br
+
+    .card(style="background-color:rgba(255, 255, 255, 0.95);")
+      .card-body(style="padding: 30px 90px;")
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+
+          .form-group
+            = f.label :your_name
+            div
+              = text_field :first_name, '', class: 'form-control', style: 'width: 49%; float: left;',  placeholder: t('sign_up.placeholders.first_name'), autofocus: true
+              = text_field :last_name,  '', class: 'form-control', style: 'width: 49%; float: right;', placeholder: t('sign_up.placeholders.last_name')
+
+          br
+          br
+
+          .form-group
+            = f.label :email
+            = f.email_field :email, class: 'form-control'
+
+          .form-group
+            = f.label :password
+            - if @minimum_password_length
+              |&nbsp;
+              em = "(#{@minimum_password_length} characters minimum)"
+            = f.password_field :password, autocomplete: "off", class: 'form-control'
+
+          .form-group
+            = f.label :password_confirmation
+            = f.password_field :password_confirmation, autocomplete: "off", class: 'form-control'
+
+          .form-group
+            = f.label :unit_type, 'Your unit'
+            div
+              = select_tag :unit_type, options_for_select(Unit.types.collect { |t| [t[:id], t[:name]] }), class: 'form-control', style: 'width: 70%; float: left;'
+              = text_field :unit_number, '', class: 'form-control', style: 'width: 29%; float: right;', placeholder: 'Unit number'
+
+          br
+          br
+
+          .form-group
+            = f.label :location
+            div
+              = text_field :city, '', class: 'form-control', style: 'width: 70%; float: left;', placeholder: t('units.city')
+              = select_tag :state, options_for_select(us_states.collect { |s| [s[1], s[0]] }), class: 'form-control', style: 'width: 29%; float: right;'
+
+          br
+          br
+
+          .form-group
+            = f.submit 'Get Started', class: 'btn btn-primary'
+
+.row
+  .col-md-2
+  .col-md-8(style="padding:15px 90px;")
+    p(style="padding-left: 15px; color: #fff;")
+      | Already have an account?&nbsp;&nbsp;
+      = link_to 'Sign In Now', new_user_session_path

@@ -1,3 +1,8 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
+- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
+- crumbtrail t('submissions.title')
+
 .row
   .col-md-3
   .col-md-6
@@ -13,7 +18,7 @@
         = f.collection_select :event_requirement_id, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
-        = f.file_field :attachment, direct_upload: true, multiple: false
+        = f.file_field :attachment, direct_upload: true, multiple: false, accept: '.pdf'
 
       .form-group
         = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'

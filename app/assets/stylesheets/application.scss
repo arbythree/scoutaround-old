@@ -19,6 +19,7 @@
 
 // $color_brand: rgb(182, 24, 24);
 // $color_brand: #F04A00; // GGB
+$blue: #7D9E9C;
 $color_brand: #BA160C; // eng
 $color_background: rgb(235, 233, 232);
 
@@ -72,13 +73,14 @@ h4 {
 }
 
 .btn-primary {
-  background-color: rgb(182, 24, 24);
-  border-color: rgb(182, 20, 20);
+  // background-color: rgb(182, 24, 24);
+  background-color: $blue;
+  border-color: darken($blue, 10%);
   min-width: 12rem;
 
   &:hover {
-    background-color: rgb(172, 14, 14);
-    border-color: rgb(162, 4, 4);
+    background-color: darken($blue, 10%);
+    border-color: darken($blue, 10%);
   }
 }
 
@@ -89,6 +91,10 @@ a {
   &:hover {
     color: rgb(172, 14, 14);
   }
+}
+
+a.cancel {
+  color: $blue;
 }
 
 header#primary {
@@ -155,10 +161,15 @@ header#secondary {
 main {
   @extend .container;
   max-width: 1332px;
-  background: #fff;
   padding: 3rem 6rem;
-  border-radius: 10px;
-  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+body.authenticated {
+  main {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+  }
 }
 
 // label {
@@ -347,9 +358,10 @@ table.checklist {
     }
   }
 
-  svg {
+  .dropdown-item svg {
     color: $color_brand;
-    margin-right: 0.5rem;
+    margin: 0 0.5rem;
+    width: 16px;
   }
 }
 
@@ -613,10 +625,71 @@ body.document_library_items.index {
   }
 }
 
+body.units.show {
+  #nav-item-announcements a {
+    color: $color_brand;
+    cursor: default;
+  }
+}
+
 body.memberships.index {
   #nav-item-roster a {
     color: $color_brand;
     cursor: default;
+  }
+
+  a.toggle-view-users, a.toggle-view-users-active {
+    svg {
+      display: none;
+    }
+  }
+
+  &.hide-none {
+    #toggle-view-users-all {
+      svg {
+        display: inline;
+      }
+    }
+  }
+
+  #names-table tr.inactive {
+    display: none;
+  }
+
+  &.show-inactive {
+    #toggle-view-users-inactive {
+      svg {
+        display: inline;
+      }
+    }
+
+    #names-table tr.inactive {
+      display: table-row;
+    }
+  }
+
+  &.hide-adults {
+    #toggle-view-users-youths {
+      svg {
+        display: inline;
+      }
+    }
+
+    #names-table tr.adult {
+      display: none;
+    }
+  }
+
+  &.hide-youths {
+    #toggle-view-users-adults {
+      svg {
+        display: inline;
+      }
+    }
+
+    #names-table tr.youth {
+      display: none;
+    }
   }
 }
 
@@ -636,4 +709,8 @@ body.memberships.index {
   left: 0;
   height: 12px;
   border-radius: 6px;
+}
+
+label {
+  font-weight: 600;
 }

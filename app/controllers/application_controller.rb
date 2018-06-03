@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery with: :exception
+  layout :select_layout
 
   def present(object, klass = nil)
     klass ||= "#{object.class}Presenter".constantize
     klass.new(object, view_context)
+  end
+
+  def select_layout
+    user_signed_in? ? 'application' : 'unauthenticated'
   end
 end

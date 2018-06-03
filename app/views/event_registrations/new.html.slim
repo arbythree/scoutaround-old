@@ -1,4 +1,8 @@
-h1 = @event.name
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
+
+- content_for :title do
+  h1 = @event.name
 
 = form_tag unit_event_event_registrations_path(@unit, @event) do |f|
   ul

@@ -45,7 +45,7 @@ after :ranks do
 
   puts "Guardianships: #{Guardianship.count}"
 
-  troop = Troop.where(number: '28', location: 'Santa Ana, CA').first_or_create
+  troop = Troop.where(number: '28', location: 'Santa Ana, CA', program_code: 'bsa').first_or_create
 
   User.all.each do |user|
     troop.memberships.where(user: user).first_or_create

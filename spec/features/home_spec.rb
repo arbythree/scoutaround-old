@@ -11,7 +11,7 @@ RSpec.feature "Home page", :type => :feature do
     visit new_user_session_path
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
-    click_on 'Log in'
+    click_on I18n.t('auth.sign_in')
     expect(page).to have_current_path(unit_events_path(unit_id: @unit.id))
   end
 
@@ -22,7 +22,7 @@ RSpec.feature "Home page", :type => :feature do
     visit new_user_session_path
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
-    click_on 'Log in'
+    click_on I18n.t('auth.sign_in')
     expect(page).to have_current_path(root_path)
   end
 end

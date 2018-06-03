@@ -1,13 +1,24 @@
-class UnitsController < AuthenticatedController
-  before_action :find_unit
-
+class UnitsController < UnitContextController
   def show
-    redirect_to unit_events_path(@unit)
+    @upcoming_events = @unit.events.upcoming
+  end
+
+  def edit
+    authorize @unit.becomes(Unit)
+  end
+
+  def update
+    authorize @unit.becomes(Unit)
+
+    if @unit.update_attributes(unit_params)
+      flash[:notice] = I18n.t('units.success_update')
+      redirect_to unit_path(@unit)
+    end
   end
 
   private
 
-  def find_unit
-    @unit = @current_user.units.find(params[:id])
+  def unit_params
+    params.require(:unit).permit(:city)
   end
 end

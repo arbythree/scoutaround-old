@@ -8,8 +8,9 @@ module ApplicationHelper
     presenter
   end
 
-  def additional_classes(class_list = [])
-    class_list.concat([controller.controller_name, controller.action_name]).join(' ')
+  def additional_classes
+    @body_classes ||= []
+    @body_classes.concat([controller.controller_name, controller.action_name]).join(' ')
   end
 
   def crumbtrail(element)

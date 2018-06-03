@@ -9,8 +9,9 @@
   - present @event do |event|
     p
       = event.dates
-      | &nbsp;&nbsp;&bull;&nbsp;&nbsp;
-      = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
+      - if @event.location.present?
+        | &nbsp;&nbsp;&bull;&nbsp;&nbsp;
+        = link_to @event.location, google_maps_link(@event.location), target: '_blank'
 
 - content_for :utilities do
   = render 'events/show/checklist'

@@ -9,9 +9,7 @@ html
     - (ENV['HTML_HEAD_INJECT'] || '').split(';').each { |d| concat(eval(d)) }
     = yield :head
 
-  body(class="authenticated #{additional_classes}")
-    = render partial: 'layouts/header'
-
+  body(class="#{additional_classes} unauthenticated")
     main
       - if flash[:notice].present? || flash[:alert].present?
         #alerts
@@ -23,13 +21,6 @@ html
               = alert
 
       .row
-        .col-md-12
-          = yield :title
-          br
-          br
-
-      .row
-
         - if content_for?(:utilities)
           .col-md-8
             = yield
