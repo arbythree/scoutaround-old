@@ -1,3 +1,7 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('units.roster'), unit_memberships_path(@unit)
+- crumbtrail t("memberships.add.#{@membership.user.type.downcase}")
+
 .row
   .col-md-3
   .col-md-6
@@ -6,7 +10,6 @@
         - @membership.errors.full_messages.each do |error_message|
           li = error_message
 
-    h1 = t('members.add_new')
-    h2 = UnitPresenter.unit_display_name(@unit)
+    h1 = t("memberships.add.#{@membership.user.type.downcase}")
 
     = render partial: 'form'

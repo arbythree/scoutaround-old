@@ -3,8 +3,7 @@
 
 - content_for :title do
   h1 = UnitPresenter.unit_display_name(@unit)
-  p
-    = @unit.city
+  p = "#{ @unit.city }, #{ @unit.state }"
 
 - content_for :utilities do
   = render partial: 'units/show/upcoming_events'

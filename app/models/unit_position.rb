@@ -1,0 +1,2 @@
+class UnitPosition < ApplicationRecord
+end

@@ -6,7 +6,6 @@
         - @membership.errors.full_messages.each do |error_message|
           li = error_message
 
-    h1 = t('members.add_new')
-    h2 = UnitPresenter.unit_display_name(@unit)
+    h1 = t('memberships.edit')
 
     = render partial: 'form'

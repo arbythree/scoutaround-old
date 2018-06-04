@@ -1,9 +1,0 @@
-- submission = event_requirement.event_submissions.where(user: @registration.user).first
-
-tr
-  - if submission.present?
-    td = link_to event_requirement.description, submission
-  - else
-    td = "sdf"
-    / td = link_to event_requirement.is_a?(DocumentEventRequirement) ? I18n.t('submissions.upload') : I18n.t('submissions.pay'),
-      new_registration_event_requirement_submission_path(registration_id: @registration.id, event_requirement_id: event_requirement.id)

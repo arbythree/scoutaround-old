@@ -19,6 +19,9 @@
             = link_to unit_membership_path(id: membership.id) do
               strong = member.user.first_name
               | &nbsp;
+              - if member.user.nickname.present?
+                = "\"#{ member.user.nickname }\""
+                |&nbsp;
               = member.user.last_name
           td.type  = member.type
           td.phone = member.user.phone
