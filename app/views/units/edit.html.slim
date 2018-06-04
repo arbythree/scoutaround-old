@@ -29,7 +29,7 @@
   .col-md-3
     ul
       li
-        = link_to 'Set Up Payments', 'https://connect.stripe.com/express/oauth/authorize?client_id=ca_Cz1y5yh1dYrmKxsdArxOiQ4wqGKpkPJg&redirect_uri=https%3A%2F%2Fstripe.com%2Fdocs%2Fconnect%2Fquickstart&state=state'
+        = link_to 'Set Up Payments', stripe_connect_path
         | &nbsp;
         = link_to 'https://docs.scoutaround.org/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: 'Learn more about how to accept payments on Scoutaround' do
           i.fa-question-circle.fas
