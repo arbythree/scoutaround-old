@@ -22,14 +22,9 @@ RSpec.feature "Membership features", :type => :feature do
     expect(page).to have_content(@user.full_name)
   end
 
-  it 'goes to the New Member page when New Member is clicked' do
-    click_on I18n.t('members.add')
-    expect(page).to have_current_path(new_unit_membership_path(@unit))
-  end
-
   it 'adds a new Youth' do
-    click_on I18n.t('members.add')
-    choose I18n.t('users.youth')
+    click_on I18n.t('memberships.add.youth')
+    expect(page).to have_current_path(new_unit_membership_path(@unit, type: 'youth'))
     fill_in 'membership_user_attributes_first_name', with: 'Mortimer'
     fill_in 'membership_user_attributes_last_name', with: 'Snerd'
     # select I18n.t('ranks.life'), from: 'Rank'
