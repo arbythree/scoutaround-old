@@ -19,6 +19,6 @@ class UnitsController < UnitContextController
   private
 
   def unit_params
-    params.require(:unit).permit(:city)
+    params.require(:unit).permit(:city, :state, :chartering_organization_name)
   end
 end

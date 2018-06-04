@@ -14,6 +14,8 @@ class MembershipsController < UnitContextController
   def new
     @membership = @unit.memberships.build
     @user = @membership.build_user
+    @user.type = (params[:type] || 'youth').titleize
+    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @user.type.downcase)
   end
 
   def create
@@ -43,9 +45,7 @@ class MembershipsController < UnitContextController
   end
 
   def edit
-    # ap @membership
-    # ap @membership.user
-    # ap @membership.user.guardeeships
+    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @membership.user.type.downcase)
   end
 
   private
@@ -57,8 +57,9 @@ class MembershipsController < UnitContextController
 
   def membership_params
     params.require(:membership).permit(
+      :unit_position_id,
       user_attributes: [:id, :rank_id, :first_name, :last_name,
-        :type, :email, :phone, :avatar,
+        :nickname, :type, :email, :phone, :avatar,
         guardeeships_attributes: [:id, :guardian_id, :_destroy]
       ]
     )

@@ -10,6 +10,9 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
+    return true if @target_user == @user
+    return true if @target_user.guardians.include?(@user)
+    false
   end
 
   def update?

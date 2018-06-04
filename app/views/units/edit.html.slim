@@ -2,15 +2,42 @@
 - crumbtrail t('units.settings', unit_type: @unit.type)
 
 .row
-  .col-md-3
+  .col-md-1
   .col-md-6
     h4 = t('units.settings', unit_type: @unit.type)
     h1 = UnitPresenter.unit_display_name(@unit)
 
-    = form_for @unit, url: unit_path(@unit) do |f|
+    = form_for @unit.becomes(Unit), url: unit_path(@unit) do |f|
       .form-group
         = f.label :city
-        = f.text_field :city, class: 'form-control'
+        div
+          = f.text_field :city, class: 'form-control', style: 'width: 70%; float: left;'
+          = select_tag 'unit[state]', options_for_select(us_states.collect { |s| [ s[0], s[1] ] }, @unit.state), class: 'form-control', style: 'width: 29%; float: right;'
+
+      br
+      br
+
+      .form-group
+        = f.label :chartering_organization_name
+        = f.text_field :chartering_organization_name, class: 'form-control'
 
       .form-group
         = f.submit t('units.update', unit_type: @unit.type), class: 'btn btn-primary'
+        |&nbsp;&nbsp;or&nbsp;&nbsp;
+        = link_to t('cancel'), unit_path(@unit), class: 'cancel'
+  .col-md-1
+  .col-md-3
+    ul
+      li
+        = link_to 'Set Up Payments', 'https://connect.stripe.com/express/oauth/authorize?client_id=ca_Cz1y5yh1dYrmKxsdArxOiQ4wqGKpkPJg&redirect_uri=https%3A%2F%2Fstripe.com%2Fdocs%2Fconnect%2Fquickstart&state=state'
+        | &nbsp;
+        = link_to 'https://docs.scoutaround.org/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: 'Learn more about how to accept payments on Scoutaround' do
+          i.fa-question-circle.fas
+
+      li
+        = link_to 'Import Member Spreadsheet', new_unit_membership_import_path(@unit)
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

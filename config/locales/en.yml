@@ -102,8 +102,9 @@ en:
     add_new: 'Add Member'
     first_name: 'First'
     last_name: 'Last'
+    nickname: 'Nickname (optional)'
     added: 'Added new member'
-    administrator: 'administrator'
+    administrator: 'Administrator'
     log_in: 'Allow login (email address required)'
     view_all: 'All'
     view_youths: 'Youths'
@@ -122,6 +123,14 @@ en:
     registrations:  'Registrations'
     administration: 'Member Management'
     search_by_name: 'Search by first or last name'
+    position_prompt: 'Select a position (optional)'
+    add:
+      youth:        'Add a Youth Member'
+      adult:        'Add an Adult Member'
+    invite:
+      adult:        'Invite an Adult'
+    blurbs:
+      photo:      'Optional, but if you do upload one, please use a real photo and not a comic, cartoon, or drawing.'
 
   users:
     youth:        'Youth'

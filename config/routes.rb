@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { invitations: 'users/invitations' }
   root to: 'home#index'
 
   resources :requirements
 
   resources :units do
+    resources :membership_imports
+
     resources :memberships, path: 'members' do
       resources :achievements, path: 'advancement'
     end

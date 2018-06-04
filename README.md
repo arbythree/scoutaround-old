@@ -38,6 +38,22 @@ foreman s
 
 Then visit [http://localhost:5000](http://localhost:5000)
 
+### Sending and receiving email locally
+
+The app is configured to use [Mailcatcher](https://mailcatcher.me/) to send and receive on port 1025 on your dev machine. Install Mailcatcher:
+
+```
+gem install mailcatcher
+```
+
+Run it:
+
+```
+mailcatcher
+```
+
+Then visit [http://localhost:1080/](http://localhost:1080/)
+
 # Running tests
 
 ```

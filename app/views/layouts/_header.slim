@@ -1,43 +1,46 @@
 header#primary
   nav
-    - if @unit.present?
-        ul
-          li#nav-item-announcements
-            = link_to unit_path(@unit) do
+    - unless @unit.present?
+      br
+      br
+    - else
+      ul
+        li#nav-item-announcements
+          = link_to unit_path(@unit) do
+            span
+              i.fas.fa-broadcast-tower
+            = t('announcements.title')
+
+        li#nav-item-roster
+          = link_to unit_memberships_path(@unit) do
+            span
+              i.fas.fa-users
+            = t('members.roster')
+
+        li#nav-item-events
+          = link_to unit_events_path(@unit) do
+            span
+              i.fas.fa-calendar-alt
+            = t('events.title')
+
+        li#nav-item-documents
+          = link_to unit_document_library_items_path(@unit) do
+            span
+              i.fas.fa-file-alt
+            = t('documents.title')
+
+        - if @current_user_is_admin
+          li#nav-item-advancement
+            = link_to unit_achievements_path(@unit) do
               span
-                i.fas.fa-broadcast-tower
-              = t('announcements.title')
+                i.fas.fa-trophy
+              = t('advancement.title')
 
-          li#nav-item-roster
-            = link_to unit_memberships_path(@unit) do
+          li#nav-item-unit-settings
+            = link_to edit_unit_path(@unit) do
               span
-                i.fas.fa-users
-              = t('members.roster')
-
-          li#nav-item-events
-            = link_to unit_events_path(@unit) do
-              span
-                i.fas.fa-calendar-alt
-              = t('events.title')
-
-          li#nav-item-documents
-            = link_to unit_document_library_items_path(@unit) do
-              span
-                i.fas.fa-file-alt
-              = t('documents.title')
-
-          - if @current_user_is_admin
-            li#nav-item-advancement
-              = link_to unit_achievements_path(@unit) do
-                span
-                  i.fas.fa-trophy
-                = t('advancement.title')
-
-            li#nav-item-unit-settings
-              = link_to edit_unit_path(@unit) do
-                span
-                  i.fas.fa-screwdriver
-                = t('units.settings', unit_type: @unit.type)
+                i.fas.fa-screwdriver
+              = t('units.settings', unit_type: @unit.type)
 
     .utilities
       - if @current_user.present?
