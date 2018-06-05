@@ -5,16 +5,16 @@
   .dropdown-menu.dropdown-menu-right
     - if @current_user_is_admin
       = link_to new_unit_membership_path(@unit, type: 'youth'), class: 'dropdown-item' do
+        i.fa-tree.fas
         = t('memberships.add.youth')
-        i.fa-tree.fas
 
       = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
+        i.fa-tree.fas
         = t('memberships.add.adult')
-        i.fa-tree.fas
 
       = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
-        = t('memberships.invite.adult')
         i.fa-tree.fas
+        = t('memberships.invite.adult')
 
       .dropdown-divider
 

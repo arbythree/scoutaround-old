@@ -13,23 +13,34 @@
         div
           = f.text_field :city, class: 'form-control', style: 'width: 70%; float: left;'
           = select_tag 'unit[state]', options_for_select(us_states.collect { |s| [ s[0], s[1] ] }, @unit.state), class: 'form-control', style: 'width: 29%; float: right;'
+      br
+      br
 
-      br
-      br
+      .form-group
+        = f.label :council
+        = f.text_field :council, class: 'form-control'
+
+      .form-group
+        = f.label :district
+        = f.text_field :district, class: 'form-control'
 
       .form-group
         = f.label :chartering_organization_name
         = f.text_field :chartering_organization_name, class: 'form-control'
 
+      br
+      br
+
       .form-group
         = f.submit t('units.update', unit_type: @unit.type), class: 'btn btn-primary'
         |&nbsp;&nbsp;or&nbsp;&nbsp;
         = link_to t('cancel'), unit_path(@unit), class: 'cancel'
+
   .col-md-1
   .col-md-3
     ul
       li
-        = link_to 'Set Up Payments', 'https://connect.stripe.com/express/oauth/authorize?client_id=ca_Cz1y5yh1dYrmKxsdArxOiQ4wqGKpkPJg&redirect_uri=https%3A%2F%2Fstripe.com%2Fdocs%2Fconnect%2Fquickstart&state=state'
+        = link_to 'Set Up Payments', stripe_connect_path
         | &nbsp;
         = link_to 'https://docs.scoutaround.org/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: 'Learn more about how to accept payments on Scoutaround' do
           i.fa-question-circle.fas

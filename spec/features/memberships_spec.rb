@@ -38,6 +38,10 @@ RSpec.feature "Membership features", :type => :feature do
     # expect(page).to have_content(I18n.t('ranks.life'))
   end
 
+  it 'displays the membership page' do
+    visit unit_membership_path(@unit, @membership)
+  end
+
   it 'displays the membership edit page' do
     visit edit_unit_membership_path(@unit, @membership)
     expect(page).to have_current_path(edit_unit_membership_path(@unit, @membership))
