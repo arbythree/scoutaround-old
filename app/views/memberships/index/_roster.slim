@@ -10,7 +10,8 @@
       th = t('people.type')
       th = t('people.phone')
       th = t('people.email')
-      th = t('people.rank_or_role')
+      th = t('people.rank')
+      th = t('people.position')
 
     - @memberships.each do |membership|
       - present membership.user do |member|
@@ -23,10 +24,11 @@
                 = "\"#{ member.user.nickname }\""
                 |&nbsp;
               = member.user.last_name
-          td.type  = member.type
-          td.phone = member.user.phone
-          td.email = member.user.email unless member.user.anonymous_email?
-          td.rank  = member.rank if member.type == 'Youth'
+          td.type     = member.type
+          td.phone    = member.user.phone
+          td.email    = member.user.email unless member.user.anonymous_email?
+          td.rank     = member&.rank
+          td.position = membership&.unit_position&.name
 
 javascript:
   // search functionality
