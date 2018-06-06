@@ -164,6 +164,12 @@ main {
   padding: 3rem 6rem;
 }
 
+body.admin {
+  main {
+    border-top: 30px solid $color_brand;
+  }
+}
+
 body.authenticated {
   main {
     background: #fff;
@@ -400,7 +406,8 @@ ul.roster {
       padding-top: 100%;
       border-radius: 50%;
       background-color: #ddd;
-      background-size: contain;
+      background-repeat: no-repeat;
+      background-size: cover;
       position: relative;
       text-align: center;
     }
@@ -632,6 +639,13 @@ body.units.show {
   }
 }
 
+body.units.edit {
+  #nav-item-unit-settings a {
+    color: $color_brand;
+    cursor: default;
+  }
+}
+
 body.memberships.index {
   #nav-item-roster a {
     color: $color_brand;
@@ -713,4 +727,8 @@ body.memberships.index {
 
 label {
   font-weight: 600;
+}
+
+a.unregister {
+  color: darken($color_background, 50%);
 }

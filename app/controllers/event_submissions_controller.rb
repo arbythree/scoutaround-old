@@ -14,10 +14,8 @@ class EventSubmissionsController < EventContextController
 
     event_requirement = @event.event_requirements.find(event_requirement_id) if event_requirement_id.present?
 
-    puts event_requirement_id
-
     respond_to do |format|
-      format.json { render json: @submissions }
+      format.json { render json: @submissions || [] }
       format.pdf do
         pdf_combiner = CombinePDF.new
         @submissions.each do |submission|
@@ -42,9 +40,11 @@ class EventSubmissionsController < EventContextController
   end
 
   def new
+    @event_requirement = @event.event_requirements.find(params[:event_requirement_id])
     @submission = EventSubmission.new
-    @submission.event_requirement_id  = params[:requirement]
+    @submission.event_requirement = @event_requirement
     @submission.event_registration_id = params[:registration]
+
 
     # iterate through all event registrations and determine whether current user is allowed to
     # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
@@ -65,16 +65,35 @@ class EventSubmissionsController < EventContextController
   end
 
   def create
-    @submission = EventSubmission.new(submission_params)
+    @event_requirement = @event.event_requirements.find(params[:event_requirement_id])
+    @submission = @event_requirement.event_submissions.new(submission_params)
 
     # destroy any
     EventSubmission.where(
-      event_requirement_id: @submission.event_requirement_id,
-      event_registration_id: @submission.event_registration_id
+      event_requirement_id: @event_requirement.id,
+      event_registration_id: @submission.event_registration.id
     ).destroy_all
 
-    if @submission.save
-      redirect_to unit_event_event_registration_path(@unit, @event, @submission.event_registration)
+
+    case @event_requirement.type
+    when 'FeeEventRequirement'
+      if @submission.save
+
+        # because payment is for the entire family, let's create
+        # payment submissions for them, too
+        @current_user.guardees.each do |user|
+          registration = @event.event_registrations.find_by(user: user)
+          if registration.present?
+            @event_requirement.event_submissions.where(event_registration: registration).first_or_create
+          end
+        end
+
+        redirect_to unit_event_event_requirement_event_submission_path(@unit, @event, @event_requirement, @submission)
+      end
+    when 'DocumentEventRequirement'
+      if @submission.save
+        redirect_to unit_event_event_registration_path(@unit, @event, @submission.event_registration)
+      end
     end
   end
 
@@ -82,12 +101,13 @@ class EventSubmissionsController < EventContextController
 
   def find_submission
     @submission = EventSubmission.find(params[:id])
+    @event_requirement = @submission.event_requirement
   end
 
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_requirement_id, :event_registration_id, :attachment, :audience)
+      .permit(:event_registration_id, :attachment, :audience, :waived)
       .merge({ submitter: @current_user })
   end
 end

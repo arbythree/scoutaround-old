@@ -103,3 +103,19 @@ If you're deploying to Heroku and wish to leverage Active Storage previews for t
 ```
 heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-active-storage-preview
 ```
+
+## Stripe
+
+Scoutaround uses [Stripe](https://stripe.com) to facilitate payments. You'll need to establish a Stripe Connect account.
+
+## Environment Variables
+
+- MIXPANEL_TOKEN
+- S3_BUCKET
+- S3_REGION
+- S3_ACCESS_KEY_ID
+- S3_SECRET_ACCESS_KEY
+- SKYLIGHT_TOKEN
+- STRIPE_CONNECT_CLIENT_ID
+- STRIPE_SECRET_KEY
+- STRIPE_PUBLISHABLE_KEY

@@ -1,0 +1,50 @@
+- content_for :title do
+  h1 = Receipt
+
+
+.row
+  .col-md-1
+  .col-md-5
+      .form-group
+        = label_tag :card_number
+        = text_field_tag :card_number, '', class: 'form-control', placeholder: 'Credit card number', pattern: '[\d ]*'
+
+      .form-group
+        .row
+          .col-md-6
+            = label_tag :cvc, 'CVC'
+            = text_field_tag :cvc, '', class: 'form-control', placeholder: 'CVC', pattern: '\d{3,4}'
+
+          .col-md-6
+            = label_tag :expiration
+            = text_field_tag :expiration, '', class: 'form-control', placeholder: 'MM/YY', pattern: '\d\d\/\d\d'
+
+      .form-group
+        = check_box_tag :remember
+        | &nbsp;
+        = label_tag :remember, 'Remember this card'
+
+  .col-md-1
+  .col-md-4
+    table.table
+      - @current_user.family.each do |user|
+        - if user.is_member_of?(unit: @unit)
+          - registration = @event.event_registrations.find_by(user: user)
+          - if registration.present?
+            - user_fee = user.type == 'Youth' ? @event_requirement.amount_youth : @event_requirement.amount_adult
+            - total += user_fee
+
+            tr
+              td = user.first_name
+              td(style="text-align:right;") = number_to_currency(user_fee / 100.0)
+
+      - processing_fee = (total * 0.029 + 30) / 100.0
+      - total += processing_fee
+
+      tr
+        td Processing Fee
+        td(style="text-align:right;") = number_to_currency(processing_fee)
+
+      tr(style="font-weight: 600;")
+        td Total
+        td(style="text-align:right;") = number_to_currency(total / 100.0)

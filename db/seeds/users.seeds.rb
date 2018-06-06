@@ -90,9 +90,10 @@ after :ranks do
   ).first_or_create
 
   summer_camp.event_requirements.where(
-    type: 'PaymentEventRequirement',
+    type: 'FeeEventRequirement',
     description: 'Camp Fee',
-    amount: 250
+    amount_youth: 25000,
+    amount_adult: 30000
   ).first_or_create
 
   owen_registration = EventRegistration.where(

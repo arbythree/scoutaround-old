@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_04_173536) do
+ActiveRecord::Schema.define(version: 2018_06_05_205043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,13 +77,14 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.integer "event_id"
     t.string "type"
     t.string "description"
-    t.decimal "amount", precision: 8, scale: 2
+    t.integer "amount_youth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "due_at"
     t.integer "document_library_item_id"
     t.integer "audience", default: 0
     t.boolean "required", default: true
+    t.integer "amount_adult"
   end
 
   create_table "event_submissions", force: :cascade do |t|
@@ -95,6 +96,9 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.text "file_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "due_at"
+    t.boolean "waived", default: false
+    t.string "stripe_charge_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -105,6 +109,7 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "registration_closes_at"
   end
 
   create_table "guardianships", force: :cascade do |t|
@@ -156,6 +161,7 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.string "state"
     t.string "council"
     t.string "district"
+    t.string "stripe_user_id"
   end
 
   create_table "users", force: :cascade do |t|

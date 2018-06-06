@@ -16,18 +16,24 @@ table.table
       - if submission.present?
         td.event-requirement.event-requirement-completed
           i.fas.fa-check
-          = 'Completed'
+          - if requirement.is_a?(FeeEventRequirement)
+            = 'Paid'
+          - elsif submission.waived
+            = t('submissions.waived')
+          - else
+            =  t('submissions.completed')
+
         td = link_to 'View', unit_event_event_submission_path(@unit, @event, submission)
       - else
         td
         td
           - if requirement.type == 'DocumentEventRequirement'
-            = link_to 'Upload'
-          - elsif requirement.type == 'PaymentEventRequirement'
-            = link_to 'Record Payment'
+            = link_to t('submissions.upload_simple')
+          - elsif requirement.type == 'FeeEventRequirement'
+            = link_to t('submissions.record_payment')
 
 - content_for :utilities
   .card
     .card-header Manage
     .card-body
-      p = link_to 'Unregister', unit_event_event_registration_path(@unit, @event, @registration), method: :delete, prompt: 'Are you sure?'
+      p = link_to t('registrations.destroy'), unit_event_event_registration_path(@unit, @event, @registration), method: :delete, prompt: 'Are you sure?'

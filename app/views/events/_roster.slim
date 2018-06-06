@@ -1,11 +1,3 @@
 ul.roster
   - @registrations.each do |registration|
-    - style = ''
-    - li_class = ''
-    - if registration.user.avatar.attached?
-      - style    = "background-image: url('#{rails_blob_path(registration.user.avatar)}');"
-      - li_class = 'avatar-attached'
-
-    li(class="roster-variation-#{ Digest::SHA256.hexdigest(registration.user.short_name).to_i % 30 } #{ li_class }")
-      .avatar(data-toggle="tooltip" title="#{ registration.user.full_name }" style="#{ style }")
-        .name = "#{ registration.user.initials }"
+    = render partial: 'shared/avatar', locals: { user: registration.user }

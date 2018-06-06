@@ -6,39 +6,89 @@
 
 - submissions = EventSubmission.where(event_requirement: @event_requirement)
 
-h1 Edit Event Requirement
+- if @event_requirement.is_a?(DocumentEventRequirement)
+  h1 Edit Event Requirement
 
-.row
-  .col-md-6
-    = form_for @event_requirement.becomes(EventRequirement), url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
-      .form-group
-        = f.label :description
-        = f.text_field :description, class: 'form-control'
+  .row
+    .col-md-6
+      = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
+        .form-group
+          = f.label :description
+          = f.text_field :description, class: 'form-control'
 
-      .form-group
-        = f.label :due_at
-        = f.text_field :due_at, class: 'form-control'
+        .form-group
+          = f.label :due_at
+          = f.text_field :due_at, class: 'form-control'
 
-      .form-group
-        = f.label :audience
-        - EventRequirement.audiences.keys.each do |audience|
-          = f.radio_button :audience, audience
-          = f.label audience.to_sym
+        .form-group
+          = f.label :audience
+          - EventRequirement.audiences.keys.each do |audience|
+            = f.radio_button :audience, audience
+            = f.label audience.to_sym
 
-      .form-group
-        = f.label :document_library_item
-        = f.collection_select :document_library_item_id, @unit.document_library_items, :id, :name, \
-          { prompt: 'Select a document from the library (optional)' }, class: 'form-control'
+        .form-group
+          = f.check_box :required
+          | &nbsp;
+          = f.label :required
 
-      .form-group
-        = f.hidden_field :type, value: 'DocumentEventRequirement'
-        = f.submit :update, class: 'btn btn-primary'
+        .form-group
+          = f.label :document_library_item
+          = f.collection_select :document_library_item_id, @unit.document_library_items, :id, :name, \
+            { prompt: 'Select a document from the library (optional)' }, class: 'form-control'
 
-  .col-md-6
+        .form-group
+          = f.hidden_field :type, value: 'DocumentEventRequirement'
+          = f.submit :update, class: 'btn btn-primary'
 
-    h4 Received From:
-    ul
-      - submissions.each do |submission|
-        li = submission.user.full_name
+    .col-md-6
 
-    = link_to t('event_requirements.download_all'), unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf), class: 'btn btn-primary'
+      h4 Received From:
+      ul
+        - submissions.each do |submission|
+          li = submission.user.full_name
+
+      = link_to t('event_requirements.download_all'), unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf), class: 'btn btn-primary'
+
+
+
+- if @event_requirement.is_a?(FeeEventRequirement)
+  h1 Edit Event Requirement
+  .row
+    .col-md-6
+      = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
+        .form-group
+          = f.label :description
+          = f.text_field :description, class: 'form-control'
+
+        .form-group
+          = f.label :due_at
+          = f.text_field :due_at, class: 'form-control'
+
+        .form-group
+          .row
+            .col-md-6
+              = f.label :amount_youth
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                = f.text_field :amount_youth, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_youth, unit: ''), pattern: '\d*.\d{2}?'
+
+            .col-md-6
+              = f.label :amount_adult
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_adult, unit: ''), pattern: '\d*.\d{2}?'
+
+        .form-group
+          = f.hidden_field :type, value: 'FeeEventRequirement'
+          = f.submit :update, class: 'btn btn-primary'
+
+    .col-md-6
+
+      h4 Received From:
+      ul
+        - submissions.each do |submission|
+          li = submission.user.full_name
+
+      = link_to t('event_requirements.download_all'), unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf), class: 'btn btn-primary'

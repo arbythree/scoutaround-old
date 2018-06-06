@@ -9,6 +9,7 @@ class EventRequirementsController < EventContextController
 
   def create
     @event_requirement = @event.event_requirements.new(event_requirement_params)
+
     if @event_requirement.save
       redirect_to unit_event_event_registrations_path(@unit, @event)
       return
@@ -33,7 +34,7 @@ class EventRequirementsController < EventContextController
   private
 
   def event_requirement_params
-    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience)
+    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience, :required, :amount_youth, :amount_adult)
   end
 
   def find_event_requirement

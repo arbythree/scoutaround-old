@@ -39,14 +39,21 @@
   .col-md-1
   .col-md-3
     ul
-      li
-        = link_to 'Set Up Payments', stripe_connect_path
-        | &nbsp;
-        = link_to 'https://docs.scoutaround.org/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: 'Learn more about how to accept payments on Scoutaround' do
-          i.fa-question-circle.fas
+      - if @unit.accepts_payments?
+        li
+          = link_to 'Payments', ''
+      - else
+        li
+          = link_to 'Set Up Payments', stripe_connect_path
+          | &nbsp;
+          = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: 'Learn more about how to accept payments on Scoutaround' do
+            i.fa-question-circle.fas
 
       li
         = link_to 'Import Member Spreadsheet', new_unit_membership_import_path(@unit)
+
+      li
+        = link_to 'Export Roster', unit_memberships_path(@unit, format: :csv)
 
 javascript:
   $(function () {

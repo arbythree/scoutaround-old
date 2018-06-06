@@ -3,7 +3,8 @@ class EventRegistrationsController < EventContextController
   before_action :find_registration, except: [:index, :new, :create]
 
   def index
-
+    authorize EventRegistration.new(event: @event)
+    @body_classes = ['admin']
   end
 
   def show

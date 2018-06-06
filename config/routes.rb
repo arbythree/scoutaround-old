@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   resources :requirements
 
+  match '/payment_setup', to: 'stripe#payment_setup', as: 'payment_setup', via: [:get]
+
   resources :units do
     resources :membership_imports
 

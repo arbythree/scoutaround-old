@@ -7,6 +7,8 @@ class EventsController < UnitContextController
 
   def index
     @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
+    view = params[:view] || 'list'
+    @tracking_properties = { view: view }
 
     # this is bound to be inefficient, but let's get it working first
     if params[:filter] == 'registered'

@@ -5,6 +5,11 @@ class MembershipsController < UnitContextController
     @body_classes = ['hide-none']
     @memberships = @unit.memberships.includes(:user).order('users.first_name')
     @members = @memberships.map { |m| m.user }
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+    end
   end
 
   def show

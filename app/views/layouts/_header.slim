@@ -53,6 +53,7 @@ header#primary
           .dropdown-menu
             = link_to t('profile'), edit_user_registration_path, class: 'dropdown-item'
             = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+            = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

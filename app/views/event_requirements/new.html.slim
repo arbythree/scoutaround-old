@@ -4,26 +4,72 @@
 - crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
 - crumbtrail t('event_requirements.new')
 
-h1 = @event.name
-h2 = t('event_requirements.new')
+- if params[:type] == 'document'
+  h4 Add a document requirement
+  h1 = @event.name
 
-.row
-  .col-md-6
-    = form_for @event_requirement, url: unit_event_event_requirements_path(@unit, @event) do |f|
-      .form-group
-        = f.label :description
-        = f.text_field :description, class: 'form-control'
+  .row
+    .col-md-6
+      = form_for @event_requirement, url: unit_event_event_requirements_path(@unit, @event) do |f|
+        .form-group
+          = f.label :description
+          = f.text_field :description, class: 'form-control'
 
-      .form-group
-        = f.label :due_at
-        = f.text_field :due_at, class: 'form-control'
+        .form-group
+          = f.label :due_at
+          = f.text_field :due_at, class: 'form-control'
 
-      .form-group
-        = f.label :audience
-        - EventRequirement.audiences.keys.each do |audience|
-          = f.radio_button :audience, audience
-          = f.label audience.to_sym
+        .form-group
+          = f.label :audience
+          - EventRequirement.audiences.keys.each do |audience|
+            = f.radio_button :audience, audience
+            = f.label audience.to_sym
 
-      .form-group
-        = f.hidden_field :type, value: 'DocumentEventRequirement'
-        = f.submit :add, class: 'btn btn-primary'
+        .form-group
+          = f.check_box :required
+          | &nbsp;
+          = f.label :required
+
+        .form-group
+          = f.label :document_library_item
+          = f.collection_select :document_library_item_id, @unit.document_library_items, :id, :name, \
+            { prompt: 'Select a document from the library (optional)' }, class: 'form-control'
+
+        .form-group
+          = f.hidden_field :type, value: 'DocumentEventRequirement'
+          = f.submit t('events.accept.document'), class: 'btn btn-primary'
+
+- if params[:type] == 'fee'
+  h4 Add a fee
+  h1 = @event.name
+
+  .row
+    .col-md-6
+      = form_for @event_requirement, url: unit_event_event_requirements_path(@unit, @event) do |f|
+        .form-group
+          = f.label :description
+          = f.text_field :description, class: 'form-control'
+
+        .form-group
+          = f.label :due_at
+          = f.text_field :due_at, class: 'form-control'
+
+        .form-group
+          .row
+            .col-md-6
+              = f.label :amount_youth
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                = f.text_field :amount_youth, class: 'form-control', placeholder: '0.00'
+
+            .col-md-6
+              = f.label :amount_adult
+              .input-group
+                .input-group-prepend
+                  span.input-group-text $
+                = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00'
+
+        .form-group
+          = f.hidden_field :type, value: 'FeeEventRequirement'
+          = f.submit :update, class: 'btn btn-primary'

@@ -24,3 +24,26 @@ table.table
 
 - content_for :utilities do
   = render partial: 'event_registrations/requirements'
+
+  br
+  br
+
+  = link_to t('registrations.ctas.message'), '#', class: 'btn btn-secondary', data: { toggle: 'modal', target: '#messaging' }
+
+
+#messaging.modal
+  .modal-dialog
+    .modal-content
+      = form_for @event.messages.new, url: unit_event_messages_path(@unit, @event) do |f|
+        .modal-header
+          h5.modal-title = t('registrations.ctas.message')
+        .modal-body
+          = label_tag :target
+          = select_tag :target, options_for_select([['All Registrants', :all]]), class: 'form-control'
+
+          br
+
+          = f.label :body, 'Message'
+          = f.text_area :body, class: 'form-control'
+        .modal-footer
+          = f.submit 'Send', class: 'btn btn-primary'
