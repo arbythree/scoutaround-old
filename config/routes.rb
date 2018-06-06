@@ -6,24 +6,36 @@ Rails.application.routes.draw do
 
   match '/payment_setup', to: 'stripe#payment_setup', as: 'payment_setup', via: [:get]
 
-  resources :units do
+  resources :units, shallow: true do
     resources :membership_imports
-
-    resources :memberships, path: 'members' do
-      resources :achievements, path: 'advancement'
-    end
+    resources :events
+    resources :memberships, path: 'members'
     resources :achievements, path: 'advancement', controller: :unit_achievements
     resources :document_library_items, path: 'documents'
-    resources :events do
-      resources :messages
-      resources :event_registrations, path: 'registrations'
-      resources :event_submissions,   path: 'submissions'
-      resources :event_requirements,  path: 'checklist' do
-        resources :event_submissions, path: 'submissions'
-      end
-      resources :messages
-    end
   end
+
+  resources :memberships, path: 'members', shallow: true do
+    resources :achievements, path: 'advancement'
+  end
+
+  resources :events, shallow: true do
+    resources :messages
+    resources :event_registrations, path: 'registrations'
+    resources :event_submissions,   path: 'submissions'
+    resources :event_requirements,  path: 'checklist'
+  end
+
+  resources :events, shallow: true do
+    resources :event_registrations
+  end
+
+  resources :event_requirements, path: 'checklist', shallow: true do
+    resources :event_submissions, path: 'submit'
+  end
+
+  resources :event_submissions, path: 'submit'
+
+  resources :event_registrations
 
   resources :members
   resources :status

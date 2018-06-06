@@ -10,11 +10,11 @@ RSpec.feature "Event requirements features", :type => :feature do
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
     click_on I18n.t('auth.sign_in')
-    visit unit_event_event_registrations_path(@unit, @event)
+    visit event_event_registrations_path(@event)
   end
 
   it 'shows an event' do
-    visit unit_event_path(@unit, @event)
+    visit event_path(@event)
   end
 
   it 'adds a new event requirement' do

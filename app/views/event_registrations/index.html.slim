@@ -1,6 +1,6 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@event.unit), unit_path(@event.unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@event.unit)
-- crumbtrail link_to @event.name, unit_event_path(@event.unit, @event)
+- crumbtrail link_to @event.name, event_path(@event)
 - crumbtrail t('registrations.title')
 
 - content_for :title do
@@ -34,7 +34,7 @@ table.table
 #messaging.modal
   .modal-dialog
     .modal-content
-      = form_for @event.messages.new, url: unit_event_messages_path(@unit, @event) do |f|
+      = form_for @event.messages.new, url: event_messages_path(@event) do |f|
         .modal-header
           h5.modal-title = t('registrations.ctas.message')
         .modal-body

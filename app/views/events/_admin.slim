@@ -3,11 +3,11 @@
     span(data-toggle="tooltip" title="#{t('events.administration')}")
       i.fas.fa-ellipsis-h
   .dropdown-menu.dropdown-menu-right
-    = link_to edit_unit_event_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to edit_event_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fas
       = t('events.edit')
 
-    = link_to unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to event_event_registrations_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fas
       = t('events.registrations')
 
@@ -18,7 +18,7 @@
 .modal#cancel-event-modal
   .modal-dialog
     .modal-content
-      = form_for unit_event_path(@unit, @event), method: :delete do |f|
+      = form_for event_path(@event), method: :delete do |f|
         .modal-header
           h5.modal-title = t('events.delete_title')
         .modal-body

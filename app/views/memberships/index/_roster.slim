@@ -17,7 +17,7 @@
       - present membership.user do |member|
         tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member&.rank&.underscore&.downcase}")
           td.name
-            = link_to unit_membership_path(id: membership.id) do
+            = link_to membership_path(membership) do
               strong = member.user.first_name
               | &nbsp;
               - if member.user.nickname.present?

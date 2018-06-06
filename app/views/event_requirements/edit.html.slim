@@ -1,7 +1,7 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'),        unit_events_path(@unit)
-- crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
-- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
+- crumbtrail link_to @event.name,              event_path(@event)
+- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
 - crumbtrail @event_requirement.description
 
 - submissions = EventSubmission.where(event_requirement: @event_requirement)
@@ -11,7 +11,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
+      = form_for @event_requirement do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'
@@ -53,9 +53,10 @@
 
 - if @event_requirement.is_a?(FeeEventRequirement)
   h1 Edit Event Requirement
+
   .row
     .col-md-6
-      = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
+      = form_for @event_requirement do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'

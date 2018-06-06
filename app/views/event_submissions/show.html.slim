@@ -1,7 +1,7 @@
 p = @submission.user.full_name
 p = @submission.event_requirement.description
 p = @submission.created_at.to_formatted_s
-p = link_to t('submissions.back_to_registration'), unit_event_event_registration_path(@unit, @event, @submission.event_registration)
+p = link_to t('submissions.back_to_registration'), event_registration_path(@submission.event_registration)
 
 = render partial: 'event_submissions/show/document' if @submission.event_requirement.is_a?(DocumentEventRequirement)
 = render partial: 'event_submissions/show/fee' if @submission.event_requirement.is_a?(FeeEventRequirement)

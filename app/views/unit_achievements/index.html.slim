@@ -25,7 +25,7 @@ table.table
       - requirements.each { |req| completed_requirements << req if req.completed_for?(user: user) }
 
       tr
-        td = link_to user.full_name, unit_membership_path(@unit, membership)
+        td = link_to user.full_name, membership_path(membership)
         td = user.rank&.name
         td = time_ago_in_words(achievement.earned_at || achievement.created_at) if achievement.present?
         td = user&.rank&.next_rank&.name

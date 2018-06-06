@@ -22,7 +22,7 @@ li
 
       if (achievementId == 0) {
         // POST a new achievement
-        var path = "#{ unit_membership_achievements_path(@unit, @membership) }";
+        var path = "#{ membership_achievements_path(@unit, @membership) }";
         var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
         $.ajax({
           type:     'POST',

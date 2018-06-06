@@ -1,7 +1,10 @@
 # require 'combine_pdf'
 
-class EventSubmissionsController < EventContextController
+class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
+  before_action :find_event_requirement
+  before_action :find_event
+  before_action :find_unit
 
   def index
     @submissions = @event.event_submissions
@@ -40,11 +43,7 @@ class EventSubmissionsController < EventContextController
   end
 
   def new
-    @event_requirement = @event.event_requirements.find(params[:event_requirement_id])
-    @submission = EventSubmission.new
-    @submission.event_requirement = @event_requirement
-    @submission.event_registration_id = params[:registration]
-
+    @submission = @event_requirement.event_submissions.new(event_registration_id: params[:registration])
 
     # iterate through all event registrations and determine whether current user is allowed to
     # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
@@ -92,16 +91,31 @@ class EventSubmissionsController < EventContextController
       end
     when 'DocumentEventRequirement'
       if @submission.save
-        redirect_to unit_event_event_registration_path(@unit, @event, @submission.event_registration)
+        redirect_to event_registration_path(@submission.event_registration)
       end
     end
   end
 
   private
 
+  def find_unit
+    @unit = @event.unit
+  end
+
+  def find_event
+    @event = @event_requirement.event
+  end
+
+  def find_event_requirement
+    if params[:event_requirement_id].present?
+      @event_requirement = EventRequirement.find(params[:event_requirement_id])
+    elsif @submission.present?
+      @event_requirement = @submission.event_requirement
+    end
+  end
+
   def find_submission
     @submission = EventSubmission.find(params[:id])
-    @event_requirement = @submission.event_requirement
   end
 
   def submission_params

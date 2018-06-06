@@ -1,12 +1,13 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
-- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
-- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
+- crumbtrail link_to @event.name, event_path(@event)
+- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
 - crumbtrail @registration.user.full_name
 
-- present @registration do |registration|
-  h1 = registration.event_name
-  h2 = registration.registrant_name
+- content_for :title do
+  - present @registration do |registration|
+    h1 = registration.event_name
+    h2 = registration.registrant_name
 
 table.table
   - @registration.event.event_requirements.each do |requirement|
@@ -23,7 +24,7 @@ table.table
           - else
             =  t('submissions.completed')
 
-        td = link_to 'View', unit_event_event_submission_path(@unit, @event, submission)
+        td = link_to 'View', event_submission_path(submission)
       - else
         td
         td
@@ -36,4 +37,4 @@ table.table
   .card
     .card-header Manage
     .card-body
-      p = link_to t('registrations.destroy'), unit_event_event_registration_path(@unit, @event, @registration), method: :delete, prompt: 'Are you sure?'
+      p = link_to t('registrations.destroy'), event_registration_path(@registration), method: :delete, prompt: 'Are you sure?'
