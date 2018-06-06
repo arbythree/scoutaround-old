@@ -1,6 +1,6 @@
 .row
   .col-md-6
-    = form_for @event_requirement, url: unit_event_event_requirement_path(@unit, @event, @event_requirement) do |f|
+    = form_for @event_requirement, url: event_event_requirement_path(@event, @event_requirement) do |f|
       .form-group
         = f.label :description
         = f.text_field :description, class: 'form-control'
@@ -36,4 +36,4 @@
       - submissions.each do |submission|
         li = submission.user.full_name
 
-    = link_to t('event_requirements.download_all'), unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf), class: 'btn btn-primary'
+    = link_to t('event_requirements.download_all'), event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'

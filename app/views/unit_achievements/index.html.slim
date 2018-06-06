@@ -19,7 +19,6 @@ table.table
     - if user.is_a?(Youth)
       - achievement = user.achievements.find_by(achievable: user.rank)
       - next_rank = user&.rank&.next_rank
-      - puts next_rank
       - requirements = next_rank&.requirements || []
       - completed_requirements = []
       - requirements.each { |req| completed_requirements << req if req.completed_for?(user: user) }

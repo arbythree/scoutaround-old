@@ -24,4 +24,9 @@ RSpec.feature "Event requirements features", :type => :feature do
     click_on I18n.t('events.accept.document')
     expect(page).to have_content(requirement_name)
   end
+
+  it 'visits the edit page' do
+    requirement = @event.event_requirements.create(type: 'DocumentEventRequirement', description: 'test')
+    visit edit_event_requirement_path(requirement)
+  end
 end

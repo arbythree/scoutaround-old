@@ -49,6 +49,10 @@ class AchievementsController < AuthenticatedController
   end
 
   def find_unit
-    @unit = @membership.unit
+    if params[:unit_id].present?
+      @unit = @current_user.users.find(params[:unit_id])
+    elsif @membership.present?
+      @unit = @membership.unit
+    end
   end
 end

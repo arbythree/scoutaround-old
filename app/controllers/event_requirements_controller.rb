@@ -40,12 +40,14 @@ class EventRequirementsController < EventContextController
   end
 
   def find_event_requirement
-    @event_requirement = @event.event_requirements.find(params[:id])
+    @event_requirement = EventRequirement.find(params[:id])
   end
 
   def find_event
     if params[:event_id].present?
       @event = Event.find(params[:event_id])
+    elsif @event_requirement.present?
+      @event = @event_requirement.event
     end
   end
 

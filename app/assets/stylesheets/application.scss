@@ -17,8 +17,6 @@
 
 @import "bootstrap";
 
-// $color_brand: rgb(182, 24, 24);
-// $color_brand: #F04A00; // GGB
 $blue: #7D9E9C;
 $color_brand: #BA160C; // eng
 $color_background: rgb(235, 233, 232);
@@ -212,7 +210,7 @@ body.authenticated {
 }
 
 @mixin active_link {
-  color: #aaa;
+  color: darken($color_background, 30%);
   cursor: default;
 
   &:hover {
@@ -618,38 +616,38 @@ ul.requirements, ol.requirements {
   }
 }
 
+@mixin active_nav {
+  color: darken($color_background, 30%);
+  cursor: default;
+}
+
 body.events.index {
   #nav-item-events a {
-    color: $color_brand;
-    cursor: default;
+    @include active_nav;
   }
 }
 
 body.document_library_items.index {
   #nav-item-documents a {
-    color: $color_brand;
-    cursor: default;
+    @include active_nav;
   }
 }
 
 body.units.show {
   #nav-item-announcements a {
-    color: $color_brand;
-    cursor: default;
+    @include active_nav;
   }
 }
 
 body.units.edit {
   #nav-item-unit-settings a {
-    color: $color_brand;
-    cursor: default;
+    @include active_nav;
   }
 }
 
 body.memberships.index {
   #nav-item-roster a {
-    color: $color_brand;
-    cursor: default;
+    @include active_nav;
   }
 
   a.toggle-view-users, a.toggle-view-users-active {

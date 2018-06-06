@@ -1,5 +1,6 @@
-class DocumentLibraryItemsController < UnitContextController
+class DocumentLibraryItemsController < AuthenticatedController
   before_action :find_document_library_item, except: [:index, :new, :create]
+  before_action :find_unit, only: [:index, :new, :create]
 
   def index
     @document_library_items = @unit.document_library_items
@@ -23,6 +24,10 @@ class DocumentLibraryItemsController < UnitContextController
   end
 
   private
+
+  def find_unit
+    @unit = @current_user.units.find(params[:unit_id])
+  end
 
   def find_document_library_item
     @document_library_item = @unit.document_library_items.find(params[:id])

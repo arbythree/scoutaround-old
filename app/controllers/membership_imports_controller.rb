@@ -1,6 +1,6 @@
 # require 'smarter_csv'
 
-class MembershipImportsController < UnitContextController
+class MembershipImportsController < AuthenticatedController
   def index
   end
 

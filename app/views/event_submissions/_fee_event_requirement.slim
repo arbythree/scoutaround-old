@@ -3,7 +3,7 @@
 - content_for :title do
   h1 = @event_requirement.description
 
-= form_for @submission, url: unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement) do |f|
+= form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
   = f.hidden_field :event_registration_id
 
   .row
