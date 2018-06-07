@@ -1,16 +1,20 @@
+- requirements = @event.event_requirements.where(type: 'DocumentEventRequirement')
+- if requirements.count == 1
+-   @submission.event_requirement = requirements.first
+
 .row
   .col-md-3
   .col-md-6
     h1 Event Submission
     p = @event.name
-    = form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
+    = form_for @submission, url: event_event_submissions_path(@event) do |f|
       .form-group
         = f.label :user, t('registrations.registrant')
         = f.collection_select :event_registration_id, @visible_event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
         = f.label :item, t('registrations.submission_item')
-        = f.collection_select :event_requirement_id, @event.event_requirements.where(type: 'DocumentEventRequirement'), :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+        = f.collection_select :event_requirement_id, requirements, :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
         = f.label :attachment
@@ -50,7 +54,7 @@ javascript:
     var registrantName = $('#event_submission_event_registration_id option:selected').text();
     var itemName = $('#event_submission_event_requirement_id option:selected').text();
 
-    var url = '/units/' + "#{@unit.id}" + '/events/' + "#{@event.id}" + '/submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
+    var url = '/events/' + "#{@event.id}" + '/submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
     $.getJSON(url, function(data) {
       if (data.length > 0) {
         $('#submission-dupe-message').html(registrantName + ' has already submitted a ' + itemName + '. Uploading again will overwrite the previous submission.');

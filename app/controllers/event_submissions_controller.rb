@@ -1,4 +1,5 @@
-# require 'combine_pdf'
+# this is the controller used when submitting at the Event level
+# (where the requirement being fulfilled isn't yet known)
 
 class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
@@ -43,7 +44,7 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def new
-    @submission = @event_requirement.event_submissions.new(event_registration_id: params[:registration])
+    @submission = EventSubmission.new(event_registration_id: params[:registration])
 
     # iterate through all event registrations and determine whether current user is allowed to
     # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
@@ -64,15 +65,15 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def create
-    @event_requirement = @event.event_requirements.find(params[:event_requirement_id])
-    @submission = @event_requirement.event_submissions.new(submission_params)
+    @submission = EventSubmission.new(submission_params)
 
     # destroy any
     EventSubmission.where(
-      event_requirement_id: @event_requirement.id,
-      event_registration_id: @submission.event_registration.id
+      event_requirement_id:  @submission.event_requirement_id,
+      event_registration_id: @submission.event_registration_id
     ).destroy_all
 
+    @event_requirement = EventRequirement.find(@submission.event_requirement_id)
 
     case @event_requirement.type
     when 'FeeEventRequirement'
@@ -103,7 +104,11 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def find_event
-    @event = @event_requirement.event
+    if params[:event_id].present?
+      @event = Event.find(params[:event_id])
+    elsif @event_requirement.present?
+      @event = @event_requirement.event
+    end
   end
 
   def find_event_requirement
@@ -121,7 +126,7 @@ class EventSubmissionsController < AuthenticatedController
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_registration_id, :attachment, :audience, :waived)
+      .permit(:event_registration_id, :event_requirement_id, :attachment, :audience, :waived)
       .merge({ submitter: @current_user })
   end
 end

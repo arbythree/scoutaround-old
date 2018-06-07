@@ -1,0 +1,22 @@
+- targets = [ \
+  ['All Registrants', :all], \
+  ['Incomplete Registrants', :incomplete], \
+  ['Complete Registrants', :complete] \
+]
+
+#messaging.modal
+  .modal-dialog
+    .modal-content
+      = form_for @event.messages.new, url: event_messages_path(@event) do |f|
+        .modal-header
+          h5.modal-title = t('registrations.ctas.message')
+        .modal-body
+          = label_tag :target
+          = select_tag :target, options_for_select(targets), class: 'form-control'
+
+          br
+
+          = f.label :body, 'Message'
+          = f.text_area :body, class: 'form-control'
+        .modal-footer
+          = f.submit 'Send', class: 'btn btn-primary'

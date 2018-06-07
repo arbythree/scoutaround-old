@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { invitations: 'users/invitations' }
+  devise_for :users
   root to: 'home#index'
 
   resources :requirements
@@ -23,10 +23,6 @@ Rails.application.routes.draw do
     resources :event_registrations, path: 'registrations'
     resources :event_submissions,   path: 'submissions'
     resources :event_requirements,  path: 'checklist'
-  end
-
-  resources :events, shallow: true do
-    resources :event_registrations
   end
 
   resources :event_requirements, path: 'checklist', shallow: true do

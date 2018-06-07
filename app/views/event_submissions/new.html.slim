@@ -1,8 +1,12 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
 - crumbtrail link_to @event.name, event_path(@event)
-- crumbtrail @submission.event_requirement.description
 
-- partial_name = @submission.event_requirement.type.underscore
+- if @submission.event_requirement.present?
+  - crumbtrail @submission.event_requirement.description
+- else
+  - crumbtrail 'Submit a Document'
+
+- partial_name = @submission&.event_requirement&.type&.underscore || 'document_event_requirement'
 
 = render partial: "event_submissions/#{ partial_name }"

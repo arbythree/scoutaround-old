@@ -1,6 +1,8 @@
 # require 'smarter_csv'
 
 class MembershipImportsController < AuthenticatedController
+  before_action :find_unit
+
   def index
   end
 
@@ -21,6 +23,12 @@ class MembershipImportsController < AuthenticatedController
       membership = @unit.memberships.create(user: user)
       @memberships << membership
     end
+  end
+  
+  private
+
+  def find_unit
+    @unit = @current_user.units.find(params[:unit_id])
   end
 
   def import_params

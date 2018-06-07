@@ -15,5 +15,6 @@ module Scoutaround
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.action_dispatch.rescue_responses["Pundit::NotAuthorizedError"] = :forbidden
+    config.autoload_paths += %W(#{config.root}/app/notifiers)
   end
 end

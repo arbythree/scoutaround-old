@@ -12,7 +12,7 @@ RSpec.feature "Membership imports features", :type => :feature do
   end
 
   it 'visits the import page' do
-    visit unit_membership_imports_url(@unit)
-    expect(page).to have_current_page(unit_membership_imports_url(@unit))
+    visit new_unit_membership_import_path(@unit)
+    expect(page).to have_current_path(new_unit_membership_import_path(@unit))
   end
 end
