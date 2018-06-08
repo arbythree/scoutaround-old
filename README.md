@@ -119,3 +119,5 @@ Scoutaround uses [Stripe](https://stripe.com) to facilitate payments. You'll nee
 - STRIPE_CONNECT_CLIENT_ID
 - STRIPE_SECRET_KEY
 - STRIPE_PUBLISHABLE_KEY
+
+Enabling Versioning on your production storage bucket is never a bad idea.
