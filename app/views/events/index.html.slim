@@ -5,5 +5,5 @@
   = render 'events/index/utilities'
   h1 = "#{UnitPresenter.unit_display_name(@unit)} #{t('events.title')}"
 
-= render partial: 'events/index/list' unless params[:view] == 'calendar'
-= render partial: 'events/index/calendar' if params[:view] == 'calendar'
+= render partial: 'events/index/list' unless @view == 'calendar'
+= render partial: 'events/index/calendar' if @view == 'calendar'

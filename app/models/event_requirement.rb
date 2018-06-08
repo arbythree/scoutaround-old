@@ -8,6 +8,22 @@ class EventRequirement < ApplicationRecord
     adult_only: 2
   }
 
+  def amount_youth
+    super / 100.0
+  end
+
+  def amount_adult
+    super / 100.0
+  end
+
+  def amount_youth=(value)
+    super(value.to_i * 100)
+  end
+
+  def amount_adult=(value)
+    super(value.to_i * 100)
+  end
+
   def completed_for?(user: nil)
     return false unless user.present?
 

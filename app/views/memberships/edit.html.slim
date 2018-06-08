@@ -1,6 +1,6 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('memberships.title_alt'), unit_memberships_path(@unit)
-- crumbtrail link_to @user.full_name, unit_membership_path(@unit, @membership)
+- crumbtrail link_to @user.full_name, membership_path(@membership)
 - crumbtrail t('memberships.update')
 
 .row

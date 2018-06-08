@@ -32,7 +32,13 @@ en:
     edit:             'Edit Event Details'
     info:             'Manage Event'
     confirm:          'Added event to unit calendar'
-    add_requirement:  'Add Submission Requirement'
+    add_requirement:
+      generic:        'Add Event Requirement'
+      document:       'Require a Document'
+      payment:        'Charge an Event Fee'
+    accept:
+      document:       'Add Required Document'
+    add_payment_requirement: 'Add'
     registrations:    'Manage Registrations'
     checklist:        'Your Checklist'
     administration:   'Event Administration'
@@ -50,14 +56,20 @@ en:
     delete_title:     'Cancel Event'
     confirmations:
       cancel:         'Event was removed from unit calendar'
+    messages_cta:     'View the Event Message Board'
 
   submissions:
     title:                'Submissions'
     upload:               'Upload a Submission'
+    upload_simple:        'Upload'
     pay:                  'Pay Now'
     completed:            'Completed'
+    waived:               'Waived'
     back_to_registration: 'Back to Registration'
     download:             'Download'
+    record_payment:       'Record Payment'
+    waive:                'Waive This Requirement'
+    waive_blurb:          'Select this option if you do not intend to participate in the activity that requires this submission'
 
   units:
     troop:      'Troop'
@@ -71,6 +83,10 @@ en:
     upcoming_deictic: 'In %{deictic}'
     success_update: 'Unit settings have been updated.'
     city:       'City'
+    new:        'Set Up a New Unit On Scoutaround'
+    success:
+      payment_setup:   'Your unit is ready to accept payments'
+    import:     'Import Members'
 
   registrations:
     title:             'Registrations'
@@ -84,10 +100,12 @@ en:
     destroy:           'Unregister'
     completions:       '%{completion_count} of %{registration_count} completed'
     submission_due_in: 'Due in %{deictic}'
+    overdue_by:        'Overdue by %{deictic}'
     cta_payment:       'Click to pay'
     cta_document:      "Click to upload %{name}\'s %{document}"
     ctas:
       register:        'Register'
+      message:         'Send a Message'
 
   event_registrations:
     non_registrants:    'Not Registered'
@@ -167,7 +185,8 @@ en:
     confirm_create: "%{name}'s %{requirement} was received"
 
   messages:
-    registrants:   'Send a Message'
+    registrants:  'Send a Message'
+    title:        'Messaging'
 
   documents:
     title:      'Document Library'
@@ -175,6 +194,7 @@ en:
     new:        'Upload a Document'
     new_cta:    'Upload'
     download:   'Download'
+    add:        'Add a Document'
 
   messages:
     title:       'Messages'

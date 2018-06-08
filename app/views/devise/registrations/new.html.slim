@@ -57,7 +57,7 @@ css:
             = f.label :location
             div
               = text_field :city, '', class: 'form-control', style: 'width: 70%; float: left;', placeholder: t('units.city')
-              = select_tag :state, options_for_select(us_states.collect { |s| [s[1], s[0]] }), class: 'form-control', style: 'width: 29%; float: right;'
+              = select_tag :state, options_for_select(us_states.collect { |s| [s[1], s[0]] }), prompt: 'Select a state', class: 'form-control', style: 'width: 29%; float: right;'
 
           br
           br

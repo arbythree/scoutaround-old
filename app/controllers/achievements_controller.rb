@@ -1,6 +1,7 @@
-class AchievementsController < UnitContextController
-  before_action :find_user
+class AchievementsController < AuthenticatedController
   before_action :find_achievement, except: [:index, :new, :create]
+  before_action :find_membership
+  before_action :find_unit
 
   def index
     @next_rank = @user&.rank&.next_rank || Rank.find_by(ordinal: 0)
@@ -15,7 +16,7 @@ class AchievementsController < UnitContextController
       respond_to do |format|
         format.html do
           flash[:notice] = I18n.t('advancement.success.merit_badge', name: @user.first_name, badge: @achievement.achievable.name)
-          redirect_to unit_membership_achievements_path(@unit, @membership) unless request.xhr?
+          redirect_to membership_achievements_path(@membership) unless request.xhr?
         end
         format.json { render json: @achievement }
       end
@@ -37,11 +38,21 @@ class AchievementsController < UnitContextController
   end
 
   def find_achievement
-    @achievement = @user.achievements.find(params[:id])
+    @achievement = Achievement.find(params[:id])
   end
 
-  def find_user
-    @membership = @unit.memberships.find(params[:membership_id])
-    @user = @membership.user
+  def find_membership
+    if params[:membership_id].present?
+      @membership = Membership.find(params[:membership_id])
+      @user = @membership.user
+    end
+  end
+
+  def find_unit
+    if params[:unit_id].present?
+      @unit = @current_user.users.find(params[:unit_id])
+    elsif @membership.present?
+      @unit = @membership.unit
+    end
   end
 end

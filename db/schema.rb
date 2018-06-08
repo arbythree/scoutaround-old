@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_04_173536) do
+ActiveRecord::Schema.define(version: 2018_06_08_141943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,13 +77,14 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.integer "event_id"
     t.string "type"
     t.string "description"
-    t.decimal "amount", precision: 8, scale: 2
+    t.integer "amount_youth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.date "due_at"
     t.integer "document_library_item_id"
     t.integer "audience", default: 0
     t.boolean "required", default: true
+    t.integer "amount_adult"
   end
 
   create_table "event_submissions", force: :cascade do |t|
@@ -95,6 +96,9 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.text "file_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "due_at"
+    t.boolean "waived", default: false
+    t.string "stripe_charge_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -105,6 +109,7 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.string "location"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "registration_closes_at"
   end
 
   create_table "guardianships", force: :cascade do |t|
@@ -156,6 +161,15 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.string "state"
     t.string "council"
     t.string "district"
+    t.string "stripe_user_id"
+  end
+
+  create_table "user_preferences", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "key"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -188,6 +202,7 @@ ActiveRecord::Schema.define(version: 2018_06_04_173536) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
+    t.date "date_of_birth"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

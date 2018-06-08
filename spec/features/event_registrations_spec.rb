@@ -11,16 +11,16 @@ RSpec.feature "Event requirements features", :type => :feature do
     fill_in 'user_email', with: @user.email
     fill_in 'user_password', with: 'goscoutaround'
     click_on I18n.t('auth.sign_in')
-    visit unit_event_event_registrations_path(@unit, @event)
+    visit event_event_registrations_path(@event)
   end
 
   it 'shows all registrations' do
-    expect(page).to have_current_path(unit_event_event_registrations_path(@unit, @event))
+    expect(page).to have_current_path(event_event_registrations_path(@event))
   end
 
   it 'shows a single registration' do
-    visit unit_event_event_registration_path(@unit, @event, @registration)
-    expect(page).to have_current_path(unit_event_event_registration_path(@unit, @event, @registration))
+    visit event_registration_path(@registration)
+    expect(page).to have_current_path(event_registration_path(@registration))
   end
 
   describe 'manipulates registrations' do
@@ -33,12 +33,12 @@ RSpec.feature "Event requirements features", :type => :feature do
     end
 
     it 'adds a registration' do
-      expect(page).to have_current_path(unit_event_event_registrations_path(@unit, @event))
+      expect(page).to have_current_path(event_event_registrations_path(@event))
       expect(page).to have_content(@new_user.full_name)
     end
 
     it 'removes a registration' do
-      visit unit_event_event_registration_path(@unit, @event, @registration)
+      visit event_registration_path(@registration)
       count = @event.event_registrations.count
       click_on I18n.t('registrations.destroy')
       @event.reload

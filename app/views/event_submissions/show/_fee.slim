@@ -1,0 +1,33 @@
+- total = 0
+
+- content_for :title do
+  h1 = @event_requirement.description
+
+.row
+  .col-md-1
+  .col-md-4
+    p = "Transaction code: #{ @submission.stripe_charge_id || '' }"
+
+    table.table
+      - @current_user.family.each do |user|
+        - if user.is_member_of?(unit: @unit)
+          - registration = @event.event_registrations.find_by(user: user)
+          - if registration.present?
+            - user_fee = user.type == 'Youth' ? @event_requirement.amount_youth : @event_requirement.amount_adult
+            - total += user_fee
+
+            tr
+              td = user.first_name
+              td(style="text-align:right;") = number_to_currency(user_fee / 100.0)
+
+      - processing_fee = (total * 0.029 + 30) / 100.0
+      - total += processing_fee
+
+      tr
+        td Processing Fee
+        td(style="text-align:right;") = number_to_currency(processing_fee / 100.0)
+
+      tr(style="font-weight: 600;")
+        td Total
+        td(style="text-align:right;") = number_to_currency(total / 100.0)
+

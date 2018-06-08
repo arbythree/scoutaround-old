@@ -24,4 +24,8 @@ class Unit < ApplicationRecord
       { id: 'Post',  name: 'Explorer Post',  program_code: 'exploring'}
     ]
   end
+
+  def accepts_payments?
+    self.stripe_user_id.present?
+  end
 end

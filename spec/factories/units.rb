@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :unit do
-    number 1
+    sequence(:number) { |n| "#{n}" }
     sequence(:location) { |n| "location_#{n}" }
   end
 

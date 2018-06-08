@@ -24,6 +24,10 @@
         = f.text_field :ends_at, class: 'form-control'
 
       .form-group
+        = f.label :registration_closes_at
+        = f.text_field :registration_closes_at, class: 'form-control'
+
+      .form-group
         = f.submit t('events.add'), class: 'btn btn-primary'
         | &nbsp;&nbsp;
         = t('or')

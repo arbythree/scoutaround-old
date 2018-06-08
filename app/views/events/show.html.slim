@@ -5,6 +5,7 @@
 
 - content_for :title do
   = render 'events/admin' if @current_user_is_admin
+
   h1 = @event.name
   - present @event do |event|
     p
@@ -13,16 +14,29 @@
         | &nbsp;&nbsp;&bull;&nbsp;&nbsp;
         = link_to @event.location, google_maps_link(@event.location), target: '_blank'
 
-- content_for :utilities do
-  = render 'events/show/checklist'
+section#checklists
+  .row
+    = render 'events/show/checklist'
 
-section#messages
-  h3 = t('messages.title')
-  = render 'events/messages/messages'
+section#more
+  .row
+    .col-md-4
+      h3 = t('registrations.title_public')
+      .card
+        .card-body
+          = render 'events/show/who'
 
-section#roster
-  h3 = t('registrations.title_public')
-  = render 'events/roster'
+    .col-md-4
+      h3 = t('events.key_dates')
+      .card
+        .card-body
+          = render 'events/show/key_dates'
+
+    .col-md-4
+      h3 = t('messages.title')
+      .card
+        .card-body
+          = render 'events/show/messages'
 
 #cancel-event-dialog.modal.fade
   .modal-dialog

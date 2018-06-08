@@ -1,0 +1,5 @@
+tr
+  td.name = link_to event.name, event_path(event)
+  - present event do |e|
+    td.dates     = e.dates
+    td.attendees = event.event_registrations.count

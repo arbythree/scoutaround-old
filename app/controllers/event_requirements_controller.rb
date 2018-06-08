@@ -1,5 +1,7 @@
 class EventRequirementsController < EventContextController
   before_action :find_event_requirement, except: [:index, :new, :create]
+  before_action :find_event
+  before_action :find_unit
 
   def new
     @event_requirement = @event.event_requirements.new
@@ -9,12 +11,13 @@ class EventRequirementsController < EventContextController
 
   def create
     @event_requirement = @event.event_requirements.new(event_requirement_params)
+
     if @event_requirement.save
-      redirect_to unit_event_event_registrations_path(@unit, @event)
+      redirect_to event_event_registrations_path(@event)
       return
     end
 
-    redirect_to new_unit_event_event_requirement_path(@unit, @event)
+    redirect_to new_event_event_requirement_path(@event)
   end
 
   def edit
@@ -24,19 +27,32 @@ class EventRequirementsController < EventContextController
     @event_requirement.assign_attributes(event_requirement_params)
     if @event_requirement.save
       flash[:notice] = 'event_requirements.confirm_update'
-      redirect_to unit_event_event_registrations_path(@unit, @event)
+      redirect_to event_event_registrations_path(@event)
     else
-      redirect_to unit_event_event_requirement_path(@unit, @event, @event_requirement)
+      redirect_to event_event_requirement_path(@event, @event_requirement)
     end
   end
 
   private
 
   def event_requirement_params
-    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience)
+    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience, :required, :amount_youth, :amount_adult)
   end
 
   def find_event_requirement
-    @event_requirement = @event.event_requirements.find(params[:id])
+    @event_requirement = EventRequirement.find(params[:id])
+  end
+
+  def find_event
+    if params[:event_id].present?
+      @event = Event.find(params[:event_id])
+    elsif @event_requirement.present?
+      @event = @event_requirement.event
+    end
+  end
+
+  def find_unit
+    @unit = @event.unit
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
   end
 end

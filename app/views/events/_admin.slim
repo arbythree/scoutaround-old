@@ -1,19 +1,16 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
     span(data-toggle="tooltip" title="#{t('events.administration')}")
-      i.fas.fa-ellipsis-h
+      = render partial: 'layouts/campfire'
+
   .dropdown-menu.dropdown-menu-right
-    = link_to edit_unit_event_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to edit_event_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fas
       = t('events.edit')
 
-    = link_to unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to event_event_registrations_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fas
       = t('events.registrations')
-
-    = link_to new_unit_event_event_requirement_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
-      i.fa-tree.fas
-      = t('events.add_requirement')
 
     = link_to '#', id: 'cancel-event-item', class: 'dropdown-item admin', title: t('admin_only'), data: { toggle: 'modal', target: '#cancel-event-modal' } do
       i.fa-tree.fas
@@ -22,7 +19,7 @@
 .modal#cancel-event-modal
   .modal-dialog
     .modal-content
-      = form_for unit_event_path(@unit, @event), method: :delete do |f|
+      = form_for event_path(@event), method: :delete do |f|
         .modal-header
           h5.modal-title = t('events.delete_title')
         .modal-body

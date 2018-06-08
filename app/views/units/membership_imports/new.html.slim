@@ -1,0 +1,30 @@
+- crumbtrail link_to(UnitPresenter.unit_display_name(@unit), unit_path(@unit))
+- crumbtrail link_to(t('units.settings', unit_type: @unit.type), edit_unit_path(@unit))
+- crumbtrail t('units.import')
+
+.row
+  .col-md-1
+  .col-md-6
+    h1 Import Member Spreadsheet
+
+    = form_tag unit_membership_imports_path(@unit), multipart: true
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+
+      .form-group
+        = label :roster_file, 'Roster File'
+        = file_field_tag :roster_file, class: 'form-control'
+
+      .form-group
+        = submit_tag :next, class: 'btn btn-primary'
+
+  .col-md-1
+  .col-md-4
+    h3 Guidelines for importing:
+    p Your import file should be in CSV format with a first-row header containing the following columns (in any order):
+    ul
+      li first_name
+      li last_name
+      li email
+      li phone
+      li rank (leave blank for adults)
+    p = link_to 'Read more about importing', 'https://www.scoutaround.org/docs/members/importing.html'

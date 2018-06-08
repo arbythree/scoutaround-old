@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :invitable, :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :rank, optional: true
@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :events, through: :units
   has_many :achievements
   has_many :merit_badges, -> { where(type: 'MeritBadge') }, through: :achievements, source: :achievable
+  has_many :user_preferences
   has_one_attached :avatar
 
   #
@@ -57,5 +58,14 @@ class User < ApplicationRecord
   def is_member_of?(unit: nil)
     return false unless unit.present?
     unit.memberships.exists?(user_id: self.id)
+  end
+
+  def preference_for(key: nil, default: nil)
+    self.user_preferences.find_by(key: key)&.value || default
+  end
+
+  def save_preference_for(key: nil, value: nil)
+    pref = self.user_preferences.find_or_initialize_by(key: key)
+    pref.update_attributes(value: value)
   end
 end

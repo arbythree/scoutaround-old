@@ -5,6 +5,8 @@ class UnitsController < UnitContextController
 
   def edit
     authorize @unit.becomes(Unit)
+    @body_classes = %w(admin)
+    session[:unit_id] = @unit.id # kludge alert: the Stripe callback URL can't be dynamic, so we need to cache the unit we're setting up
   end
 
   def update

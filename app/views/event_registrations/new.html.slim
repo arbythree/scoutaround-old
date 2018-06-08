@@ -4,7 +4,7 @@
 - content_for :title do
   h1 = @event.name
 
-= form_tag unit_event_event_registrations_path(@unit, @event) do |f|
+= form_tag event_event_registrations_path(@event) do |f|
   ul
     - @event.non_registrants.each do |member|
       li
@@ -16,4 +16,4 @@
     |&nbsp;&nbsp;
     = t('or')
     |&nbsp;&nbsp;
-    = link_to t('cancel'), unit_event_event_registrations_path(@unit, @event), class: 'cancel'
+    = link_to t('cancel'), event_event_registrations_path(@event), class: 'cancel'

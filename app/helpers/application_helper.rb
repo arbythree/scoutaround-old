@@ -39,8 +39,7 @@ module ApplicationHelper
   def stripe_connect_path
     [
       'https://connect.stripe.com/express/oauth/authorize?client_id=',
-      ENV['STRIPE_CONNECT_CLIENT_ID'],
-      '&redirect_uri=https%3A%2F%2Fstripe.com%2Fdocs%2Fconnect%2Fquickstart&state=state'
+      ENV['STRIPE_CONNECT_CLIENT_ID']
     ].join
   end
 end

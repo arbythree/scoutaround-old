@@ -2,8 +2,9 @@
   .admin.dropdown
     = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
       span(data-toggle="tooltip" title="")
-        i.fas.fa-ellipsis-h
+        = render partial: 'layouts/campfire'
+
     .dropdown-menu.dropdown-menu-right
-      = link_to edit_unit_membership_path(@unit, @membership), class: 'dropdown-item admin', title: t('admin_only') do
+      = link_to edit_membership_path(@membership), class: 'dropdown-item admin', title: t('admin_only') do
         i.fa-tree.fas
         = t('memberships.edit')

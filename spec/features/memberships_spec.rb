@@ -17,8 +17,8 @@ RSpec.feature "Membership features", :type => :feature do
   end
 
   it 'shows a membership' do
-    visit unit_membership_path(@unit, @membership)
-    expect(page).to have_current_path(unit_membership_path(@unit, @membership))
+    visit membership_path(@membership)
+    expect(page).to have_current_path(membership_path(@membership))
     expect(page).to have_content(@user.full_name)
   end
 
@@ -39,11 +39,11 @@ RSpec.feature "Membership features", :type => :feature do
   end
 
   it 'displays the membership page' do
-    visit unit_membership_path(@unit, @membership)
+    visit membership_path(@membership)
   end
 
   it 'displays the membership edit page' do
-    visit edit_unit_membership_path(@unit, @membership)
-    expect(page).to have_current_path(edit_unit_membership_path(@unit, @membership))
+    visit edit_membership_path(@membership)
+    expect(page).to have_current_path(edit_membership_path(@membership))
   end
 end

@@ -2,7 +2,7 @@
   = javascript_include_tag :cocoon
 
 - @membership.user.email = '' if @membership.user.anonymous_email?
-- url = @membership.new_record? ? unit_memberships_path(@unit) : unit_membership_path(@unit, @membership)
+- url = @membership.new_record? ? unit_memberships_path(@unit) : membership_path(@membership)
 
 -if @membership.errors.any?
   .alert.alert-danger

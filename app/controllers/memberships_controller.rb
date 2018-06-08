@@ -1,10 +1,16 @@
 class MembershipsController < UnitContextController
   before_action :find_member, except: [:index, :new, :create]
+  before_action :find_unit
 
   def index
     @body_classes = ['hide-none']
     @memberships = @unit.memberships.includes(:user).order('users.first_name')
     @members = @memberships.map { |m| m.user }
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+    end
   end
 
   def show
@@ -38,9 +44,9 @@ class MembershipsController < UnitContextController
 
     if @membership.save
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
-      redirect_to unit_membership_path(@unit, @membership)
+      redirect_to membership_path(@unit, @membership)
     else
-      redirect_to edit_unit_membership_path(@unit, @membership)
+      redirect_to edit_membership_path(@membership)
     end
   end
 
@@ -51,8 +57,15 @@ class MembershipsController < UnitContextController
   private
 
   def find_member
-    @membership = @unit.memberships.includes(:user).find(params[:id])
+    @membership = Membership.includes(:user).find(params[:id])
+    # @membership = @unit.memberships.includes(:user).find(params[:id])
     @user = @membership.user
+  end
+
+  def find_unit
+    @unit = Unit.find(params[:unit_id]) if params[:unit_id].present?
+    @unit = @membership.unit if @membership.present?
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
   end
 
   def membership_params

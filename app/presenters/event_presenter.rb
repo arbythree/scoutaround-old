@@ -23,7 +23,7 @@ class EventPresenter < BasePresenter
       raw([
         event.starts_at.strftime('%B %-d'),
         '&ndash;',
-        event.ends_at.strftime('%d, %Y')
+        event.ends_at.strftime('%-d, %Y')
       ].join)
 
     # single day

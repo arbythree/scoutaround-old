@@ -5,7 +5,7 @@ RSpec.describe EventRequirement, type: :model do
     expect(FactoryBot.create(:document_event_requirement)).to be_valid
   end
 
-  it 'has a valid PaymentEventRequirement factory' do
+  it 'has a valid FeeEventRequirement factory' do
     expect(FactoryBot.create(:payment_event_requirement)).to be_valid
   end
 

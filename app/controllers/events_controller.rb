@@ -7,6 +7,7 @@ class EventsController < UnitContextController
 
   def index
     @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
+    @tracking_properties = { view: @view }
 
     # this is bound to be inefficient, but let's get it working first
     if params[:filter] == 'registered'
@@ -51,9 +52,9 @@ class EventsController < UnitContextController
 
   def update
     if @event.update_attributes(event_params)
-      redirect_to unit_event_path(@unit, @event)
+      redirect_to event_path(@event)
     else
-      redirect_to edit_unit_event_path(@unit, @event)
+      redirect_to edit_event_path(@event)
     end
   end
 
@@ -67,6 +68,8 @@ class EventsController < UnitContextController
 
   def find_event
     @event = @current_user.events.find(params[:id] || params[:event_id])
+    @unit = @event.unit
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
     @membership = Membership.where(user: @current_user, unit: @event.unit).first
   end
 

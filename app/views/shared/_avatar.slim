@@ -1,0 +1,9 @@
+- style = ''
+- li_class = ''
+- if user.avatar.attached?
+  - style    = "background-image: url('#{rails_blob_path(user.avatar)}');"
+  - li_class = 'avatar-attached'
+
+li(class="roster-variation-#{ Digest::SHA256.hexdigest(user.short_name).to_i % 30 } #{ li_class }")
+  .avatar(data-toggle="tooltip" title="#{ user.full_name }" style="#{ style }")
+    .name = "#{ user.initials }"

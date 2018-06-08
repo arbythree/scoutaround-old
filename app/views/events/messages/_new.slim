@@ -1,2 +1,2 @@
-= form_for Message.new, url: unit_event_messages_path(@unit, @event), remote: true do |f|
+= form_for Message.new, url: event_messages_path(@event), remote: true do |f|
   = f.text_field :body, class: 'form-control', placeholder: t('messages.placeholder')

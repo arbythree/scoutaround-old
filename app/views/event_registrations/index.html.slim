@@ -1,6 +1,6 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@event.unit), unit_path(@event.unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@event.unit)
-- crumbtrail link_to @event.name, unit_event_path(@event.unit, @event)
+- crumbtrail link_to @event.name, event_path(@event)
 - crumbtrail t('registrations.title')
 
 - content_for :title do
@@ -24,3 +24,11 @@ table.table
 
 - content_for :utilities do
   = render partial: 'event_registrations/requirements'
+
+  br
+  br
+
+  = link_to t('registrations.ctas.message'), '#', class: 'btn btn-secondary', data: { toggle: 'modal', target: '#messaging' }
+
+
+= render partial: 'event_registrations/messaging'
