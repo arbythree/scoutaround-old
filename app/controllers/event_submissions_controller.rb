@@ -4,8 +4,6 @@
 class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
   before_action :find_event_requirement
-  before_action :find_event
-  before_action :find_unit
 
   def index
     @submissions = @event.event_submissions
@@ -98,18 +96,6 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   private
-
-  def find_unit
-    @unit = @event.unit
-  end
-
-  def find_event
-    if params[:event_id].present?
-      @event = Event.find(params[:event_id])
-    elsif @event_requirement.present?
-      @event = @event_requirement.event
-    end
-  end
 
   def find_event_requirement
     if params[:event_requirement_id].present?

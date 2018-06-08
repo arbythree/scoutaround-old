@@ -10,6 +10,6 @@
 
       .dropdown-divider
 
-    = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if params[:view] != 'calendar'
-    = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'), class: 'dropdown-item' if params[:view] == 'calendar'
-    = link_to t('events.feed'),          unit_events_path(@unit, format: :ics), class: 'dropdown-item'
+    = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if @view != 'calendar'
+    = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'),     class: 'dropdown-item' if @view == 'calendar'
+    = link_to t('events.feed'),          unit_events_path(@unit, format: :ics),     class: 'dropdown-item'

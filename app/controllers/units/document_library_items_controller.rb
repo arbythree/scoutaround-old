@@ -1,4 +1,4 @@
-class DocumentLibraryItemsController < AuthenticatedController
+class Units::DocumentLibraryItemsController < AuthenticatedController
   before_action :find_document_library_item, except: [:index, :new, :create]
   before_action :find_unit, only: [:index, :new, :create]
 

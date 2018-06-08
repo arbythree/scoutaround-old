@@ -1,6 +1,6 @@
 # require 'smarter_csv'
 
-class MembershipImportsController < AuthenticatedController
+class Units::MembershipImportsController < AuthenticatedController
   before_action :find_unit
 
   def index
@@ -24,7 +24,7 @@ class MembershipImportsController < AuthenticatedController
       @memberships << membership
     end
   end
-  
+
   private
 
   def find_unit

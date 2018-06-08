@@ -1,8 +1,4 @@
-# Messages can be sent from many contexts, so this is going to be an extra-flexy,
-# extra-complicated controller
-
-class MessagesController < AuthenticatedController
-  before_action :find_unit
+class Events::MessagesController < MessagesController
   before_action :find_event
 
   def new
@@ -19,10 +15,6 @@ class MessagesController < AuthenticatedController
 
   def message_params
     params.require(:message).permit(:body)
-  end
-
-  def find_unit
-    @unit = @current_user.units.find(params[:unit_id]) if params[:unit_id].present?
   end
 
   def find_event
