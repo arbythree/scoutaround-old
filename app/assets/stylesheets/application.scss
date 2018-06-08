@@ -394,9 +394,9 @@ ul.roster {
 
   li {
     display: inline-block;
-    margin: 0.5rem;
-    width: 90px;
-    height: 90px;
+    margin: 0.3rem;
+    width: 60px;
+    height: 60px;
     float: left;
 
     .avatar {
@@ -455,29 +455,52 @@ ul.message-list {
 }
 
 li.message {
+  //
+  // "speech bubble" styling courtesy of http://nicolasgallagher.com/pure-css-speech-bubbles/demo/
+  //
   .primary {
-    background-color: lighten($color_background, 5%);
-    border: 1px solid lighten($color_background, 0%);
+    background-color: darken($color_background, 5%);
+    // border: 1px solid lighten($color_background, 0%);
     border-radius: 5px;
-    padding: 0.5rem 1rem;
-    margin-left: 4rem;
+    padding: 1rem;
+    position: relative;
+
+    &:after {
+      content:"";
+      position:absolute;
+      bottom:-15px; /* value = - border-top-width - border-bottom-width */
+      left:50px; /* controls horizontal position */
+      border-width:15px 15px 0; /* vary these values to change the angle of the vertex */
+      border-style:solid;
+      border-color: darken($color_background, 5%) transparent;
+      /* reduce the damage in FF3.0 */
+      display:block;
+      width:0;
+    }
+  }
+
+  .meta {
+    padding-top: 1rem;
+    padding-left: 62px;
+    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+    font-size: 80%;
   }
 
   .author, .timestamp {
-    display: inline;
+    // display: inline;
   }
 
   .author {
     font-weight: 600;
+    color: darken($color_background, 50%);
   }
 
   .timestamp {
-    margin-left: 0.5rem;
-    color: #666;
+
   }
 
   .body {
-    margin-top: 0.8rem;
+    font-weight: 600;
 
     p:last-child {
       margin-bottom: 0;
@@ -729,4 +752,17 @@ label {
 
 a.unregister {
   color: darken($color_background, 50%);
+}
+
+body.events.show {
+  section#more {
+    .card-body {
+      height: 16rem;
+      overflow: auto;
+    }
+  }
+
+  h3 {
+    font-weight: 600;
+  }
 }

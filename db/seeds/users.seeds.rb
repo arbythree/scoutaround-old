@@ -1,25 +1,26 @@
 after :ranks do
-  def create_user(type, first_name, last_name, email, rank = nil)
-    User.create_with(
+  def create_user(type, first_name, last_name, date_of_birth, email, rank = nil)
+    user = User.create_with(
       first_name: first_name,
       last_name: last_name,
       type: type,
+      date_of_birth: date_of_birth,
       rank: Rank.find_by(name: rank),
       active: true,
       password: 'goscoutaround'
-    ).find_or_create_by(email: email)
+    ).find_or_create_by!(email: email)
   end
 
-  owen  = create_user('Youth', 'Owen', 'McNamara', 'a1@scoutaround.org', 'Scout')
-  luis  = create_user('Youth', 'Luis', 'Johnson', 'a2@scoutaround.org', 'Scout')
-  jack  = create_user('Youth', 'Jack', 'Jones', 'a3@scoutaround.org', 'Star')
-  aidan = create_user('Youth', 'Aidan', 'Riordan', 'a4@scoutaround.org', 'Life')
-  marc  = create_user('Youth', 'Marc', 'Wilson', 'a5@scoutaround.org', 'First Class')
+  owen  = create_user('Youth', 'Owen', 'McNamara', 12.years.ago,  'a1@scoutaround.org', 'Scout')
+  luis  = create_user('Youth', 'Luis', 'Johnson',  13.years.ago,  'a2@scoutaround.org', 'Scout')
+  jack  = create_user('Youth', 'Jack', 'Jones',    15.years.ago,  'a3@scoutaround.org', 'Star')
+  aidan = create_user('Youth', 'Aidan', 'Riordan', 210.months.ago,'a4@scoutaround.org', 'Life')
+  marc  = create_user('Youth', 'Marc', 'Wilson',   16.years.ago,  'a5@scoutaround.org', 'First Class')
 
-  ray   = create_user('Adult', 'Ray', 'McNamara', 'ray@scoutaround.org')
-  fred  = create_user('Adult', 'Fred', 'Marquez', 'a6@scoutaround.org')
-  vince = create_user('Adult', 'Vincent', 'Jones', 'a7@scoutaround.org')
-  ed    = create_user('Adult', 'Edward',  'Smith', 'a8@scoutaround.org')
+  ray   = create_user('Adult', 'Ray', 'McNamara',  45.years.ago,  'ray@scoutaround.org')
+  fred  = create_user('Adult', 'Fred', 'Marquez',  45.years.ago,  'a6@scoutaround.org')
+  vince = create_user('Adult', 'Vincent', 'Jones', 45.years.ago,  'a7@scoutaround.org')
+  ed    = create_user('Adult', 'Edward',  'Smith', 45.years.ago,  'a8@scoutaround.org')
 
   puts "Users: #{User.count}"
 

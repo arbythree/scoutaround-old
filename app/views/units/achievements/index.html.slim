@@ -12,9 +12,11 @@ table.table
     th Tenure in Rank
     th Next Rank
     th Progress
+    th Most Recent Activity
 
   - @unit.memberships.each do |membership|
     - user = membership.user
+    - newest_achievement = user.achievements.order('created_at desc').first
 
     - if user.is_a?(Youth)
       - achievement = user.achievements.find_by(achievable: user.rank)
@@ -31,3 +33,4 @@ table.table
         td
           .progress-bar
             .progress(style="width: 50%;")
+        td = t('time_ago', deictic: time_ago_in_words(newest_achievement.created_at)) if newest_achievement.present?

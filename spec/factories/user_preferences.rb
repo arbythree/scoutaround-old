@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :user_preference do
-    user_id 1
+    association :user
     key "MyString"
     value "MyString"
   end

@@ -5,6 +5,8 @@ class AuthenticatedController < ApplicationController
 
   def set_current_user
     @current_user = current_user
+    @unit_role = @unit.role_for(user: @current_user) if @unit.present?
+    @current_user_is_admin = @unit_role == 'admin' if @unit_role.present?
   end
 
   def track_action

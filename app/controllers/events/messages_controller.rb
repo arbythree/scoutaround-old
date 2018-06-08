@@ -18,6 +18,6 @@ class Events::MessagesController < MessagesController
   end
 
   def find_event
-    @event = @unit.events.find(params[:event_id])
+    @event = Event.find(params[:event_id])
   end
 end

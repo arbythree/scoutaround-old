@@ -1,6 +1,6 @@
 li.message
   .primary
-    .meta
-      .author = message.author.short_name
-      .timestamp = t('time_ago', deictic: distance_of_time_in_words_to_now(message.created_at))
     .body = raw(markdown.render message.body)
+  .meta
+    .author = message.author.short_name
+    .timestamp = t('time_ago', deictic: distance_of_time_in_words_to_now(message.created_at))

@@ -1,2 +1,2 @@
-class Memberships::AchievementsController < AuthenticatedController
+class Memberships::AchievementsController < AchievementsController
 end

@@ -56,6 +56,7 @@ en:
     delete_title:     'Cancel Event'
     confirmations:
       cancel:         'Event was removed from unit calendar'
+    messages_cta:     'View the Event Message Board'
 
   submissions:
     title:                'Submissions'

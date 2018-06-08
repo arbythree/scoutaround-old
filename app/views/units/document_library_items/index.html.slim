@@ -2,7 +2,7 @@
 - crumbtrail t('documents.title')
 
 - content_for :title do
-  = render 'document_library_items/admin' if @current_user_is_admin
+  = render 'units/document_library_items/admin' if @current_user_is_admin
   h1 = t('documents.title')
 
 ul.documents

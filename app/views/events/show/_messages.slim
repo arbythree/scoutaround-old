@@ -1,0 +1,10 @@
+- if @event.messages.count.zero?
+  = render partial: 'events/messages/blank'
+- else
+  #message-list
+    = render partial: 'events/messages/message_list', locals: { messages: [@event.messages.last] }
+
+  = link_to event_messages_path(@event) do
+    i.fas.fa-comment
+    | &nbsp;
+    = t('events.messages_cta')

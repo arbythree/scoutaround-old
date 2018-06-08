@@ -27,6 +27,8 @@ class Units::DocumentLibraryItemsController < AuthenticatedController
 
   def find_unit
     @unit = @current_user.units.find(params[:unit_id])
+    @unit_role = @unit.role_for(user: @current_user)
+    @current_user_is_admin = @unit_role == 'admin'
   end
 
   def find_document_library_item
