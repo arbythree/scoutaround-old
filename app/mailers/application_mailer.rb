@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'notifications@scoutaround.org'
+  default from: 'Scoutaround <notifications@scoutaround.org>'
   layout 'mailer'
 end

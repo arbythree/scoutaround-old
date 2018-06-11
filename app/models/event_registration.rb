@@ -7,13 +7,17 @@ class EventRegistration < ApplicationRecord
   delegate :full_name, to: :user
   delegate :unit, to: :event
 
-  def completed?
+  def complete?
     completions = event.event_requirements.map { |requirement| requirement.completed_for?(user: self.user) }
     !completions.include? false
   end
 
+  def incomplete?
+    !self.complete?
+  end
+
   # return the set of completed EventRegistrations
-  def self.completed
-    result = self.all.select { |registration| registration.completed? }
+  def self.complete
+    result = self.all.select { |registration| registration.complete? }
   end
 end

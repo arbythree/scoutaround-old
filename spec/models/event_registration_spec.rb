@@ -34,7 +34,7 @@ RSpec.describe EventRegistration, type: :model do
     end
 
     it 'is initially incomplete' do
-      expect(@registration.completed?).to be_falsey
+      expect(@registration.complete?).to be_falsey
     end
 
     it 'is completed when all requirements have submissions' do
@@ -42,7 +42,7 @@ RSpec.describe EventRegistration, type: :model do
         submission = FactoryBot.create(:event_submission, event_registration: @registration, event_requirement: requirement)
       end
       @registration.reload
-      expect(@registration.completed?).to be_truthy
+      expect(@registration.complete?).to be_truthy
     end
   end
 end

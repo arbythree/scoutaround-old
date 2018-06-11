@@ -1,0 +1,24 @@
+p Hi, #{@guardian.nickname || @guardian.first_name},
+
+- if @some_incomplete
+  p #{@event.name} is approaching and your family has outstanding registration items:
+- else
+  p #{@event.name} is approaching. Great news: your family's all registered!
+
+- if @registrations.count > 1
+  p Here's where everyone stands:
+
+/ TODO: extract this to a partial; we'll be using it a lot
+- @registrations.each do |registration|
+  h4 = registration.user.first_name
+
+  table(width="100%")
+    - @event.event_requirements.each do |requirement|
+      tr
+        td = requirement.description
+        td = requirement.completed_for?(user: registration.user) ? 'Done' : 'Pending'
+    tr
+      td(colspan="2") = link_to 'Registration details', event_registration_url(registration)
+
+- if @event.registration_closes_at&.future?
+  p There's still time to register

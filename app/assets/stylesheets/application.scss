@@ -193,13 +193,6 @@ body.authenticated {
     background-size: auto 22px;
     background-repeat: no-repeat;
     background-position: 12px 50%;
-    padding-left: 40px;
-  }
-
-  @each $rank in scout, tenderfoot, second_class, first_class, star, life, eagle {
-    .youth.rank_#{$rank} .rank {
-      background-image: image-url("bsa/rank_#{$rank}");
-    }
   }
 }
 

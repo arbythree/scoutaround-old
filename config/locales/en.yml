@@ -221,5 +221,9 @@ en:
 
   email:
     subjects:
-      document_receipt_registrant: 'Your %{document_name} has been received'
-      document_receipt_guardian: "%{person}'s %{document_name} has been received"
+      document_receipt_registrant:          'Your %{document_name} has been received'
+      document_receipt_guardian:            "%{person}'s %{document_name} has been received"
+      event_reminder_registrant_complete:   'Only %{days} days until %{event_name}!'
+      event_reminder_registrant_incomplete: 'Only %{days} days until %{event_name}--your registration is still incomplete'
+      event_reminder_guardian_incomplete:   'ACTION REQUIRED - Only %{days} days until %{event_name}!'
+      event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
