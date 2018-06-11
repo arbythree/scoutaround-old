@@ -40,7 +40,7 @@ class User < ApplicationRecord
   end
 
   def initials
-    "#{first_name[0]} #{last_name[0]}"
+    "#{first_name[0]}#{last_name[0]}"
   end
 
   def multiple_units?

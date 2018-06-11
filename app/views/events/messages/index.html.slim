@@ -1,0 +1,17 @@
+- options = { filter_html: true, hard_wrap: true, link_attributes: { rel: 'nofollow', target: "_blank" }, space_after_headers: true, fenced_code_blocks: true }
+- extensions = { autolink: true, superscript: true, disable_indented_code_blocks: true }
+- renderer = Redcarpet::Render::HTML.new(options)
+- markdown = Redcarpet::Markdown.new(renderer, extensions)
+
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
+- crumbtrail link_to @event.name, event_path(@event)
+- crumbtrail t('messages.title')
+
+- content_for :title do
+  h4 = t('messages.title')
+  h1 = @event.name
+
+.row
+  .col-md-12
+    = render partial: 'events/messages/message', collection: @messages, locals: { markdown: markdown }

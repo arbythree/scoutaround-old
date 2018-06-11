@@ -14,6 +14,7 @@ en:
   admin_only:           'Admin Only'
   download:             'Download'
   update:               'Update'
+  admin_only_view:      'Admin View'
 
   auth:
     sign_in:          'Sign In'
@@ -70,6 +71,8 @@ en:
     record_payment:       'Record Payment'
     waive:                'Waive This Requirement'
     waive_blurb:          'Select this option if you do not intend to participate in the activity that requires this submission'
+    confirmation:
+      document_received:  "%{person}'s %{document_name} has been uploaded and recorded"
 
   units:
     troop:      'Troop'
@@ -111,8 +114,8 @@ en:
     non_registrants:    'Not Registered'
     success:
       created:
-        single:         'Registered %{user_name} for %{event_name}'
-        bulk:           'Registered %{count} for the event'
+        single:         '%{user_name} is now registered for %{event_name}'
+        bulk:           'Registered %{count} members for the event'
 
   members:
     roster: 'Roster'
@@ -184,10 +187,6 @@ en:
   event_submissions:
     confirm_create: "%{name}'s %{requirement} was received"
 
-  messages:
-    registrants:  'Send a Message'
-    title:        'Messaging'
-
   documents:
     title:      'Document Library'
     confirm:    'Document added to library'
@@ -197,7 +196,8 @@ en:
     add:        'Add a Document'
 
   messages:
-    title:       'Messages'
+    title:       'Message Board'
+    registrants: 'Send a Message'
     blank:       "There aren't any messages here yet."
     placeholder: 'Type a message'
 
@@ -215,3 +215,11 @@ en:
     success:
       merit_badge: 'Recorded that %{name} has earned the %{badge} merit badge'
     target_rank: 'Progress Toward %{rank} Scout'
+
+  wiki:
+    title:  'Wiki'
+
+  email:
+    subjects:
+      document_receipt_registrant: 'Your %{document_name} has been received'
+      document_receipt_guardian: "%{person}'s %{document_name} has been received"

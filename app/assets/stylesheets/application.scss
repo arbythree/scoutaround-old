@@ -162,12 +162,6 @@ main {
   padding: 3rem 6rem;
 }
 
-body.admin {
-  main {
-    border-top: 30px solid $color_brand;
-  }
-}
-
 body.authenticated {
   main {
     background: #fff;
@@ -395,8 +389,8 @@ ul.roster {
   li {
     display: inline-block;
     margin: 0.3rem;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     float: left;
 
     .avatar {
@@ -423,6 +417,7 @@ ul.roster {
       transform: translate(-50%, -50%);
       font-size: 12px;
       font-weight: 600;
+      letter-spacing: 3px;
     }
 
     img {

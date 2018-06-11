@@ -20,7 +20,7 @@ RSpec.feature "Event submissions features", :type => :feature do
     select @requirement.description, from: 'event_submission_event_requirement_id'
     attach_file 'event_submission_attachment', File.expand_path('../support/test_attachment.pdf', __dir__)
     click_on I18n.t('submissions.upload')
-    expect(page).to have_current_path(event_registration_path(@registration))
+    expect(page).to have_current_path(event_event_registrations_path(@event))
   end
 
   it 'visits the event submission page' do

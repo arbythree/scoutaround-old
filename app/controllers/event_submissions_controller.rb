@@ -65,18 +65,21 @@ class EventSubmissionsController < AuthenticatedController
   def create
     @submission = EventSubmission.new(submission_params)
 
-    # destroy any
+    # destroy any previous submissions for this requirement, for this registration
     EventSubmission.where(
       event_requirement_id:  @submission.event_requirement_id,
       event_registration_id: @submission.event_registration_id
     ).destroy_all
 
+    # resolve the EventRequirement
     @event_requirement = EventRequirement.find(@submission.event_requirement_id)
 
     case @event_requirement.type
     when 'FeeEventRequirement'
+      #
+      # TODO: run the credit card
+      #
       if @submission.save
-
         # because payment is for the entire family, let's create
         # payment submissions for them, too
         @current_user.guardees.each do |user|
@@ -86,11 +89,17 @@ class EventSubmissionsController < AuthenticatedController
           end
         end
 
-        redirect_to unit_event_event_requirement_event_submission_path(@unit, @event, @event_requirement, @submission)
+        redirect_to event_event_requirement_event_submission_path(@event, @event_requirement, @submission)
       end
     when 'DocumentEventRequirement'
       if @submission.save
-        redirect_to event_registration_path(@submission.event_registration)
+        EventSubmissionNotifier.send_document_receipt_notifications(@submission)
+        flash[:notice] = I18n.t(
+          'submissions.confirmation.document_received',
+          person: @submission.event_registration.user.full_name,
+          document_name: @submission.event_requirement.description
+        )
+        redirect_to event_event_registrations_path(@event)
       end
     end
   end
