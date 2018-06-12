@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_09_013825) do
+ActiveRecord::Schema.define(version: 2018_06_12_181102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,6 +137,7 @@ ActiveRecord::Schema.define(version: 2018_06_09_013825) do
     t.integer "messagable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "pingees"
   end
 
   create_table "unit_positions", force: :cascade do |t|

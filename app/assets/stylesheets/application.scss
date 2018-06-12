@@ -464,6 +464,16 @@ li.message {
     }
   }
 
+  .pingees {
+    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+    font-size: 60%;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: darken($color_background, 30%);
+    margin-bottom: 3px;
+  }
+
   .meta {
     padding-top: 1rem;
     padding-left: 62px;

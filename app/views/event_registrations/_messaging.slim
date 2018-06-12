@@ -1,7 +1,8 @@
 - targets = [ \
-  ['All Registrants', :all], \
-  ['Incomplete Registrants', :incomplete], \
-  ['Complete Registrants', :complete] \
+  ['Nobody',                 :none], \
+  ['All Registrants',        :all_registrants], \
+  ['Incomplete Registrants', :incomplete_registrants], \
+  ['Complete Registrants',   :complete_registrants] \
 ]
 
 #messaging.modal
@@ -13,13 +14,18 @@
           button.close(data-dismiss="modal")
             span &times;
         .modal-body
-          = label_tag :target, 'To:'
-          = select_tag :target, options_for_select(targets), class: 'form-control'
+          .form-group
+            = label_tag :event
+            = text_field_tag :event_name, @event.name, class: 'form-control', disabled: true
 
-          br
+          .form-group
+            = label_tag :target, 'Ping:'
+            = f.select :pingees, options_for_select(targets), {}, class: 'form-control'
 
-          = f.label :body, 'Message:'
-          = f.text_area :body, class: 'form-control', style: 'height: 12rem;'
+          .form-group
+            = f.label :body, 'Message:'
+            = f.text_area :body, class: 'form-control', style: 'height: 12rem;'
+
         .modal-footer
           button.btn.btn-secondary(data-dismiss="modal") = t('cancel')
           = f.submit 'Send', class: 'btn btn-primary'

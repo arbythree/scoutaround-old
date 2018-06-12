@@ -108,7 +108,7 @@ en:
     cta_document:      "Click to upload %{name}\'s %{document}"
     ctas:
       register:        'Register'
-      message:         'Send a Message'
+      message:         'Post a Message'
 
   event_registrations:
     non_registrants:    'Not Registered'
@@ -200,6 +200,11 @@ en:
     registrants: 'Send a Message'
     blank:       "There aren't any messages here yet."
     placeholder: 'Type a message'
+    pingees:
+      events:
+        all_registrants:        'all registrants'
+        incomplete_registrants: 'incomplete registrants'
+        complete_registrants:   'complete registrants'
 
   calendar:
     event:
@@ -227,3 +232,4 @@ en:
       event_reminder_registrant_incomplete: 'Only %{days} days until %{event_name}--your registration is still incomplete'
       event_reminder_guardian_incomplete:   'ACTION REQUIRED - Only %{days} days until %{event_name}!'
       event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
+      event_message_notification:           '%{ name } posted to the %{ event_name } message board'

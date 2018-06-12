@@ -1,4 +1,5 @@
 li.message
+  .pingees = "Pinged to #{ t("messages.pingees.events.#{ message.pingees }") }:" unless message.pingees == 'none'
   .primary
     .body = raw(markdown.render message.body)
   .meta
