@@ -181,7 +181,7 @@ en:
     title:          'Event Checklist'
     confirm_update: 'Event requirement was updated'
     confirm_create: 'Added the new requirement to the event'
-    completed:      'Done'
+    complete:       'Done'
     download_all:   'Download Combined PDF'
 
   event_submissions:
