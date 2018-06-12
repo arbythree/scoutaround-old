@@ -29,7 +29,7 @@
                           - else
                             = t('registrations.overdue_by', deictic: distance_of_time_in_words_to_now(requirement.due_at))
 
-                    td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-completed' : 'event-requirement-incomplete' }")
+                    td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-complete' : 'event-requirement-incomplete' }")
                       - if is_complete
                         span(data-toggle='tooltip', title=t('event_requirements.complete'))
                           i.fas.fa-check

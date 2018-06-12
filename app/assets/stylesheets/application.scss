@@ -740,6 +740,12 @@ a.unregister {
 
 body.events.show {
   section#more {
+    .card {
+      border-width: 4px;
+      border-radius: 0.5rem;
+      background: lighten($color_background, 6%);
+    }
+
     .card-body {
       height: 16rem;
       overflow: auto;
