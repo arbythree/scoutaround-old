@@ -26,6 +26,7 @@ gem 'rails', '~> 5.2'
 gem 'redcarpet'
 gem 'sass-rails', '~> 5.0'
 gem 'seedbank'
+gem 'sidekiq'
 gem 'simple_form'
 gem 'skylight'
 gem 'slim'
@@ -53,8 +54,12 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-group :production do
+group :production, :staging do
   gem 'pg'
+end
+
+group :staging do
+  gem 'sanitize_email'
 end
 
 group :test do

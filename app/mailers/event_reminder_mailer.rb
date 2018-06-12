@@ -27,19 +27,25 @@ class EventReminderMailer < ApplicationMailer
     @guardian = guardian
     @event = event
     @registrations = []
+
+    # If one or more of this family's registrations are incomplete, we'll
+    # raise a flag. We'll use that flag to determine the subject line
+    # (fire drill vs. all is well)
     @some_incomplete = false
 
     days_from_now = ((event.starts_at - Time.now) / 1.day).to_i
 
     # which of this guardian's guardees are going to this event?
+    # TODO: optimize this
     @guardian.guardees.each do |guardee|
       if @event.registered_for?(user: guardee)
         registration = @event.event_registrations.find_by(user: guardee)
         @registrations << registration
-        @some_incomplete = true if registration.incomplete?
+        @some_incomplete = true if registration.incomplete? # raise that flag
       end
     end
 
+    # generate a pretty email address like "Abraham Lincoln <abe@whitehouse.gov>"
     address = Mail::Address.new @guardian.email
     address.display_name = @guardian.full_name.dup
 
@@ -53,7 +59,7 @@ class EventReminderMailer < ApplicationMailer
     )
   end
 
-  # this one goes to adults who are attending
+  # this one goes to adults who *are* attending
   def seven_day_prior_adult_reminder(event_registration)
     @event_registration = event_registration
     @recipient = @event_registration.user

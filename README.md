@@ -25,6 +25,10 @@ rake db:seed
 
 You'll also need to repeat this process for production, using your runtime infrastructure's preferred method for setting environment variables.
 
+## Set up Redis
+
+Certain asynchronous jobs (e.g. sending email) run on background workers via (Sidekiq)[https://github.com/mperham/sidekiq/wiki/Getting-Started] which, in turn, relies on Redis. You'll need Redis in all environments, local and hosted.
+
 ## Running the app locally
 
 This presumes you have Ruby 2.4.2, Rails 5.1.6 or higher, and PostgreSQL installed. [RVM](http://rvm.io) is a good way to deal with Ruby versioning.
@@ -114,6 +118,10 @@ heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-active-sto
 
 Scoutaround uses [Stripe](https://stripe.com) to facilitate payments. You'll need to establish a Stripe Connect account.
 
+## Sendgrid
+
+The app is configured to use (Sendgrid)[https://sendgrid.com] to send email. You'll need your own Sendgrid account and credentials set in environment variables.
+
 ## Environment Variables
 
 - MIXPANEL_TOKEN
@@ -125,5 +133,7 @@ Scoutaround uses [Stripe](https://stripe.com) to facilitate payments. You'll nee
 - STRIPE_CONNECT_CLIENT_ID
 - STRIPE_SECRET_KEY
 - STRIPE_PUBLISHABLE_KEY
+- SENDGRID_USERNAME
+- SENDGRID_PASSWORD
 
 Enabling Versioning on your production storage bucket is never a bad idea.

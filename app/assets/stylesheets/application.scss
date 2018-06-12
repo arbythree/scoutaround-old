@@ -17,9 +17,10 @@
 
 @import "bootstrap";
 
-$blue: #7D9E9C;
-$color_brand: #BA160C; // eng
-$color_background: rgb(235, 233, 232);
+$blue:              #7D9E9C;
+$green:             #006B3F;
+$color_brand:       #BA160C; // eng
+$color_background:  #EBE9E8;
 
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
@@ -652,6 +653,12 @@ body.units.edit {
   }
 }
 
+body.achievements.index {
+  #nav-item-advancement a {
+    @include active_nav;
+  }
+}
+
 body.memberships.index {
   #nav-item-roster a {
     @include active_nav;
@@ -735,7 +742,15 @@ label {
 }
 
 a.unregister {
-  color: darken($color_background, 50%);
+  color: darken($color_background, 40%);
+  font-size: 90%;
+  font-weight: 700;
+  padding-left: 20px;
+
+  svg {
+    display: inline-block;
+    margin-right: 0.5rem;
+  }
 }
 
 body.events.show {
