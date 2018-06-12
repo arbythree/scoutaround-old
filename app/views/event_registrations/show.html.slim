@@ -15,14 +15,14 @@ table.table
     tr
       td = requirement.description
       - if submission.present?
-        td.event-requirement.event-requirement-completed
+        td.event-requirement.event-requirement-complete
           i.fas.fa-check
           - if requirement.is_a?(FeeEventRequirement)
             = 'Paid'
           - elsif submission.waived
             = t('submissions.waived')
           - else
-            =  t('submissions.completed')
+            =  t('submissions.complete')
 
         td = link_to 'View', event_submission_path(submission)
       - else

@@ -4,7 +4,7 @@
 class Requirement < Achievable
   belongs_to :achievable, class_name: 'Achievable', foreign_key: 'parent_achievable_id'
 
-  def completed_for?(user: nil)
+  def completed_by?(user: nil)
     Achievement.exists?(user: user, achievable: self)
   end
 end

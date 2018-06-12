@@ -16,7 +16,7 @@ p Hi, #{@guardian.nickname || @guardian.first_name},
     - @event.event_requirements.each do |requirement|
       tr
         td = requirement.description
-        td = requirement.completed_for?(user: registration.user) ? 'Done' : 'Pending'
+        td = requirement.completed_by?(user: registration.user) ? 'Done' : 'Pending'
     tr
       td(colspan="2") = link_to 'Registration details', event_registration_url(registration)
 

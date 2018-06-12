@@ -12,7 +12,7 @@
           .card-body
             table.table.checklist.table-sm
               - @event.event_requirements.each do |requirement|
-                - is_complete = requirement.completed_for?(user: user)
+                - is_complete = requirement.completed_by?(user: user)
                 - if requirement.required_for?(user: user)
                   tr(class="#{ is_complete ? 'completed' : 'pending' }")
                     td
@@ -31,7 +31,7 @@
 
                     td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-completed' : 'event-requirement-incomplete' }")
                       - if is_complete
-                        span(data-toggle='tooltip', title=t('event_requirements.completed'))
+                        span(data-toggle='tooltip', title=t('event_requirements.complete'))
                           i.fas.fa-check
                       - elsif requirement.is_a?(DocumentEventRequirement)
                         = link_to new_event_requirement_event_submission_path(requirement, registration: registration), data: { toggle: 'tooltip' }, title: "Click to upload #{ user.first_name }'s completed #{ requirement.description }", style: 'display: inline;' do

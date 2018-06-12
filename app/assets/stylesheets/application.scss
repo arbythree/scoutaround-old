@@ -219,7 +219,7 @@ td.event-requirement {
   // width: 2.5rem;
 }
 
-td.event-requirement.event-requirement-completed {
+td.event-requirement.event-requirement-complete {
   color: $green;
   svg {
     display: inline-block;
@@ -273,7 +273,7 @@ aside {
     margin-right: 0.5rem;
   }
 
-  &.registration-completed {
+  &.registration-complete {
     color: $green;
 
     .completion-glyph {
