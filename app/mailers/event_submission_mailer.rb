@@ -1,15 +1,33 @@
 class EventSubmissionMailer < ApplicationMailer
-  def document_receipt_email
-    @user = params[:user]
-    @event_registration = params[:event_registration]
-    @event_requirement = params[:event_requirement]
+  def document_receipt_registrant_email(recipient, event_registration, event_requirement)
+    return if recipient.anonymous_email?
+    return if recipient == @current_user # no sense sending to yourself
 
-    return if @user.anonymous_email?
+    @event_registration = event_registration
+    @event_requirement  = event_requirement
 
     mail(
-      to: @user.email,
-      event_registration: @event_registration,
-      event_requirement: @event_requirement
+      to: recipient.email,
+      subject: I18n.t(
+        'email.subjects.document_receipt_registrant',
+        document_name: @event_requirement.description
+      )
+    )
+  end
+
+  def document_receipt_guardian_email(recipient, event_registration, event_requirement)
+    return if recipient.anonymous_email?
+
+    @event_registration = event_registration
+    @event_requirement  = event_requirement
+
+    mail(
+      to: recipient.email,
+      subject: I18n.t(
+        'email.subjects.document_receipt_guardian',
+        person: @event_registration.user.first_name,
+        document_name: @event_requirement.description
+      )
     )
   end
 end

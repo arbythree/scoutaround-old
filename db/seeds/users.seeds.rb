@@ -19,8 +19,10 @@ after :ranks do
 
   ray   = create_user('Adult', 'Ray', 'McNamara',  45.years.ago,  'ray@scoutaround.org')
   fred  = create_user('Adult', 'Fred', 'Marquez',  45.years.ago,  'a6@scoutaround.org')
-  vince = create_user('Adult', 'Vincent', 'Jones', 45.years.ago,  'a7@scoutaround.org')
-  ed    = create_user('Adult', 'Edward',  'Smith', 45.years.ago,  'a8@scoutaround.org')
+  vince = create_user('Adult', 'Vincent', 'Jones', 55.years.ago,  'a7@scoutaround.org')
+  ed    = create_user('Adult', 'Edward',  'Smith', 50.years.ago,  'a8@scoutaround.org')
+
+  ed.update_attributes(nickname: 'Ed')
 
   puts "Users: #{User.count}"
 

@@ -23,7 +23,7 @@ table.table
       - next_rank = user&.rank&.next_rank
       - requirements = next_rank&.requirements || []
       - completed_requirements = []
-      - requirements.each { |req| completed_requirements << req if req.completed_for?(user: user) }
+      - requirements.each { |req| completed_requirements << req if req.completed_by?(user: user) }
 
       tr
         td = link_to user.full_name, membership_path(membership)

@@ -60,6 +60,12 @@ Then visit [http://localhost:1080/](http://localhost:1080/)
 rspec
 ```
 
+The app is configured to also use (Guard)[https://github.com/guard/guard-rspec], which continually runs your specs in real-time as you modify files. It beats the heck out of learning that your specs are broken right before you're trying to push something out the door. A good runtime environment is Foreman running in one Terminal tab, Guard in another, and a third tab for sundry console tasks (rails c, full rspecs, etc.). To run Guard:
+
+```
+bundle exec guard
+```
+
 # Deploying to Production
 
 The app forces SSL in production. You can get free (!) certificates from [Let's Encrypt](https://letsencrypt.org). Many hosts (Heroku, Digital Ocean) can automate the fetching of certs for you. Having a cert implies, of course, that you have a domain.

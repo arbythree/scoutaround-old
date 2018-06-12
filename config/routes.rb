@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       resources :memberships, path: 'members'
       resources :achievements, path: 'advancement'
       resources :document_library_items, path: 'documents'
+      resources :wiki_articles, path: 'wiki'
     end
   end
 

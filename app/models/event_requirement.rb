@@ -24,7 +24,7 @@ class EventRequirement < ApplicationRecord
     super(value.to_i * 100)
   end
 
-  def completed_for?(user: nil)
+  def completed_by?(user: nil)
     return false unless user.present?
 
     # if this requirement isn't needed for the user under consideration, then

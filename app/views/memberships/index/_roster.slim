@@ -6,12 +6,12 @@
 
   table.table#names-table
     tr
-      th = t('people.name')
-      th = t('people.type')
-      th = t('people.phone')
-      th = t('people.email')
-      th = t('people.rank')
-      th = t('people.position')
+      th.name                 = t('people.name')
+      th.type.expendable      = t('people.type')
+      th.phone.expendable     = t('people.phone')
+      th.email.expendable     = t('people.email')
+      th.rank.expendable      = t('people.rank')
+      th.position.expendable  = t('people.position')
 
     - @memberships.each do |membership|
       - present membership.user do |member|
@@ -24,11 +24,11 @@
                 = "\"#{ member.user.nickname }\""
                 |&nbsp;
               = member.user.last_name
-          td.type     = member.type
-          td.phone    = member.user.phone
-          td.email    = member.user.email unless member.user.anonymous_email?
-          td.rank     = member&.rank
-          td.position = membership&.unit_position&.name
+          td.type.expendable     = member.type
+          td.phone.expendable    = member.user.phone
+          td.email.expendable    = member.user.email unless member.user.anonymous_email?
+          td.rank.expendable     = member&.rank
+          td.position.expendable = membership&.unit_position&.name
 
 javascript:
   // search functionality

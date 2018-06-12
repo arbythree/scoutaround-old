@@ -23,18 +23,26 @@ header#primary
               i.fas.fa-calendar-alt
             = t('events.title')
 
-        li#nav-item-documents
-          = link_to unit_document_library_items_path(@unit) do
-            span
-              i.fas.fa-file-alt
-            = t('documents.title')
-
         - if @current_user_is_admin
           li#nav-item-advancement
             = link_to unit_achievements_path(@unit) do
               span
                 i.fas.fa-trophy
               = t('advancement.title')
+
+        - unless true
+          li#nav-item-documents
+            = link_to unit_wiki_articles_path(@unit) do
+              span
+                i.fas.fa-book-open
+              = t('wiki.title')
+
+        li#nav-item-documents
+          = link_to unit_document_library_items_path(@unit) do
+            span
+              i.fas.fa-file-alt
+            = t('documents.title')
+
 
           li#nav-item-unit-settings
             = link_to edit_unit_path(@unit) do

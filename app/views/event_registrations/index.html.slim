@@ -4,6 +4,7 @@
 - crumbtrail t('registrations.title')
 
 - content_for :title do
+  = render partial: 'layouts/admin_badge'
   h1 = @event.name
   = render partial: 'event_registrations/admin' if @current_user_is_admin
   - present @event do |event|
@@ -13,7 +14,7 @@
       = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
 
 h3.inline = I18n.t('registrations.title')
-.badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.completed.count)
+.badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.complete.count)
 
 table.table
   tr

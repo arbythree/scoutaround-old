@@ -1,3 +1,6 @@
 ul.roster
   - @registrations.each do |registration|
     = render partial: 'shared/avatar', locals: { user: registration.user }
+
+- if @registrations.count.zero?
+  p No one's registered yet

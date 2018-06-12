@@ -1,16 +1,18 @@
 - non_registrants = []
+- family_registrations   = []
 
 - @current_user.family.each do |user|
   - if user.is_member_of?(unit: @unit)
     - registration = @event.event_registrations.find_by(user: user)
     - if registration.present?
+      - family_registrations << registration
       .col-md-6
         .card(style="margin-bottom: 1rem;")
           .card-header = "#{user.first_name}'s Checklist"
           .card-body
             table.table.checklist.table-sm
               - @event.event_requirements.each do |requirement|
-                - is_complete = requirement.completed_for?(user: user)
+                - is_complete = requirement.completed_by?(user: user)
                 - if requirement.required_for?(user: user)
                   tr(class="#{ is_complete ? 'completed' : 'pending' }")
                     td
@@ -29,7 +31,7 @@
 
                     td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-completed' : 'event-requirement-incomplete' }")
                       - if is_complete
-                        span(data-toggle='tooltip', title=t('event_requirements.completed'))
+                        span(data-toggle='tooltip', title=t('event_requirements.complete'))
                           i.fas.fa-check
                       - elsif requirement.is_a?(DocumentEventRequirement)
                         = link_to new_event_requirement_event_submission_path(requirement, registration: registration), data: { toggle: 'tooltip' }, title: "Click to upload #{ user.first_name }'s completed #{ requirement.description }", style: 'display: inline;' do
@@ -48,16 +50,21 @@
       - non_registrants << user
 
 - if non_registrants.count.positive?
-  .card
-    .card-header
-      = t('event_registrations.non_registrants')
-    .card-body
-      table.table.checklist.table-sm
-        - non_registrants.each do |user|
-          tr
-            td
-              = user.first_name
+  .col-md-4
+    .card
+      .card-header
+        = t('event_registrations.non_registrants')
+      .card-body
+        table.table.checklist.table-sm
+          - non_registrants.each do |user|
+            tr
+              td
+                = user.first_name
 
-            td.event-requirement
-              = link_to event_event_registrations_path(@event, user: user), method: :post, data: { toggle: 'tooltip' }, title: t('registrations.ctas.register') do
-                i.fal.fa-clipboard-list
+              td.event-requirement
+                = link_to event_event_registrations_path(@event, user: user), method: :post, data: { toggle: 'tooltip' }, title: t('registrations.ctas.register') do
+                  i.fal.fa-clipboard-list
+
+  .col-md-8
+    - if family_registrations.count.zero?
+      h2 No one in your family is registered :(

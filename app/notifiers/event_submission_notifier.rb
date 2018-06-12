@@ -1,18 +1,25 @@
 class EventSubmissionNotifier < ApplicationNotifier
-  def send_document_receipt_notifications(event_registration, event_requirement)
-    registrant = event_registration.user
+  #
+  # when an event document is received, let the registrant (and guardians) know
+  #
+  def self.send_document_receipt_notifications(submission)
+    event_registration = submission.event_registration
+    event_requirement  = submission.event_requirement
+    registrant         = event_registration.user
 
-    EventSubmissionMailer.document_receipt.with(
-      recipient:          registrant,
-      event_registration: event_registration,
-      event_requirement:  event_requirement
+    # first, the registrant
+    EventSubmissionMailer.document_receipt_registrant_email(
+      registrant,
+      event_registration,
+      event_requirement
     ).deliver_later
 
-    registrant.user.guardians.each do |guardian|
-      EventSubmissionMailer.document_receipt.with(
-        recipient: guardian,
-        event_registration: event_registration,
-        event_requirement: event_requirement
+    # then, guardians
+    registrant.guardians.each do |guardian|
+      EventSubmissionMailer.document_receipt_guardian_email(
+        guardian,
+        event_registration,
+        event_requirement
       ).deliver_later
     end
   end
