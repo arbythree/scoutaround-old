@@ -3,7 +3,6 @@
 
 class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
-  before_action :find_event_requirement
 
   def index
     @submissions = @event.event_submissions
@@ -43,6 +42,7 @@ class EventSubmissionsController < AuthenticatedController
 
   def new
     @submission = EventSubmission.new(event_registration_id: params[:registration])
+    @submission.event_requirement = @event_requirement
 
     # iterate through all event registrations and determine whether current user is allowed to
     # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
@@ -106,14 +106,6 @@ class EventSubmissionsController < AuthenticatedController
 
   private
 
-  def find_event_requirement
-    if params[:event_requirement_id].present?
-      @event_requirement = EventRequirement.find(params[:event_requirement_id])
-    elsif @submission.present?
-      @event_requirement = @submission.event_requirement
-    end
-  end
-
   def find_submission
     @submission = EventSubmission.find(params[:id])
   end
@@ -121,7 +113,7 @@ class EventSubmissionsController < AuthenticatedController
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_registration_id, :event_requirement_id, :attachment, :audience, :waived)
+      .permit(:attachment, :audience, :waived)
       .merge({ submitter: @current_user })
   end
 end

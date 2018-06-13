@@ -16,4 +16,14 @@ RSpec.describe EventRequirement, type: :model do
     submission = FactoryBot.create(:event_submission, event_registration_id: registration.id, event_requirement_id: requirement.id)
     expect(submission.event_requirement.completed_by?(user: submission.event_registration.user)).to be_truthy
   end
+
+  describe 'validations' do
+    it 'requires a positive adult price' do
+      expect(FactoryBot.build(:payment_event_requirement, amount_adult: -1)).not_to be_valid
+    end
+
+    it 'requires a positive youth price' do
+      expect(FactoryBot.build(:payment_event_requirement, amount_youth: -1)).not_to be_valid
+    end
+  end
 end

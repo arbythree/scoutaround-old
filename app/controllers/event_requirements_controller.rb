@@ -25,6 +25,9 @@ class EventRequirementsController < EventContextController
 
   def update
     @event_requirement.assign_attributes(event_requirement_params)
+    @event_requirement.amount_youth *= 100.0
+    @event_requirement.amount_adult *= 100.0
+
     if @event_requirement.save
       flash[:notice] = 'event_requirements.confirm_update'
       redirect_to event_event_registrations_path(@event)

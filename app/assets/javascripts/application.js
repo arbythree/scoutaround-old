@@ -21,3 +21,5 @@
 //= require bootstrap-datepicker
 //= require cocoon
 //= require activestorage
+//= require jquery.validate
+//= require jquery.validate.additional-methods

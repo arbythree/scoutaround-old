@@ -22,6 +22,10 @@ $green:             #006B3F;
 $color_brand:       #BA160C; // eng
 $color_background:  #EBE9E8;
 
+@mixin sans-serif {
+  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+}
+
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
   background-color: $color_background;
@@ -44,19 +48,19 @@ h1 {
 }
 
 h4 {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
 }
 
 .flash {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
 }
 
 .datepicker {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
 }
 
 .crumbtrail {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.8rem;
@@ -100,7 +104,7 @@ a.cancel {
 header#primary {
   @extend .container;
   max-width: 1332px;
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
 
   .dropdown-menu a {
     color: #333;
@@ -128,7 +132,7 @@ header#primary {
         font-weight: 600;
         display: inline-block;
         padding: 1rem;
-        font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+        @include sans-serif;
 
         svg {
           margin-right: 0.3rem;
@@ -229,7 +233,7 @@ td.event-requirement.event-requirement-complete {
 
 td.event-requirement.event-requirement-incomplete {
   svg {
-    color: #aaa;
+    color: darken($color_background, 40%);
   }
 }
 
@@ -289,7 +293,7 @@ h3.inline {
 }
 
 .badge {
-  font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+  @include sans-serif;
 }
 
 table.checklist {
@@ -465,7 +469,7 @@ li.message {
   }
 
   .pingees {
-    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+    @include sans-serif;
     font-size: 60%;
     font-weight: 400;
     letter-spacing: 1px;
@@ -477,7 +481,7 @@ li.message {
   .meta {
     padding-top: 1rem;
     padding-left: 62px;
-    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+    @include sans-serif;
     font-size: 80%;
   }
 
@@ -570,7 +574,7 @@ table.calendar {
     width: 100%;
     margin: 1px 0;
     padding: 4px 0.5rem;
-    font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+    @include sans-serif;
 
     span {
       display: none;
@@ -811,4 +815,15 @@ body.events.show {
   body {
     background-color: #fff;
   }
+}
+
+input.error {
+  border-color: $red;
+}
+
+label.error {
+  @include sans-serif;
+  font-weight: 400;
+  font-size: 70%;
+  color: $red;
 }

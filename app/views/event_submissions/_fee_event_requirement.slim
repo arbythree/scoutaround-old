@@ -1,7 +1,10 @@
 - total = 0
 
 - content_for :title do
-  h1 = @event_requirement.description
+  .row
+    .col-md-1
+    .col-md-11
+      h1 = @event_requirement.description
 
 = form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
   = f.hidden_field :event_registration_id
@@ -42,17 +45,41 @@
                 td = user.first_name
                 td(style="text-align:right;") = number_to_currency(user_fee / 100.0)
 
-        - processing_fee = (total * 0.029 + 30) / 100.0
+        - processing_fee = total * 0.029 + 30
         - total += processing_fee
 
         tr
           td Processing Fee
-          td(style="text-align:right;") = number_to_currency(processing_fee)
+          td(style="text-align:right;") = number_to_currency(processing_fee / 100.0)
 
         tr(style="font-weight: 600;")
           td Total
           td(style="text-align:right;") = number_to_currency(total / 100.0)
 
   .row
-    .col-md-12(style="text-align: center;")
+    .col-md-1
+    .col-md-11
       = f.submit 'Pay Now', class: 'btn btn-primary'
+
+javascript:
+  // see https://jqueryvalidation.org/documentation/
+  $(document).ready(function() {
+    $("#card_number").mask("9999-9999-9999-9999");
+
+    $.validator.addMethod(
+      "monthAndYearDate",
+      function(value, element) {
+        return value.match(/\d\d\/\d\d/);
+      },
+      "Please enter the expiration date in MM/YY format"
+    );
+
+    $('#new_event_submission').validate({
+      debug: true,
+      rules: {
+        "card_number":  { required: true, creditcard: true },
+        "expiration":   { required: true, monthAndYearDate: true },
+        "cvc":          { required: true, minlength: 3, maxlength: 4, digits: true }
+      }
+    });
+  });

@@ -1,5 +1,7 @@
 {
   "name": "scoutaround",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "cleave.js": "^1.3.7"
+  }
 }

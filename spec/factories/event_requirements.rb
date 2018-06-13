@@ -9,5 +9,7 @@ FactoryBot.define do
   end
 
   factory :payment_event_requirement, class: FeeEventRequirement, parent: :event_requirement do
+    amount_adult 1
+    amount_youth 1
   end
 end
