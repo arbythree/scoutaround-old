@@ -73,6 +73,10 @@ en:
     waive_blurb:          'Select this option if you do not intend to participate in the activity that requires this submission'
     confirmation:
       document_received:  "%{person}'s %{document_name} has been uploaded and recorded"
+    ctas:
+      payment:            'Pay %{amount} Now'
+    tooltips:
+      payments:           'Learn how Scoutaround handles payments and security'
 
   units:
     troop:      'Troop'

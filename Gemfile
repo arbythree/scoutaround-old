@@ -33,7 +33,7 @@ gem 'skylight'
 gem 'slim'
 gem 'smarter_csv'
 gem 'stripe'
-# gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do

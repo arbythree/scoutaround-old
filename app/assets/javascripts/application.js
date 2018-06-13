@@ -23,3 +23,4 @@
 //= require activestorage
 //= require jquery.validate
 //= require jquery.validate.additional-methods
+//= require cleave.js/dist/cleave

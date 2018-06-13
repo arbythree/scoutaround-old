@@ -72,13 +72,53 @@ class EventSubmissionsController < AuthenticatedController
     ).destroy_all
 
     # resolve the EventRequirement
-    @event_requirement = EventRequirement.find(@submission.event_requirement_id)
+    @event_requirement = EventRequirement.find(params[:event_requirement_id])
 
     case @event_requirement.type
     when 'FeeEventRequirement'
-      #
-      # TODO: run the credit card
-      #
+
+      # TODO: extract this into a standalone module
+
+      total = 0
+      @current_user.family.each do |user|
+        if user.is_member_of?(unit: @unit)
+          registration = @event.event_registrations.find_by(user: user)
+          if registration.present?
+            user_fee = user.type == 'Youth' ? @event_requirement.amount_youth : @event_requirement.amount_adult
+            total += user_fee
+          end
+        end
+      end
+
+      processing_fee = total * 0.029 + 30
+      total += processing_fee
+
+      expiration        = params[:expiration]
+      expiration_parts  = expiration.split('/')
+      exp_month         = expiration_parts[0]
+      exp_year          = expiration_parts[1]
+      card_number       = params[:card_number]
+      cvc               = params[:cvc]
+
+      Stripe.api_key = ENV['STRIPE_SECRET_KEY']
+      charge = Stripe::Charge.create(
+        amount:   total.to_i,
+        currency: 'usd',
+        source: {
+          exp_month: exp_month,
+          exp_year:  exp_year,
+          number:    card_number,
+          cvc:       cvc,
+          object:    'card',
+        }
+      )
+
+      # TODO: handle failed charges
+
+      @submission.stripe_charge_id = charge.id
+
+      # TODO: save card source data if user wants us to keep it on file
+
       if @submission.save
         # because payment is for the entire family, let's create
         # payment submissions for them, too
@@ -89,7 +129,7 @@ class EventSubmissionsController < AuthenticatedController
           end
         end
 
-        redirect_to event_event_requirement_event_submission_path(@event, @event_requirement, @submission)
+        redirect_to event_submission_path(@submission)
       end
     when 'DocumentEventRequirement'
       if @submission.save
