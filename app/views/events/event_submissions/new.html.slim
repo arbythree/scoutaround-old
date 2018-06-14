@@ -1,0 +1,35 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@unit)
+- crumbtrail link_to @event.name, event_path(@event)
+- crumbtrail 'Submit a Document'
+
+.row
+  .col-md-3
+  .col-md-6
+    h4 = @event.name
+    h1 Event Submission
+
+    = render partial: 'events/event_submissions/form'
+
+javascript:
+  function checkSubmissionStatus() {
+    var registrationId = $('#event_submission_event_registration_id').val();
+    var requirementId = $('#event_submission_event_requirement_id').val();
+
+    if (registrationId == '' || requirementId == '') {
+      return;
+    }
+
+    var registrantName = $('#event_submission_event_registration_id option:selected').text();
+    var itemName = $('#event_submission_event_requirement_id option:selected').text();
+
+    var url = '/events/' + "#{@event.id}" + '/submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
+    $.getJSON(url, function(data) {
+      if (data.length > 0) {
+        $('#submission-dupe-message').html(registrantName + ' has already submitted a ' + itemName + '. Uploading again will overwrite the previous submission.');
+        $('#submission-dupe-alert').show(250);
+      } else {
+        $('#submission-dupe-alert').hide(250);
+      }
+    });
+  }

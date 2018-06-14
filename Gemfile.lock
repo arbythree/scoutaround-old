@@ -364,6 +364,7 @@ DEPENDENCIES
   rails (~> 5.2)
   redcarpet
   rspec-rails (~> 3.7)
+  rubyzip
   sanitize_email
   sass-rails (~> 5.0)
   seedbank

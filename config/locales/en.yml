@@ -187,6 +187,7 @@ en:
     confirm_create: 'Added the new requirement to the event'
     complete:       'Done'
     download_all:   'Download Combined PDF'
+    download_zip:   'Download Combined Zip File'
 
   event_submissions:
     confirm_create: "%{name}'s %{requirement} was received"

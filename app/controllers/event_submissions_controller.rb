@@ -17,6 +17,8 @@ class EventSubmissionsController < AuthenticatedController
 
     respond_to do |format|
       format.json { render json: @submissions || [] }
+
+      # make a PDF
       format.pdf do
         pdf_combiner = CombinePDF.new
         @submissions.each do |submission|
@@ -33,8 +35,37 @@ class EventSubmissionsController < AuthenticatedController
 
         send_data pdf_combiner.to_pdf, filename: combined_filename, type: "application/pdf"
       end
-    end
-  end
+
+      # make a zip file
+      format.zip do
+        combined_filename = [
+          UnitPresenter.unit_display_name(@unit),
+          @unit.city,
+          "#{event_requirement.description.pluralize}.zip"
+        ].join(' ')
+
+        temp = Tempfile.new("scoutaround-event-#{@event.id}.zip")
+
+        Zip::OutputStream.open(temp.path) do |zip|
+          @submissions.each do |submission|
+            if submission.attachment.attached?
+              # puts submission.attachment.path
+              # zip.add("#{ submission.registration.user.full_name }.pdf", submission.attachment.download)
+              zip.put_next_entry("#{ submission.registration.user.full_name }.pdf")
+              zip.write submission.attachment.download
+            end # if
+          end # each submission
+        end # zip output stream
+
+        send_file temp.path, type:        'application/zip',
+                             disposition: 'inline',
+                             filename:    combined_filename
+
+        # temp.close
+        # temp.unlink
+      end # format.zip
+    end # respond_to
+  end # index
 
   def show
     # TODO: pundit this
@@ -45,7 +76,8 @@ class EventSubmissionsController < AuthenticatedController
 
 
     # resolve the EventRequirement
-    @event_requirement = EventRequirement.find(params[:event_requirement_id])
+    @event_requirement = EventRequirement.find(params[:event_requirement_id]) if params[:event_requirement_id].present?
+    @event_requirement ||= EventRequirement.find(@submission.event_requirement_id)
     @event = @event_requirement.event
     @submission.event_requirement = @event_requirement
 
@@ -147,7 +179,7 @@ class EventSubmissionsController < AuthenticatedController
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_registration_id)
+      .permit(:event_registration_id, :event_requirement_id)
       .merge({ submitter: @current_user })
   end
 end
