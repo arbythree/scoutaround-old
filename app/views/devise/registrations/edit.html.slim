@@ -14,6 +14,17 @@
       - if devise_mapping.confirmable? && resource.pending_reconfirmation?
         div Currently waiting confirmation for: = resource.unconfirmed_email
 
+
+      .form-group
+        = f.label :name
+        .row
+          .col-md-3
+            = f.text_field :first_name, class: 'form-control'
+          .col-md-3
+            = f.text_field :nickname,   class: 'form-control'
+          .col-md-3
+            = f.text_field :last_name,  class: 'form-control'
+
       .form-group
         = f.label :password
         small.form-text.text-muted

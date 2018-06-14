@@ -71,5 +71,19 @@
                 = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00'
 
         .form-group
+          = f.label 'Who pays transaction fees?'
+          .row
+            .col-md-12
+              = f.radio_button :waive_transaction_fees, '0'
+              | &nbsp;
+              = f.label :waive_transaction_fees_0, 'Members'
+
+              | &nbsp;&nbsp;&nbsp;&nbsp;
+
+              = f.radio_button :waive_transaction_fees, '1'
+              | &nbsp;
+              = f.label :waive_transaction_fees_1, 'Unit'
+
+        .form-group
           = f.hidden_field :type, value: 'FeeEventRequirement'
           = f.submit :update, class: 'btn btn-primary'

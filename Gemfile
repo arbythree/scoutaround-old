@@ -17,6 +17,7 @@ gem 'devise'
 gem 'faraday'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'jquery-validation-rails'
 gem 'mini_magick'
 gem 'mixpanel-ruby'
 gem 'pdfjs_viewer-rails'
@@ -24,14 +25,16 @@ gem 'puma', '~> 3.7'
 gem 'pundit'
 gem 'rails', '~> 5.2'
 gem 'redcarpet'
+gem 'rubyzip'
 gem 'sass-rails', '~> 5.0'
 gem 'seedbank'
+gem 'sidekiq'
 gem 'simple_form'
 gem 'skylight'
 gem 'slim'
 gem 'smarter_csv'
 gem 'stripe'
-# gem 'turbolinks', '~> 5'
+gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
@@ -53,8 +56,12 @@ group :development do
   gem 'web-console', '>= 3.3.0'
 end
 
-group :production do
+group :production, :staging do
   gem 'pg'
+end
+
+group :staging do
+  gem 'sanitize_email'
 end
 
 group :test do

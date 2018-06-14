@@ -73,6 +73,10 @@ en:
     waive_blurb:          'Select this option if you do not intend to participate in the activity that requires this submission'
     confirmation:
       document_received:  "%{person}'s %{document_name} has been uploaded and recorded"
+    ctas:
+      payment:            'Pay %{amount} Now'
+    tooltips:
+      payments:           'Learn how Scoutaround handles payments and security'
 
   units:
     troop:      'Troop'
@@ -108,7 +112,7 @@ en:
     cta_document:      "Click to upload %{name}\'s %{document}"
     ctas:
       register:        'Register'
-      message:         'Send a Message'
+      message:         'Post a Message'
 
   event_registrations:
     non_registrants:    'Not Registered'
@@ -183,6 +187,7 @@ en:
     confirm_create: 'Added the new requirement to the event'
     complete:       'Done'
     download_all:   'Download Combined PDF'
+    download_zip:   'Download Combined Zip File'
 
   event_submissions:
     confirm_create: "%{name}'s %{requirement} was received"
@@ -200,6 +205,11 @@ en:
     registrants: 'Send a Message'
     blank:       "There aren't any messages here yet."
     placeholder: 'Type a message'
+    pingees:
+      events:
+        all_registrants:        'all registrants'
+        incomplete_registrants: 'incomplete registrants'
+        complete_registrants:   'complete registrants'
 
   calendar:
     event:
@@ -227,3 +237,5 @@ en:
       event_reminder_registrant_incomplete: 'Only %{days} days until %{event_name}--your registration is still incomplete'
       event_reminder_guardian_incomplete:   'ACTION REQUIRED - Only %{days} days until %{event_name}!'
       event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
+      event_message_notification:           '%{ name } posted to the %{ event_name } message board'
+      payment_receipt:                      'Your payment for %{event_name} has been received'

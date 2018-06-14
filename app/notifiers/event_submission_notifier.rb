@@ -23,4 +23,19 @@ class EventSubmissionNotifier < ApplicationNotifier
       ).deliver_later
     end
   end
+
+  #
+  # send to payer when a payment is received
+  #
+  def self.send_payment_receipt_notification(submission)
+    event_registration = submission.event_registration
+    event_requirement  = submission.event_requirement
+    registrant         = event_registration.user
+
+    EventSubmissionMailer.payment_receipt_email(
+      registrant,
+      event_registration,
+      event_requirement
+    ).deliver_later
+  end
 end

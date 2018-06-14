@@ -31,7 +31,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @registration.user
     @registration.destroy
     flash[:notice] = "Unregistered #{ user.full_name }"
-    redirect_to event_event_registrations_path(@event)
+    redirect_to @event
   end
 
   private
@@ -40,7 +40,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @unit.members.find(params[:user])
     @registration = @event.event_registrations.create(user: user)
     flash[:notice] = I18n.t('event_registrations.success.created.single', user_name: user.first_name, event_name: @event.name)
-    redirect_to event_registration_path(@registration)
+    redirect_to @event
   end
 
   def perform_bulk_registration

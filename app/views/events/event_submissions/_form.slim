@@ -1,0 +1,38 @@
+- requirements = @event.event_requirements.where(type: 'DocumentEventRequirement')
+- if requirements.count == 1
+-   @submission.event_requirement = requirements.first
+
+= form_for @submission, url: event_event_submissions_path(@event) do |f|
+  .form-group
+    = f.label :user, t('registrations.registrant')
+    = f.collection_select :event_registration_id, @visible_event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+
+  .form-group
+    = f.label :item, t('registrations.submission_item')
+    = f.collection_select :event_requirement_id, requirements, :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+
+  .form-group
+    = f.label :attachment
+    = f.file_field :attachment, direct_upload: true, multiple: false, accept: '.pdf', class: 'form-control'
+
+  - unless @submission.event_requirement.required
+    #waive.form-group
+      = f.check_box :waived
+      = f.label :waived
+      small t('submissions.waive_blurb')
+
+  .form-group
+    = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'
+    | &nbsp;&nbsp;
+    = I18n.t('or')
+    | &nbsp;&nbsp;
+    = link_to I18n.t('cancel'), event_event_registrations_path(@event), class: 'cancel'
+
+    br
+    br
+
+    .alert.alert-danger#submission-dupe-alert(style="display:none;")
+      i.fas.fa-exclamation-triangle
+      | &nbsp;&nbsp;
+      span#submission-dupe-message
+        | Item has already been submitted for this registrant. Uploading again will overwrite.

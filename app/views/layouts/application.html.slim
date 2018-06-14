@@ -2,14 +2,13 @@ doctype html
 html
   head
     title Scoutaround
+    meta(name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no")
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
     = render partial: 'layouts/proprietary' if lookup_context.exists?('layouts/proprietary', [], true)
     - (ENV['HTML_HEAD_INJECT'] || '').split(';').each { |d| concat(eval(d)) }
     = yield :head
-    meta(name="viewport" content="width=device-width, initial-scale=1")
-
 
   body(class="authenticated #{additional_classes}")
     = render partial: 'layouts/header'
@@ -40,3 +39,9 @@ html
         - else
           .col-md-12
             = yield
+
+javascript:
+  // https://www.nicholasshirley.com/using-font-awesome-5-and-the-rails-asset-pipeline/
+  $(document).on("turbolinks:load", function() {
+    return FontAwesome.dom.i2svg();
+  });

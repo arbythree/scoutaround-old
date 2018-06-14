@@ -13,7 +13,7 @@ namespace :scoutaround do
 
         event.event_registrations.each do |registration|
           puts "#{registration.user.short_name} (#{registration.complete? ? 'complete' : 'incomplete'})"
-          EventReminderMailer.seven_day_prior_youth_reminder(registration).deliver_now if registration.user.type == 'Youth'
+          EventReminderMailer.seven_day_prior_youth_reminder(registration).deliver_later if registration.user.type == 'Youth'
         end # iterative over registrations
       end # iterate over events
 
@@ -39,7 +39,7 @@ namespace :scoutaround do
         unregistered_guardians.each do |guardian|
           # the mailer will gather up all registered guardees and stuff their registration
           # status into a single email
-          EventReminderMailer.seven_day_prior_guardian_reminder(event, guardian).deliver_now
+          EventReminderMailer.seven_day_prior_guardian_reminder(event, guardian).deliver_later
         end
       end # iterate over events
     end

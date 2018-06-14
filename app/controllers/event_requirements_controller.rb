@@ -11,6 +11,8 @@ class EventRequirementsController < EventContextController
 
   def create
     @event_requirement = @event.event_requirements.new(event_requirement_params)
+    @event_requirement.amount_youth = (@event_requirement.amount_youth || 0) * 100.0
+    @event_requirement.amount_adult = (@event_requirement.amount_adult || 0) * 100.0
 
     if @event_requirement.save
       redirect_to event_event_registrations_path(@event)
@@ -25,8 +27,11 @@ class EventRequirementsController < EventContextController
 
   def update
     @event_requirement.assign_attributes(event_requirement_params)
+    @event_requirement.amount_youth = (@event_requirement.amount_youth || 0) * 100.0
+    @event_requirement.amount_adult = (@event_requirement.amount_adult || 0) * 100.0
+
     if @event_requirement.save
-      flash[:notice] = 'event_requirements.confirm_update'
+      flash[:notice] = I18n.t('event_requirements.confirm_update')
       redirect_to event_event_registrations_path(@event)
     else
       redirect_to event_event_requirement_path(@event, @event_requirement)
@@ -36,7 +41,7 @@ class EventRequirementsController < EventContextController
   private
 
   def event_requirement_params
-    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience, :required, :amount_youth, :amount_adult)
+    params.require(:event_requirement).permit(:description, :due_at, :type, :document_library_item_id, :audience, :required, :amount_youth, :amount_adult, :waive_transaction_fees)
   end
 
   def find_event_requirement

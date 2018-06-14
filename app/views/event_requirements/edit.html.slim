@@ -4,7 +4,7 @@
 - crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
 - crumbtrail @event_requirement.description
 
-- submissions = EventSubmission.where(event_requirement: @event_requirement)
+- submissions = @event_requirement.event_submissions
 
 - if @event_requirement.is_a?(DocumentEventRequirement)
   - content_for :title do
@@ -13,7 +13,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement, url: event_requirement_path(@event_requirement) do |f|
+      = form_for @event_requirement.becomes(EventRequirement), url: event_requirement_path(@event_requirement) do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'
@@ -50,6 +50,8 @@
           li = submission.user.full_name
 
       = link_to t('event_requirements.download_all'), event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'
+      | &nbsp;
+      / = link_to t('event_requirements.download_zip'), event_requirement_event_submissions_path(@event_requirement, format: :zip), class: 'btn btn-primary'
 
 
 
@@ -58,7 +60,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement, url: event_requirement_path(@event_requirement) do |f|
+      = form_for @event_requirement.becomes(EventRequirement), url: event_requirement_path(@event_requirement) do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'
@@ -74,14 +76,29 @@
               .input-group
                 .input-group-prepend
                   span.input-group-text $
-                = f.text_field :amount_youth, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_youth, unit: ''), pattern: '\d*.\d{2}?'
+                = f.text_field :amount_youth, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_youth / 100.0, unit: ''), pattern: '\d*.\d{2}?'
 
             .col-md-6
               = f.label :amount_adult
               .input-group
                 .input-group-prepend
                   span.input-group-text $
-                = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_adult, unit: ''), pattern: '\d*.\d{2}?'
+                = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_adult / 100.0, unit: ''), pattern: '\d*.\d{2}?'
+
+        .form-group
+          = f.label 'Who covers transaction fees?'
+
+          | &nbsp;&nbsp;&nbsp;&nbsp;
+
+          = f.radio_button :waive_transaction_fees, false
+          | &nbsp;
+          = f.label :waive_transaction_fees_false, 'Members'
+
+          | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+          = f.radio_button :waive_transaction_fees, true
+          | &nbsp;
+          = f.label :waive_transaction_fees_true, 'Unit'
 
         .form-group
           = f.hidden_field :type, value: 'FeeEventRequirement'

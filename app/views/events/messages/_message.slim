@@ -1,4 +1,7 @@
+- i18n_key = "messages.pingees.events.#{ message.pingees }"
+
 li.message
+  .pingees = "Pinged to #{ t(i18n_key) }:" unless ['none', nil].include? message.pingees
   .primary
     .body = raw(markdown.render message.body)
   .meta
