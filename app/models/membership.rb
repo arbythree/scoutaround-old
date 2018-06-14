@@ -29,7 +29,7 @@ class Membership < ApplicationRecord
         csv << [
           membership.user.last_name,
           membership.user.first_name,
-          membership.user.email,
+          membership.user.anonymous_email? ? '' : membership.user.email,
           membership.user.phone,
           membership.user.type,
           membership.unit_position&.name,

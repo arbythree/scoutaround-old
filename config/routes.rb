@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   match '/payment_setup', to: 'stripe#payment_setup', as: 'payment_setup', via: [:get]
 
+  resources :users, only: [:show, :edit, :update]
+
   resources :units, shallow: true do
     scope module: 'units' do
       resources :membership_imports

@@ -357,6 +357,12 @@ table.checklist {
   }
 }
 
+a.dropdown-item {
+  &:active, &:focus {
+    background-color: $blue;
+  }
+}
+
 ul.documents {
   list-style: none;
   padding: 0;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_12_181102) do
+ActiveRecord::Schema.define(version: 2018_06_13_185900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2018_06_12_181102) do
     t.integer "audience", default: 0
     t.boolean "required", default: true
     t.integer "amount_adult"
+    t.boolean "waive_transaction_fees", default: false
   end
 
   create_table "event_submissions", force: :cascade do |t|

@@ -15,7 +15,7 @@
         table.table.checklist.table-sm
           = render partial: 'events/show/requirement', collection: @event.event_requirements, locals: { user: user, registration: registration }
       .card-footer
-        = link_to '#', data: { toggle: 'tooltip' }, title: "Unregister #{ user.first_name }", class: 'unregister' do
+        = link_to registration, data: { toggle: 'tooltip' }, prompt: 'Are you sure?', title: "Unregister #{ user.first_name }", class: 'unregister', method: :delete do
           i.far.fa-times
           = t('registrations.destroy')
 

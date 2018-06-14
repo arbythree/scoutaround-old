@@ -54,11 +54,12 @@
                 td(style="text-align:right;") = number_to_currency(user_fee / 100.0)
 
         - processing_fee = total * 0.029 + 30
-        - total += processing_fee
+        - total += processing_fee unless @event_requirement.waive_transaction_fees
 
-        tr
-          td Processing Fee
-          td(style="text-align:right;") = number_to_currency(processing_fee / 100.0)
+        - unless @event_requirement.waive_transaction_fees
+          tr
+            td Processing Fee
+            td(style="text-align:right;") = number_to_currency(processing_fee / 100.0)
 
         tr(style="font-weight: 600;")
           td Total
@@ -69,7 +70,7 @@
     .col-md-11
       = f.submit t('submissions.ctas.payment', amount: number_to_currency(total / 100.0)), class: 'btn btn-primary'
       | &nbsp;&nbsp;
-      = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, title: t('submissions.tooltips.payments') do
+      = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, target: '_blank', title: t('submissions.tooltips.payments') do
         i.fa-question-circle.fas
 
 css:

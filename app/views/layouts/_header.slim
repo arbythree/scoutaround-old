@@ -59,7 +59,7 @@ header#primary
             i.fa-chevron-down.fas
 
           .dropdown-menu
-            = link_to t('profile'), edit_user_registration_path, class: 'dropdown-item'
+            = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
             = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
             .dropdown-divider
             = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'

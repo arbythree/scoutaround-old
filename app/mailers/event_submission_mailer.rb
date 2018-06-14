@@ -36,4 +36,20 @@ class EventSubmissionMailer < ApplicationMailer
       )
     )
   end
+
+  def payment_receipt_email(recipient, event_registration, event_requirement)
+    return if recipient.anonymous_email?
+
+    @recipient          = recipient
+    @event_registration = event_registration
+    @event_requirement  = event_requirement
+
+    mail(
+      to: recipient.email,
+      subject: I18n.t(
+        'email.subjects.payment_receipt',
+        event_name: @event_requirement.event.name
+      )
+    )
+  end
 end

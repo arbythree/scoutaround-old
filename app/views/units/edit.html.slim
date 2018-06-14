@@ -11,8 +11,8 @@
       .form-group
         = f.label :city
         div
-          = f.text_field :city, class: 'form-control', style: 'width: 70%; float: left;'
-          = select_tag 'unit[state]', options_for_select(us_states.collect { |s| [ s[0], s[1] ] }, @unit.state), class: 'form-control', style: 'width: 29%; float: right;'
+          = f.text_field :city, class: 'form-control', style: 'width: 60%; float: left;'
+          = select_tag 'unit[state]', options_for_select(us_states.collect { |s| [ s[0], s[1] ] }, @unit.state), class: 'form-control', style: 'width: 39%; float: right;'
       br
       br
 
@@ -36,8 +36,7 @@
         |&nbsp;&nbsp;or&nbsp;&nbsp;
         = link_to t('cancel'), unit_path(@unit), class: 'cancel'
 
-  .col-md-1
-  .col-md-3
+  .col-md-4
     ul
       - if @unit.accepts_payments?
         li

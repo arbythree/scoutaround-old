@@ -237,3 +237,4 @@ en:
       event_reminder_guardian_incomplete:   'ACTION REQUIRED - Only %{days} days until %{event_name}!'
       event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
       event_message_notification:           '%{ name } posted to the %{ event_name } message board'
+      payment_receipt:                      'Your payment for %{event_name} has been received'

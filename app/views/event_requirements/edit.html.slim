@@ -4,7 +4,7 @@
 - crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
 - crumbtrail @event_requirement.description
 
-- submissions = EventSubmission.where(event_requirement: @event_requirement)
+- submissions = @event_requirement.event_submissions
 
 - if @event_requirement.is_a?(DocumentEventRequirement)
   - content_for :title do
@@ -82,6 +82,21 @@
                 .input-group-prepend
                   span.input-group-text $
                 = f.text_field :amount_adult, class: 'form-control', placeholder: '0.00', value: number_to_currency(f.object.amount_adult / 100.0, unit: ''), pattern: '\d*.\d{2}?'
+
+        .form-group
+          = f.label 'Who covers transaction fees?'
+
+          | &nbsp;&nbsp;&nbsp;&nbsp;
+
+          = f.radio_button :waive_transaction_fees, false
+          | &nbsp;
+          = f.label :waive_transaction_fees_false, 'Members'
+
+          | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+          = f.radio_button :waive_transaction_fees, true
+          | &nbsp;
+          = f.label :waive_transaction_fees_true, 'Unit'
 
         .form-group
           = f.hidden_field :type, value: 'FeeEventRequirement'
