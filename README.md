@@ -37,6 +37,7 @@ Once done:
 
 ```
 bundle install
+yarn install
 foreman s
 ```
 
