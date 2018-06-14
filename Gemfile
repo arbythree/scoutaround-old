@@ -9,6 +9,7 @@ end
 gem 'aws-sdk-s3', '~> 1.2'
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
+gem 'cleavejs-rails', git: 'https://github.com/raybradley/cleave-rails.git'
 gem 'cocoon'
 gem 'coffee-rails', '~> 4.2'
 gem 'combine_pdf'
