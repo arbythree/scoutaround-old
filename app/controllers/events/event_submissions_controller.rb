@@ -26,7 +26,6 @@ class Events::EventSubmissionsController < EventSubmissionsController
 
   def find_event
     @event = Event.find(params[:event_id])
-    ap @event
   end
 
   def find_unit
