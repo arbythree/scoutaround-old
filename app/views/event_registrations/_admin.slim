@@ -1,6 +1,6 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('events.administration')}")
+    span(data-toggle="tooltip" title="#{t('actions_and_options')}")
       = render partial: 'layouts/campfire'
 
   .dropdown-menu.dropdown-menu-right
@@ -23,3 +23,8 @@
     = link_to new_event_event_requirement_path(@event, type: 'fee'), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('events.add_requirement.payment')
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });

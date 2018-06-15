@@ -1,3 +1,7 @@
+header#mobile
+  a#mobile(href="#")
+    i.fa-bars.fal
+
 header#primary
   nav
     - unless @unit.present?
@@ -50,20 +54,25 @@ header#primary
                 i.fas.fa-screwdriver
               = t('units.settings', unit_type: @unit.type)
 
-    .utilities
-      - if @current_user.present?
-        .dropdown
-          = link_to '#', data: {toggle: 'dropdown'} do
-            = t('hello', name: @current_user.first_name)
-            | &nbsp;
-            i.fa-chevron-down.fas
+.utilities
+  - if @current_user.present?
+    .dropdown
+      = link_to '#', data: {toggle: 'dropdown'} do
+        = t('hello', name: @current_user.first_name)
+        | &nbsp;
+        i.fa-chevron-down.fas
 
-          .dropdown-menu
-            = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
-            = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
-            .dropdown-divider
-            = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+      .dropdown-menu
+        = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
+        = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
+        .dropdown-divider
+        = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')
   = raw((@crumbtrail || []).join(separator))
+
+javascript:
+  $('a#mobile').click(function() {
+    $('header#primary').toggle(100);
+  });

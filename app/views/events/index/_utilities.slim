@@ -1,6 +1,6 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('utilities')}")
+    span(data-toggle="tooltip" title="#{t('actions_and_options')}")
       = render partial: 'layouts/campfire'
 
   .dropdown-menu.dropdown-menu-right
@@ -14,3 +14,8 @@
     = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if @view != 'calendar'
     = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'),     class: 'dropdown-item' if @view == 'calendar'
     = link_to t('events.feed'),          unit_events_path(@unit, format: :ics),     class: 'dropdown-item'
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });

@@ -15,6 +15,7 @@ en:
   download:             'Download'
   update:               'Update'
   admin_only_view:      'Admin View'
+  actions_and_options:  'Actions & Options'
 
   auth:
     sign_in:          'Sign In'

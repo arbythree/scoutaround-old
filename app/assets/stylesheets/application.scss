@@ -29,7 +29,10 @@ $color_background:  #EBE9E8;
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
   background-color: $color_background;
-  padding-bottom: 30px;
+  padding-bottom:   30px;
+  padding-left:     15px;
+  padding-right:    15px;
+  position:         relative;
 }
 
 .sidebar {
@@ -101,22 +104,37 @@ a.cancel {
   color: $blue;
 }
 
+header#mobile {
+  display: none;
+
+  a {
+    display: inline-block;
+    padding: 15px 30px;
+  }
+}
+
+.utilities {
+  position: absolute;
+  right:    30px;
+  top:      0px;
+
+  .dropdown > a {
+    display: inline-block;
+    padding: 1rem;
+  }
+}
+
 header#primary {
   @extend .container;
-  max-width: 1332px;
   @include sans-serif;
+  max-width: 1332px;
+
+  nav {
+    margin-left: -15px;
+  }
 
   .dropdown-menu a {
     color: #333;
-  }
-
-  .utilities {
-    float: right;
-
-    .dropdown > a {
-      display: inline-block;
-      padding: 1rem;
-    }
   }
 
   nav {
@@ -147,12 +165,6 @@ header#primary {
       li {
         display: inline-block;
       }
-    }
-
-
-
-    li:first-child a {
-      padding-left: 0;
     }
   }
 }
@@ -347,6 +359,15 @@ table.checklist {
       transform: translate(-50%, -50%);
       top: 50%;
       left: 50%;
+    }
+
+    &:hover {
+      background-color: $color_brand;
+      border-color: darken($color_brand, 10%);
+
+      svg {
+        color: $white;
+      }
     }
   }
 
@@ -792,34 +813,82 @@ body.events.show {
   }
 }
 
-@media only screen
-    and (device-width : 375px)
-    and (device-height : 812px)
-    and (-webkit-device-pixel-ratio : 3) {
-  header#primary, header#secondary {
-    display: none;
+// @media only screen
+//     and (device-width : 375px)
+//     and (device-height : 812px)
+//     and (-webkit-device-pixel-ratio : 3) {
+
+//   header#primary, header#secondary {
+//     display: none;
+//   }
+
+//   .expendable {
+//     display: none;
+//   }
+
+//   main {
+//     padding: 15px;
+//     box-shadow: none;
+//   }
+
+//   h1 {
+//     font-size: 1.5rem;
+//     margin-bottom: 0.5rem;
+//   }
+
+//   .admin.dropdown {
+//     top: 0;
+//   }
+
+//   body {
+//     background-color: #fff;
+//   }
+// }
+
+@media only screen and (max-width: 800px) {
+  main {
+    border-radius: 0;
   }
 
-  .expendable {
-    display: none;
+  body {
+    // background:    #333;
+    padding-left:  0;
+    padding-right: 0;
   }
 
   main {
     padding: 15px;
-    box-shadow: none;
+    margin: 0;
   }
 
-  h1 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+  header#primary, header#secondary {
+    display: none;
   }
 
-  .admin.dropdown {
-    top: 0;
+  header#mobile {
+    display: block;
   }
 
-  body {
-    background-color: #fff;
+  header#primary {
+    nav {
+      margin-left:   0;
+      margin-bottom: 30px;
+
+      ul {
+        display: inline-block;
+        margin: 0 auto;
+      }
+
+      a span {
+        width:      30px;
+        display:    inline-block;
+        text-align: center;
+      }
+    }
+
+    li {
+      display: block !important;
+    }
   }
 }
 
