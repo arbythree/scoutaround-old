@@ -44,7 +44,7 @@ class MembershipsController < UnitContextController
 
     if @membership.save
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
-      redirect_to membership_path(@unit, @membership)
+      redirect_to membership_path(@membership)
     else
       redirect_to edit_membership_path(@membership)
     end

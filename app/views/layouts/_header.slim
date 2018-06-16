@@ -1,9 +1,53 @@
+- roles = []
+- @membership = @unit.memberships.find_by(user: @current_user)
+- roles << @membership.unit_position.name if @membership.unit_position.present?
+- roles << @membership.role.titleize      if @membership.role.present?
+
 header#mobile
-  a#mobile(href="#")
-    i.fa-bars.fal
+  nav
+    a#mobile(href="#")
+      i.fa-bars.fal
+
+    .utilities
+      .dropdown.dropright
+        = link_to '#', data: {toggle: 'dropdown'} do
+          = t('hello', name: @current_user.first_name)
+          | &nbsp;
+          i.fa-chevron-down.fas
+
+        .dropdown-menu
+          = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
+          / = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
+          .dropdown-divider
+          = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#primary
-  nav
+  nav(style="position: relative;")
+    - if @current_user.present?
+    .utilities
+      .dropdown.hello
+        = link_to '#', data: {toggle: 'dropdown'}, class: 'link' do
+          = t('hello', name: @current_user.first_name)
+          | &nbsp;
+          i.fa-chevron-down.fas
+          .role = roles.join(' / ')
+
+        .dropdown-menu
+
+          - if @current_user.units.count > 1
+            - @current_user.units.each do |unit|
+              = link_to unit_path(unit), class: 'dropdown-item' do
+                - if @unit == unit
+                  i.fa-check.fas
+                  | &nbsp;
+                = UnitPresenter.unit_display_name(unit)
+            .dropdown-divider
+
+          = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
+          / = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
+          .dropdown-divider
+          = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
+
     - unless @unit.present?
       br
       br
@@ -47,26 +91,12 @@ header#primary
               i.fas.fa-file-alt
             = t('documents.title')
 
-
+        - if @membership.role == 'admin'
           li#nav-item-unit-settings
             = link_to edit_unit_path(@unit) do
               span
                 i.fas.fa-screwdriver
               = t('units.settings', unit_type: @unit.type)
-
-.utilities
-  - if @current_user.present?
-    .dropdown
-      = link_to '#', data: {toggle: 'dropdown'} do
-        = t('hello', name: @current_user.first_name)
-        | &nbsp;
-        i.fa-chevron-down.fas
-
-      .dropdown-menu
-        = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
-        = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
-        .dropdown-divider
-        = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

@@ -1,4 +1,4 @@
-after :ranks do
+after :ranks, :unit_positions do
   def create_user(type, first_name, last_name, date_of_birth, email, rank = nil)
     user = User.create_with(
       first_name: first_name,
@@ -48,19 +48,49 @@ after :ranks do
 
   puts "Guardianships: #{Guardianship.count}"
 
-  troop = Troop.where(number: '28', location: 'Santa Ana, CA', program_code: 'bsa').first_or_create
+  troop = Troop.where(
+    number:                       '2',
+    program_code:                 'bsa',
+    city:                         'Scarsdale',
+    state:                        'NY',
+    chartering_organization_name: 'Immaculate Heart of Mary Church',
+    council:                      'Westchester Putnam',
+    district:                     'Algoqiun'
+  ).first_or_create!
+
+  pack = Pack.where(
+    number:                       '33',
+    program_code:                 'bsa_cubs',
+    city:                         'Larchmont',
+    state:                        'NY',
+    chartering_organization_name: 'St. Augustine\'s Church'
+    council:                      'Westchester Putnam',
+    district:                     'Algoqiun'
+  ).first_or_create
 
   User.all.each do |user|
     troop.memberships.where(user: user).first_or_create
   end
 
+  # set up cub pack
+  evan  = create_user('Youth', 'Evan', 'Hansen',   8.years.ago,   'a9@scoutaround.org')
+  pack.memberships.where(user: evan).first_or_create
+  pack.memberships.where(user: ray).first_or_create
+  Guardianship.find_or_create_by(
+    guardian: ray,
+    guardee: evan
+  )
+
   puts "Memberships: #{Membership.count}"
 
-  # Ray is an admin
+  # Ray is an admin & assistant scoutmaster
+  p = UnitPosition.find_by(name: 'Assistant Scoutmaster')
   m = Membership.where(unit: troop, user: ray).first
   m.role = :admin
+  m.unit_position = p
   m.save
 
+  # Marc is inactive
   m = Membership.where(unit: troop, user: marc).first
   m.active = false
   m.save

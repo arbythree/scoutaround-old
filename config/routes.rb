@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users
   root to: 'home#index'
-
-  resources :requirements
-
   match '/payment_setup', to: 'stripe#payment_setup', as: 'payment_setup', via: [:get]
 
+  resources :requirements
   resources :users, only: [:show, :edit, :update]
+  resources :event_submissions, path: 'submissions', only: [:show]
 
   resources :units, shallow: true do
     scope module: 'units' do

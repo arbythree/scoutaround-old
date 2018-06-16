@@ -1,7 +1,8 @@
 FactoryBot.define do
   factory :unit do
     sequence(:number) { |n| "#{n}" }
-    sequence(:location) { |n| "location_#{n}" }
+    sequence(:city)   { |n| "city_#{n}"}
+    sequence(:state)  { |n| "state_#{n}"}
   end
 
   factory :troop, parent: :unit do
