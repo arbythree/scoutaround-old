@@ -48,6 +48,7 @@ h1 {
   font-weight: 700;
   letter-spacing: -1px;
   margin-bottom: 3rem;
+  margin-right: 60px;
 }
 
 h4 {
@@ -109,13 +110,13 @@ header#mobile {
 
   a {
     display: inline-block;
-    padding: 15px 30px;
+    padding: 15px;
   }
 }
 
 .utilities {
   position: absolute;
-  right:    30px;
+  right:    0px;
   top:      0px;
 
   .dropdown > a {
@@ -130,7 +131,8 @@ header#primary {
   max-width: 1332px;
 
   nav {
-    margin-left: -15px;
+    margin-left:  -15px;
+    margin-right: -15px;
   }
 
   .dropdown-menu a {
@@ -144,6 +146,7 @@ header#primary {
       padding: 0;
       display: inline-block;
       list-style: none;
+      margin-right: 105px;
 
       a {
         color: #333;
@@ -813,45 +816,12 @@ body.events.show {
   }
 }
 
-// @media only screen
-//     and (device-width : 375px)
-//     and (device-height : 812px)
-//     and (-webkit-device-pixel-ratio : 3) {
-
-//   header#primary, header#secondary {
-//     display: none;
-//   }
-
-//   .expendable {
-//     display: none;
-//   }
-
-//   main {
-//     padding: 15px;
-//     box-shadow: none;
-//   }
-
-//   h1 {
-//     font-size: 1.5rem;
-//     margin-bottom: 0.5rem;
-//   }
-
-//   .admin.dropdown {
-//     top: 0;
-//   }
-
-//   body {
-//     background-color: #fff;
-//   }
-// }
-
 @media only screen and (max-width: 800px) {
   main {
     border-radius: 0;
   }
 
   body {
-    // background:    #333;
     padding-left:  0;
     padding-right: 0;
   }
@@ -873,6 +843,10 @@ body.events.show {
     nav {
       margin-left:   0;
       margin-bottom: 30px;
+
+      .utilities {
+        display: none;
+      }
 
       ul {
         display: inline-block;
@@ -901,4 +875,17 @@ label.error {
   font-weight: 400;
   font-size: 70%;
   color: $red;
+}
+
+.hello {
+  .role {
+    font-size: 70%;
+    color: darken($color_background, 30%);
+  }
+
+  .link {
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
