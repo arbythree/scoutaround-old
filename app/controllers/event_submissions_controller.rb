@@ -19,6 +19,7 @@ class EventSubmissionsController < AuthenticatedController
       format.json { render json: @submissions || [] }
 
       # make a PDF
+      # TODO: extract this to a class
       format.pdf do
         pdf_combiner = CombinePDF.new
         @submissions.each do |submission|
@@ -37,6 +38,7 @@ class EventSubmissionsController < AuthenticatedController
       end
 
       # make a zip file
+      # TODO: extract this to a class
       format.zip do
         combined_filename = [
           UnitPresenter.unit_display_name(@unit),
@@ -48,18 +50,10 @@ class EventSubmissionsController < AuthenticatedController
 
         Zip::OutputStream.open(temp.path) do |zip|
           @submissions.each do |submission|
-            # puts "Checking #{ submission.event_requirement.description }"
             if submission.attachment.attached?
-              # puts "Adding #{ submission.event_requirement.description }"
-              # puts submission.attachment.path
-              # zip.add("#{ submission.event_registration.user.full_name }.pdf", submission.attachment.download)
               zip.put_next_entry("#{ submission.event_registration.user.full_name }.pdf")
-              # zip.write submission.attachment.download
-
               binary = submission.attachment.download.delete("\u0000")
-
               zip.print binary
-
             end # if
           end # each submission
         end # zip output stream
