@@ -53,7 +53,9 @@ after :ranks, :unit_positions do
     program_code:                 'bsa',
     city:                         'Scarsdale',
     state:                        'NY',
-    chartering_organization_name: 'Immaculate Heart of Mary Church'
+    chartering_organization_name: 'Immaculate Heart of Mary Church',
+    council:                      'Westchester Putnam',
+    district:                     'Algoqiun'
   ).first_or_create!
 
   pack = Pack.where(
@@ -62,6 +64,8 @@ after :ranks, :unit_positions do
     city:                         'Larchmont',
     state:                        'NY',
     chartering_organization_name: 'St. Augustine\'s Church'
+    council:                      'Westchester Putnam',
+    district:                     'Algoqiun'
   ).first_or_create
 
   User.all.each do |user|

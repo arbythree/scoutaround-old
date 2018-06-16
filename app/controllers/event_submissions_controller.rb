@@ -48,11 +48,18 @@ class EventSubmissionsController < AuthenticatedController
 
         Zip::OutputStream.open(temp.path) do |zip|
           @submissions.each do |submission|
+            # puts "Checking #{ submission.event_requirement.description }"
             if submission.attachment.attached?
+              # puts "Adding #{ submission.event_requirement.description }"
               # puts submission.attachment.path
-              # zip.add("#{ submission.registration.user.full_name }.pdf", submission.attachment.download)
-              zip.put_next_entry("#{ submission.registration.user.full_name }.pdf")
-              zip.write submission.attachment.download
+              # zip.add("#{ submission.event_registration.user.full_name }.pdf", submission.attachment.download)
+              zip.put_next_entry("#{ submission.event_registration.user.full_name }.pdf")
+              # zip.write submission.attachment.download
+
+              binary = submission.attachment.download.delete("\u0000")
+
+              zip.print binary
+
             end # if
           end # each submission
         end # zip output stream
@@ -174,12 +181,13 @@ class EventSubmissionsController < AuthenticatedController
 
   def find_submission
     @submission = EventSubmission.find(params[:id])
+    @unit = @submission.event_requirement.event.unit
   end
 
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_registration_id, :event_requirement_id)
+      .permit(:event_registration_id, :event_requirement_id, :attachment)
       .merge({ submitter: @current_user })
   end
 end

@@ -91,7 +91,7 @@ header#primary
               i.fas.fa-file-alt
             = t('documents.title')
 
-
+        - if @membership.role == 'admin'
           li#nav-item-unit-settings
             = link_to edit_unit_path(@unit) do
               span
