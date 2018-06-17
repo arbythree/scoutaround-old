@@ -1,6 +1,8 @@
 # this is the controller used when submitting at the Event level
 # (where the requirement being fulfilled isn't yet known)
 
+require 'zip'
+
 class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
 
