@@ -54,7 +54,7 @@ class EventSubmissionsController < AuthenticatedController
           @submissions.each do |submission|
             if submission.attachment.attached?
               zip.put_next_entry("#{ submission.event_registration.user.full_name }.pdf")
-              binary = submission.attachment.download.delete("\u0000")
+              binary = submission.attachment.download
               zip.print binary
             end # if
           end # each submission
