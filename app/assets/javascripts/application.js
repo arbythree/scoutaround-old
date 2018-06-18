@@ -16,11 +16,12 @@
 //= require_tree .
 
 
+//= require activestorage
 //= require popper
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker
+//= require cleave
 //= require cocoon
-//= require activestorage
 //= require jquery.validate
 //= require jquery.validate.additional-methods
-//= require cleave
+//= require local-time

@@ -16,6 +16,8 @@ en:
   update:               'Update'
   admin_only_view:      'Admin View'
   actions_and_options:  'Actions & Options'
+  from_now:             'from now'
+  ago:                  'ago'
 
   auth:
     sign_in:          'Sign In'

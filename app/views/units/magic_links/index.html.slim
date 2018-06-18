@@ -18,5 +18,5 @@ table.table
       td = link.sender.full_name
       td = link.recipient
       td = link_to link.magic_linkable.to_s
-      td = link.expires_at
+      td = "#{ time_ago_in_words(link.expires_at) } #{ link.expires_at.future? ? t('from_now') : t('ago') }"
       td = link_to 'Revoke', link, method: :delete
