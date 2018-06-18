@@ -182,13 +182,14 @@ en:
     title:  'Announcements'
 
   event_requirements:
-    new:            'Add an Event Requirement'
-    title:          'Event Checklist'
-    confirm_update: 'Event requirement was updated'
-    confirm_create: 'Added the new requirement to the event'
-    complete:       'Done'
-    download_all:   'Download Combined PDF'
-    download_zip:   'Download Combined Zip File'
+    new:             'Add an Event Requirement'
+    title:           'Event Checklist'
+    confirm_update:  'Event requirement was updated'
+    confirm_create:  'Added the new requirement to the event'
+    complete:        'Done'
+    download_all:    'Download Combined PDF'
+    download_zip:    'Download Combined Zip File'
+    send_magic_link: 'Send Download Link Via Email'
 
   event_submissions:
     confirm_create: "%{name}'s %{requirement} was received"
@@ -240,3 +241,7 @@ en:
       event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
       event_message_notification:           '%{ name } posted to the %{ event_name } message board'
       payment_receipt:                      'Your payment for %{event_name} has been received'
+      magic_link:                           "%{sender} from %{unit} shared files with you"
+
+  magic_links:
+    confirmation: "A 72-hour magic link for %{description} was sent to %{email}"

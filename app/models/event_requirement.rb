@@ -2,6 +2,7 @@ class EventRequirement < ApplicationRecord
   belongs_to :event
   belongs_to :document_library_item, optional: true
   has_many :event_submissions
+  has_many :magic_links, as: :magic_linkable
   enum audience: {
     everyone: 0,
     youth_only: 1,

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_16_114147) do
+ActiveRecord::Schema.define(version: 2018_06_17_225842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,17 @@ ActiveRecord::Schema.define(version: 2018_06_16_114147) do
   create_table "guardianships", force: :cascade do |t|
     t.integer "guardian_id"
     t.integer "guardee_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "magic_links", force: :cascade do |t|
+    t.string "magic_linkable_type"
+    t.string "magic_linkable_id"
+    t.string "recipient"
+    t.string "token"
+    t.datetime "expires_at"
+    t.integer "sender_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

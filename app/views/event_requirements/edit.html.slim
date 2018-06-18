@@ -49,9 +49,11 @@
         - submissions.each do |submission|
           li = submission.user.full_name
 
-      = link_to t('event_requirements.download_all'), event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'
+      = link_to t('event_requirements.download_all'),    event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'
       | &nbsp;
-      = link_to t('event_requirements.download_zip'), event_requirement_event_submissions_path(@event_requirement, format: :zip), class: 'btn btn-primary'
+      = link_to t('event_requirements.download_zip'),    event_requirement_event_submissions_path(@event_requirement, format: :zip), class: 'btn btn-primary'
+      | &nbsp;
+      = link_to t('event_requirements.send_magic_link'), new_event_requirement_magic_link_path(@event_requirement), class: 'btn btn-primary'
 
 
 
