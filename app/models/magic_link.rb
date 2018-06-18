@@ -23,4 +23,8 @@ class MagicLink < ApplicationRecord
   def expired?
     self.expires_at < Time.now
   end
+
+  def redeemed?
+    self.redeemed_at.present?
+  end
 end

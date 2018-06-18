@@ -11,6 +11,7 @@ table.table
     th Sent To
     th Item
     th Expires
+    th Redeemed
     th Action
 
   - @magic_links.each do |link|
@@ -19,4 +20,5 @@ table.table
       td = link.recipient
       td = link_to link.magic_linkable.to_s
       td = "#{ time_ago_in_words(link.expires_at) } #{ link.expires_at.future? ? t('from_now') : t('ago') }"
+      td = "#{ time_ago_in_words(link.redeemed_at) } ago" if link.redeemed?
       td = link_to 'Revoke', link, method: :delete

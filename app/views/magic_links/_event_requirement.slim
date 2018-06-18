@@ -7,5 +7,5 @@ ul
   - @event_requirement.event_submissions.each do |submission|
     li = submission.user.full_name
 
-p = link_to 'Download all as a single PDF'
-p = link_to 'Download all as a single Zip file'
+p = link_to 'Download all as a single PDF', magic_link_path(@magic_link, format: :pdf)
+p = link_to 'Download all as a single Zip file', magic_link_path(@magic_link, format: :zip)

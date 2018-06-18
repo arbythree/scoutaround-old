@@ -16,8 +16,18 @@ class EventSubmissionsController < AuthenticatedController
 
     respond_to do |format|
       format.json { render json: @submissions || [] }
-      format.pdf  { EventRequirementExporter.new.export_pdf(@event_requirement) }
-      format.zip  { EventRequirementExporter.new.export_zip(@event_requirement) }
+      format.pdf do
+        exporter = EventRequirementExporter.new(@event_requirement)
+        exporter.export_pdf do |data, filename, mime_type|
+          send_data data, filename: filename, type: mime_type, disposition: 'attachment'
+        end
+      end
+      format.zip do
+        exporter = EventRequirementExporter.new(@event_requirement)
+        exporter.export_zip do |data, filename, mime_type|
+          send_file data, filename: filename, type: mime_type, disposition: 'attachment'
+        end
+      end
     end # respond_to
   end # index
 

@@ -6,12 +6,17 @@
 require 'zip'
 
 class EventRequirementExporter
+  def initialize(event_requirement)
+    @event_requirement = event_requirement
+    @event             = @event_requirement.event
+    @submissions       = @event_requirement.event_submissions
+    @unit              = @event_requirement.event.unit
+  end
+
   #
   # given an EventRequirement, export all submissions as a single PDF
   #
-  def export_pdf(event_requirement)
-    @event_requirement = event_requirement
-    find_records
+  def export_pdf
     pdf_combiner = CombinePDF.new
 
     @submissions.each do |submission|
@@ -20,15 +25,14 @@ class EventRequirementExporter
       end
     end
 
-    send_data pdf_combiner.to_pdf, filename: combined_filename(:pdf), type: "application/pdf"
+    # send_data pdf_combiner.to_pdf, filename: combined_filename(:pdf), type: "application/pdf"
+    yield pdf_combiner.to_pdf, combined_filename(:pdf), 'application/pdf'
   end
 
   #
   # given an EventRequirement, export all submissions as a single zip file
   #
-  def export_zip(event_requirement)
-    @event_requirement = event_requirement
-    find_records
+  def export_zip
     temp = Tempfile.new("scoutaround-event-#{@event.id}.zip")
 
     Zip::OutputStream.open(temp.path) do |zip|
@@ -41,7 +45,8 @@ class EventRequirementExporter
       end # each submission
     end # zip output stream
 
-    send_file temp.path, type: 'application/zip', filename: combined_filename(:zip)
+    # send_file temp.path, type: 'application/zip', filename: combined_filename(:zip)
+    yield temp.path, combined_filename(:zip), 'application/zip'
 
     # TODO: uncomment these next two lines? Or not?
     # temp.close
@@ -49,11 +54,6 @@ class EventRequirementExporter
   end
 
   private
-
-  def find_records
-    @submissions = @event_requirement.event_submissions
-    @unit        = @event_requirement.event.unit
-  end
 
   def combined_filename(extension)
     [
