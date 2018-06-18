@@ -125,8 +125,9 @@ ActiveRecord::Schema.define(version: 2018_06_17_225842) do
     t.string "magic_linkable_id"
     t.string "recipient"
     t.string "token"
-    t.datetime "expires_at"
     t.integer "sender_id"
+    t.datetime "expires_at"
+    t.datetime "redeemed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

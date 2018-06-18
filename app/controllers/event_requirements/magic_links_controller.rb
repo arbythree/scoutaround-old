@@ -11,6 +11,7 @@ class EventRequirements::MagicLinksController < AuthenticatedController
     @magic_link.sender = @current_user
     if @magic_link.save!
       flash[:notice] = t('magic_links.confirmation',
+                          time_to_live: Settings.magic_links.default_time_to_live,
                           description: @event_requirement.description,
                           email: @magic_link.recipient)
       MagicLinkMailer.recipient_notification_email(@magic_link, @unit).deliver_later

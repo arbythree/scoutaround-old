@@ -11,7 +11,7 @@ html
     = yield :head
 
   body(class="authenticated #{additional_classes}")
-    main
+    main(style="margin-top: 60px;")
       - if flash[:notice].present? || flash[:alert].present?
         #alerts
           - if flash[:notice]

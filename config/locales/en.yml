@@ -242,6 +242,8 @@ en:
       event_message_notification:           '%{ name } posted to the %{ event_name } message board'
       payment_receipt:                      'Your payment for %{event_name} has been received'
       magic_link:                           "%{sender} from %{unit} shared files with you"
+      magic_link_redemption:                'Scoutaround: Your shared information has been received'
+      magic_link_expiration:                'Scoutaround: Your shared information was not retrieved'
 
   magic_links:
-    confirmation: "A 72-hour magic link for %{description} was sent to %{email}"
+    confirmation: "A %{time_to_live}-hour magic link for %{description} was sent to %{email}"

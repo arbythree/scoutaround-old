@@ -1,0 +1,2 @@
+magic_links:
+  default_time_to_live: <%= 96 %>

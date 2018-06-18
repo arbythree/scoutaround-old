@@ -10,7 +10,7 @@
   .col-md-6
     = form_for MagicLink.new, url: event_requirement_magic_links_path(@event_requirement) do |f|
       .form-group
-        p Link will expire in 72 hours
+        p Link will expire in 72 hours. Your recipient can forward the link to anyone else. Anyone with the link can access it.
 
       .form-group
         = f.label :recipient
