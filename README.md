@@ -85,7 +85,7 @@ stylesheet_link_tag('https://cloud.typography.com/<stuff goes here>/css/fonts.cs
 
 ## Active Storage & Amazon S3
 
-The app relies on Active Storage to store attachments. You'll need to set the following environment variables in production for this to work:
+The app relies on Active Storage to store attachments; the app is set up for Amazon S3 although you could choose a different provider. Enabling Versioning on your production storage bucket is never a bad idea. You'll need to set the following environment variables in production for this to work:
 
 - S3_BUCKET
 - S3_REGION
@@ -114,6 +114,17 @@ If you're deploying to Heroku and wish to leverage Active Storage previews for t
 ```
 heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-active-storage-preview
 ```
+
+## Cron Jobs
+
+A number of automated tasks occur in the background. You'll need to set up a cron or scheduler to run these rake tasks (typically daily):
+
+rake scoutaround:magic_links:send_unredeemed_notifications
+rake scoutaround:magic_links:purge
+rake scoutaround:events:youth_reminders
+rake scoutaround:events:guardian_reminders
+rake scoutaround:events:adult_reminders
+rake scoutaround:advancement:nag_idle_advancers
 
 ## Stripe
 
@@ -153,5 +164,3 @@ The app is configured to use (Sendgrid)[https://sendgrid.com] to send email. You
 - STRIPE_PUBLISHABLE_KEY
 - SENDGRID_USERNAME
 - SENDGRID_PASSWORD
-
-Enabling Versioning on your production storage bucket is never a bad idea.

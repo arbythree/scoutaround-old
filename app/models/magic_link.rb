@@ -4,6 +4,7 @@ class MagicLink < ApplicationRecord
   before_create :generate_token
   before_create :set_expiration_date
   validates_uniqueness_of :token
+  scope :unredeemed, -> { where('redeemed_at IS NULL') }
 
   def generate_token
     self.token = SecureRandom.hex(6)

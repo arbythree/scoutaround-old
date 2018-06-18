@@ -20,7 +20,8 @@ class MagicLinkMailer < ApplicationMailer
   # when links expire without being opened, notify senders
   #
   def sender_expiration_email(magic_link)
+    puts "Sending an expiration notice to #{ magic_link.sender.email }"
     @magic_link = magic_link
-    mail(to: magic_link.sender.email, subject: I18n.t('email.subjects.magic_link_expiration'))
+    mail(to: @magic_link.sender.email, subject: I18n.t('email.subjects.magic_link_expiration'))
   end
 end

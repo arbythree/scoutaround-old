@@ -1,2 +1,3 @@
 magic_links:
-  default_time_to_live: <%= 96 %>
+  default_time_to_live: 96 # expressed in hours
+  purge_age: 30 # expressed in days
