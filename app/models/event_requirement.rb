@@ -31,4 +31,8 @@ class EventRequirement < ApplicationRecord
     return true if audience == 'youth_only' && user.is_a?(Youth)
     return false
   end
+
+  def to_s
+    "#{ self.event.name } #{ self.description }"
+  end
 end

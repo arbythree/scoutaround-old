@@ -1,6 +1,7 @@
 class MagicLink < ApplicationRecord
   belongs_to :magic_linkable, polymorphic: true
   belongs_to :sender, class_name: 'User'
+  belongs_to :unit
   before_create :generate_token
   before_create :set_expiration_date
   validates_uniqueness_of :token

@@ -5,6 +5,7 @@ class Unit < ApplicationRecord
   has_many :members, through: :memberships, source: 'user'
   has_many :document_library_items
   has_many :achievements, through: :users
+  has_many :magic_links
   belongs_to :primary_wiki_article, class_name: 'WikiArticle', optional: true
   validates_presence_of :number, :city, :state
   validates_uniqueness_of :number, scope: [:city, :state]

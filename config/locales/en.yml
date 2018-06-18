@@ -233,17 +233,21 @@ en:
 
   email:
     subjects:
-      document_receipt_registrant:          'Your %{document_name} has been received'
-      document_receipt_guardian:            "%{person}'s %{document_name} has been received"
-      event_reminder_registrant_complete:   'Only %{days} days until %{event_name}!'
-      event_reminder_registrant_incomplete: 'Only %{days} days until %{event_name}--your registration is still incomplete'
-      event_reminder_guardian_incomplete:   'ACTION REQUIRED - Only %{days} days until %{event_name}!'
-      event_reminder_guardian_complete:     'Only %{days} days until %{event_name}!'
-      event_message_notification:           '%{ name } posted to the %{ event_name } message board'
-      payment_receipt:                      'Your payment for %{event_name} has been received'
-      magic_link:                           "%{sender} from %{unit} shared files with you"
+      document_receipt_registrant:          'Scoutaround: Your %{document_name} has been received'
+      document_receipt_guardian:            "Scoutaround: %{person}'s %{document_name} has been received"
+      event_reminder_registrant_complete:   'Scoutaround: Only %{days} days until %{event_name}!'
+      event_reminder_registrant_incomplete: 'Scoutaround: Only %{days} days until %{event_name}--your registration is still incomplete'
+      event_reminder_guardian_incomplete:   'Scoutaround: ACTION REQUIRED - Only %{days} days until %{event_name}!'
+      event_reminder_guardian_complete:     'Scoutaround: Only %{days} days until %{event_name}!'
+      event_message_notification:           'Scoutaround: %{ name } posted to the %{ event_name } message board'
+      payment_receipt:                      'Scoutaround: Your payment for %{event_name} has been received'
+      magic_link:                           "Scoutaround: %{sender} from %{unit} shared files with you"
       magic_link_redemption:                'Scoutaround: Your shared information has been received'
-      magic_link_expiration:                'Scoutaround: Your shared information was not retrieved'
+      magic_links:
+        expired:                            'Scoutaround: Your shared information was not retrieved'
+        impending_expiration:               'Scoutaround: Your shared file link is about to expire'
 
   magic_links:
     confirmation: "A %{time_to_live}-hour magic link for %{description} was sent to %{email}"
+    title:        "Shares"
+    destroyed:    "The share was revoked successfully."

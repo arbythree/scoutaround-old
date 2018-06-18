@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationDatum, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it 'prevents duplicates' do
+    datum = FactoryBot.create(:application_datum)
+    expect(ApplicationDatum.new(key: datum.key, value: 'anything')).not_to be_valid
+  end
 end

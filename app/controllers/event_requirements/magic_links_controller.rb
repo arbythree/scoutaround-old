@@ -7,8 +7,10 @@ class EventRequirements::MagicLinksController < AuthenticatedController
   end
 
   def create
-    @magic_link = @event_requirement.magic_links.new(magic_link_params)
+    @magic_link = @event_requirement.becomes(EventRequirement).magic_links.new(magic_link_params)
     @magic_link.sender = @current_user
+    @magic_link.unit   = @unit
+
     if @magic_link.save!
       flash[:notice] = t('magic_links.confirmation',
                           time_to_live: Settings.magic_links.default_time_to_live,

@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :application_datum do
-    key "MyString"
-    value "MyString"
+    sequence(:key)   { |n| "key_#{n}" }
+    sequence(:value) { |n| "value_#{n}" }
   end
 end
