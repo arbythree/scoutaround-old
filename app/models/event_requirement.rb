@@ -2,6 +2,7 @@ class EventRequirement < ApplicationRecord
   belongs_to :event
   belongs_to :document_library_item, optional: true
   has_many :event_submissions
+  has_many :magic_links, as: :magic_linkable
   enum audience: {
     everyone: 0,
     youth_only: 1,
@@ -29,5 +30,9 @@ class EventRequirement < ApplicationRecord
     return true if audience == 'adult_only' && user.is_a?(Adult)
     return true if audience == 'youth_only' && user.is_a?(Youth)
     return false
+  end
+
+  def to_s
+    "#{ self.event.name } #{ self.description }"
   end
 end

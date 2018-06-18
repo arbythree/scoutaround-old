@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :requirements
   resources :users, only: [:show, :edit, :update]
   resources :event_submissions, path: 'submissions', only: [:show]
+  resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
 
   resources :units, shallow: true do
     scope module: 'units' do
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
       resources :achievements, path: 'advancement'
       resources :document_library_items, path: 'documents'
       resources :wiki_articles, path: 'wiki'
+      resources :magic_links, path: 'shares'
     end
   end
 
@@ -35,6 +37,7 @@ Rails.application.routes.draw do
 
   resources :event_requirements, path: 'checklist', shallow: true do
     scope module: 'event_requirements' do
+      resources :magic_links, path: 'share'
       resources :event_submissions, path: 'submit'
     end
   end

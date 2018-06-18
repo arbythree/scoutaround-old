@@ -1,0 +1,2 @@
+= render partial: "magic_links/#{@magic_link.magic_linkable_type.underscore}" unless @magic_link.expired?
+= render partial: 'magic_links/expired' if @magic_link.expired?

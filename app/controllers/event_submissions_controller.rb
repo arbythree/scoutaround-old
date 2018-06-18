@@ -1,8 +1,6 @@
 # this is the controller used when submitting at the Event level
 # (where the requirement being fulfilled isn't yet known)
 
-require 'zip'
-
 class EventSubmissionsController < AuthenticatedController
   before_action :find_submission, except: [:new, :create, :index]
 
@@ -14,59 +12,22 @@ class EventSubmissionsController < AuthenticatedController
     event_requirement_id  = params[:event_requirement_id]
     @submissions = @submissions.select { |sub| sub.event_registration_id == event_registration_id.to_i } if event_registration_id.present?
     @submissions = @submissions.select { |sub| sub.event_requirement_id  == event_requirement_id.to_i } if event_requirement_id.present?
-
-    event_requirement = @event.event_requirements.find(event_requirement_id) if event_requirement_id.present?
+    @event_requirement = @event.event_requirements.find(event_requirement_id) if event_requirement_id.present?
 
     respond_to do |format|
       format.json { render json: @submissions || [] }
-
-      # make a PDF
-      # TODO: extract this to a class
       format.pdf do
-        pdf_combiner = CombinePDF.new
-        @submissions.each do |submission|
-          if submission.attachment.attached?
-            pdf_combiner << CombinePDF.parse(submission.attachment.download)
-          end
+        exporter = EventRequirementExporter.new(@event_requirement)
+        exporter.export_pdf do |data, filename, mime_type|
+          send_data data, filename: filename, type: mime_type, disposition: 'attachment'
         end
-
-        combined_filename = [
-          UnitPresenter.unit_display_name(@unit),
-          @unit.city,
-          "#{event_requirement.description.pluralize}.pdf"
-        ].join(' ')
-
-        send_data pdf_combiner.to_pdf, filename: combined_filename, type: "application/pdf"
       end
-
-      # make a zip file
-      # TODO: extract this to a class
       format.zip do
-        combined_filename = [
-          UnitPresenter.unit_display_name(@unit),
-          @unit.city,
-          "#{event_requirement.description.pluralize}.zip"
-        ].join(' ')
-
-        temp = Tempfile.new("scoutaround-event-#{@event.id}.zip")
-
-        Zip::OutputStream.open(temp.path) do |zip|
-          @submissions.each do |submission|
-            if submission.attachment.attached?
-              zip.put_next_entry("#{ submission.event_registration.user.full_name }.pdf")
-              binary = submission.attachment.download
-              zip.print binary
-            end # if
-          end # each submission
-        end # zip output stream
-
-        send_file temp.path, type:        'application/zip',
-                             disposition: 'inline',
-                             filename:    combined_filename
-
-        # temp.close
-        # temp.unlink
-      end # format.zip
+        exporter = EventRequirementExporter.new(@event_requirement)
+        exporter.export_zip do |data, filename, mime_type|
+          send_file data, filename: filename, type: mime_type, disposition: 'attachment'
+        end
+      end
     end # respond_to
   end # index
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_16_114147) do
+ActiveRecord::Schema.define(version: 2018_06_18_194905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,13 @@ ActiveRecord::Schema.define(version: 2018_06_16_114147) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "application_data", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "document_library_items", force: :cascade do |t|
@@ -118,6 +125,19 @@ ActiveRecord::Schema.define(version: 2018_06_16_114147) do
     t.integer "guardee_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "magic_links", force: :cascade do |t|
+    t.string "magic_linkable_type"
+    t.string "magic_linkable_id"
+    t.string "recipient"
+    t.string "token"
+    t.integer "sender_id"
+    t.datetime "expires_at"
+    t.datetime "redeemed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "unit_id"
   end
 
   create_table "memberships", force: :cascade do |t|
