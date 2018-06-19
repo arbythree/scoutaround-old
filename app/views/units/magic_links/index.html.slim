@@ -3,22 +3,23 @@
 - crumbtrail t('magic_links.title')
 
 - if @magic_links.count == 0
-  p No active shares
+  p(style="margin-bottom: 0; margin-top: 4rem; text-align: center;") No active shares.
 
-table.table
-  tr
-    th Sent By
-    th Sent To
-    th Item
-    th Expires
-    th Redeemed
-    th Action
-
-  - @magic_links.each do |link|
+- else
+  table.table
     tr
-      td = link.sender.full_name
-      td = link.recipient
-      td = link_to link.magic_linkable.to_s
-      td = "#{ time_ago_in_words(link.expires_at) } #{ link.expires_at.future? ? t('from_now') : t('ago') }"
-      td = "#{ time_ago_in_words(link.redeemed_at) } ago" if link.redeemed?
-      td = link_to 'Revoke', link, method: :delete
+      th Sent By
+      th Sent To
+      th Item
+      th Expires
+      th Redeemed
+      th Action
+
+    - @magic_links.each do |link|
+      tr
+        td = link.sender.full_name
+        td = link.recipient
+        td = link.magic_linkable.to_s
+        td = "#{ time_ago_in_words(link.expires_at) } #{ link.expires_at.future? ? t('from_now') : t('ago') }"
+        td = "#{ time_ago_in_words(link.redeemed_at) } ago" if link.redeemed?
+        td = link_to 'Revoke', link, method: :delete

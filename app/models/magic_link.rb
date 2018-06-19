@@ -5,6 +5,7 @@ class MagicLink < ApplicationRecord
   before_create :generate_token
   before_create :set_expiration_date
   validates_uniqueness_of :token
+  # validates_uniqueness_of :recipient, scope: [:magic_linkable_type, :magic_linkable_id], message: "You've already shared this with with that recipient"
   scope :unredeemed, -> { where('redeemed_at IS NULL') }
 
   def generate_token

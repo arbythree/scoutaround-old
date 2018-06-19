@@ -1,4 +1,4 @@
-- total = 0
+- @total = 0
 
 - content_for :title do
   .row
@@ -6,39 +6,7 @@
     .col-md-11
       h1 = @event_requirement.description
 
-= form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
-  = f.hidden_field :event_registration_id
-
   .row
-    .col-md-1
-    .col-md-5
-        .form-group
-          = label_tag :card_number
-          div(style="position: relative;")
-            = text_field_tag :card_number, '', class: 'form-control', placeholder: 'Credit card number', pattern: '[\d ]*'
-            .card-art
-              i.fab.fa-cc-visa
-              i.fab.fa-cc-amex
-              i.fab.fa-cc-mastercard
-              i.fab.fa-cc-discover
-              i.fab.fa-cc-diners-club
-              i.fab.fa-cc-jcb
-
-        .form-group
-          .row
-            .col-md-6
-              = label_tag :cvc, 'CVC'
-              = text_field_tag :cvc, '', class: 'form-control', placeholder: 'CVC', pattern: '\d{3,4}'
-
-            .col-md-6
-              = label_tag :expiration
-              = text_field_tag :expiration, '', class: 'form-control', placeholder: 'MM/YY', pattern: '\d\d\/\d\d'
-
-        .form-group
-          = check_box_tag :remember
-          | &nbsp;
-          = label_tag :remember, 'Remember this card'
-
     .col-md-1
     .col-md-4
       table.table
@@ -47,14 +15,14 @@
             - registration = @event.event_registrations.find_by(user: user)
             - if registration.present?
               - user_fee = user.type == 'Youth' ? @event_requirement.amount_youth : @event_requirement.amount_adult
-              - total += user_fee
+              - @total += user_fee
 
               tr
                 td = user.first_name
                 td(style="text-align:right;") = number_to_currency(user_fee / 100.0)
 
-        - processing_fee = total * 0.029 + 30
-        - total += processing_fee unless @event_requirement.waive_transaction_fees
+        - processing_fee = @total * 0.029 + 30
+        - @total += processing_fee unless @event_requirement.waive_transaction_fees
 
         - unless @event_requirement.waive_transaction_fees
           tr
@@ -63,80 +31,34 @@
 
         tr(style="font-weight: 600;")
           td Total
-          td(style="text-align:right;") = number_to_currency(total / 100.0)
+          td(style="text-align:right;") = number_to_currency(@total / 100.0)
 
-  .row
     .col-md-1
-    .col-md-11
-      = f.submit t('submissions.ctas.payment', amount: number_to_currency(total / 100.0)), class: 'btn btn-primary'
-      | &nbsp;&nbsp;
-      = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, target: '_blank', title: t('submissions.tooltips.payments') do
-        i.fa-question-circle.fas
+    .col-md-5
+      - if @current_user_is_admin
+        ul.nav.nav-tabs
+          li.nav-item
+            a.nav-link.active(href="#credit-card" data-toggle="tab") = t('submissions.credit_card')
 
-css:
-  .card-art {
-    font-size: 125%;
-    position: absolute;
-    right: 15px;
-    top: 4px;
-    color: darken($color_background, 0%);
-  }
+          li.nav-item
+            a.nav-link(href="#manual" data-toggle="tab")
+              = t('submission.offline')
+              | &nbsp;
+              = render partial: 'layouts/admin_badge'
 
-  .card-art svg {
-    color: #888;
-    display: none;
-  }
+        .tab-content
+          #credit-card.tab-pane.fade.show.active
+            br
+            = render partial: 'event_submissions/credit_card'
+
+          #manual.tab-pane.fade
+            br
+            = render partial: 'event_submissions/manual'
+
+      - else
+        = render partial: 'event_submissions/credit_card'
 
 javascript:
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
-
-  // see https://jqueryvalidation.org/documentation/
-  $(document).ready(function() {
-    // masking for credit card number field
-    var cleave = new Cleave('#card_number', {
-      creditCard: true,
-      onCreditCardTypeChanged: function (type) {
-        $('.card-art svg').fadeOut(100);
-        $('.fa-cc-' + type).fadeIn(100);
-      }
-    });
-
-    // masking for expiration field
-    cleave = new Cleave('#expiration', {
-      delimiter: '/',
-      blocks: [2, 2]
-    });
-
-    // for the expiration field, pad with a leading zero if the user is clearly
-    // entering a single-digit month value (e.g. "2" becomes "02")
-    $('#expiration').keyup(function(event) {
-      var value = $(this).val();
-
-      // don't do this if the month starts with a one,
-      // if the user already added a leading zero,
-      // or if the user is backspacing
-      if(value.length == 1 && value !== '1' && value !== '0' && event.which !== 8) {
-        $(this).val('0' + value + '/');
-      }
-    });
-
-    // custom validation for the expiration date
-    $.validator.addMethod(
-      "monthAndYearDate",
-      function(value, element) {
-        return value.match(/\d\d\/\d\d/);
-      },
-      "Please enter the expiration date in MM/YY format"
-    );
-
-    // apply all validation rules
-    $('#new_event_submission').validate({
-      rules: {
-        "card_number":  { required: true, creditcard: true },
-        "expiration":   { required: true, monthAndYearDate: true },
-        "cvc":          { required: true, minlength: 3, maxlength: 4, digits: true }
-      }
-    });
-  });

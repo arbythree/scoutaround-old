@@ -39,6 +39,7 @@ gem 'slim'
 gem 'smarter_csv'
 gem 'stripe'
 gem 'turbolinks', '~> 5'
+gem 'tzinfo' #, git: 'https://github.com/tzinfo/tzinfo'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do

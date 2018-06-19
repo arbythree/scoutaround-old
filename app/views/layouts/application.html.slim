@@ -14,7 +14,7 @@ html
     = render partial: 'layouts/header'
 
     main
-      - if flash[:notice].present? || flash[:alert].present?
+      - if flash[:notice].present? || flash[:alert].present? || flash[:error].present?
         #alerts
           - if flash[:notice]
             .notice.alert.alert-success
@@ -22,6 +22,9 @@ html
           - if flash[:alert]
             .alert.alert.alert-warning
               = alert
+          - if flash[:error].present?
+            .alert.alert-danger
+              = flash[:error]
 
       .row
         .col-md-12
