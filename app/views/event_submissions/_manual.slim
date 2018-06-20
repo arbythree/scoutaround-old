@@ -1,1 +1,20 @@
-p manual
+= form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
+  = f.hidden_field :event_registration_id
+
+  .form-group
+    = f.radio_button :stripe_charge_id, 'Check'
+    | &nbsp;&nbsp;
+    = f.label :event_submission_stripe_charge_id_check, 'Check'
+
+    br
+    br
+
+    = f.radio_button :stripe_charge_id, 'Cash'
+    | &nbsp;&nbsp;
+    = f.label :event_submission_stripe_charge_id_cash, 'Cash'
+
+    br
+    br
+
+  .form-group
+    = f.submit 'Record Payment', class: 'btn btn-primary'
