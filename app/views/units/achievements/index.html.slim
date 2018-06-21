@@ -32,7 +32,12 @@ table.table
         td = time_ago_in_words(achievement.earned_at || achievement.created_at) if achievement.present?
         td = user&.rank&.next_rank&.name
         td
-          .progress-bar
-            .progress(style="width: #{progress}%;")
+          .progress-bar(title="#{number_to_percentage(progress, precision: 0)}" data-toggle="tooltip")
+            .progress(style="width: #{ number_to_percentage(progress, precision: 0) };")
 
         td = t('time_ago', deictic: time_ago_in_words(newest_achievement.created_at)) if newest_achievement.present?
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

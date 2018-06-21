@@ -63,7 +63,7 @@ after :ranks, :unit_positions do
     program_code:                 'bsa_cubs',
     city:                         'Larchmont',
     state:                        'NY',
-    chartering_organization_name: 'St. Augustine\'s Church'
+    chartering_organization_name: 'St. Augustine\'s Church',
     council:                      'Westchester Putnam',
     district:                     'Algoqiun'
   ).first_or_create

@@ -51,6 +51,12 @@ class Achievable < ApplicationRecord
     achievements = user.achievements.where('achievable_id in (?)', achievable_ids)
     achievement_count = achievements.count
 
+    # MultipleChoiceRequirements are considered leaves, but will never have associated achievements
+    # because they're computed "on the fly," so we need to compute them, too
+    leaves.select { |r| r.is_a?(MultipleChoiceRequirement) }.each do |requirement|
+      achievement_count += 1 if requirement.completed_by?(user: user)
+    end
+
     puts achievement_count
 
     (achievements.count.to_f / leaves.count.to_f) * 100

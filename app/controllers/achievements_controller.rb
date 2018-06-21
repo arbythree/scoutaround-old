@@ -54,5 +54,7 @@ class AchievementsController < AuthenticatedController
     elsif @membership.present?
       @unit = @membership.unit
     end
+
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
   end
 end

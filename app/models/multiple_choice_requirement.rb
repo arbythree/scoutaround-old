@@ -2,7 +2,7 @@
 # for "complete one of the following"-style requirements
 #
 class MultipleChoiceRequirement < Requirement
-  def achieved_by?(user: nil)
+  def completed_by?(user: nil)
     completion_count = 0
 
     requirements.each do |requirement|
@@ -10,5 +10,13 @@ class MultipleChoiceRequirement < Requirement
     end
 
     completion_count >= self.param
+  end
+
+  #
+  # even though not a true leaf, we return true because otherwise
+  # progress numbers will be distorted
+  #
+  def leaf?
+    true
   end
 end

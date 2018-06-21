@@ -1,5 +1,6 @@
 - is_complete = requirement.completed_by?(user: user)
-- if requirement.required_for?(user: user)
+
+- if is_complete
   tr(class="#{ is_complete ? 'completed' : 'pending' }")
     td
       - if requirement.document_library_item.present?
@@ -27,4 +28,3 @@
       - elsif requirement.is_a?(FeeEventRequirement) && @unit.accepts_payments?
         = link_to new_event_requirement_event_submission_path(requirement, registration: registration), data: { toggle: 'tooltip' }, title: t('registrations.cta_payment') do
           i.fal.fa-credit-card
-

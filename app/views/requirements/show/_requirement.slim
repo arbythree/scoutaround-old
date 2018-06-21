@@ -1,11 +1,19 @@
 - nesting_level ||= 0
 - list_type = 'a' if nesting_level == 0
 - achievement = Achievement.where(user: @user, achievable: requirement).first
+- completed = requirement.completed_by?(user: @user) || achievement.present?
 
 li
   - if @unit.present? && @membership.present?
     .custom-control.custom-checkbox
-      = check_box_tag "requirement_#{ requirement.id }", requirement.id, achievement.present?, class: 'custom-control-input', onclick: 'recordAchievement(this);', data: { achievement: achievement&.id || 0 }
+      = check_box_tag "requirement_#{ requirement.id }",            \
+                      requirement.id,                               \
+                      completed,                                    \
+                      class: 'custom-control-input',                \
+                        disabled: !requirement.leaf?,               \
+                        onclick: 'recordAchievement(this);',        \
+                        data: { achievement: achievement&.id || 0 }
+
       = label_tag "requirement_#{ requirement.id }", requirement.name, class: 'custom-control-label'
   - else
     = requirement.name
@@ -22,7 +30,7 @@ li
 
       if (achievementId == 0) {
         // POST a new achievement
-        var path = "#{ membership_achievements_path(@unit, @membership) }";
+        var path = "#{ membership_achievements_path(@membership) }";
         var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
         $.ajax({
           type:     'POST',
@@ -33,7 +41,7 @@ li
         });
       } else {
         // DELETE an existing achievement
-        var path = '/units/' + #{ @unit.id } + '/members/' + #{ @membership.id } + '/advancement/' + achievementId;
+        var path = '/advancement/' + achievementId;
         $.ajax({
           type:     'DELETE',
           dataType: 'json',

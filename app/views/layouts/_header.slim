@@ -77,7 +77,7 @@ header#primary
               span
                 i.fas.fa-trophy
               = t('advancement.title')
-          - elsif @current_user.type == 'Youth'
+          - else
             = link_to membership_achievements_path(@membership) do
               span
                 i.fas.fa-trophy
