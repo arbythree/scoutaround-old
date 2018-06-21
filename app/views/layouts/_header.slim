@@ -71,9 +71,14 @@ header#primary
               i.fas.fa-calendar-alt
             = t('events.title')
 
-        - if @current_user_is_admin
-          li#nav-item-advancement
+        li#nav-item-advancement
+          - if @current_user_is_admin
             = link_to unit_achievements_path(@unit) do
+              span
+                i.fas.fa-trophy
+              = t('advancement.title')
+          - elsif @current_user.type == 'Youth'
+            = link_to membership_achievements_path(@membership) do
               span
                 i.fas.fa-trophy
               = t('advancement.title')
