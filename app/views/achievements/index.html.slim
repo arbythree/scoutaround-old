@@ -5,9 +5,9 @@
 
 - else
   - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
-  - crumbtrail link_to t('memberships.title_alt'), unit_memberships_path(@unit)
-  - crumbtrail link_to @user.full_name, membership_path(@membership)
-  - crumbtrail t('advancement.title')
+  - crumbtrail link_to t('advancement.title'), unit_achievements_path(@unit)
+  - crumbtrail @user.full_name
+
 
   - content_for :title do
     = render partial: 'achievements/show/utilities' if @current_user_is_admin
@@ -63,12 +63,15 @@
           });
         } else {
           // DELETE an existing achievement
-          var path = '/advancement/' + achievementId;
+          var path = '/units/#{@unit.id}/advancement/' + achievementId;
           $.ajax({
             type:         'DELETE',
             dataType:     'json',
             contentType:  'application/json',
             url:          path,
+            success:      function() {
+              $('#requirements').load('/members/#{ @membership.id }/advancement #requirements');
+            }
           });
           $(box).attr('data-achievement', '0');
         }
