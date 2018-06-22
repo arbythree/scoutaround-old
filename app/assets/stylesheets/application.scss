@@ -51,6 +51,11 @@ h1 {
   margin-right: 60px;
 }
 
+h3 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
 h4 {
   @include sans-serif;
 }
@@ -638,15 +643,39 @@ ul.requirements, ol.requirements {
   li {
     padding-bottom: 1rem;
 
+    span.name {
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    &.completed {
+      svg {
+        color: $green;
+      }
+
+      label {
+        font-weight: 300;
+        color: #666;
+      }
+    }
+
+    .reveal {
+      font-size: 80%;
+      color: darken($color_background, 30%);
+    }
+
     input[type="checkbox"] {
       margin: 0 0.5rem 0 3rem;
     }
 
     label {
       display: inline;
-      // margin-left: 3rem;
     }
   }
+}
+
+ol.requirements li.completed > ol {
+  display: none;
 }
 
 .custom-checkbox .custom-control-input ~ .custom-control-label {

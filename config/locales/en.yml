@@ -230,7 +230,7 @@ en:
       merit_badge: 'Record a Merit Badge'
     success:
       merit_badge: 'Recorded that %{name} has earned the %{badge} merit badge'
-    target_rank: 'Progress Toward %{rank} Scout (%{progress})'
+    target_rank: 'Progress Toward %{rank} Scout'
 
   wiki:
     title:  'Wiki'
