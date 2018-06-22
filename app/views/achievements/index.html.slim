@@ -12,15 +12,15 @@
   - content_for :title do
     = render partial: 'achievements/show/utilities' if @current_user_is_admin
     h4 = t('advancement.title')
-    p Current rank: #{ @user.rank.name }
     h1 = @user.full_name
+    p Current rank: #{ @user&.rank&.name }
 
   #requirements
     h3
       = t('advancement.target_rank', rank: @next_rank.name)
       | &nbsp;
       .badge.badge-secondary
-        = number_to_percentage(@user.rank.next_rank.progress_for(user: @user), precision: 0)
+        = number_to_percentage(@next_rank.progress_for(user: @user), precision: 0)
 
     ol.requirements
       = render partial: 'requirements/show/requirement', collection: @next_rank.requirements, locals: { include_checkboxes: true }

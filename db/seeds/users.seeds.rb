@@ -56,7 +56,7 @@ after :ranks, :unit_positions do
     chartering_organization_name: 'Immaculate Heart of Mary Church',
     council:                      'Westchester Putnam',
     district:                     'Algoqiun'
-  ).first_or_create!
+  ).first_or_create
 
   pack = Pack.where(
     number:                       '33',

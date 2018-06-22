@@ -1,8 +1,8 @@
 after :ranks do
-  eagle = Rank.find_by(name: 'Eagle')
+  rank = Rank.find_by(name: 'Eagle')
 
   #1 tenure
-  TenureRequirement.where(program_code: 'bsa', achievable: eagle, param: 6.months, precursor: Rank.find_by(name: 'Life')).first_or_create
+  TenureRequirement.where(program_code: 'bsa', achievable: rank, param: 6.months, precursor: Rank.find_by(name: 'Life')).first_or_create
 
   # AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Personal Management').becomes(Achievable)).first_or_create
   # AchievementRequirement.where(program_code: 'bsa', achievable: eagle, requirable: MeritBadge.find_by(name: 'Citizenship in the Community').becomes(Achievable)).first_or_create
@@ -36,12 +36,12 @@ after :ranks do
   RequiredMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Required merit badge 4').first_or_create
   RequiredMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Required merit badge 5').first_or_create
 
-  ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 1').first_or_create  
+  ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 1').first_or_create
   ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 2').first_or_create
   ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 3').first_or_create
   ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 4').first_or_create
   ElectiveMeritBadgeRequirement.where(program_code: 'bsa', achievable: req, name: 'Elective merit badge 5').first_or_create
-  
+
   # requirement #4 service actively in your unit
   req = MultipleChoiceRequirement.where(program_code: 'bsa', achievable: rank, param: 1, name: 'While a First Class Scout, serve actively in your troop for four months in one or more of the following positions of responsibility (or carry out a Scoutmaster-approved leadership project to help the troop):').first_or_create
   Requirement.where(program_code: 'bsa', achievable: req, name: 'Boy Scout troop. Patrol leader, assistant senior patrol leader, senior patrol leader, troop guide, Order of the Arrow troop representative, den chief, scribe, librarian, historian, quartermaster, bugler, junior assistant Scoutmaster, chaplain aide, instructor, webmaster, or outdoor ethics guide.
@@ -56,6 +56,6 @@ after :ranks do
   # 6
   Requirement.where(program_code: 'bsa', achievable: rank, name: 'While a Life Scout, participate in a Scoutmaster[2] conference.').first_or_create
 
-  # 7 
+  # 7
   Requirement.where(program_code: 'bsa', achievable: rank, name: 'Successfully complete your board of review for the Eagle rank.[4] In preparation for your board of review, prepare and attach to your Eagle Scout Rank Application a statement of your ambitions and life purpose and a listing of positions held in your religious institution, school, camp, community, or other organizations, during which you demonstrated leadership skills. Include honors and awards received during this service. (This requirement may be met after age 18, in accordance with Guide to Advancement topic 8.0.3').first_or_create
 end

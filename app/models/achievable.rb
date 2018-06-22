@@ -57,8 +57,6 @@ class Achievable < ApplicationRecord
       achievement_count += 1 if requirement.completed_by?(user: user)
     end
 
-    puts achievement_count
-
     (achievements.count.to_f / leaves.count.to_f) * 100
   end
 end
