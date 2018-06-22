@@ -6,7 +6,6 @@ class MagicLinkMailer < ApplicationMailer
     @magic_link = magic_link
     @unit       = unit
     @tz         = TZInfo::Timezone.get(@unit.time_zone || Settings.default_time_zone || 'America/New_York')
-    ap @tz
     mail(to: magic_link.recipient, subject: I18n.t('email.subjects.magic_link', unit: UnitPresenter.unit_display_name(@unit), sender: @magic_link.sender.full_name))
   end
 
