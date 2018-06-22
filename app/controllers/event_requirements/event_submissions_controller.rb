@@ -36,5 +36,6 @@ class EventRequirements::EventSubmissionsController < EventSubmissionsController
 
   def find_unit
     @unit = @event.unit
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
   end
 end

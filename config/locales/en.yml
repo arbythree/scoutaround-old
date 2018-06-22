@@ -80,6 +80,8 @@ en:
       payment:            'Pay %{amount} Now'
     tooltips:
       payments:           'Learn how Scoutaround handles payments and security'
+    credit_card:          'Credit Card'
+    offline:              'Offline Payment'
 
   units:
     troop:      'Troop'

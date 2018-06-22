@@ -1,45 +1,33 @@
 - nesting_level ||= 0
 - list_type = 'a' if nesting_level == 0
 - achievement = Achievement.where(user: @user, achievable: requirement).first
+- completed = requirement.completed_by?(user: @user) # || achievement.present?
+- class_name = completed ? 'completed' : 'incomplete'
 
-li
+li(class="#{class_name}")
   - if @unit.present? && @membership.present?
-    .custom-control.custom-checkbox
-      = check_box_tag "requirement_#{ requirement.id }", requirement.id, achievement.present?, class: 'custom-control-input', onclick: 'recordAchievement(this);', data: { achievement: achievement&.id || 0 }
-      = label_tag "requirement_#{ requirement.id }", requirement.name, class: 'custom-control-label'
+    - if requirement.leaf?
+      .custom-control.custom-checkbox
+        = check_box_tag "requirement_#{ requirement.id }",            \
+                        requirement.id,                               \
+                        completed,                                    \
+                        class: 'custom-control-input requirement',    \
+                        onclick: 'recordAchievement(this);',          \
+                        data: { achievement: achievement&.id || 0, children: requirement.requirements.count }
+
+        = label_tag "requirement_#{ requirement.id }", requirement.name, class: 'custom-control-label'
+    - elsif completed
+      i.fa-check.fas
+      | &nbsp;&nbsp;
+      span.name = requirement.name
+      | &nbsp;&nbsp;
+      = link_to 'See more', '#', class: 'reveal', onclick: 'revealSubRequirements(this);'
+    - else
+      span.name = requirement.name
   - else
     = requirement.name
 
-- if requirement.requirements.present?
-  ol.requirements(type="#{ list_type }")
-    = render partial: 'requirements/show/requirement', collection: requirement.requirements
-
-- if @unit.present? && @membership.present?
-  javascript:
-    function recordAchievement(box) {
-      var requirementId = $(box).val();
-      var achievementId = $(box).attr('data-achievement');
-
-      if (achievementId == 0) {
-        // POST a new achievement
-        var path = "#{ membership_achievements_path(@unit, @membership) }";
-        var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
-        $.ajax({
-          type:     'POST',
-          dataType: 'json',
-          contentType: 'application/json',
-          url:      path,
-          data:     json
-        });
-      } else {
-        // DELETE an existing achievement
-        var path = '/units/' + #{ @unit.id } + '/members/' + #{ @membership.id } + '/advancement/' + achievementId;
-        $.ajax({
-          type:     'DELETE',
-          dataType: 'json',
-          contentType: 'application/json',
-          url:      path,
-        });
-        $(box).attr('data-achievement', '0');
-      }
-    }
+  - # recurse down a level if needed
+  - if requirement.requirements.present?
+    ol.requirements(type="#{ list_type }")
+      = render partial: 'requirements/show/requirement', collection: requirement.requirements

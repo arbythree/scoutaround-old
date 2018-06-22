@@ -44,5 +44,6 @@ class MagicLinksController < ApplicationController
 
   def find_magic_link
     @magic_link = MagicLink.find_by(token: params[:id])
+    raise ActionController::RoutingError.new('Not Found') unless @magic_link.present?
   end
 end

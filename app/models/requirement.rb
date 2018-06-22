@@ -5,6 +5,12 @@ class Requirement < Achievable
   belongs_to :achievable, class_name: 'Achievable', foreign_key: 'parent_achievable_id'
 
   def completed_by?(user: nil)
-    Achievement.exists?(user: user, achievable: self)
+    return Achievement.exists?(user: user, achievable: self) if self.leaf?
+
+    self.requirements.each do |requirement|
+      return false unless requirement.completed_by?(user: user)
+    end
+
+    return true
   end
 end

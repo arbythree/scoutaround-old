@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_18_194905) do
+ActiveRecord::Schema.define(version: 2018_06_19_112347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(version: 2018_06_18_194905) do
     t.string "district"
     t.string "stripe_user_id"
     t.integer "primary_wiki_article_id"
+    t.string "time_zone"
   end
 
   create_table "user_preferences", force: :cascade do |t|

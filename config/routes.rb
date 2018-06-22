@@ -7,16 +7,17 @@ Rails.application.routes.draw do
   resources :users, only: [:show, :edit, :update]
   resources :event_submissions, path: 'submissions', only: [:show]
   resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
+  resources :achievements, only: [:destroy]
 
-  resources :units, shallow: true do
+  resources :units do
     scope module: 'units' do
       resources :membership_imports
       resources :events
-      resources :memberships, path: 'members'
-      resources :achievements, path: 'advancement'
-      resources :document_library_items, path: 'documents'
-      resources :wiki_articles, path: 'wiki'
-      resources :magic_links, path: 'shares'
+      resources :memberships,             path: 'members'
+      resources :document_library_items,  path: 'documents'
+      resources :wiki_articles,           path: 'wiki'
+      resources :magic_links,             path: 'shares'
+      resources :achievements,            path: 'advancement'
     end
   end
 

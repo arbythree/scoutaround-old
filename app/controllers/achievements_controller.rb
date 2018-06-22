@@ -18,7 +18,7 @@ class AchievementsController < AuthenticatedController
           flash[:notice] = I18n.t('advancement.success.merit_badge', name: @user.first_name, badge: @achievement.achievable.name)
           redirect_to membership_achievements_path(@membership) unless request.xhr?
         end
-        format.json { render json: @achievement }
+        format.json
       end
     else
     end
@@ -54,5 +54,7 @@ class AchievementsController < AuthenticatedController
     elsif @membership.present?
       @unit = @membership.unit
     end
+
+    @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
   end
 end

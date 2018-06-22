@@ -24,13 +24,20 @@ table.table
       - requirements = next_rank&.requirements || []
       - completed_requirements = []
       - requirements.each { |req| completed_requirements << req if req.completed_by?(user: user) }
+      - progress = next_rank&.progress_for(user: user) || 0
 
       tr
-        td = link_to user.full_name, membership_path(membership)
+        td = link_to user.full_name, membership_achievements_path(membership)
         td = user.rank&.name
         td = time_ago_in_words(achievement.earned_at || achievement.created_at) if achievement.present?
         td = user&.rank&.next_rank&.name
         td
-          .progress-bar
-            .progress(style="width: 50%;")
+          .progress-bar(title="#{number_to_percentage(progress, precision: 0)}" data-toggle="tooltip")
+            .progress(style="width: #{ number_to_percentage(progress, precision: 0) };")
+
         td = t('time_ago', deictic: time_ago_in_words(newest_achievement.created_at)) if newest_achievement.present?
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })

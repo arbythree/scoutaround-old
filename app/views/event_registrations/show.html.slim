@@ -28,10 +28,8 @@ table.table
       - else
         td
         td
-          - if requirement.type == 'DocumentEventRequirement'
-            = link_to t('submissions.upload_simple')
-          - elsif requirement.type == 'FeeEventRequirement'
-            = link_to t('submissions.record_payment')
+          - key = requirement.type == 'DocumentEventRequirement' ? 'submissions.upload_simple' : 'submissions.record_payment'
+          = link_to t(key), new_event_requirement_event_submission_path(requirement, registration: @registration)
 
 - content_for :utilities
   .card
