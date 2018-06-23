@@ -13,4 +13,9 @@ class Requirement < Achievable
 
     return true
   end
+
+  # a Requirement is concrete if it has no deeper requirements
+  def concrete?
+    self.requirements.count.zero?
+  end
 end

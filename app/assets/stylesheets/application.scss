@@ -659,6 +659,16 @@ ul.requirements, ol.requirements {
       }
     }
 
+    &.working {
+      label:before, label:after {
+        content: '' !important;
+      }
+
+      svg {
+        display: inline;
+      }
+    }
+
     .reveal {
       font-size: 80%;
       color: darken($color_background, 30%);

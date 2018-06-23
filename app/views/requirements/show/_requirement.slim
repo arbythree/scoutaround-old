@@ -15,6 +15,7 @@ li(class="#{class_name}")
                         onclick: 'recordAchievement(this);',          \
                         data: { achievement: achievement&.id || 0, children: requirement.requirements.count }
 
+        i.fa-spinner.far.fa-spin(style="display:none;")
         = label_tag "requirement_#{ requirement.id }", requirement.name, class: 'custom-control-label'
     - elsif completed
       i.fa-check.fas
