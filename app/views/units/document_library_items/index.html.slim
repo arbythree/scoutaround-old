@@ -5,6 +5,13 @@
   = render 'units/document_library_items/admin' if @current_user_is_admin
   h1 = t('documents.title')
 
+- if @document_library_items.count.zero?
+  p
+    = t('documents.empty')
+    | &nbsp;
+    = link_to t('documents.cta'), new_unit_document_library_item_path(@unit)
+    |.
+
 ul.documents
   - @document_library_items.each do |document_library_item|
     li

@@ -1,0 +1,39 @@
+css:
+  .bootstrap-tagsinput {
+    display: block;
+    padding: 6px 12px;
+  }
+
+.form-group(style="position: relative;")
+  label = t('user.guardians')
+
+  div(style="position: relative;")
+    = text_field_tag 'guardians', \
+      '', \
+      class: 'form-control', \
+      data: { role: 'tagsinput' }
+
+    = link_to 'Add', '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardian-modal' }
+
+- adults    = @unit.members.adults.map { |u| { 'id' => u.id, 'name' => u.full_name } }
+- guardians = @user.guardians.map { |u| { 'id' => u.id, 'name' => u.full_name } }
+
+/ - adults = @unit.members.adults.map { |u| u.full_name }
+/ - adults = @unit.members.adults.map { |u| u.id }
+= javascript_tag("var allAdults = #{ adults.to_json.html_safe };")
+= javascript_tag("var guardians = #{ guardians.to_json.html_safe };")
+
+javascript:
+  $('#guardians').tagsinput({
+    itemValue: 'id',
+    itemText:  'name',
+    typeahead: {
+      source: allAdults
+    }
+  });
+
+  $(document).ready(function() {
+    guardians.forEach(function(guardian) {
+      $('#guardians').tagsinput('add', guardian);
+    });
+  });

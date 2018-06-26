@@ -205,6 +205,8 @@ en:
     new_cta:    'Upload'
     download:   'Download'
     add:        'Add a Document'
+    empty:      'Your Document Library is empty.'
+    cta:        'Upload a document now'
 
   messages:
     title:       'Message Board'

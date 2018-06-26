@@ -4,12 +4,32 @@ class MembershipsController < UnitContextController
 
   def index
     @body_classes = ['hide-none']
-    @memberships = @unit.memberships.includes(:user).order('users.first_name')
+
+    term = params[:term]
+    if term.present?
+      terms = term.downcase.split(' ')
+      where_clauses = []
+      terms.each do |name|
+        where_clauses << "LOWER(users.first_name) LIKE '%#{ name }%'"
+        where_clauses << "LOWER(users.last_name) LIKE '%#{ name }%'"
+      end
+
+      where_clause = where_clauses.join(' OR ')
+      puts where_clause
+
+      @memberships = @unit.memberships.includes(:user).where(where_clause).order('users.first_name')
+    else
+      @memberships = @unit.memberships.includes(:user).order('users.first_name')
+    end
+
+    puts @memberships.count
+
     @members = @memberships.map { |m| m.user }
 
     respond_to do |format|
       format.html
-      format.csv { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+      format.csv  { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+      format.json { render json: @members }
     end
   end
 

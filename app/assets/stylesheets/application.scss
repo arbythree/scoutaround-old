@@ -13,9 +13,12 @@
  *= require_tree .
  *= require_self
  *= require bootstrap-datepicker
+ *= require bootstrap-tagsinput
  */
 
 @import "bootstrap";
+
+
 
 $blue:              #7D9E9C;
 $green:             #006B3F;
@@ -24,6 +27,10 @@ $color_background:  #EBE9E8;
 
 @mixin sans-serif {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
+}
+
+@mixin smaller-text {
+  font-size: 80%;
 }
 
 body {
@@ -930,4 +937,21 @@ label.error {
       text-decoration: none;
     }
   }
+}
+
+.tag.label.label-info {
+  @include sans-serif;
+  background: darken($color_background, 40%);
+  color: $white;
+  font-size: 80%;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+}
+
+a.input-embedded {
+  @include sans-serif;
+  @include smaller-text;
+  position: absolute;
+  right: 15px;
+  top: 9px;
 }
