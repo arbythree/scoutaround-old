@@ -22,8 +22,6 @@ class MembershipsController < UnitContextController
       @memberships = @unit.memberships.includes(:user).order('users.first_name')
     end
 
-    puts @memberships.count
-
     @members = @memberships.map { |m| m.user }
 
     respond_to do |format|
@@ -41,7 +39,7 @@ class MembershipsController < UnitContextController
     @membership = @unit.memberships.build
     @user = @membership.build_user
     @user.type = (params[:type] || 'youth').titleize
-    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @user.type.downcase)
+    @eligible_positions = @unit.unit_positions.where(audience: @user.type.downcase)
   end
 
   def create
@@ -63,6 +61,21 @@ class MembershipsController < UnitContextController
     @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
 
     if @membership.save
+      if params[:guardians].present?
+        guardian_ids = params[:guardians].split(',')
+
+        # remove unused guardianships
+        @membership.user.guardeeships.each do |guardeeship|
+          guardeeship.destroy unless guardian_ids.include? guardeeship.guardian_id
+        end
+
+        # create new guardianships as needed
+        guardian_ids.each do |id|
+          puts "Guardian user id #{id}"
+          @membership.user.guardeeships.where(guardian_id: id).first_or_create
+        end
+      end
+
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
       redirect_to membership_path(@membership)
     else
@@ -71,7 +84,7 @@ class MembershipsController < UnitContextController
   end
 
   def edit
-    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @membership.user.type.downcase)
+    @eligible_positions = @unit.unit_positions.where(audience: @membership.user.type.downcase)
   end
 
   private

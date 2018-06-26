@@ -33,7 +33,6 @@ gem 'redcarpet'
 gem 'rubyzip'
 gem 'sass-rails', '~> 5.0'
 gem 'seedbank'
-gem 'sentry-raven'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'skylight'
@@ -66,6 +65,7 @@ end
 
 group :production, :staging do
   gem 'pg'
+  gem 'sentry-raven'
 end
 
 group :staging do

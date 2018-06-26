@@ -55,6 +55,8 @@
       li = link_to 'Shares', unit_magic_links_path(@unit)
       li = link_to 'Import Member Spreadsheet', new_unit_membership_import_path(@unit)
       li = link_to 'Export Roster', unit_memberships_path(@unit, format: :csv)
+      - if ENV['ENFORCE_EXPIRATIONS'].present?
+        li = link_to 'Subscription', unit_subscription_path(@unit)
 
 javascript:
   $(function () {

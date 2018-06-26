@@ -14,6 +14,15 @@ html
     = render partial: 'layouts/header'
 
     main
+      - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
+        .alert.alert-warning
+          i.fa-exclamation-triangle.far
+          | &nbsp;
+          | Your subscription has expired.
+          - unless controller_name == 'subscriptions'
+            | &nbsp;
+            = link_to 'Renew now', unit_subscription_path(@unit.id)
+
       - if flash[:notice].present? || flash[:alert].present? || flash[:error].present?
         #alerts
           - if flash[:notice]

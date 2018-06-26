@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_112347) do
+ActiveRecord::Schema.define(version: 2018_06_26_194312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -161,12 +161,31 @@ ActiveRecord::Schema.define(version: 2018_06_19_112347) do
     t.string "pingees"
   end
 
-  create_table "unit_positions", force: :cascade do |t|
+  create_table "prototype_positions", force: :cascade do |t|
     t.string "program_code"
     t.string "audience"
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "display_name"
+    t.string "internal_name"
+    t.string "sku"
+    t.string "frequency"
+    t.integer "price"
+    t.boolean "available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unit_positions", force: :cascade do |t|
+    t.string "audience"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "unit_id"
   end
 
   create_table "units", force: :cascade do |t|
@@ -185,6 +204,8 @@ ActiveRecord::Schema.define(version: 2018_06_19_112347) do
     t.string "stripe_user_id"
     t.integer "primary_wiki_article_id"
     t.string "time_zone"
+    t.date "subscription_expires_at"
+    t.integer "subscription_plan_id"
   end
 
   create_table "user_preferences", force: :cascade do |t|

@@ -4,6 +4,7 @@ RSpec.feature "Advancement features", :type => :feature do
   before do
     @user = FactoryBot.create(:adult)
     @unit = FactoryBot.create(:troop)
+
     @membership = Membership.create(user: @user, unit: @unit, role: :admin)
     visit new_user_session_path
     fill_in 'user_email', with: @user.email

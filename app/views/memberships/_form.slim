@@ -10,7 +10,8 @@
 
 #add-guardian-modal.modal.fade
   .modal-dialog
-    = form_for Membership.new, url: unit_memberships_path(@unit), remote: true do |f|
+    / we need to namespace this form because it sometimes appears on the same page as a membership
+    = form_for Membership.new, url: unit_memberships_path(@unit), remote: true, namespace: 'guardian' do |f|
       .modal-content
         .modal-header
           h5.modal-title Add a guardian
@@ -34,9 +35,8 @@
               = u.phone_field :phone, placeholder: 'Phone',     class: 'form-control'
 
         .modal-footer
-          .form-group
-            button.btn(style="margin-right: 5px;" type="button" data-dismiss="modal") Close
-            = f.submit 'Add Guardian', class: 'btn btn-primary'
+          button.btn(style="margin-right: 5px;" type="button" data-dismiss="modal") Close
+          = f.submit 'Add Guardian', class: 'btn btn-primary'
 
 = form_for @membership, url: url do |f|
   /

@@ -1,4 +1,4 @@
-after :ranks, :unit_positions do
+after :ranks, :unit_positions, :subscription_plans do
   def create_user(type, first_name, last_name, date_of_birth, email, rank = nil)
     user = User.create_with(
       first_name: first_name,
@@ -55,8 +55,9 @@ after :ranks, :unit_positions do
     state:                        'NY',
     chartering_organization_name: 'Immaculate Heart of Mary Church',
     council:                      'Westchester Putnam',
-    district:                     'Algoqiun'
-  ).first_or_create
+    district:                     'Algonquin',
+    subscription_plan:            SubscriptionPlan.find_by(sku: 'monthly')
+  ).first_or_create!
 
   pack = Pack.where(
     number:                       '33',
@@ -65,8 +66,9 @@ after :ranks, :unit_positions do
     state:                        'NY',
     chartering_organization_name: 'St. Augustine\'s Church',
     council:                      'Westchester Putnam',
-    district:                     'Algoqiun'
-  ).first_or_create
+    district:                     'Algoqiun',
+    subscription_plan:            SubscriptionPlan.find_by(sku: 'annual')
+  ).first_or_create!
 
   User.all.each do |user|
     troop.memberships.where(user: user).first_or_create
