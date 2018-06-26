@@ -48,14 +48,15 @@
     / nested guardianship fields
     /
     - if @membership.user.type == 'Youth'
-      #guardians.youth-only
-        label = t('user.guardians')
-        br
-        = u.fields_for :guardeeships do |g|
-          = render partial: 'guardeeship_fields', locals: { f: g }
-        .links
-          br
-          = link_to_add_association 'Add Guardian', u, :guardeeships, class: 'btn btn-outline-secondary btn-sm'
+      = render partial: 'guardians'
+      / #guardians.youth-only
+      /   label = t('user.guardians')
+      /   br
+      /   = u.fields_for :guardeeships do |g|
+      /     = render partial: 'guardeeship_fields', locals: { f: g }
+      /   .links
+      /     br
+      /     = link_to_add_association 'Add Guardian', u, :guardeeships, class: 'btn btn-outline-secondary btn-sm'
 
   /
   / end fields_for user & continue form_for membership

@@ -12,10 +12,8 @@
 //
 //= require jquery
 //= require rails-ujs
-// require turbolinks
+//= require turbolinks
 //= require_tree .
-
-
 //= require activestorage
 //= require popper
 //= require bootstrap-sprockets
@@ -25,3 +23,5 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require local-time
+//= require jquery-ui
+//= require bootstrap-tagsinput
