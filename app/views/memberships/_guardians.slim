@@ -4,12 +4,6 @@ css:
     padding: 6px 12px;
   }
 
-  #add-adult {
-    position: absolute;
-    right: 15px;
-    top: 7px;
-  }
-
 .form-group(style="position: relative;")
   label = t('user.guardians')
 
@@ -19,7 +13,7 @@ css:
       class: 'form-control', \
       data: { role: 'tagsinput' }
 
-    = link_to 'Add', '#', id: 'add-adult', data: { toggle: 'modal', target: 'add-guardian-modal' }
+    = link_to 'Add', '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardian-modal' }
 
 - adults    = @unit.members.adults.map { |u| { 'id' => u.id, 'name' => u.full_name } }
 - guardians = @user.guardians.map { |u| { 'id' => u.id, 'name' => u.full_name } }
@@ -28,25 +22,6 @@ css:
 / - adults = @unit.members.adults.map { |u| u.id }
 = javascript_tag("var allAdults = #{ adults.to_json.html_safe };")
 = javascript_tag("var guardians = #{ guardians.to_json.html_safe };")
-
-
-#add-guardian-modal.modal
-  .modal-dialog
-    .modal-content
-      h5.modal-title Add a guardian
-      button.close(type="button")
-        span &times;
-
-    = form_for User.new do |f|
-      .modal-body
-        = f.text_field :first_name, placeholder: 'First'
-        = f.text_field :last_name, placeholder: 'Last'
-        = f.email_field :email, placeholder: 'Email'
-        = f.phone_field :phone, placeholder: 'Phone'
-
-      .modal-footer
-        button.close(type="button") Close
-        = f.submit 'Add Guardian', class: 'btn btn-primary'
 
 javascript:
   $('#guardians').tagsinput({

@@ -29,6 +29,10 @@ $color_background:  #EBE9E8;
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
+@mixin smaller-text {
+  font-size: 80%;
+}
+
 body {
   font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
   background-color: $color_background;
@@ -940,4 +944,12 @@ label.error {
   font-size: 80%;
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
+}
+
+a.input-embedded {
+  @include sans-serif;
+  @include smaller-text;
+  position: absolute;
+  right: 15px;
+  top: 9px;
 }
