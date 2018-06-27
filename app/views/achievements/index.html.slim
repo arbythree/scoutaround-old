@@ -40,12 +40,9 @@
       }
 
       function recordAchievement(box) {
-        var $box = $(box);
-        var requirementId = $box.val();
-        var achievementId = $box.attr('data-achievement');
-        var childCount    = $box.attr('data-children');
-        var $label = $box.siblings('label').first();
-        $box.parent().parent().addClass('working');
+        var requirementId = $(box).val();
+        var achievementId = $(box).attr('data-achievement');
+        var childCount    = $(box).attr('data-children');
 
         if (childCount > 0) {
           alert('Complete all the sub-requirements and we\'ll check the box for you');
