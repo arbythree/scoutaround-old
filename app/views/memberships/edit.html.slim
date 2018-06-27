@@ -4,8 +4,8 @@
 - crumbtrail t('memberships.update')
 
 .row
-  .col-md-3
-  .col-md-6
+  .col-md-2
+  .col-md-8
     - if @membership.errors.full_messages.any?
       ul
         - @membership.errors.full_messages.each do |error_message|

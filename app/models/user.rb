@@ -29,9 +29,10 @@ class User < ApplicationRecord
   delegate :next_rank, to: :rank
   accepts_nested_attributes_for :guardeeships, reject_if: :all_blank, allow_destroy: true
   scope :adults, -> { where(type: 'Adult') }
+  scope :youths, -> { where(type: 'Youth') }
 
   def full_name
-    "#{first_name} #{last_name}"
+    "#{first_name} #{last_name} #{post_nominal}"
   end
 
   def short_name

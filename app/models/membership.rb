@@ -37,4 +37,8 @@ class Membership < ApplicationRecord
       end
     end
   end
+
+  def advanceable?
+    self.user.type == 'Youth'
+  end
 end

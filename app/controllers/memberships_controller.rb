@@ -47,6 +47,7 @@ class MembershipsController < UnitContextController
     @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
     @membership.user.password = SecureRandom.hex(12)
     if @membership.save
+      process_guardianships
       flash[:notice] = t('memberships.new.confirm', full_name: @membership.user.full_name)
       redirect_to unit_memberships_path(@unit)
       return
@@ -61,20 +62,7 @@ class MembershipsController < UnitContextController
     @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
 
     if @membership.save
-      if params[:guardians].present?
-        guardian_ids = params[:guardians].split(',')
-
-        # remove unused guardianships
-        @membership.user.guardeeships.each do |guardeeship|
-          guardeeship.destroy unless guardian_ids.include? guardeeship.guardian_id
-        end
-
-        # create new guardianships as needed
-        guardian_ids.each do |id|
-          puts "Guardian user id #{id}"
-          @membership.user.guardeeships.where(guardian_id: id).first_or_create
-        end
-      end
+      process_guardianships
 
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
       redirect_to membership_path(@membership)
@@ -88,6 +76,38 @@ class MembershipsController < UnitContextController
   end
 
   private
+
+  def process_guardianships
+    if params[:guardians].present?
+      guardian_ids = params[:guardians].split(',')
+
+      # remove unused guardianships
+      @membership.user.guardeeships.each do |guardeeship|
+        guardeeship.destroy unless guardian_ids.include? guardeeship.guardian_id
+      end
+
+      # create new guardianships as needed
+      guardian_ids.each do |id|
+        puts "Guardian user id #{id}"
+        @membership.user.guardeeships.where(guardian_id: id).first_or_create
+      end
+    end
+
+    if params[:guardees].present?
+      guardee_ids = params[:guardees].split(',')
+
+      # remove unused guardianships
+      @membership.user.guardianships.each do |guardianship|
+        guardianship.destroy unless guardee_ids.include? guardianship.guardee_id
+      end
+
+      # create new guardianships as needed
+      guardee_ids.each do |id|
+        puts "Guardee user id #{id}"
+        @membership.user.guardianships.where(guardee_id: id).first_or_create
+      end
+    end
+  end
 
   def find_member
     @membership = Membership.includes(:user).find(params[:id])
@@ -105,7 +125,7 @@ class MembershipsController < UnitContextController
     params.require(:membership).permit(
       :unit_position_id,
       user_attributes: [:id, :rank_id, :first_name, :last_name,
-        :nickname, :type, :email, :phone, :avatar,
+        :nickname, :post_nominal, :type, :email, :phone, :avatar,
         guardeeships_attributes: [:id, :guardian_id, :_destroy]
       ]
     )
