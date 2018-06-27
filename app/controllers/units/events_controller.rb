@@ -1,4 +1,5 @@
 class Units::EventsController < EventsController
+  include UnitContext
   before_action :fetch_view_preference, only: [:index]
   after_action  :store_view_preference, only: [:index]
 

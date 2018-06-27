@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root to: 'home#index'
   match '/payment_setup', to: 'stripe#payment_setup', as: 'payment_setup', via: [:get]
 
+  namespace :api do
+    resources :units, only: [:show, :update], default: { format: 'json' }
+  end
+
   resources :requirements
   resources :users, only: [:show, :edit, :update]
   resources :event_submissions, path: 'submissions', only: [:show]
@@ -18,6 +22,7 @@ Rails.application.routes.draw do
       resources :wiki_articles,           path: 'wiki'
       resources :magic_links,             path: 'shares'
       resources :achievements,            path: 'advancement'
+      get 'subscription', to: 'subscriptions#show'
     end
   end
 

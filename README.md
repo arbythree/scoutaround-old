@@ -164,3 +164,5 @@ The app is configured to use (Sendgrid)[https://sendgrid.com] to send email. You
 - STRIPE_PUBLISHABLE_KEY
 - SENDGRID_USERNAME
 - SENDGRID_PASSWORD
+- API_USERNAME
+- API_PASSWORD

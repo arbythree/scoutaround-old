@@ -59,4 +59,13 @@ class Achievable < ApplicationRecord
 
     (achievements.count.to_f / leaves.count.to_f) * 100
   end
+
+  # Some Requirements are "virtual" as opposed to concrete.
+  # Virtual requirements are ones that have sub-requirements.
+  # The completeness of a virtual is computed, whereas a completed
+  # concrete requirement will have a corresponding achievement
+  #
+  def concrete?
+    true
+  end
 end

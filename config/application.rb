@@ -19,6 +19,3 @@ module Scoutaround
   end
 end
 
-Raven.configure do |config|
-  config.dsn = 'https://017f247a702546bba3150a6072ebf085:61e00175c94d464393a88604c3ca2ed3@sentry.io/1228379'
-end

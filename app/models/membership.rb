@@ -13,7 +13,6 @@ class Membership < ApplicationRecord
 
   accepts_nested_attributes_for :user
 
-
   def self.to_csv
     CSV.generate(headers: true) do |csv|
       csv << [

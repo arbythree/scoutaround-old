@@ -4,12 +4,30 @@ class MembershipsController < UnitContextController
 
   def index
     @body_classes = ['hide-none']
-    @memberships = @unit.memberships.includes(:user).order('users.first_name')
+
+    term = params[:term]
+    if term.present?
+      terms = term.downcase.split(' ')
+      where_clauses = []
+      terms.each do |name|
+        where_clauses << "LOWER(users.first_name) LIKE '%#{ name }%'"
+        where_clauses << "LOWER(users.last_name) LIKE '%#{ name }%'"
+      end
+
+      where_clause = where_clauses.join(' OR ')
+      puts where_clause
+
+      @memberships = @unit.memberships.includes(:user).where(where_clause).order('users.first_name')
+    else
+      @memberships = @unit.memberships.includes(:user).order('users.first_name')
+    end
+
     @members = @memberships.map { |m| m.user }
 
     respond_to do |format|
       format.html
-      format.csv { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+      format.csv  { send_data @memberships.to_csv, filename: "#{@unit.type}-#{@unit.number}-#{Date.today}.csv" }
+      format.json { render json: @members }
     end
   end
 
@@ -21,7 +39,7 @@ class MembershipsController < UnitContextController
     @membership = @unit.memberships.build
     @user = @membership.build_user
     @user.type = (params[:type] || 'youth').titleize
-    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @user.type.downcase)
+    @eligible_positions = @unit.unit_positions.where(audience: @user.type.downcase)
   end
 
   def create
@@ -43,6 +61,21 @@ class MembershipsController < UnitContextController
     @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
 
     if @membership.save
+      if params[:guardians].present?
+        guardian_ids = params[:guardians].split(',')
+
+        # remove unused guardianships
+        @membership.user.guardeeships.each do |guardeeship|
+          guardeeship.destroy unless guardian_ids.include? guardeeship.guardian_id
+        end
+
+        # create new guardianships as needed
+        guardian_ids.each do |id|
+          puts "Guardian user id #{id}"
+          @membership.user.guardeeships.where(guardian_id: id).first_or_create
+        end
+      end
+
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
       redirect_to membership_path(@membership)
     else
@@ -51,7 +84,7 @@ class MembershipsController < UnitContextController
   end
 
   def edit
-    @eligible_positions = UnitPosition.where(program_code: @unit.program_code, audience: @membership.user.type.downcase)
+    @eligible_positions = @unit.unit_positions.where(audience: @membership.user.type.downcase)
   end
 
   private

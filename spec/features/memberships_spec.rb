@@ -27,15 +27,7 @@ RSpec.feature "Membership features", :type => :feature do
     expect(page).to have_current_path(new_unit_membership_path(@unit, type: 'youth'))
     fill_in 'membership_user_attributes_first_name', with: 'Mortimer'
     fill_in 'membership_user_attributes_last_name', with: 'Snerd'
-    # select I18n.t('ranks.life'), from: 'Rank'
-
-    # save it
     click_on I18n.t('memberships.add_new')
-
-    # look for correct data on resulting page
-    # expect(page).to have_content('Mortimer')
-    # expect(page).to have_content('Snerd')
-    # expect(page).to have_content(I18n.t('ranks.life'))
   end
 
   it 'displays the membership page' do

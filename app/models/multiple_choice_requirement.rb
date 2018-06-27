@@ -19,4 +19,8 @@ class MultipleChoiceRequirement < Requirement
   def leaf?
     true
   end
+
+  def concrete?
+    false
+  end
 end

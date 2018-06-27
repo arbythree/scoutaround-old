@@ -1,0 +1,20 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to 'Settings', edit_unit_path(@unit)
+- crumbtrail 'Subscription'
+
+- content_for :title do
+  h1 Subscription
+
+table.table
+  tr
+    td Plan
+    td = @unit.subscription_plan.display_name
+  tr
+    td Renewal
+    td
+      = @unit.subscription_expires_at.to_formatted_s(:long)
+      | &nbsp;(
+      = distance_of_time_in_words_to_now(@unit.subscription_expires_at)
+      = @unit.subscription_expires_at.future? ? ' remaining' : ' ago'
+      | )
+
