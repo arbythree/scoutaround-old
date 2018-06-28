@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 2018_06_26_194312) do
+ActiveRecord::Schema.define(version: 2018_06_28_014256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -168,6 +167,27 @@ ActiveRecord::Schema.define(version: 2018_06_26_194312) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "exclusive", default: true
+  end
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "display_name"
+    t.string "internal_name"
+    t.string "sku"
+    t.string "frequency"
+    t.integer "price"
+    t.boolean "available"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unit_positions", force: :cascade do |t|
+    t.string "audience"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "unit_id"
+    t.boolean "exclusive", default: true
   end
 
   create_table "subscription_plans", force: :cascade do |t|
@@ -248,6 +268,7 @@ ActiveRecord::Schema.define(version: 2018_06_26_194312) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.date "date_of_birth"
+    t.string "post_nominal"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

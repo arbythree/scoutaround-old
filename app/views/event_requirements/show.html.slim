@@ -1,0 +1,72 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('events.title'),        unit_events_path(@unit)
+- crumbtrail link_to @event.name,              event_path(@event)
+- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
+- crumbtrail @event_requirement.description
+
+- submissions = @event_requirement.event_submissions
+- submitter_user_ids = submissions.map { |s| s.user.id }
+- submitters = @event.event_registrations.select { |r| submitter_user_ids.include? r.user.id }
+- pending = @event.event_registrations.select { |r| !submitter_user_ids.include? r.user.id }
+
+- if @event_requirement.is_a?(DocumentEventRequirement)
+  - content_for :title do
+    = render partial: 'layouts/admin_badge'
+    h1(style="margin-bottom: 0;")    = @event_requirement.description
+    h4(style="margin-bottom: 60px;") = raw("Requirement for #{ link_to @event.name, @event }")
+
+.row
+  .col-md-4
+    h2 Received
+    table.table
+      - submitters.each do |registration|
+        tr
+          td = link_to registration.user.full_name, registration
+
+  .col-md-4
+    h2 Pending
+    table.table
+      - pending.each do |registration|
+        tr
+          td = link_to registration.user.full_name, registration
+
+  .col-md-4
+    h2 Actions
+    table.table
+      tr
+        td
+          = link_to event_requirement_event_submissions_path(@event_requirement, format: :pdf) do
+            span.glyph-wrapper
+              i.fa-file-pdf.fas(style="font-size: 120%;")
+            = t('event_requirements.download_all')
+      tr
+        td
+          = link_to event_requirement_event_submissions_path(@event_requirement, format: :zip) do
+            span.glyph-wrapper
+              i.fa-file-archive.fas(style="font-size: 120%;")
+            = t('event_requirements.download_zip')
+
+      tr
+        td
+          = link_to new_event_requirement_magic_link_path(@event_requirement) do
+            span.glyph-wrapper
+              i.fa-envelope.fas(style="font-size: 120%;")
+            = t('event_requirements.send_magic_link')
+
+      tr
+        td
+          = link_to edit_event_requirement_path(@event_requirement) do
+            span.glyph-wrapper
+              i.fa-pencil.fas(style="font-size: 120%;")
+            = 'Edit Event Requirements'
+
+css:
+  .glyph-wrapper {
+    display: inline-block;
+    width: 1.8rem;
+  }
+
+  ul.actions li a {
+    display: block;
+    padding: 0.5rem 0;
+  }

@@ -1,0 +1,73 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to 'Settings', edit_unit_path(@unit)
+- crumbtrail 'Unit Positions'
+
+- content_for :title do
+  .admin.dropdown
+    = link_to 'Add', '#', class: 'btn btn-primary', data: { toggle: 'modal', target: '#unit-position' }
+
+  h1 = "Unit Positions"
+
+
+table.table
+  tr
+    th Name
+    th Audience
+    th Held By
+    th(style="width: 100px;")
+
+  - @unit_positions.each do |position|
+    tr.position
+      td = position.name
+      td = position.audience.titleize
+      td = position.memberships.map { |m| m.user.full_name}.join(', ')
+      td.actions
+        span
+          = link_to edit_unit_position_path(position) do
+            i.fa-pencil.fal
+          | &nbsp;&nbsp;
+          = link_to position, method: :delete do
+            i.fa-trash-alt.fal
+
+#unit-position.modal
+  .modal-dialog
+    .modal-content
+      = form_for @unit.unit_positions.new, url: unit_unit_positions_path(@unit) do |f|
+        .modal-header
+          h5.modal-title Add a Unit Position
+          button.close(type="button" data-dismiss="modal")
+              span &times;
+
+        .modal-body
+          .form-group
+            = f.label :name
+            = f.text_field :name, class: 'form-control', placeholder: 'Position name (e.g. Advancement Chair)'
+
+          .form-group
+            = f.label :audience
+
+            div
+              = f.radio_button :audience, 'youth'
+              | &nbsp;
+              = f.label :audience_youth, 'Youth', style: 'font-weight: 500'
+
+              | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+              = f.radio_button :audience, 'adult'
+              | &nbsp;
+              = f.label :audience_adult, 'Adult', style: 'font-weight: 500'
+
+        .modal-footer
+          button.btn.btn-outline(type="button" data-dismiss="modal") Close
+          = f.submit 'Add Position', class: 'btn btn-primary'
+
+scss:
+  tr.position td.actions span {
+    display: none;
+  }
+
+  tr.position:hover {
+    td.actions span {
+      display: block;
+    }
+  }

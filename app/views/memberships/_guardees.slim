@@ -1,16 +1,16 @@
 - content_for :post_content do
-  #add-guardian-modal.modal.fade
+  #add-guardee-modal.modal.fade
     .modal-dialog
       / we need to namespace this form because it sometimes appears on the same page as a membership
-      = form_for Membership.new, url: unit_memberships_path(@unit), remote: true, namespace: 'guardian' do |f|
+      = form_for Membership.new, url: unit_memberships_path(@unit), remote: true, namespace: 'guardee' do |f|
         .modal-content
           .modal-header
-            h5.modal-title Add a guardian
+            h5.modal-title Add a guardee
             button.close(type="button" data-dismiss="modal")
               span &times;
 
           .modal-body
-            = f.fields_for :user, f.object.build_user(type: 'Adult') do |u|
+            = f.fields_for :user, f.object.build_user(type: 'Youth') do |u|
               = u.hidden_field :type
 
               .form-group
@@ -29,42 +29,47 @@
 
           .modal-footer
             button.btn(style="margin-right: 5px;" type="button" data-dismiss="modal") Close
-            = f.submit 'Add Guardian', class: 'btn btn-primary'
+            = f.submit 'Add Guardee', class: 'btn btn-primary'
 
 .form-group(style="position: relative;")
-  label = t('user.guardians')
+  label = t('user.guardees')
 
   div(style="position: relative;")
-    = text_field_tag 'guardians', \
+    = text_field_tag 'guardees', \
       '', \
       class: 'form-control', \
       data: { role: 'tagsinput' }
 
-    = link_to '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardian-modal' }, style: 'padding: 2px;', title: 'Add a guardian'
+    = link_to '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardee-modal' }, style: 'padding: 2px;', title: 'Add a guardee' do
       i.fa-plus-circle.fas
 
-- adults    = @unit.members.adults.map { |u| { 'id' => u.id, 'name' => u.full_name } }
-- guardians = @user.guardians.map      { |u| { 'id' => u.id, 'name' => u.full_name } }
-= javascript_tag("var allAdults = #{ adults.to_json.html_safe };")
-= javascript_tag("var guardians = #{ guardians.to_json.html_safe };")
+- guardees  = @user.guardees.map       { |u| { 'id' => u.id, 'name' => u.full_name } }
+- youths    = @unit.members.youths.map { |u| { 'id' => u.id, 'name' => u.full_name } }
+= javascript_tag("var allYouths = #{ youths.to_json.html_safe };")
+= javascript_tag("var guardees =  #{ guardees.to_json.html_safe };")
 
 css:
   .bootstrap-tagsinput {
     display: block;
-    padding: 6px 12px;
+    padding: 4px 60px 4px 12px;
+  }
+
+  .tag.label.label-info {
+    display: inline-block;
+    margin: 2px 0;
   }
 
 javascript:
-  $('#guardians').tagsinput({
+  $('#guardees').tagsinput({
     itemValue: 'id',
     itemText:  'name',
     typeahead: {
-      source: allAdults
+      source: allYouths
     }
   });
 
   $(document).ready(function() {
-    guardians.forEach(function(guardian) {
-      $('#guardians').tagsinput('add', guardian);
+    guardees.forEach(function(guardee) {
+      $('#guardees').tagsinput('add', guardee);
     });
   });

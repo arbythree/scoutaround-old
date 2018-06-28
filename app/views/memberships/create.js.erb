@@ -1,0 +1,19 @@
+// hide the modal
+$('.modal').modal('toggle');
+
+// clear its contents in case user wants to do another
+$('.modal form input').val('');
+
+<% if @membership.user.type == 'Youth' %>
+
+  var newGuardee = { 'id': <%= @membership.user.id %>, 'name': '<%= @membership.user.full_name %>' };
+  $('#guardees').tagsinput('add', newGuardee);
+  allYouths.push(newGuardee);
+
+<% else %>
+
+  var newGuardian = { 'id': <%= @membership.user.id %>, 'name': '<%= @membership.user.full_name %>' };
+  $('#guardians').tagsinput('add', newGuardian);
+  allAdults.push(newGuardian);
+
+<% end %>

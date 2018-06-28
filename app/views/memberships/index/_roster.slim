@@ -6,6 +6,7 @@
 
   table.table#names-table
     tr
+      th.glyph
       th.name                 = t('people.name')
       th.type.expendable      = t('people.type')
       th.phone.expendable     = t('people.phone')
@@ -16,6 +17,11 @@
     - @memberships.each do |membership|
       - present membership.user do |member|
         tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member&.rank&.underscore&.downcase}")
+          td.glyph
+            - if member.user.type == 'Youth'
+              i.fa-user-circle.fas(title="Youth")
+            - else
+              i.fa-user-circle.fal(title="Adult")
           td.name
             = link_to membership_path(membership) do
               strong = member.user.first_name
@@ -24,6 +30,7 @@
                 = "\"#{ member.user.nickname }\""
                 |&nbsp;
               = member.user.last_name
+              = ", #{ member.user.post_nominal }" if member.user.post_nominal.present?
           td.type.expendable     = member.type
           td.phone.expendable    = member.user.phone
           td.email.expendable    = member.user.email unless member.user.anonymous_email?

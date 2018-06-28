@@ -49,9 +49,10 @@
       = u.label :name
       .row
         .col-md-12
-          = u.text_field :first_name, class: 'form-control', style: 'width: 32%; float: left;', placeholder: t('members.first_name')
-          = u.text_field :nickname, class: 'form-control', style: 'width: 32%; float: left; margin-left: 0.7rem;', placeholder: t('members.nickname')
-          = u.text_field :last_name, class: 'form-control', style: 'width: 32%; float: right;', placeholder: t('members.last_name')
+          = u.text_field :first_name,   class: 'form-control', style: 'width: 24.2%; float: left; margin-right: 1%;',  placeholder: t('members.first_name')
+          = u.text_field :nickname,     class: 'form-control', style: 'width: 24.2%; float: left; margin-right: 1%;',  placeholder: t('members.nickname')
+          = u.text_field :last_name,    class: 'form-control', style: 'width: 24.2%; float: left; margin-right: 1%;',  placeholder: t('members.last_name')
+          = u.text_field :post_nominal, class: 'form-control', style: 'width: 24.2%; float: right;', placeholder: t('members.post_nominal')
 
     #email.form-group
       = u.label :email
@@ -79,14 +80,9 @@
     /
     - if @membership.user.type == 'Youth'
       = render partial: 'guardians'
-      / #guardians.youth-only
-      /   label = t('user.guardians')
-      /   br
-      /   = u.fields_for :guardeeships do |g|
-      /     = render partial: 'guardeeship_fields', locals: { f: g }
-      /   .links
-      /     br
-      /     = link_to_add_association 'Add Guardian', u, :guardeeships, class: 'btn btn-outline-secondary btn-sm'
+
+    - elsif @membership.user.type == 'Adult'
+      = render partial: 'guardees'
 
   /
   / end fields_for user & continue form_for membership
@@ -109,3 +105,5 @@
     = t('or')
     | &nbsp;&nbsp;
     = link_to t('cancel'), unit_memberships_path(@unit), class: 'cancel'
+
+= yield(:post_content)
