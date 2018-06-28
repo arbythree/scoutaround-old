@@ -23,7 +23,7 @@ table.table
       td = position.memberships.map { |m| m.user.full_name}.join(', ')
       td.actions
         span
-          = link_to edit_unit_position_path(position), method: :delete do
+          = link_to edit_unit_position_path(position) do
             i.fa-pencil.fal
           | &nbsp;&nbsp;
           = link_to position, method: :delete do
