@@ -8,6 +8,36 @@
   .alert.alert-danger
     = @membership.errors.full_messages.first
 
+#add-guardian-modal.modal.fade
+  .modal-dialog
+    / we need to namespace this form because it sometimes appears on the same page as a membership
+    = form_for Membership.new, url: unit_memberships_path(@unit), remote: true, namespace: 'guardian' do |f|
+      .modal-content
+        .modal-header
+          h5.modal-title Add a guardian
+          button.close(type="button" data-dismiss="modal")
+            span &times;
+
+        .modal-body
+          = f.fields_for :user, f.object.build_user do |u|
+            .form-group
+              = u.label :name
+              div(style="overflow: auto;")
+                = u.text_field :first_name, placeholder: 'First', class: 'form-control', style: 'float: left; width: 48%;'
+                = u.text_field :last_name, placeholder: 'Last',   class: 'form-control', style: 'float: right; width: 48%;'
+
+            .form-group
+              = u.label :email
+              = u.email_field :email, placeholder: 'Email',     class: 'form-control'
+
+            .form-group
+              = u.label :phone
+              = u.phone_field :phone, placeholder: 'Phone',     class: 'form-control'
+
+        .modal-footer
+          button.btn(style="margin-right: 5px;" type="button" data-dismiss="modal") Close
+          = f.submit 'Add Guardian', class: 'btn btn-primary'
+
 = form_for @membership, url: url do |f|
   /
   / nested user fields
@@ -50,16 +80,9 @@
     /
     - if @membership.user.type == 'Youth'
       = render partial: 'guardians'
+
     - elsif @membership.user.type == 'Adult'
       = render partial: 'guardees'
-      / #guardians.youth-only
-      /   label = t('user.guardians')
-      /   br
-      /   = u.fields_for :guardeeships do |g|
-      /     = render partial: 'guardeeship_fields', locals: { f: g }
-      /   .links
-      /     br
-      /     = link_to_add_association 'Add Guardian', u, :guardeeships, class: 'btn btn-outline-secondary btn-sm'
 
   /
   / end fields_for user & continue form_for membership

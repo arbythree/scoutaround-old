@@ -39,6 +39,26 @@ class MembershipsController < UnitContextController
     @eligible_positions = @unit.unit_positions.where(audience: @membership.user.type.downcase).select { |p| !p.exclusive || (p.exclusive && p.memberships.none?) }
   end
 
+  def new
+    @membership = @unit.memberships.build
+    @user = @membership.build_user
+    @user.type = (params[:type] || 'youth').titleize
+    @eligible_positions = @unit.unit_positions.where(audience: @user.type.downcase)
+  end
+
+  def create
+    @membership = @unit.memberships.new(membership_params)
+    @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
+    @membership.user.password = SecureRandom.hex(12)
+    if @membership.save
+      flash[:notice] = t('memberships.new.confirm', full_name: @membership.user.full_name)
+      redirect_to unit_memberships_path(@unit)
+      return
+    end
+
+    redirect_to new_unit_membership_path(@unit)
+  end
+
   def update
     @membership.assign_attributes(membership_params)
     @membership.user.email = @user.email if @user.anonymous_email? && @membership.user.email.empty?
@@ -46,6 +66,7 @@ class MembershipsController < UnitContextController
 
     if @membership.save
       process_guardianships
+
 
       flash[:notice] = t('memberships.updated', full_name: @membership.user.full_name)
       redirect_to membership_path(@membership)
