@@ -10,7 +10,9 @@
               span &times;
 
           .modal-body
-            = f.fields_for :user, f.object.build_user do |u|
+            = f.fields_for :user, f.object.build_user(type: 'Adult') do |u|
+              = u.hidden_field :type
+
               .form-group
                 = u.label :name
                 div(style="overflow: auto;")
@@ -38,7 +40,8 @@
       class: 'form-control', \
       data: { role: 'tagsinput' }
 
-    = link_to 'Add', '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardian-modal' }
+    = link_to '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardian-modal' }, style: 'padding: 2px;', title: 'Add a guardian'
+      i.fa-plus-circle.fas
 
 - adults    = @unit.members.adults.map { |u| { 'id' => u.id, 'name' => u.full_name } }
 - guardians = @user.guardians.map      { |u| { 'id' => u.id, 'name' => u.full_name } }

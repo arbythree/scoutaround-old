@@ -7,6 +7,10 @@ FactoryBot.define do
     password 'goscoutaround'
   end
 
+  factory :user_with_post_nominal, parent: :user do
+    post_nominal 'III'
+  end
+
   factory :youth, class: Youth, parent: :user do
     first_name 'Youth'
     last_name  'Jones'

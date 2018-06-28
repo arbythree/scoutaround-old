@@ -218,6 +218,14 @@ main {
     text-decoration: line-through;
   }
 
+  tr.youth td.glyph svg {
+    color: $red;
+  }
+
+  tr.adult td.glyph svg {
+    color: $blue;
+  }
+
   .rank {
     background-size: auto 22px;
     background-repeat: no-repeat;
@@ -677,7 +685,7 @@ ul.requirements, ol.requirements {
         display: inline;
       }
     }
-    
+
     .reveal {
       font-size: 80%;
       color: darken($color_background, 30%);
@@ -950,8 +958,46 @@ label.error {
 
 a.input-embedded {
   @include sans-serif;
-  @include smaller-text;
+  // @include smaller-text;
   position: absolute;
   right: 15px;
   top: 9px;
+}
+
+ul.clean {
+  list-style: none;
+  padding-left: 0;
+}
+
+ul.ruled {
+  list-style: none;
+  padding-left: 0;
+
+  a {
+    display: block;
+    padding: 1rem;
+  }
+
+  li {
+    border-bottom: 1px solid $color_background;
+
+    &:first-child {
+      border-top: 1px solid $color_background;
+    }
+  }
+}
+
+
+@mixin settings-nav-active {
+  a {
+    color: darken($color_background, 20%);
+  }
+}
+
+body.units.edit #settings-nav-units-edit {
+  @include settings-nav-active;
+}
+
+body.magic_links.index #settings-nav-document-sharing {
+  @include settings-nav-active;
 }

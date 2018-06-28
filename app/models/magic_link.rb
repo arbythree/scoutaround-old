@@ -13,7 +13,7 @@ class MagicLink < ApplicationRecord
 
   def set_expiration_date
     # change the default lifespan in /config/settings.yml
-    self.subscription_expires_at = Settings.magic_links.default_time_to_live.hours.from_now
+    self.expires_at = Settings.magic_links.default_time_to_live.hours.from_now
   end
 
   def to_param
@@ -21,7 +21,7 @@ class MagicLink < ApplicationRecord
   end
 
   def expired?
-    self.subscription_expires_at < Time.now
+    self.expires_at < Time.now
   end
 
   def redeemed?

@@ -10,7 +10,9 @@
               span &times;
 
           .modal-body
-            = f.fields_for :user, f.object.build_user do |u|
+            = f.fields_for :user, f.object.build_user(type: 'Youth') do |u|
+              = u.hidden_field :type
+
               .form-group
                 = u.label :name
                 div(style="overflow: auto;")
@@ -38,17 +40,23 @@
       class: 'form-control', \
       data: { role: 'tagsinput' }
 
-    = link_to 'Add', '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardee-modal' }
+    = link_to '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardee-modal' }, style: 'padding: 2px;', title: 'Add a guardee' do
+      i.fa-plus-circle.fas
 
-- youths    = @unit.members.youths.map { |u| { 'id' => u.id, 'name' => u.full_name } }
 - guardees  = @user.guardees.map       { |u| { 'id' => u.id, 'name' => u.full_name } }
+- youths    = @unit.members.youths.map { |u| { 'id' => u.id, 'name' => u.full_name } }
 = javascript_tag("var allYouths = #{ youths.to_json.html_safe };")
 = javascript_tag("var guardees =  #{ guardees.to_json.html_safe };")
 
 css:
   .bootstrap-tagsinput {
     display: block;
-    padding: 6px 12px;
+    padding: 4px 60px 4px 12px;
+  }
+
+  .tag.label.label-info {
+    display: inline-block;
+    margin: 2px 0;
   }
 
 javascript:

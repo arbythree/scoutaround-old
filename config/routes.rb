@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :requirements
-  resources :users, only: [:show, :edit, :update]
+  resources :users,                                  only: [:show, :edit, :update]
   resources :event_submissions, path: 'submissions', only: [:show]
   resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
-  resources :achievements, only: [:destroy]
+  resources :achievements,                           only: [:destroy]
+  resources :unit_positions,                         only: [:edit, :destroy]
 
   resources :units do
     scope module: 'units' do
@@ -22,6 +23,7 @@ Rails.application.routes.draw do
       resources :wiki_articles,           path: 'wiki'
       resources :magic_links,             path: 'shares'
       resources :achievements,            path: 'advancement'
+      resources :unit_positions,          path: 'positions'
       get 'subscription', to: 'subscriptions#show'
     end
   end

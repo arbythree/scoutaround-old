@@ -32,7 +32,9 @@ class User < ApplicationRecord
   scope :youths, -> { where(type: 'Youth') }
 
   def full_name
-    "#{first_name} #{last_name} #{post_nominal}"
+    result = "#{first_name} #{last_name}"
+    result += ", #{post_nominal}" if post_nominal.present?
+    result
   end
 
   def short_name

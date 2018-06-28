@@ -75,12 +75,12 @@ header#primary
           - if @current_user_is_admin
             = link_to unit_achievements_path(@unit) do
               span
-                i.fas.fa-trophy
+                i.fas.fa-medal
               = t('advancement.title')
           - else
             = link_to membership_achievements_path(@membership) do
               span
-                i.fas.fa-trophy
+                i.fas.fa-medal
               = t('advancement.title')
 
         - unless true

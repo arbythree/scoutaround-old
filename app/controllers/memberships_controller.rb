@@ -35,25 +35,8 @@ class MembershipsController < UnitContextController
     @registrations = @unit.event_registrations.where(user_id: @membership.user_id)
   end
 
-  def new
-    @membership = @unit.memberships.build
-    @user = @membership.build_user
-    @user.type = (params[:type] || 'youth').titleize
-    @eligible_positions = @unit.unit_positions.where(audience: @user.type.downcase)
-  end
-
-  def create
-    @membership = @unit.memberships.new(membership_params)
-    @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
-    @membership.user.password = SecureRandom.hex(12)
-    if @membership.save
-      process_guardianships
-      flash[:notice] = t('memberships.new.confirm', full_name: @membership.user.full_name)
-      redirect_to unit_memberships_path(@unit)
-      return
-    end
-
-    redirect_to new_unit_membership_path(@unit)
+  def edit
+    @eligible_positions = @unit.unit_positions.where(audience: @membership.user.type.downcase).select { |p| !p.exclusive || (p.exclusive && p.memberships.none?) }
   end
 
   def update
@@ -71,8 +54,32 @@ class MembershipsController < UnitContextController
     end
   end
 
-  def edit
-    @eligible_positions = @unit.unit_positions.where(audience: @membership.user.type.downcase)
+  def new
+    @membership = @unit.memberships.build
+    @user = @membership.build_user
+    @user.type = (params[:type] || 'youth').titleize
+    @eligible_positions = @unit.unit_positions.where(audience: @user.type.downcase)
+  end
+
+  def create
+    @membership = @unit.memberships.new(membership_params)
+    @membership.user.email = "anonymous_#{ SecureRandom.hex(12) }@scoutaround.org" if @membership.user.email.empty?
+    @membership.user.password = SecureRandom.hex(12)
+    if @membership.save!
+      process_guardianships
+
+      respond_to do |format|
+        format.html do
+          flash[:notice] = t('memberships.new.confirm', full_name: @membership.user.full_name)
+          redirect_to unit_memberships_path(@unit)
+          return
+        end
+
+        format.js
+      end
+    else
+      redirect_to new_unit_membership_path(@unit)
+    end
   end
 
   private
@@ -91,7 +98,7 @@ class MembershipsController < UnitContextController
         puts "Guardian user id #{id}"
         @membership.user.guardeeships.where(guardian_id: id).first_or_create
       end
-    end
+    end # if params
 
     if params[:guardees].present?
       guardee_ids = params[:guardees].split(',')
@@ -106,7 +113,7 @@ class MembershipsController < UnitContextController
         puts "Guardee user id #{id}"
         @membership.user.guardianships.where(guardee_id: id).first_or_create
       end
-    end
+    end # if params
   end
 
   def find_member

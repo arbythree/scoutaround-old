@@ -19,9 +19,9 @@
         tr(class="user #{member.type.downcase} #{membership.active ? 'active' : 'inactive'} rank_#{member&.rank&.underscore&.downcase}")
           td.glyph
             - if member.user.type == 'Youth'
-              i.fa-user-circle.fas
+              i.fa-user-circle.fas(title="Youth")
             - else
-              i.fa-user-circle.fal
+              i.fa-user-circle.fal(title="Adult")
           td.name
             = link_to membership_path(membership) do
               strong = member.user.first_name

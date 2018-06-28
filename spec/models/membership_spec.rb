@@ -27,4 +27,12 @@ RSpec.describe Membership, type: :model do
     user = membership.user
     expect(user.units).to include(unit)
   end
+
+  it 'requires user' do
+    expect(FactoryBot.build(:membership, user: nil)).not_to be_valid
+  end
+
+  it 'requires unit' do
+    expect(FactoryBot.build(:membership, unit: nil)).not_to be_valid
+  end
 end
