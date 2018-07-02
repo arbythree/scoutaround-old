@@ -9,7 +9,7 @@ class Unit < ApplicationRecord
   has_many :unit_positions
   belongs_to :primary_wiki_article, class_name: 'WikiArticle', optional: true
   belongs_to :subscription_plan
-  validates_presence_of :number, :city, :state
+  validates_presence_of :number, :city, :state, :subscription_expires_at
   validates_uniqueness_of :number, scope: [:city, :state]
   before_create :set_trial_expiration
   after_create :create_unit_positions

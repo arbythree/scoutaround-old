@@ -4,6 +4,7 @@ FactoryBot.define do
     sequence(:city)   { |n| "city_#{n}"}
     sequence(:state)  { |n| "state_#{n}"}
     association :subscription_plan
+    subscription_expires_at { 1.year.from_now }
   end
 
   factory :troop, parent: :unit do
