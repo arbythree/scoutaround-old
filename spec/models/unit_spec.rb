@@ -17,4 +17,8 @@ RSpec.describe Unit, type: :model do
     unit = FactoryBot.create(:unit)
     expect(FactoryBot.build(:unit, number: unit.number, city: unit.city, state: unit.state)).not_to be_valid
   end
+
+  it 'requires expiration date' do
+    expect(FactoryBot.build(:unit, subscription_expires_at: nil)).not_to be_valid
+  end
 end

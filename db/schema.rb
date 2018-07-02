@@ -190,25 +190,6 @@ ActiveRecord::Schema.define(version: 2018_06_28_014256) do
     t.boolean "exclusive", default: true
   end
 
-  create_table "subscription_plans", force: :cascade do |t|
-    t.string "display_name"
-    t.string "internal_name"
-    t.string "sku"
-    t.string "frequency"
-    t.integer "price"
-    t.boolean "available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "unit_positions", force: :cascade do |t|
-    t.string "audience"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "unit_id"
-  end
-
   create_table "units", force: :cascade do |t|
     t.string "type"
     t.string "number"
