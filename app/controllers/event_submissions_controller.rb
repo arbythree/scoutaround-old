@@ -80,39 +80,74 @@ class EventSubmissionsController < AuthenticatedController
       description = "#{ UnitPresenter.unit_display_name(@event.unit )} #{ @event.name } #{ @submission.event_registration.user.full_name }"
 
       Stripe.api_key = ENV['STRIPE_SECRET_KEY']
-      charge = Stripe::Charge.create(
-        amount:      total.to_i,
-        currency:    'usd',
-        description: description,
-        source: {
-          exp_month: exp_month,
-          exp_year:  exp_year,
-          number:    card_number,
-          cvc:       cvc,
-          object:    'card',
-        }
-      )
+
+      if params[:remember] == '1'
+        # https://stripe.com/docs/saving-cards
+        customer = Stripe::Customer.create(
+          email: @current_user.email,
+          source: {
+            exp_month: exp_month,
+            exp_year:  exp_year,
+            number:    card_number,
+            cvc:       cvc,
+            object:    'card',
+          }
+        )
+
+
+        ap customer
+        # ap source
+        source = customer[:data][0]
+
+        @current_user.stripe_customer_id = customer[:id]
+        @current_user.cc_last_four       = source.last4
+        @current_user.save
+
+        charge = Stripe::Charge.create(
+          amount:      total.to_i,
+          currency:    'usd',
+          description: description,
+          customer:    customer.id
+        )
+      else
+        charge = Stripe::Charge.create(
+          amount:      total.to_i,
+          currency:    'usd',
+          description: description,
+          source: {
+            exp_month: exp_month,
+            exp_year:  exp_year,
+            number:    card_number,
+            cvc:       cvc,
+            object:    'card',
+          }
+        )
+      end # if save card
 
       # TODO: handle failed charges
 
-      @submission.stripe_charge_id = charge.id
+      ap charge
 
-      # TODO: save card source data if user wants us to keep it on file
+      @submission.stripe_charge_id = charge.id
+      @submission.cc_last_4        = charge.source.last4
+      @submission.cc_expiration_month = charge.source.exp_month
+      @submission.cc_expiration_year  = charge.source.exp_year
 
       if @submission.save!
         # because payment is for the entire family, let's create
         # payment submissions for them, too
         @current_user.guardees.each do |user|
-          ap user.first_name
           registration = @event.event_registrations.find_by(user: user)
-          ap registration
           if registration.present?
             submission = @event_requirement.event_submissions.new(
-              event_registration: registration,
-              submitter: @current_user
+              event_registration:  registration,
+              submitter:           @current_user,
+              stripe_charge_id:    charge.id,
+              cc_last_4:           charge.source.last4,
+              cc_expiration_month: charge.source.exp_month,
+              cc_expiration_year:  charge.source.exp_year
             )
             submission.save!
-            ap submission
           end
         end
 
@@ -144,7 +179,7 @@ class EventSubmissionsController < AuthenticatedController
   def submission_params
     params
       .require(:event_submission)
-      .permit(:event_registration_id, :event_requirement_id, :attachment)
+      .permit(:event_registration_id, :event_requirement_id, :attachment, :remember)
       .merge({ submitter: @current_user })
   end
 end

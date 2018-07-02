@@ -57,7 +57,7 @@ after :ranks, :unit_positions, :subscription_plans do
     council:                      'Westchester Putnam',
     district:                     'Algonquin',
     subscription_plan:            SubscriptionPlan.find_by(sku: 'monthly')
-  ).first_or_create!
+  ).first_or_create
 
   pack = Pack.where(
     number:                       '33',
@@ -68,7 +68,7 @@ after :ranks, :unit_positions, :subscription_plans do
     council:                      'Westchester Putnam',
     district:                     'Algoqiun',
     subscription_plan:            SubscriptionPlan.find_by(sku: 'annual')
-  ).first_or_create!
+  ).first_or_create
 
   User.all.each do |user|
     troop.memberships.where(user: user).first_or_create

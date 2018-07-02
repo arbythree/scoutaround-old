@@ -1,0 +1,16 @@
+- crumbtrail link_to(UnitPresenter.unit_display_name(@unit), unit_path(@unit))
+- crumbtrail t('units.settings', unit_type: @unit.type)
+- crumbtrail 'Payments'
+
+h2 How payments work
+p Scoutaround uses #{ link_to 'Stripe', 'https://stripe.com' }, an industry-leading provider of payment services. Stripe is fully #{ link_to 'PCI-compliant', 'https://www.pcisecuritystandards.org/' } and all transactions that run through it are secure. Scoutaround never stores credit card information; instead, credit card information is securely passed to Stripe and exchanged for a set of secure tokens that are stored in Scoutaround. These secure tokens allow Scoutaround to optionally store your members' credit card information for their convenience, without exposing Scoutaround or your unit to unnecessary risk.
+
+h2 Connecting to your bank
+p During the setup process, Stripe will ask for your bank routing and account information or a debit card number. You'll need access to this information to complete the setup.
+
+h2 Transaction fees
+p Stripe charges 2.9% plus $0.30 for each transaction it processes. You can choose to have your unit cover those costs, or you can pass them along to your members. You can make that decision on a per-event basis. If you don't want to incur those transaction fees, you can collect funds from your members using conventional means such as check or cash. Scoutaround lets you easily log receipt of conventional funds.
+
+p(style="text-align: center;")
+  br
+  = link_to 'Got it. Let\'s get started', stripe_connect_path, class: 'btn btn-primary'

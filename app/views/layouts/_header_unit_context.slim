@@ -1,3 +1,8 @@
+- roles = []
+- @membership = @unit.memberships.find_by(user: @current_user)
+- roles << @membership.unit_position.name if @membership.unit_position.present?
+- roles << @membership.role.titleize      if @membership.role.present?
+
 header#mobile
   nav
     a#mobile(href="#")
@@ -25,6 +30,7 @@ header#primary
           = t('hello', name: @current_user.first_name)
           | &nbsp;
           i.fa-chevron-down.fas
+          .role = roles.join(' / ')
 
         .dropdown-menu
 
@@ -92,7 +98,7 @@ header#primary
 
         - if @membership.role == 'admin'
           li#nav-item-unit-settings
-            = link_to edit_unit_path(@unit) do
+            = link_to unit_unit_path(@unit) do
               span
                 i.fas.fa-screwdriver
               = t('units.settings', unit_type: @unit.type)

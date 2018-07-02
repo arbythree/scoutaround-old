@@ -1,0 +1,19 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail t('announcements.title')
+
+- content_for :title do
+  h1 = UnitPresenter.unit_display_name(@unit)
+  p = "#{ @unit.city }, #{ @unit.state }"
+
+ul.ruled
+  li = link_to 'Basic Settings',   unit_unit_info_path(@unit)
+  li = link_to 'Document Sharing', unit_magic_links_path(@unit)
+  li = link_to 'Unit Positions',   unit_unit_positions_path(@unit)
+  - if @unit.accepts_payments?
+    li = link_to 'Payments'
+  - else
+    li = link_to 'Set Up Payments', stripe_connect_path
+  li = link_to 'Export Roster',    unit_memberships_path(@unit, format: :csv)
+  li = link_to 'Import Member Spreadsheet', new_unit_membership_import_path(@unit)
+  - if ENV['ENFORCE_EXPIRATIONS'].present?
+    li = link_to 'Subscription', unit_subscription_path(@unit)

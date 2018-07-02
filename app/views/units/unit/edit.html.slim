@@ -2,12 +2,7 @@
 - crumbtrail t('units.settings', unit_type: @unit.type)
 
 .row
-  .col-md-3
-    = render partial: 'units/settings_nav'
-
-  .col-md-1
-
-  .col-md-8
+  .col-md-12
     = render partial: 'layouts/admin_badge'
     h4 = t('units.settings', unit_type: @unit.type)
     h1 = UnitPresenter.unit_display_name(@unit)

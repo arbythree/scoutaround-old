@@ -1,9 +1,14 @@
+- cc_mask = ''
+
+- if @current_user.stripe_customer_id.present?
+  - cc_mask = "*******#{ @current_user.cc_last_four }"
+
 = form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
   = f.hidden_field :event_registration_id
   .form-group
     = label_tag :card_number
     div(style="position: relative;")
-      = text_field_tag :card_number, '', class: 'form-control', placeholder: 'Credit card number', pattern: '[\d ]*'
+      = text_field_tag :card_number, cc_mask, class: 'form-control', placeholder: 'Credit card number', pattern: '[\d ]*'
       .card-art
         i.fab.fa-cc-visa
         i.fab.fa-cc-amex

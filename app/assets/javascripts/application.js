@@ -23,5 +23,5 @@
 //= require jquery.validate
 //= require jquery.validate.additional-methods
 //= require local-time
-//= require jquery-ui
+// require jquery-ui // < commenting out on 1 July as it was messing up tooltips
 //= require bootstrap-tagsinput

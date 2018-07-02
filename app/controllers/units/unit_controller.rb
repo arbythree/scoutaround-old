@@ -1,6 +1,10 @@
-class UnitsController < UnitContextController
+class Units::UnitController < AuthenticatedController
+  include UnitContext
+  layout 'narrow'
+
   def show
     @upcoming_events = @unit.events.upcoming
+    session[:unit_id] = @unit.id # kludge alert: the Stripe callback URL can't be dynamic, so we need to cache the unit we're setting up
   end
 
   def edit
@@ -23,4 +27,8 @@ class UnitsController < UnitContextController
   def unit_params
     params.require(:unit).permit(:city, :state, :council, :district, :chartering_organization_name, :time_zone)
   end
+
+  # def find_unit
+  #   @unit = Unit.find(params[:id])
+  # end
 end

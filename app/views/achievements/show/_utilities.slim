@@ -1,8 +1,7 @@
 - if @current_user_is_admin
   .admin.dropdown
     = link_to '#', data: { toggle: 'dropdown' }, title: t('actions_and_options'), class: 'glyph' do
-      span(data-toggle="tooltip" title="")
-        = render partial: 'layouts/campfire'
+      = render partial: 'layouts/campfire'
     .dropdown-menu.dropdown-menu-right
       = link_to new_membership_achievement_path(@membership, type: 'merit_badge'), class: 'dropdown-item admin', title: t('admin_only') do
         i.fa-tree.fal
