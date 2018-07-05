@@ -1003,3 +1003,9 @@ body.units.edit #settings-nav-units-edit {
 body.magic_links.index #settings-nav-document-sharing {
   @include settings-nav-active;
 }
+
+body.card-on-file {
+  #payment-credentials {
+    display: none;
+  }
+}

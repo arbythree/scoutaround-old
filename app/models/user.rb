@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :achievements
   has_many :merit_badges, -> { where(type: 'MeritBadge') }, through: :achievements, source: :achievable
   has_many :user_preferences
+  has_one  :payment_method
   has_one_attached :avatar
 
   #

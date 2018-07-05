@@ -94,14 +94,20 @@ class EventSubmissionsController < AuthenticatedController
           }
         )
 
-
-        ap customer
-        # ap source
-        source = customer[:data][0]
+        source = customer[:sources][:data][0]
 
         @current_user.stripe_customer_id = customer[:id]
-        @current_user.cc_last_four       = source.last4
         @current_user.save
+
+        @payment_method = PaymentMethod.where(user: @current_user).first_or_create
+
+        # save the credit card display information to the database
+        @payment_method.update_attributes(
+          last4:            source[:last4],
+          expiration_month: source[:exp_month],
+          expiration_year:  source[:exp_year],
+          brand:            source[:brand],
+        )
 
         charge = Stripe::Charge.create(
           amount:      total.to_i,
