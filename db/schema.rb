@@ -264,7 +264,6 @@ ActiveRecord::Schema.define(version: 2018_07_02_224907) do
     t.integer "invitations_count", default: 0
     t.date "date_of_birth"
     t.string "post_nominal"
-    t.string "cc_last_four"
     t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

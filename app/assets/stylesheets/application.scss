@@ -345,6 +345,12 @@ table.checklist {
       font-weight: 600;
     }
   }
+
+  tr.completed {
+    td.status {
+      color: $green;
+    }
+  }
 }
 
 .card .table {
