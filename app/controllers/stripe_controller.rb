@@ -1,4 +1,6 @@
 class StripeController < AuthenticatedController
+  layout 'narrow'
+
   #
   # this is the return route from Stripe Connect.
   # See https://stripe.com/docs/connect/quickstart for more
@@ -20,6 +22,11 @@ class StripeController < AuthenticatedController
 
     flash[:notice] = t('units.success.payment_setup')
     session[:unit_id] = nil
-    redirect_to edit_unit_path(@unit)
+    redirect_to unit_unit_path(@unit)
+  end
+
+  def show
+    @unit = Unit.find(params[:unit_id])
+    session[:unit_id] = @unit.id # kludge alert: the Stripe callback URL can't be dynamic, so we need to cache the unit we're setting up
   end
 end

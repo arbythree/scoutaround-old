@@ -18,8 +18,6 @@
 
 @import "bootstrap";
 
-
-
 $blue:              #7D9E9C;
 $green:             #006B3F;
 $color_brand:       #BA160C; // eng
@@ -197,6 +195,11 @@ main {
   border-radius: 10px;
   box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
   min-height: 15rem;
+
+  &.narrow {
+    max-width: 720px;
+    // padding: 3rem;
+  }
 }
 
 // label {
@@ -340,6 +343,12 @@ table.checklist {
     }
     td.name {
       font-weight: 600;
+    }
+  }
+
+  tr.completed {
+    td.status {
+      color: $green;
     }
   }
 }
@@ -999,4 +1008,10 @@ body.units.edit #settings-nav-units-edit {
 
 body.magic_links.index #settings-nav-document-sharing {
   @include settings-nav-active;
+}
+
+body.card-on-file {
+  #payment-credentials {
+    display: none;
+  }
 }

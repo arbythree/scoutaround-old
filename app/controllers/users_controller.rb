@@ -1,5 +1,6 @@
 class UsersController < AuthenticatedController
   before_action :find_user
+  layout 'narrow'
 
   def show
   end

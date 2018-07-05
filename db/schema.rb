@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_28_014256) do
+ActiveRecord::Schema.define(version: 2018_07_02_224907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,9 @@ ActiveRecord::Schema.define(version: 2018_06_28_014256) do
     t.datetime "due_at"
     t.boolean "waived", default: false
     t.string "stripe_charge_id"
+    t.string "cc_last_4"
+    t.string "cc_expiration_month"
+    t.string "cc_expiration_year"
   end
 
   create_table "events", force: :cascade do |t|
@@ -161,6 +164,17 @@ ActiveRecord::Schema.define(version: 2018_06_28_014256) do
     t.string "pingees"
   end
 
+  create_table "payment_methods", force: :cascade do |t|
+    t.integer "user_id"
+    t.string "last4"
+    t.integer "expiration_month"
+    t.integer "expiration_year"
+    t.string "brand"
+    t.string "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "prototype_positions", force: :cascade do |t|
     t.string "program_code"
     t.string "audience"
@@ -188,25 +202,6 @@ ActiveRecord::Schema.define(version: 2018_06_28_014256) do
     t.datetime "updated_at", null: false
     t.integer "unit_id"
     t.boolean "exclusive", default: true
-  end
-
-  create_table "subscription_plans", force: :cascade do |t|
-    t.string "display_name"
-    t.string "internal_name"
-    t.string "sku"
-    t.string "frequency"
-    t.integer "price"
-    t.boolean "available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "unit_positions", force: :cascade do |t|
-    t.string "audience"
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "unit_id"
   end
 
   create_table "units", force: :cascade do |t|
@@ -269,6 +264,7 @@ ActiveRecord::Schema.define(version: 2018_06_28_014256) do
     t.integer "invitations_count", default: 0
     t.date "date_of_birth"
     t.string "post_nominal"
+    t.string "stripe_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"

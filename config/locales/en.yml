@@ -183,6 +183,15 @@ en:
     life:         'Life'
     eagle:        'Eagle'
 
+  unit_positions:
+    title:     'Add a Unit Position'
+    audience:  'Audience'
+    youth:     'Youth'
+    adult:     'Adult'
+    exclusive: 'Exclusive (can only be held by one person at a time)'
+    placeholders:
+      name:    'Position name (e.g. Advancement Chair)'
+
   announcements:
     title:  'Announcements'
 

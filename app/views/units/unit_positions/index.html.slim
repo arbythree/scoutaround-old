@@ -34,14 +34,14 @@ table.table
     .modal-content
       = form_for @unit.unit_positions.new, url: unit_unit_positions_path(@unit) do |f|
         .modal-header
-          h5.modal-title Add a Unit Position
+          h5.modal-title = t('unit_positions.title')
           button.close(type="button" data-dismiss="modal")
               span &times;
 
         .modal-body
           .form-group
             = f.label :name
-            = f.text_field :name, class: 'form-control', placeholder: 'Position name (e.g. Advancement Chair)'
+            = f.text_field :name, class: 'form-control', placeholder: t('unit_positions.placeholders.name')
 
           .form-group
             = f.label :audience
@@ -49,13 +49,19 @@ table.table
             div
               = f.radio_button :audience, 'youth'
               | &nbsp;
-              = f.label :audience_youth, 'Youth', style: 'font-weight: 500'
+              = f.label :audience_youth, t('unit_positions.youth'), style: 'font-weight: 500'
 
               | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
               = f.radio_button :audience, 'adult'
               | &nbsp;
-              = f.label :audience_adult, 'Adult', style: 'font-weight: 500'
+              = f.label :audience_adult, t('unit_positions.adult'), style: 'font-weight: 500'
+
+          .form-group
+            div
+              = f.check_box :exclusive
+              | &nbsp;
+              = f.label :exclusive, t('unit_positions.exclusive')
 
         .modal-footer
           button.btn.btn-outline(type="button" data-dismiss="modal") Close

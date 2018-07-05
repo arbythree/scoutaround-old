@@ -1,5 +1,6 @@
 class Api::UnitsController < Api::ApiController
   before_action :find_unit
+  layout 'narrow'
 
   def show
     render json: @unit

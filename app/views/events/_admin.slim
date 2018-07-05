@@ -1,7 +1,6 @@
 .admin.dropdown
   = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('actions_and_options')}")
-      = render partial: 'layouts/campfire'
+    = render partial: 'layouts/campfire'
 
   .dropdown-menu.dropdown-menu-right
     = link_to edit_event_path(@event), class: 'dropdown-item admin', title: t('admin_only') do

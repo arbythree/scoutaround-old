@@ -8,13 +8,17 @@ Rails.application.routes.draw do
   end
 
   resources :requirements
-  resources :users,                                  only: [:show, :edit, :update]
+  resources :users,                                  only: [:edit, :update]
   resources :event_submissions, path: 'submissions', only: [:show]
   resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
   resources :achievements,                           only: [:destroy]
   resources :unit_positions,                         only: [:edit, :destroy]
 
-  resources :units do
+
+  resources :units, path: '/' do
+    get '/', to: 'units/events#index'
+    get '/payments/setup', to: 'stripe#show'
+
     scope module: 'units' do
       resources :membership_imports
       resources :events
@@ -25,6 +29,8 @@ Rails.application.routes.draw do
       resources :achievements,            path: 'advancement'
       resources :unit_positions,          path: 'positions'
       get 'subscription', to: 'subscriptions#show'
+      get 'unit',         to: 'unit#show'
+      get 'unit/info',    to: 'unit#edit'
     end
   end
 

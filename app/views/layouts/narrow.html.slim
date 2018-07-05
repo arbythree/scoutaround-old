@@ -14,7 +14,7 @@ html
     - header_partial = @unit.present? ? 'header_unit_context' : 'header'
     = render partial: "layouts/#{ header_partial }"
 
-    main
+    main.narrow
       - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
         .alert.alert-warning
           i.fa-exclamation-triangle.far
@@ -53,8 +53,8 @@ html
           .col-md-12
             = yield
 
-/ https://www.nicholasshirley.com/using-font-awesome-5-and-the-rails-asset-pipeline/
 javascript:
+  // https://www.nicholasshirley.com/using-font-awesome-5-and-the-rails-asset-pipeline/
   $(document).on("turbolinks:load", function() {
     return FontAwesome.dom.i2svg();
   });
