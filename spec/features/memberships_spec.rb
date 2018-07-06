@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Membership features", :type => :feature do
   before do
-    @user = FactoryBot.create(:adult)
-    @unit = FactoryBot.create(:troop)
-    @membership = Membership.create(user: @user, unit: @unit, role: :admin)
-    visit new_user_session_path
-    fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: 'goscoutaround'
-    click_on I18n.t('auth.sign_in')
+    sign_in # see spec/support/feature_spec_helper
     first(:link, I18n.t('members.roster')).click
   end
 
@@ -19,7 +13,6 @@ RSpec.feature "Membership features", :type => :feature do
   it 'shows a membership' do
     visit membership_path(@membership)
     expect(page).to have_current_path(membership_path(@membership))
-    # expect(page).to have_content(@user.full_name)
   end
 
   it 'adds a new Youth' do

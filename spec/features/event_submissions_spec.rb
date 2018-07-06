@@ -2,16 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "Event submissions features", :type => :feature do
   before do
-    @user = FactoryBot.create(:adult)
-    @unit = FactoryBot.create(:troop)
-    @event = FactoryBot.create(:event, unit: @unit)
-    @requirement = @event.event_requirements.create(description: 'required document', type: 'DocumentEventRequirement')
-    @registration = @event.event_registrations.create(user: @user)
-    Membership.create(user: @user, unit: @unit, role: :admin)
-    visit new_user_session_path
-    fill_in 'user_email', with: @user.email
-    fill_in 'user_password', with: 'goscoutaround'
-    click_on I18n.t('auth.sign_in')
+    sign_in # see spec/support/feature_spec_helper
   end
 
   it 'uploads a submission' do
