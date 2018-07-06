@@ -4,6 +4,11 @@
 
 class EventsController < UnitContextController
   before_action :find_event, except: [:index, :new, :create]
+  layout :choose_layout
+
+  def choose_layout
+    'application'
+  end
 
   def index
     @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)

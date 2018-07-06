@@ -3,11 +3,11 @@
     = render partial: 'layouts/campfire'
 
   .dropdown-menu.dropdown-menu-right
-    = link_to edit_event_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to edit_unit_event_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fal
       = t('events.edit')
 
-    = link_to event_event_registrations_path(@event), class: 'dropdown-item admin', title: t('admin_only') do
+    = link_to unit_event_event_registrations_path(@unit, @event), class: 'dropdown-item admin', title: t('admin_only') do
       i.fa-tree.fal
       = t('events.registrations')
 

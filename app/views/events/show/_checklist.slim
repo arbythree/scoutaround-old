@@ -32,7 +32,7 @@
                 = user.first_name
 
               td.event-requirement
-                = link_to event_event_registrations_path(@event, user: user), method: :post, data: { toggle: 'tooltip' }, title: t('registrations.ctas.register') do
+                = link_to unit_event_event_registrations_path(@unit, @event, user: user), method: :post, data: { toggle: 'tooltip' }, title: t('registrations.ctas.register') do
                   i.fal.fa-clipboard-list
 
   .col-md-8

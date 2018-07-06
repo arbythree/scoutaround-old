@@ -21,7 +21,9 @@ Rails.application.routes.draw do
 
     scope module: 'units' do
       resources :membership_imports
-      resources :events
+      resources :events do
+        resources :event_registrations,   path: 'registrations'
+      end
       resources :memberships,             path: 'members'
       resources :document_library_items,  path: 'documents'
       resources :wiki_articles,           path: 'wiki'
