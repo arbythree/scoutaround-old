@@ -4,7 +4,7 @@ ul.ruled
     li
       = link_to 'Payments', ''
   - else
-    li = link_to 'Set Up Payments', stripe_connect_path
+    li = link_to t('units.settings.set_up_payments'), unit_payments_path(@unit)
 
   li#settings-nav-document-sharing = link_to 'Document Sharing', unit_magic_links_path(@unit)
   li = link_to 'Import Member Spreadsheet', new_unit_membership_import_path(@unit)

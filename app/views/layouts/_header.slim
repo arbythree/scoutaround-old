@@ -95,7 +95,7 @@ header#primary
             = link_to edit_unit_path(@unit) do
               span
                 i.fas.fa-screwdriver
-              = t('units.settings', unit_type: @unit.type)
+              = t('units.settings.title', unit_type: @unit.type)
 
 header#secondary.crumbtrail
   - separator = raw('&nbsp;&nbsp;/&nbsp;&nbsp;')

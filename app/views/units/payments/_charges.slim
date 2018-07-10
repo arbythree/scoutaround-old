@@ -1,0 +1,15 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('units.settings.title', unit_type: @unit.type.titleize)
+- crumbtrail t('payments.title')
+
+- content_for :title do
+  h1 = t('payments.title')
+
+= render partial: 'units/payments/none' unless false
+
+table.table
+  - @charges.each do |charge|
+
+- account = Stripe::Account.retrieve(@unit.stripe_customer_id)
+- link_data = account.login_links.create()
+= link_to 'Your Stripe Dashboard', link_data['url']

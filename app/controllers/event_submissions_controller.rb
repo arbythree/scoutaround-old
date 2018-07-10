@@ -109,14 +109,14 @@ class EventSubmissionsController < AuthenticatedController
           brand:            source[:brand],
         )
 
-        charge = Stripe::Charge.create(
+        charge = Stripe::Charge.create({
           amount:      total.to_i,
           currency:    'usd',
           description: description,
           customer:    customer.id
-        )
+        }, stripe_account: @unit.stripe_user_id)
       else
-        charge = Stripe::Charge.create(
+        charge = Stripe::Charge.create({
           amount:      total.to_i,
           currency:    'usd',
           description: description,
@@ -127,7 +127,7 @@ class EventSubmissionsController < AuthenticatedController
             cvc:       cvc,
             object:    'card',
           }
-        )
+        }, stripe_account: @unit.stripe_user_id)
       end # if save card
 
       # TODO: handle failed charges

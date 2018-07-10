@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     get '/payments/setup', to: 'stripe#show'
 
     scope module: 'units' do
+      resources :payments
       resources :membership_imports
       resources :events do
         resources :event_registrations,   path: 'registrations'
