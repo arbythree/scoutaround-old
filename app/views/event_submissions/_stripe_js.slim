@@ -1,0 +1,70 @@
+#payment-credentials
+  .form-group(style="margin-bottom: 6px;")
+    #card-element
+    #card-errors
+
+  .form-group
+    = check_box_tag :remember
+    | &nbsp;&nbsp;
+    = label_tag :remember, 'Remember payment details'
+
+javascript:
+  var stripe = Stripe('#{ENV['STRIPE_PUBLISHABLE_KEY']}');
+  var elements = stripe.elements();
+
+  /*
+  TODO: try making this work
+  var elements = stripe.elements({
+    fonts: [
+      { cssSrc: 'https://cloud.typography.com/7513036/6345792/css/fonts.css' }
+    ]
+  });
+  */
+
+  var card = elements.create('card', {
+    classes: {
+      base: 'form-control'
+    },
+    style: {
+      base: {
+        // fontFamily: 'Sentinel SSm A, Sentinel SSm B',
+        fontSize: '16px'
+      }
+    }
+  });
+  card.mount('#card-element');
+  card.addEventListener('change', function(event) {
+    var displayError = $('#card-errors');
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = '';
+    }
+  });
+
+  $('form#new_event_submission').submit(function(event) {
+    var cardOnFile = $('input[name=card_on_file]:checked').val();
+    if (cardOnFile == 'use') {
+      return;
+    }
+
+    event.preventDefault();
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        var errElem = $('#card-errors');
+        errElem.textContent = result.error.message;
+      } else {
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
+
+  function stripeTokenHandler(token) {
+    var form = document.getElementById('new_event_submission');
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'stripe_token');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
+    form.submit();
+  }

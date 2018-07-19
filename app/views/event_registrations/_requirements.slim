@@ -3,4 +3,4 @@
   .card-body
     ul
       - @event.event_requirements.each do |requirement|
-        li = link_to requirement.description, event_requirement_path(requirement)
+        li = link_to requirement.description, unit_event_event_requirement_path(@unit, @event, requirement)

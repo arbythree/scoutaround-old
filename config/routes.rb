@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   resources :achievements,                           only: [:destroy]
   resources :unit_positions,                         only: [:edit, :destroy]
 
-
   resources :units, path: '/' do
     get '/', to: 'units/events#index'
     get '/payments/setup', to: 'stripe#show'
@@ -24,7 +23,13 @@ Rails.application.routes.draw do
       resources :membership_imports
       resources :events do
         resources :event_registrations,   path: 'registrations'
+        resources :event_requirements,    path: 'requirements'
+        resources :event_submissions,     path: 'submissions'
       end
+      resources :event_requirements,      path: 'requirements' do
+        resources :event_submissions,     path: 'submissions'
+      end
+      resources :event_submissions,       path: 'submissions'
       resources :memberships,             path: 'members'
       resources :document_library_items,  path: 'documents'
       resources :wiki_articles,           path: 'wiki'

@@ -273,3 +273,7 @@ en:
 
   payments:
     title:        'Payments'
+    columns:
+      date_time:  'Date / Time'
+      amount:     'Amount'
+      id:         'Transaction ID'

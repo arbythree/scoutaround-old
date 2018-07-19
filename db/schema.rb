@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_02_224907) do
+ActiveRecord::Schema.define(version: 2018_07_17_222447) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(version: 2018_07_02_224907) do
     t.string "cc_last_4"
     t.string "cc_expiration_month"
     t.string "cc_expiration_year"
+    t.integer "payment_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -171,6 +172,17 @@ ActiveRecord::Schema.define(version: 2018_07_02_224907) do
     t.integer "expiration_year"
     t.string "brand"
     t.string "stripe_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.string "external_id"
+    t.integer "amount"
+    t.string "brand"
+    t.string "last4"
+    t.integer "expiration_month"
+    t.integer "expiration_year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -17,7 +17,7 @@
 //= require activestorage
 //= require popper
 //= require bootstrap-sprockets
-//= require bootstrap-datepicker
+//= require bootstrap-datepicker/core
 //= require cleave
 //= require cocoon
 //= require jquery.validate

@@ -56,8 +56,9 @@ after :ranks, :unit_positions, :subscription_plans do
     chartering_organization_name: 'Immaculate Heart of Mary Church',
     council:                      'Westchester Putnam',
     district:                     'Algonquin',
-    subscription_plan:            SubscriptionPlan.find_by(sku: 'monthly')
-  ).first_or_create
+    subscription_plan:            SubscriptionPlan.find_by(sku: 'monthly'),
+    subscription_expires_at:      1.year.from_now
+  ).first_or_create!
 
   pack = Pack.where(
     number:                       '33',
@@ -67,11 +68,12 @@ after :ranks, :unit_positions, :subscription_plans do
     chartering_organization_name: 'St. Augustine\'s Church',
     council:                      'Westchester Putnam',
     district:                     'Algoqiun',
-    subscription_plan:            SubscriptionPlan.find_by(sku: 'annual')
-  ).first_or_create
+    subscription_plan:            SubscriptionPlan.find_by(sku: 'annual'),
+    subscription_expires_at:      1.year.from_now
+  ).first_or_create!
 
   User.all.each do |user|
-    troop.memberships.where(user: user).first_or_create
+    troop.memberships.where(user: user).first_or_create!
   end
 
   # set up cub pack

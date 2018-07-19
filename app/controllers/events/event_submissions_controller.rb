@@ -6,6 +6,8 @@ class Events::EventSubmissionsController < EventSubmissionsController
   def new
     @submission = EventSubmission.new
 
+    @event_registration = EventRegistration.find(params[:registration])
+
     # iterate through all event registrations and determine whether current user is allowed to
     # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
     # on their own behalf. Guardian can submit on behalf of their guardees. All others are prohibited.

@@ -27,17 +27,14 @@
         = image_tag rails_blob_path(@user.avatar), style: 'max-width: 100%;' if @user.avatar.attached?
         = f.file_field :avatar, class: 'form-control'
 
+      - if @user.card_on_file?
+        .form-group
+          = f.label :payment_method
+          .form-control
+            = "#{ @user.payment_method.brand} ending in #{ @user.payment_method.last4 }"
+            = ", expires #{ @user.payment_method.expiration_month}/#{ @user.payment_method.expiration_year }"
+
       .form-group
         = f.submit "Update", class: 'btn btn-primary'
-
-      - if @user.payment_method.present?
-        .form-group
-          h4 Payment method
-          = @user.payment_method.brand
-          = @user.payment_method.last4
-          = @user.payment_method.expiration_month
-          | /
-          = @user.payment_method.expiration_year
-
 
     = link_to "Back", :back

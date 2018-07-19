@@ -4,7 +4,7 @@ module FeatureSpecHelper
     @user         = FactoryBot.create(:adult)
     @unit         = FactoryBot.create(:troop)
     @event        = FactoryBot.create(:event, unit: @unit)
-    @requirement = @event.event_requirements.create(description: 'required document', type: 'DocumentEventRequirement')
+    @requirement  = @event.event_requirements.create(description: 'required document', type: 'DocumentEventRequirement')
     @registration = @event.event_registrations.create(user: @user)
     @membership   = Membership.create(user: @user, unit: @unit, role: :admin)
 

@@ -3,6 +3,7 @@ class EventSubmission < ApplicationRecord
   belongs_to :event_registration
   belongs_to :approver, class_name: 'User', optional: true
   belongs_to :submitter, class_name: 'User'
+  belongs_to :payment, optional: true
   validates_uniqueness_of :event_requirement, scope: :event_registration # don't allow dupes
   validates_presence_of :event_requirement
   validates_presence_of :event_registration
