@@ -28,8 +28,8 @@ tr(class="#{ is_complete ? 'completed' : 'pending' }")
   td(class="event-requirement event-requirement-#{requirement.type} #{ is_complete ? 'event-requirement-complete' : 'event-requirement-incomplete' }")
     - if is_complete
     - elsif requirement.is_a?(DocumentEventRequirement)
-      = link_to new_event_requirement_event_submission_path(requirement, registration: registration), data: { toggle: 'tooltip' }, title: "Click to upload #{ user.first_name }'s completed #{ requirement.description }", style: 'display: inline;' do
+      = link_to new_unit_event_requirement_event_submission_path(@unit, requirement, registration: registration), data: { toggle: 'tooltip' }, title: "Click to upload #{ user.first_name }'s completed #{ requirement.description }", style: 'display: inline;' do
         i.fas.fa-cloud-upload
     - elsif requirement.is_a?(FeeEventRequirement) && @unit.accepts_payments?
-      = link_to new_event_requirement_event_submission_path(requirement, registration: registration), data: { toggle: 'tooltip' }, title: t('registrations.cta_payment') do
+      = link_to new_unit_event_requirement_event_submission_path(@unit, requirement, registration: registration), data: { toggle: 'tooltip' }, title: t('registrations.cta_payment') do
         i.fal.fa-credit-card

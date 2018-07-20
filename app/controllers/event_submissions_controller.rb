@@ -110,7 +110,7 @@ class EventSubmissionsController < AuthenticatedController
           person: @submission.event_registration.user.full_name,
           document_name: @submission.event_requirement.description
         )
-        redirect_to event_event_registrations_path(@event)
+        redirect_to unit_event_path(@unit, @event)
       end
     end
   end
@@ -236,8 +236,8 @@ class EventSubmissionsController < AuthenticatedController
   end
 
   def find_event_registration
-    return unless params[:event_registration_id].present?
-    @event_registration = EventRegistration.find(params[:event_registration_id])
+    return unless params[:registration].present?
+    @event_registration = EventRegistration.find(params[:registration])
     @event = @event_registration.event
   end
 

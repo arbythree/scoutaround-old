@@ -1,6 +1,6 @@
 - requirements = @event.event_requirements.where(type: 'DocumentEventRequirement')
 - if requirements.count == 1
--   @submission.event_requirement = requirements.first
+  - @submission.event_requirement = requirements.first
 
 .row
   .col-md-3
@@ -12,21 +12,21 @@
       = f.hidden_field :event_requirement_id
       .form-group
         = f.label :user, t('registrations.registrant')
-        = f.collection_select :event_registration_id, @visible_event_registrations, :id, :full_name, {prompt: 'Select a registrant'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+        = f.collection_select :event_registration_id, @visible_event_registrations, :id, :full_name, { prompt: 'Select a registrant' }, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
         = f.label :item, t('registrations.submission_item')
-        = f.collection_select :event_requirement_id, requirements, :id, :description, {prompt: 'Choose an item'}, class: 'form-control', onchange: 'checkSubmissionStatus();'
+        = f.collection_select :event_requirement_id, requirements, :id, :description, { prompt: 'Choose an item', selected: @submission.event_requirement_id }, class: 'form-control', onchange: 'checkSubmissionStatus();'
 
       .form-group
         = f.label :attachment
         = f.file_field :attachment, direct_upload: true, multiple: false, accept: '.pdf', class: 'form-control'
 
-      - unless @submission.event_requirement.required
-        #waive.form-group
-          = f.check_box :waived
-          = f.label :waived
-          small t('submissions.waive_blurb')
+      / - unless @submission.event_requirement.required
+      /   #waive.form-group
+      /     = f.check_box :waived
+      /     = f.label :waived
+      /     small t('submissions.waive_blurb')
 
       .form-group
         = f.submit I18n.t('submissions.upload'), class: 'btn btn-primary'
@@ -46,17 +46,20 @@
 
 javascript:
   function checkSubmissionStatus() {
-    var registrationId = $('#event_submission_event_registration_id').val();
-    var requirementId = $('#event_submission_event_requirement_id').val();
+    var $registrationIdSelect = $('#event_submission_event_registration_id option:checked');
+    var $requirementIdSelect  = $('#event_submission_event_requirement_id option:checked');
+    var registrationId = $registrationIdSelect.val();
+    var requirementId  = $requirementIdSelect.val();
 
     if (registrationId == '' || requirementId == '') {
       return;
     }
 
-    var registrantName = $('#event_submission_event_registration_id option:selected').text();
-    var itemName = $('#event_submission_event_requirement_id option:selected').text();
+    var registrantName = $('#event_submission_event_registration_id option:checked').text();
+    var itemName = $('#event_submission_event_requirement_id option:checked').text();
 
     var url = '/events/' + "#{@event.id}" + '/submissions.json?registration=' + registrationId + '&requirement=' + requirementId;
+
     $.getJSON(url, function(data) {
       if (data.length > 0) {
         $('#submission-dupe-message').html(registrantName + ' has already submitted a ' + itemName + '. Uploading again will overwrite the previous submission.');
