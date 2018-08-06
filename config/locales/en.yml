@@ -192,8 +192,11 @@ en:
     youth:     'Youth'
     adult:     'Adult'
     exclusive: 'Exclusive (can only be held by one person at a time)'
+    exclusive_index: ' (exclusive)'
     placeholders:
       name:    'Position name (e.g. Advancement Chair)'
+    success:
+      update:   'Unit position was updated'
 
   announcements:
     title:  'Announcements'

@@ -1,0 +1,28 @@
+= form_for @unit_position, url: unit_unit_position_path(@unit, @unit_position) do |f|
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+
+  .form-group
+    = f.label :audience
+
+    div
+      = f.radio_button :audience, 'youth'
+      | &nbsp;
+      = f.label :audience_youth, t('unit_positions.youth'), style: 'font-weight: 500'
+
+      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+      = f.radio_button :audience, 'adult'
+      | &nbsp;
+      = f.label :audience_adult, t('unit_positions.adult'), style: 'font-weight: 500'
+
+  .form-group
+    = f.check_box :exclusive
+    | &nbsp;
+    = f.label :exclusive, t('unit_positions.exclusive')
+
+  .form-group
+    = f.submit t('update'), class: 'btn btn-primary'
+    span.or = t('or')
+    = link_to t('cancel'), unit_unit_positions_path(@unit), class: 'cancel'

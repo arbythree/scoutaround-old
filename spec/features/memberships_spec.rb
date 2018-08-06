@@ -31,4 +31,11 @@ RSpec.feature "Membership features", :type => :feature do
     visit edit_membership_path(@membership)
     expect(page).to have_current_path(edit_membership_path(@membership))
   end
+
+  describe 'editing' do
+    it 'has adult positions when editing an adult' do
+      visit edit_membership_path(@membership)
+      expect(page).to have_select('membership_unit_position_id', @membership.unit.unit_positions.map(&:name))
+    end
+  end
 end

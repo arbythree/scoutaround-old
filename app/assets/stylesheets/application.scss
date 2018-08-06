@@ -221,19 +221,21 @@ main {
     text-decoration: line-through;
   }
 
+  .rank {
+    background-size: auto 22px;
+    background-repeat: no-repeat;
+    background-position: 12px 50%;
+  }
+}
+
+table.memberships {
   tr.youth td.glyph svg {
     color: $red;
   }
 
   tr.adult td.glyph svg {
     color: $blue;
-  }
-
-  .rank {
-    background-size: auto 22px;
-    background-repeat: no-repeat;
-    background-position: 12px 50%;
-  }
+  }  
 }
 
 @mixin active_link {
@@ -1014,4 +1016,12 @@ body.card-on-file {
   #payment-credentials {
     display: none;
   }
+}
+
+a.add-item svg {
+  color: $green;
+}
+
+.or {
+  padding: 0 0.5rem;
 }
