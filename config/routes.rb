@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
   resources :achievements,                           only: [:destroy]
   resources :unit_positions,                         only: [:edit, :destroy]
-
   resources :units, path: '/' do
     get '/', to: 'units/events#index'
     get '/payments/setup', to: 'stripe#show'
