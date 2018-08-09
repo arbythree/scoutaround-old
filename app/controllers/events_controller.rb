@@ -51,7 +51,7 @@ class EventsController < UnitContextController
   def create
     @event = @unit.events.new(event_params)
 
-    if params[:starts_at_time].present?
+    if params[:starts_at_time] != '0'
       starts_at = Time.parse(params[:starts_at_time])
       ends_at = Time.parse(params[:ends_at_time])
       @event.starts_at = @event.starts_at.change({ hour: starts_at.hour, min: starts_at.min })
