@@ -100,7 +100,7 @@ class EventSubmissionsController < AuthenticatedController
         # send email, set flash, redirect
         flash[:notice] = 'You\'ve paid!'
         EventSubmissionNotifier.send_payment_receipt_notification(@submission)
-        redirect_to event_path(@event)
+        redirect_to unit_event_path(@unit, @event)
       end # if submission save
     when 'DocumentEventRequirement'
       if @submission.save
