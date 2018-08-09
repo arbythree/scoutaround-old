@@ -2,12 +2,17 @@ module UnitContext
   extend ActiveSupport::Concern
 
   included do
+    before_action :find_current_user
     before_action :find_unit
     before_action :find_membership
   end
 
+  def find_current_user
+    @current_user = current_user
+  end
+
   def find_unit
-    @unit = Unit.find(params[:unit_id])
+    @unit = Unit.includes(:memberships).find(params[:unit_id])
   end
 
   def find_membership

@@ -73,7 +73,7 @@ after :ranks, :unit_positions, :subscription_plans do
   ).first_or_create!
 
   User.all.each do |user|
-    troop.memberships.where(user: user).first_or_create
+    troop.memberships.where(user: user).first_or_create!
   end
 
   # set up cub pack

@@ -9,24 +9,30 @@
   h1 = "Unit Positions"
 
 
-table.table
+table.table.memberships
   tr
+    th
     th Name
     th Audience
     th Held By
     th(style="width: 100px;")
 
   - @unit_positions.each do |position|
-    tr.position
-      td = position.name
+    tr.position(class="#{position.audience}")
+      td.glyph
+        - if position.audience == 'youth'
+          i.fa-user-circle.fas(title="Youth")
+        - else
+          i.fa-user-circle.fal(title="Adult")    
+      td = position.name + (position.exclusive ? t('unit_positions.exclusive_index') : '')
       td = position.audience.titleize
       td = position.memberships.map { |m| m.user.full_name}.join(', ')
       td.actions
         span
-          = link_to edit_unit_position_path(position) do
+          = link_to edit_unit_unit_position_path(@unit, position) do
             i.fa-pencil.fal
           | &nbsp;&nbsp;
-          = link_to position, method: :delete do
+          = link_to unit_unit_position_path(@unit, position), method: :delete do
             i.fa-trash-alt.fal
 
 #unit-position.modal

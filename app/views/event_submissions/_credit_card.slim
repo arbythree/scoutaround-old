@@ -1,53 +1,27 @@
 - payment_method_on_file = @current_user.stripe_customer_id.present? && @current_user.payment_method.present?
 
-- if payment_method_on_file
-  - @body_classes = ['card-on-file']
+= form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
+  - if payment_method_on_file
+    - @body_classes = ['card-on-file']
 
-  div
-    = radio_button_tag 'card_on_file', 'use'
-    | &nbsp;
-    = label_tag 'card_on_file_use', "#{ @current_user.payment_method.brand } *******#{ @current_user.payment_method.last4 } exp #{ @current_user.payment_method.expiration_month }/#{ @current_user.payment_method.expiration_year }"
-
-  div
-    = radio_button_tag 'card_on_file', 'replace'
-    | &nbsp;
-    = label_tag 'card_on_file_replace', 'Use a different card'
-
-#payment-credentials
-  = form_for @submission, url: event_requirement_event_submissions_path(@event_requirement) do |f|
-    = f.hidden_field :event_registration_id
-    .form-group
-      = label_tag :card_number
-      div(style="position: relative;")
-        = text_field_tag :card_number, '', class: 'form-control', placeholder: 'Credit card number', pattern: '[\d ]*'
-        .card-art
-          i.fab.fa-cc-visa
-          i.fab.fa-cc-amex
-          i.fab.fa-cc-mastercard
-          i.fab.fa-cc-discover
-          i.fab.fa-cc-diners-club
-          i.fab.fa-cc-jcb
-
-    .form-group
-      .row
-        .col-md-6
-          = label_tag :cvc, 'CVC'
-          = text_field_tag :cvc, '', class: 'form-control', placeholder: 'CVC', pattern: '\d{3,4}'
-
-        .col-md-6
-          = label_tag :expiration
-          = text_field_tag :expiration, '', class: 'form-control', placeholder: 'MM/YY', pattern: '\d\d\/\d\d'
-
-    .form-group
-      = check_box_tag :remember
+    div
+      = radio_button_tag 'card_on_file', 'use', true
       | &nbsp;
-      = label_tag :remember, 'Remember this card'
+      = label_tag 'card_on_file_use', "#{ @current_user.payment_method.brand } ending in #{ @current_user.payment_method.last4 }"
 
-    .form-group
-      = f.submit t('submissions.ctas.payment', amount: number_to_currency(@total / 100.0)), class: 'btn btn-primary'
-      | &nbsp;&nbsp;
-      = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, target: '_blank', title: t('submissions.tooltips.payments') do
-        i.fa-question-circle.fas
+    div
+      = radio_button_tag 'card_on_file', 'replace'
+      | &nbsp;
+      = label_tag 'card_on_file_replace', 'Use a different card'
+
+  = render partial: 'event_submissions/stripe_js'
+
+  .form-group
+    = f.hidden_field :event_registration_id
+    = f.submit t('submissions.ctas.payment', amount: number_to_currency(@total / 100.0)), class: 'btn btn-primary'
+    | &nbsp;&nbsp;
+    = link_to 'https://www.scoutaround.org/docs/payments', style: 'color: #aaa;', data: { toggle: 'tooltip' }, target: '_blank', title: t('submissions.tooltips.payments') do
+      i.fa-question-circle.fas
 
 css:
   .card-art {
@@ -72,51 +46,51 @@ javascript:
     $('#payment-credentials').show(250);
   });
 
-  // see https://jqueryvalidation.org/documentation/
-  $(document).ready(function() {
-    // masking for credit card number field
-    var cleave = new Cleave('#card_number', {
-      creditCard: true,
-      onCreditCardTypeChanged: function (type) {
-        $('.card-art svg').fadeOut(100);
-        $('.fa-cc-' + type).fadeIn(100);
-      }
-    });
+  // // see https://jqueryvalidation.org/documentation/
+  // $(document).ready(function() {
+  //   // masking for credit card number field
+  //   var cleave = new Cleave('#card_number', {
+  //     creditCard: true,
+  //     onCreditCardTypeChanged: function (type) {
+  //       $('.card-art svg').fadeOut(100);
+  //       $('.fa-cc-' + type).fadeIn(100);
+  //     }
+  //   });
 
-    // masking for expiration field
-    cleave = new Cleave('#expiration', {
-      delimiter: '/',
-      blocks: [2, 2]
-    });
+  //   // masking for expiration field
+  //   cleave = new Cleave('#expiration', {
+  //     delimiter: '/',
+  //     blocks: [2, 2]
+  //   });
 
-    // for the expiration field, pad with a leading zero if the user is clearly
-    // entering a single-digit month value (e.g. "2" becomes "02")
-    $('#expiration').keyup(function(event) {
-      var value = $(this).val();
+  //   // for the expiration field, pad with a leading zero if the user is clearly
+  //   // entering a single-digit month value (e.g. "2" becomes "02")
+  //   $('#expiration').keyup(function(event) {
+  //     var value = $(this).val();
 
-      // don't do this if the month starts with a one,
-      // if the user already added a leading zero,
-      // or if the user is backspacing
-      if(value.length == 1 && value !== '1' && value !== '0' && event.which !== 8) {
-        $(this).val('0' + value + '/');
-      }
-    });
+  //     // don't do this if the month starts with a one,
+  //     // if the user already added a leading zero,
+  //     // or if the user is backspacing
+  //     if(value.length == 1 && value !== '1' && value !== '0' && event.which !== 8) {
+  //       $(this).val('0' + value + '/');
+  //     }
+  //   });
 
-    // custom validation for the expiration date
-    $.validator.addMethod(
-      "monthAndYearDate",
-      function(value, element) {
-        return value.match(/\d\d\/\d\d/);
-      },
-      "Please enter the expiration date in MM/YY format"
-    );
+  //   // custom validation for the expiration date
+  //   $.validator.addMethod(
+  //     "monthAndYearDate",
+  //     function(value, element) {
+  //       return value.match(/\d\d\/\d\d/);
+  //     },
+  //     "Please enter the expiration date in MM/YY format"
+  //   );
 
-    // apply all validation rules
-    $('#new_event_submission').validate({
-      rules: {
-        "card_number":  { required: true, creditcard: true },
-        "expiration":   { required: true, monthAndYearDate: true },
-        "cvc":          { required: true, minlength: 3, maxlength: 4, digits: true }
-      }
-    });
-  });
+  //   // apply all validation rules
+  //   $('#new_event_submission').validate({
+  //     rules: {
+  //       "card_number":  { required: true, creditcard: true },
+  //       "expiration":   { required: true, monthAndYearDate: true },
+  //       "cvc":          { required: true, minlength: 3, maxlength: 4, digits: true }
+  //     }
+  //   });
+  // });

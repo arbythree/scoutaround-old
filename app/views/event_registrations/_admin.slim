@@ -7,19 +7,19 @@
       i.fa-tree.fal
       = t('events.edit')
 
-    = link_to new_event_event_submission_path(@event), class: 'dropdown-item' do
+    = link_to new_unit_event_event_submission_path(@unit, @event), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('submissions.upload')
 
-    = link_to new_event_event_registration_path(@event), class: 'dropdown-item' do
+    = link_to new_unit_event_event_registration_path(@unit, @event), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('registrations.add')
 
-    = link_to new_event_event_requirement_path(@event, type: 'document'), class: 'dropdown-item' do
+    = link_to new_unit_event_event_requirement_path(@unit, @event, type: 'document'), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('events.add_requirement.document')
 
-    = link_to new_event_event_requirement_path(@event, type: 'fee'), class: 'dropdown-item' do
+    = link_to new_unit_event_event_requirement_path(@unit, @event, type: 'fee'), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('events.add_requirement.payment')
 

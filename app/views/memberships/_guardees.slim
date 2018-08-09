@@ -40,7 +40,7 @@
       class: 'form-control', \
       data: { role: 'tagsinput' }
 
-    = link_to '#', class: 'input-embedded', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardee-modal' }, style: 'padding: 2px;', title: 'Add a guardee' do
+    = link_to '#', class: 'input-embedded add-item', id: 'add-adult', data: { toggle: 'modal', target: '#add-guardee-modal' }, style: 'padding: 2px;', title: 'Add a guardee' do
       i.fa-plus-circle.fas
 
 - guardees  = @user.guardees.map       { |u| { 'id' => u.id, 'name' => u.full_name } }

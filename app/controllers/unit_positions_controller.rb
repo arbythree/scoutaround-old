@@ -3,7 +3,7 @@ class UnitPositionsController < AuthenticatedController
 
   def index
     authorize UnitPosition
-    @unit_positions = @unit.unit_positions
+    @unit_positions = @unit.unit_positions.order(:name)
   end
 
   def create
@@ -11,6 +11,17 @@ class UnitPositionsController < AuthenticatedController
     if @unit_position.save!
       flash[:notice] = 'Added new position'
       redirect_to unit_unit_positions_path(@unit)
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    if @unit_position.update_attributes(unit_position_params)
+      flash[:notice] = I18n.t('unit_positions.success.update')
+      redirect_to unit_unit_positions_path(@unit)
+    else
     end
   end
 
@@ -32,10 +43,10 @@ class UnitPositionsController < AuthenticatedController
   private
 
   def find_unit_position
-    @unit_position = UnitPosition.includes(:membership).find(params[:id])
+    @unit_position = UnitPosition.find(params[:id])
   end
 
   def unit_position_params
-    params.require(:unit_position).permit(:name, :audience)
+    params.require(:unit_position).permit(:name, :audience, :exclusive)
   end
 end

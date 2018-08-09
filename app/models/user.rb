@@ -71,4 +71,8 @@ class User < ApplicationRecord
     pref = self.user_preferences.find_or_initialize_by(key: key)
     pref.update_attributes(value: value)
   end
+
+  def card_on_file?
+    self.stripe_customer_id.present?
+  end
 end

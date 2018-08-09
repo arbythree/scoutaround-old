@@ -18,6 +18,7 @@ en:
   actions_and_options:  'Actions & Options'
   from_now:             'from now'
   ago:                  'ago'
+  got_it:               "Got It. Let's Go"
 
   auth:
     sign_in:          'Sign In'
@@ -89,7 +90,6 @@ en:
     crew:       'Crew'
     post:       'Post'
     roster:     'Roster'
-    settings:   '%{unit_type} Settings'
     update:     'Update %{unit_type} Settings'
     upcoming:   'Coming Up'
     upcoming_deictic: 'In %{deictic}'
@@ -99,6 +99,9 @@ en:
     success:
       payment_setup:   'Your unit is ready to accept payments'
     import:     'Import Members'
+    settings:
+      title:           '%{unit_type} Settings'
+      set_up_payments: 'Set up payments'
 
   registrations:
     title:             'Registrations'
@@ -189,8 +192,11 @@ en:
     youth:     'Youth'
     adult:     'Adult'
     exclusive: 'Exclusive (can only be held by one person at a time)'
+    exclusive_index: ' (exclusive)'
     placeholders:
       name:    'Position name (e.g. Advancement Chair)'
+    success:
+      update:   'Unit position was updated'
 
   announcements:
     title:  'Announcements'
@@ -267,3 +273,10 @@ en:
     confirmation: "A %{time_to_live}-hour magic link for %{description} was sent to %{email}"
     title:        "Shares"
     destroyed:    "The share was revoked successfully."
+
+  payments:
+    title:        'Payments'
+    columns:
+      date_time:  'Date / Time'
+      amount:     'Amount'
+      id:         'Transaction ID'

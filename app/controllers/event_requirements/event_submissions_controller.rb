@@ -5,11 +5,15 @@ class EventRequirements::EventSubmissionsController < EventSubmissionsController
 
   def new
     @submission = @event_requirement.event_submissions.new(event_registration_id: params[:registration])
+    @event_registration = EventRegistration.find(params[:registration])
 
     # iterate through all event registrations and determine whether current user is allowed to
-    # submit on behalf of that user. Admins can submit on behalf of anyone. Users can always submit
-    # on their own behalf. Guardian can submit on behalf of their guardees. All others are prohibited.
-    # TODO: extract this
+    # submit on behalf of that user. Rules are:
+    # 1. Admins can submit on behalf of anyone.
+    # 2. Users can always submit on their own behalf
+    # 3. Guardian can submit on behalf of their guardees.
+    # 4. All others are prohibited.
+    # TODO: extract this to a Pundit policy
     @visible_event_registrations = []
     @event.event_registrations.each do |registration|
       if @current_user_is_admin

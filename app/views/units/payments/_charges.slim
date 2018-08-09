@@ -1,0 +1,25 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+- crumbtrail link_to t('units.settings.title', unit_type: @unit.type.titleize)
+- crumbtrail t('payments.title')
+
+- content_for :title do
+  h1 = t('payments.title')
+  p Your Stripe identifier: #{ @unit.stripe_user_id }
+
+= render partial: 'units/payments/none' unless @charges.count.positive?
+
+table.table
+  tr
+    th = t('payments.columns.date_time')
+    th = t('payments.columns.amount')
+    th = t('payments.columns.id')
+
+  - @charges.each do |charge|
+    tr
+      td = Time.at(charge[:created]).to_formatted_s(:long)
+      td = number_to_currency(charge[:amount] / 100.0)
+      td = charge[:id]
+
+- account = Stripe::Account.retrieve(@unit.stripe_user_id)
+- link_data = account.login_links.create()
+= link_to 'Your Stripe Dashboard', link_data['url']

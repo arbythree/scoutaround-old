@@ -58,6 +58,7 @@ group :development do
   gem 'awesome_print'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'guard-rspec', require: false
+  gem 'scout_apm'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '>= 3.3.0'

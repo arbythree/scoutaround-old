@@ -68,7 +68,7 @@
       small.form-text.text-muted
         = t('memberships.blurbs.photo')
         | &nbsp;&nbsp;
-        = link_to 'Why?', 'https://docs.scoutaround.org/member_photos', target: '_blank'
+        = link_to 'Why?', 'http://www.scoutaround.org/docs', target: '_blank'
 
     - if @membership.user.type == 'Youth'
       #rank.youth-only.form-group
@@ -94,8 +94,8 @@
 
   .form-group
     label = t('user.permissions')
-    div(style="margin-left: 3rem;")
-      = check_box_tag :role, value: 'admin'
+    div
+      = check_box_tag :role, 'admin', @membership.role == 'admin'
       | &nbsp;&nbsp;
       = f.label :admin, "#{UnitPresenter.unit_display_name(@unit)} #{t('members.administrator')}"
 

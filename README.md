@@ -59,6 +59,15 @@ mailcatcher
 
 Then visit [http://localhost:1080/](http://localhost:1080/)
 
+### Profiling locally
+The app is set up to use [Scout Devtrace](https://scoutapp.com/devtrace) locally. To use it:
+
+```
+SCOUT_DEV_TRACE=true foreman s
+```
+
+You'll see a speed badge in the lower left of the screen. Click it to see performance stats on each page load.
+
 # Running tests
 
 ```

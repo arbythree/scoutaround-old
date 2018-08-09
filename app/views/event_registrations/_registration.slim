@@ -6,4 +6,4 @@ tr(class="registration #{is_completed ? 'registration-complete' : 'registration-
       i.fa-check.fas
     = registration.user.full_name
   td.registration-status = is_completed ? 'Complete' : 'Incomplete'
-  td.action              = link_to('Details', event_registration_path(registration))
+  td.action              = link_to('Details', unit_event_event_registration_path(@unit, @event, registration))

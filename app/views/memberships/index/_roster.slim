@@ -23,7 +23,7 @@
             - else
               i.fa-user-circle.fal(title="Adult")
           td.name
-            = link_to membership_path(membership) do
+            = link_to unit_membership_path(@unit, membership) do
               strong = member.user.first_name
               | &nbsp;
               - if member.user.nickname.present?
