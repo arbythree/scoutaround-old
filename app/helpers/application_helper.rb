@@ -42,4 +42,16 @@ module ApplicationHelper
       ENV['STRIPE_CONNECT_CLIENT_ID']
     ].join
   end
+
+  def select_time(name, html_options = {}, tag_options = {})
+    values = ''
+    values += '<option value="0">All day</option>' if tag_options[:display_all_day_option]
+    (7..23).step(1).each do |hour|
+      meridian = hour >= 12 ? 'PM' : 'AM'
+      display_hour = (hour > 12) ? hour - 12 : hour
+      values += "<option value=\"#{ format('%02d', hour) }:00\">#{ display_hour }:00 #{ meridian }</option>"
+      values += "<option value=\"#{ format('%02d', hour) }:30\">#{ display_hour }:30 #{ meridian }</option>"
+    end
+    select_tag(name, raw(values), html_options)
+  end
 end

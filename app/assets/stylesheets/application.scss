@@ -73,6 +73,10 @@ h4 {
   @include sans-serif;
 }
 
+.datepicker.form-control {
+  padding: 6px 12px !important;
+}
+
 .crumbtrail {
   @include sans-serif;
   font-weight: 600;

@@ -26,6 +26,14 @@ class EventPresenter < BasePresenter
         event.ends_at.strftime('%-d, %Y')
       ].join)
 
+    # single day with times
+    elsif event.starts_at.hour > 0 && event.ends_at.hour > 0
+      raw(
+        event.starts_at.strftime('%B %-d, %Y %l:%M %p') +
+        '&ndash;' +
+        event.ends_at.strftime('%l:%M %p')
+      )
+      
     # single day
     else
       event.starts_at.strftime('%B %-d, %Y')

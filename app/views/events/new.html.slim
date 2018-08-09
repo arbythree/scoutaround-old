@@ -20,12 +20,17 @@
         .row
           .col-md-8
             = f.text_field :starts_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+          .col-md-4
+            = select_time :starts_at_time, { class: 'form-control' }, { display_all_day_option: true }
 
       .form-group
         = f.label :ends_at
         .row
           .col-md-8
             = f.text_field :ends_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+          .col-md-4
+            #ends-at-time-details(style="display:none")
+              = select_time :ends_at_time, class: 'form-control'
 
       .form-group
         = f.check_box :require_registration
@@ -33,10 +38,16 @@
 
       #registration-details(style="display:none;")
         .form-group
-          = f.label :registration_closes_at
+          = f.label :registration_closes_at, 'Registration closes on'
           .row
             .col-md-8
               = f.text_field :registration_closes_at, value: @event.registration_closes_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+
+      / .form-group
+      /     = label_tag :repeat
+      /     select(name='repeat' class='form-control')
+      /       option(value='never') Never
+      /       option(value='weekly') Weekly
 
       .form-group
         = f.submit t('events.add'), class: 'btn btn-primary'
@@ -54,4 +65,13 @@ javascript:
 
   $('#event_require_registration').change(function() {
     $('#registration-details').toggle(250);
+  });
+
+  $('#starts_at_time').change(function() {
+    var startsAtTime = $('#starts_at_time option:selected').val();
+    if (startsAtTime == "0") {
+      $('#ends-at-time-details').hide(250);
+    } else {
+      $('#ends-at-time-details').show(250);
+    }
   });
