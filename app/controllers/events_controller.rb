@@ -54,17 +54,32 @@ class EventsController < UnitContextController
     if params[:starts_at_time].present?
       starts_at = Time.parse(params[:starts_at_time])
       ends_at = Time.parse(params[:ends_at_time])
-
-      puts starts_at.hour
-
       @event.starts_at = @event.starts_at.change({ hour: starts_at.hour, min: starts_at.min })
       @event.ends_at = @event.ends_at.change({ hour: ends_at.hour, min: ends_at.min })
-
-      puts @event.starts_at.hour
-
     end
 
     if @event.save
+      repeat_until = Date.parse(params[:repeat_until])
+
+      if params[:repeat] != 'never'
+        current_start_date = @event.starts_at
+        current_end_date = @event.ends_at
+
+        until current_start_date > repeat_until do
+          # weekly is the only repeat option, so just add a week
+          current_start_date += 1.week
+          current_end_date += 1.week
+
+          # instantiate a new event
+          event = @unit.events.new(event_params)
+          event.starts_at = current_start_date
+          event.ends_at = current_end_date
+
+          # save it
+          event.save
+        end
+      end
+
       flash[:notice] = t('events.confirm')
       redirect_to unit_events_path(@unit)
     end

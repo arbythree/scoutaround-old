@@ -23,4 +23,8 @@ class Event < ApplicationRecord
   def duration_in_days
     (ends_at - starts_at) / 1.day
   end
+
+  def all_day?
+    starts_at.hour == 0 && ends_at.hour == 0
+  end
 end

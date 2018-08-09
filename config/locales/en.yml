@@ -51,7 +51,8 @@ en:
     table:
       name:           'Name'
       dates:          'Dates'
-      attendees:      'Attendees'
+      times:          'Time'
+      attendees:      'Registrations'
     view:
       calendar:       'Switch to Calendar View'
       list:           'Switch to List View'
