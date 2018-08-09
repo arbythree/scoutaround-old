@@ -79,6 +79,6 @@ class EventsController < UnitContextController
   end
 
   def event_params
-    params.require(:event).permit(:name, :location, :starts_at, :ends_at)
+    params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration)
   end
 end

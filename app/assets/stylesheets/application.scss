@@ -235,7 +235,7 @@ table.memberships {
 
   tr.adult td.glyph svg {
     color: $blue;
-  }  
+  }
 }
 
 @mixin active_link {
@@ -1024,4 +1024,8 @@ a.add-item svg {
 
 .or {
   padding: 0 0.5rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 0.5rem;
 }
