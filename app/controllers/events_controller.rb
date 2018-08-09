@@ -45,6 +45,7 @@ class EventsController < UnitContextController
     @event = Event.new
     @event.starts_at = 6.weeks.from_now
     @event.ends_at   = 6.weeks.from_now
+    @event.registration_closes_at = 5.weeks.from_now
   end
 
   def create
