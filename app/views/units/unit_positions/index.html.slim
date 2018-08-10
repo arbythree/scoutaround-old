@@ -23,10 +23,10 @@ table.table.memberships
         - if position.audience == 'youth'
           i.fa-user-circle.fas(title="Youth")
         - else
-          i.fa-user-circle.fal(title="Adult")    
+          i.fa-user-circle.fal(title="Adult")
       td = position.name + (position.exclusive ? t('unit_positions.exclusive_index') : '')
       td = position.audience.titleize
-      td = position.memberships.map { |m| m.user.full_name}.join(', ')
+      td = position.memberships.map { |m| m.user.short_display_name}.join(', ')
       td.actions
         span
           = link_to edit_unit_unit_position_path(@unit, position) do
