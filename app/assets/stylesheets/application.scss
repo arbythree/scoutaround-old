@@ -140,6 +140,14 @@ header#mobile {
   }
 }
 
+footer {
+  @extend .container;
+  max-width: 1332px;
+  padding-top: 1rem;
+  color: darken($color_background, 40%);
+  font-size: 14px;
+}
+
 header#primary {
   @extend .container;
   @include sans-serif;
