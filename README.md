@@ -27,7 +27,11 @@ You'll also need to repeat this process for production, using your runtime infra
 
 ## Set up Redis
 
-Certain asynchronous jobs (e.g. sending email) run on background workers via (Sidekiq)[https://github.com/mperham/sidekiq/wiki/Getting-Started] which, in turn, relies on Redis. You'll need Redis in all environments, local and hosted.
+Certain asynchronous jobs (e.g. sending email) run on background workers via (Sidekiq)[https://github.com/mperham/sidekiq/wiki/Getting-Started] which, in turn, relies on Redis. You'll need Redis in all environments, local and hosted. To install Redis locally:
+
+```
+brew install redis
+```
 
 ## Running the app locally
 

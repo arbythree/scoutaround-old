@@ -45,11 +45,41 @@ class EventsController < UnitContextController
     @event = Event.new
     @event.starts_at = 6.weeks.from_now
     @event.ends_at   = 6.weeks.from_now
+    @event.registration_closes_at = 5.weeks.from_now
   end
 
   def create
     @event = @unit.events.new(event_params)
+
+    if params[:starts_at_time] != '0'
+      starts_at = Time.parse(params[:starts_at_time])
+      ends_at = Time.parse(params[:ends_at_time])
+      @event.starts_at = @event.starts_at.change({ hour: starts_at.hour, min: starts_at.min })
+      @event.ends_at = @event.ends_at.change({ hour: ends_at.hour, min: ends_at.min })
+    end
+
     if @event.save
+      repeat_until = Date.parse(params[:repeat_until])
+
+      if params[:repeat] != 'never'
+        current_start_date = @event.starts_at
+        current_end_date = @event.ends_at
+
+        until current_start_date > repeat_until do
+          # weekly is the only repeat option, so just add a week
+          current_start_date += 1.week
+          current_end_date += 1.week
+
+          # instantiate a new event
+          event = @unit.events.new(event_params)
+          event.starts_at = current_start_date
+          event.ends_at = current_end_date
+
+          # save it
+          event.save
+        end
+      end
+
       flash[:notice] = t('events.confirm')
       redirect_to unit_events_path(@unit)
     end
@@ -79,6 +109,6 @@ class EventsController < UnitContextController
   end
 
   def event_params
-    params.require(:event).permit(:name, :location, :starts_at, :ends_at)
+    params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration, :registration_closes_at)
   end
 end

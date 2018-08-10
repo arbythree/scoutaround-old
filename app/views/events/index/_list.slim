@@ -2,6 +2,7 @@ table.table
   tr
     th.name      = t('events.table.name')
     th.dates     = t('events.table.dates')
+    th.times     = t('events.table.times')
     th.attendees.expendable = t('events.table.attendees')
 
   = render partial: 'events/index/event', collection: @events

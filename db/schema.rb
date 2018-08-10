@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_17_222447) do
-
+ActiveRecord::Schema.define(version: 2018_08_09_133230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -122,6 +121,7 @@ ActiveRecord::Schema.define(version: 2018_07_17_222447) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "registration_closes_at"
+    t.boolean "require_registration", default: false
   end
 
   create_table "guardianships", force: :cascade do |t|
