@@ -2,10 +2,21 @@
   h1 = @user.full_name
   h2 = t('advancement.add.merit_badge')
 
-  = form_for Achievement.new, url: membership_achievements_path(@membership) do |f|
+  = form_for @achievement, url: membership_achievements_path(@membership) do |f|
     .form-group
       = f.label :name
       = f.collection_select :achievable_id, MeritBadge.all.order(:name), :id, :name, { prompt: 'Choose merit badge' }, class: 'form-control'
 
     .form-group
+      = f.label :earned_at
+      = f.text_field :earned_at, value: @achievement.earned_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+
+    .form-group
       = f.submit :add, class: 'btn btn-primary'
+
+javascript:
+  $(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: "d MM yyyy"
+    });
+  });

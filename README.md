@@ -179,3 +179,19 @@ The app is configured to use (Sendgrid)[https://sendgrid.com] to send email. You
 - SENDGRID_PASSWORD
 - API_USERNAME
 - API_PASSWORD
+
+## Copy production database to staging:
+
+See https://stackoverflow.com/questions/10673630/how-do-i-transfer-production-database-to-staging-on-heroku-using-pgbackups-gett
+
+# turn off the web dynos in staging
+heroku maintenance:on -a yourapp-staging
+
+# if you have non-web-dynos, do them too
+heroku ps:scale worker=0 -a yourapp-staging
+
+# backup the staging database if you are paranoid like me (optional)
+heroku pg:backups capture -a yourapp-staging
+
+# execute the copy
+heroku pg:copy your-app::DATABASE_URL DATABASE_URL -a yourapp-staging

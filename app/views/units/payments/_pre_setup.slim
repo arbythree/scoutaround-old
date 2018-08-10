@@ -1,3 +1,7 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_events_path(@unit)
+- crumbtrail link_to 'Settings', "/#{@unit.id}/unit"
+- crumbtrail 'Payments'
+
 h1 = t('units.settings.set_up_payments')
 
 p Scoutaround uses <a href="https://stripe.com">Stripe</a> to process payments.

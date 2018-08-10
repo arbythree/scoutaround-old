@@ -8,6 +8,7 @@ class AchievementsController < AuthenticatedController
   end
 
   def new
+    @achievement = Achievement.new(earned_at: Date.today)
   end
 
   def create

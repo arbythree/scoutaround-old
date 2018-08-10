@@ -77,6 +77,6 @@ class User < ApplicationRecord
   end
 
   def short_display_name
-    "#{nickname || first_name} #{last_name[0]}."
+    "#{ nickname.present? ? nickname : first_name } #{last_name[0]}."
   end
 end
