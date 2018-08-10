@@ -62,7 +62,10 @@
                 - family_registrants << user if event.registered_for?(user: user)
 
               - registrant_names = family_registrants.map{ |u| u.first_name }.join(', ')
-              - title = family_registrants.count.zero? ? t('calendar.event.no_family_attendees') : t('calendar.event.attendees', names: registrant_names)
+              - if event.require_registration
+                - title = family_registrants.count.zero? ? t('calendar.event.no_family_attendees') : t('calendar.event.attendees', names: registrant_names)
+              - elsif !event.all_day?
+                - title = event.starts_at.strftime('%-I:%M')
 
               - classes << 'attending' if family_registrants.count.positive?
 

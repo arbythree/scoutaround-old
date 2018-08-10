@@ -1,7 +1,11 @@
-tr
-  td.name = link_to event.name, unit_event_path(@unit, event)
+tr.event
   - present event do |e|
-    td.dates = event.starts_at.strftime('%B %-d, %Y')
-    / td.times = raw([event.starts_at.strftime('%-I:%M'), '&ndash;', event.ends_at.strftime('%-I:%M %p')].join) unless event.all_day?
-    td.times = e.times
+    td.name
+      = link_to unit_event_path(@unit, event)
+        .title
+          = event.name
+        .dates
+          = e.dates
+    td.dates.expendable = event.starts_at.strftime('%B %-d, %Y')
+    td.times.expendable = e.times
     td.attendees.expendable = event.event_registrations.count if event.require_registration
