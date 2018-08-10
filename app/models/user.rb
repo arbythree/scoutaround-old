@@ -75,4 +75,8 @@ class User < ApplicationRecord
   def card_on_file?
     self.stripe_customer_id.present?
   end
+
+  def short_display_name
+    "#{nickname || first_name} #{last_name[0]}."
+  end
 end

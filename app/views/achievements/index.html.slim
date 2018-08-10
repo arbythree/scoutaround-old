@@ -16,17 +16,22 @@
     p Current rank: #{ @user&.rank&.name }
 
   #requirements
-    h3
-      = t('advancement.target_rank', rank: @next_rank.name)
-      | &nbsp;
-      .badge.badge-secondary
+    .title(style="position:relative;")
+      h3(style="display:inline-block;")
+        = t('advancement.target_rank', rank: @next_rank.name)
+      .badge.badge-pill.badge-success(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
         = number_to_percentage(@next_rank.progress_for(user: @user), precision: 0)
 
     ol.requirements
       = render partial: 'requirements/show/requirement', collection: @next_rank.requirements, locals: { include_checkboxes: true }
 
   - content_for :utilities do
-    h3 = t('advancement.types.merit_badges')
+    .title
+      h3(style="display:inline-block;")
+        = t('advancement.types.merit_badges')
+      - if @user.merit_badges.count.positive?
+        .badge.badge-pill.badge-info(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
+          = @user.merit_badges.count
     ul
       = render partial: 'achievements/show/merit_badge', collection: @user.merit_badges
 

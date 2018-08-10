@@ -22,6 +22,7 @@ $blue:              #7D9E9C;
 $green:             #006B3F;
 $color_brand:       #BA160C; // eng
 $color_background:  #EBE9E8;
+$color_text:        rgb(33, 37, 41);
 
 @mixin sans-serif {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
@@ -1032,4 +1033,33 @@ a.add-item svg {
 
 input[type="checkbox"] {
   margin-right: 0.5rem;
+}
+
+tr.event {
+  td .dates {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 680px) {
+  td.expendable, th.expendable {
+    display: none;
+  }
+
+  tr.headers {
+    display: none;
+  }
+
+  tr.event {
+    td.name {
+      .title {
+        font-weight: 700;
+      }
+    }
+
+    td .dates {
+      display: block;
+      color: $color_text;
+    }
+  }
 }
