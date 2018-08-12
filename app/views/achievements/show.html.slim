@@ -12,7 +12,7 @@
 
   dl
     dt = t('achievements.earned_on')
-    dd = @achievement.earned_at.to_formatted_s(:scoutaround)
+    dd = @achievement.earned_at&.to_formatted_s(:scoutaround)
 
     dt = t('achievements.approved_by.merit_badge')
     dd = @achievement.approved_by
