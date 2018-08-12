@@ -6,6 +6,7 @@ class Achievement < ApplicationRecord
   delegate :type, to: :achievable
   delegate :name, to: :achievable
   delegate :ordinal, to: :achievable
+  delegate :program_code, to: :achievable
   scope :merit_badges, -> { joins(:achievable).where('achievables.type = ?', 'MeritBadge') }
   scope :ranks, -> { joins(:achievable).where('achievables.type = ?', 'Rank') }
   scope :unawarded, -> { where('awarded_at IS NULL') }

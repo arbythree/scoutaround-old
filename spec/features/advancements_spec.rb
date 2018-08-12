@@ -36,8 +36,6 @@ RSpec.feature "Advancement features", :type => :feature do
       @achievement.update!(earned_at: 2.weeks.ago)
       visit(unit_membership_achievement_path(@unit, @membership, @achievement))
       expect(page).to have_current_path(unit_membership_achievement_path(@unit, @membership, @achievement))
-
-      save_and_open_page
       expect(page).to have_text(@achievement.earned_at.to_formatted_s(:scoutaround))
     end
   end

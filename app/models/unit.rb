@@ -4,7 +4,12 @@ class Unit < ApplicationRecord
   has_many :memberships
   has_many :members, through: :memberships, source: 'user'
   has_many :document_library_items
-  has_many :achievements, through: :members
+
+  # when fetching achievements for a unit, we only want those achievements belonging to
+  # the same program. For instance, we don't want to show Cub Scout achievements in a
+  # Boy Scout troop
+  has_many :achievements, -> (object) { joins(:achievable).where('achievables.program_code = ?', object.program_code) }, through: :members
+  # has_many :achievements, through: :members
   has_many :magic_links
   has_many :unit_positions
   belongs_to :primary_wiki_article, class_name: 'WikiArticle', optional: true
@@ -17,10 +22,6 @@ class Unit < ApplicationRecord
   def membership_for(user: nil)
     self.memberships.find_by(user: user)
   end
-
-  # def membership_for(user: nil)
-  #   self.memberships.find_by(user: user)
-  # end
 
   def role_for(user: nil)
     # memberships.where(user: user)&.first&.role
