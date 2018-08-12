@@ -24,7 +24,13 @@ RSpec.feature "Membership features", :type => :feature do
   end
 
   it 'displays the membership page' do
+    member = @membership.user
+    guardian = FactoryBot.create(:adult)
+    @unit.memberships.create(user_id: guardian.id)
+    Guardianship.create(guardee_id: member.id, guardian_id: guardian.id)
+    expect(member.guardians.count).to eq(1)
     visit unit_membership_path(@unit, @membership)
+    expect(page).to have_current_path(unit_membership_path(@unit, @membership))
   end
 
   it 'displays the membership edit page' do
