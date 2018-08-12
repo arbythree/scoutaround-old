@@ -1,10 +1,12 @@
 h3 Unawarded Achievements
 
 table.table
-  - @unit.achievements.unawarded.group_by(&:user_id).each do |user_id, achievements|
+  - @unit.achievements.unawarded.joins(:user).group_by(&:user_id).each do |user_id, achievements|
+    - user = User.find(user_id)
+    - membership = @unit.membership_for(user: user)
     tr.section-heading
-      td(colspan="10") = User.find(user_id).full_name
+      td(colspan="10") = link_to user.full_name, unit_membership_achievements_path(@unit, membership), title: "View #{ user.first_name }'s advancement record"
     - achievements.each do |achievement|
       tr
         td = achievement.name
-        td = achievement.type
+        td = AchievementPresenter.type(achievement)

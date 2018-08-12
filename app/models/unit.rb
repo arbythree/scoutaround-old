@@ -7,7 +7,7 @@ class Unit < ApplicationRecord
 
   # when fetching achievements for a unit, we only want those achievements belonging to
   # the same program. For instance, we don't want to show Cub Scout achievements in a
-  # Boy Scout troop
+  # Boy Scout troop.
   has_many :achievements, -> (object) { joins(:achievable).where('achievables.program_code = ?', object.program_code) }, through: :members
   # has_many :achievements, through: :members
   has_many :magic_links

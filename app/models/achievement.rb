@@ -1,5 +1,5 @@
 class Achievement < ApplicationRecord
-  belongs_to :user
+  belongs_to :user # see note below
   belongs_to :achievable
   validates_uniqueness_of :user, scope: :achievable
   validate :achievable_is_concrete
@@ -24,3 +24,7 @@ class Achievement < ApplicationRecord
     awarded_at.present?
   end
 end
+
+# At one point it seemed to make sense to have achievements associate
+# with memberships. But, in fact, Achievements belong to User so
+# that they're portable across units.

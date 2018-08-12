@@ -28,6 +28,10 @@ $color_text:        rgb(33, 37, 41);
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
+@mixin uppercase {
+  text-transform: uppercase;
+}
+
 @mixin smaller-text {
   font-size: 80%;
 }
@@ -1075,6 +1079,11 @@ tr.event {
 tr.section-heading {
   td {
     @include sans-serif;
+    @include uppercase;
     font-weight: 700;
   }
+}
+
+th.numeric, td.numeric {
+  text-align: right;
 }
