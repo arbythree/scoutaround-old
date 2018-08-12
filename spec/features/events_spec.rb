@@ -20,12 +20,12 @@ RSpec.feature "Event requirements features", :type => :feature do
   end
 
   it 'updates an event' do
-    visit event_path(@event)
+    visit unit_event_path(@unit, @event)
     click_on I18n.t('events.edit')
     new_location = 'new location xyz'
     fill_in 'event_location', with: new_location
     click_on I18n.t('update')
-    expect(page).to have_current_path(event_path(@event))
+    expect(page).to have_current_path(unit_event_path(@unit, @event))
     # expect(page).to have_content(new_location)
   end
 end

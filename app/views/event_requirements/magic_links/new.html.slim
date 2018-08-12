@@ -1,8 +1,8 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to 'Events', unit_events_path(@unit)
-- crumbtrail link_to @event.name, event_path(@event)
-- crumbtrail link_to 'Registrations', event_event_registrations_path(@event)
-- crumbtrail link_to @event_requirement.description, event_requirement_path(@event_requirement)
+- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
+- crumbtrail link_to 'Registrations', unit_event_event_registrations_path(@unit, @event)
+- crumbtrail link_to @event_requirement.description, unit_event_requirement_path(@unit, @event_requirement)
 - crumbtrail 'Share Submissions Via Email'
 
 .row

@@ -1,3 +1,6 @@
+/ this is the achievements index for an individual
+/ there's also an achievements index for units
+
 - if params[:reload] == 'true'
   #requirements
     ol.requirements
@@ -29,11 +32,11 @@
     .title
       h3(style="display:inline-block;")
         = t('advancement.types.merit_badges')
-      - if @user.merit_badges.count.positive?
+      - if @user.achievements.merit_badges.count.positive?
         .badge.badge-pill.badge-info(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
-          = @user.merit_badges.count
+          = @user.achievements.merit_badges.count
     ul
-      = render partial: 'achievements/show/merit_badge', collection: @user.merit_badges
+      = render partial: 'achievements/merit_badge', collection: @user.achievements.merit_badges
 
   - if @unit.present? && @membership.present?
     javascript:
@@ -54,7 +57,7 @@
           event.preventDefault();
         } else if (achievementId == 0) {
           // POST a new achievement
-          var path = "#{ membership_achievements_path(@membership) }";
+          var path = "#{ unit_membership_achievements_path(@unit, @membership) }";
           var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
           $.ajax({
             type:         'POST',

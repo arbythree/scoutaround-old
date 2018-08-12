@@ -18,12 +18,13 @@ class Unit < ApplicationRecord
     self.memberships.find_by(user: user)
   end
 
-  def membership_for(user: nil)
-    self.memberships.find_by(user: user)
-  end
+  # def membership_for(user: nil)
+  #   self.memberships.find_by(user: user)
+  # end
 
   def role_for(user: nil)
-    memberships.where(user: user)&.first&.role
+    # memberships.where(user: user)&.first&.role
+    membership_for(user: user)&.role
   end
 
   def ranks

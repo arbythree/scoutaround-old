@@ -1,6 +1,8 @@
 class UnitPositionPolicy < ApplicationPolicy
-  def initialize(membership, unit_position)
-    @membership = membership
+  def initialize(user, unit_position)
+    @user = user
+    @unit = unit_position.unit
+    @membership = @unit.membership_for(user: @user)
     @unit_position = unit_position
   end
 

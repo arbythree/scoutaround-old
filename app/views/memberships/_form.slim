@@ -2,7 +2,6 @@
   = javascript_include_tag :cocoon
 
 - @membership.user.email = '' if @membership.user.anonymous_email?
-- url = @membership.new_record? ? unit_memberships_path(@unit) : membership_path(@membership)
 
 -if @membership.errors.any?
   .alert.alert-danger
@@ -38,7 +37,7 @@
           button.btn(style="margin-right: 5px;" type="button" data-dismiss="modal") Close
           = f.submit 'Add Guardian', class: 'btn btn-primary'
 
-= form_for @membership, url: url do |f|
+= form_for [@unit.becomes(Unit), @membership] do |f|
   /
   / nested user fields
   /

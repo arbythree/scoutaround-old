@@ -1,0 +1,6 @@
+tr
+  td
+    = link_to upcoming_event.name, unit_event_path(@unit, upcoming_event)
+    br
+    small
+      = t('units.upcoming_deictic', deictic: distance_of_time_in_words_to_now(upcoming_event.starts_at))

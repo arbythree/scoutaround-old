@@ -72,7 +72,7 @@ header#primary
                 i.fas.fa-medal
               = t('advancement.title')
           - else
-            = link_to membership_achievements_path(@membership) do
+            = link_to unit_membership_achievements_path(@unit, @membership) do
               span
                 i.fas.fa-medal
               = t('advancement.title')

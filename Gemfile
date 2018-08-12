@@ -26,19 +26,47 @@ gem 'mini_magick'
 gem 'mixpanel-ruby'
 gem 'local_time'
 gem 'pdfjs_viewer-rails'
+
+# web server
 gem 'puma', '~> 3.7'
+
+# authorization
 gem 'pundit'
+
+# the grand poobah
 gem 'rails', '~> 5.2'
+
+# markdown rendering
 gem 'redcarpet'
+
+# server-side file zipping
 gem 'rubyzip'
+
+# SASS preprocessor
 gem 'sass-rails', '~> 5.0'
+
+# better seeds
 gem 'seedbank'
+
+# asynchronous job management
 gem 'sidekiq'
+
+# form rendering
 gem 'simple_form'
+
+# APM
 gem 'skylight'
+
+# HTML preprocessor
 gem 'slim'
+
+# CSV import and export
 gem 'smarter_csv'
+
+# credit card payments
 gem 'stripe'
+
+# auto-completion
 gem 'twitter-typeahead-rails'
 gem 'turbolinks', '~> 5'
 gem 'tzinfo' #, git: 'https://github.com/tzinfo/tzinfo'

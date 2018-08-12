@@ -19,6 +19,7 @@ en:
   from_now:             'from now'
   ago:                  'ago'
   got_it:               "Got It. Let's Go"
+  edit:                 'Edit'
 
   auth:
     sign_in:          'Sign In'
@@ -101,7 +102,7 @@ en:
       payment_setup:   'Your unit is ready to accept payments'
     import:     'Import Members'
     settings:
-      title:           '%{unit_type} Settings'
+      title:           "%{unit_type} Settings"
       set_up_payments: 'Set up payments'
 
   registrations:
@@ -245,6 +246,7 @@ en:
     title: 'Advancement'
     types:
       merit_badges: 'Merit Badges'
+      merit_badge:  'Merit Badge'
     add:
       merit_badge: 'Record a Merit Badge'
     success:
@@ -281,3 +283,10 @@ en:
       date_time:  'Date / Time'
       amount:     'Amount'
       id:         'Transaction ID'
+
+  achievements:
+    earned_on:      'Earned on'
+    add:            'Record'
+    update:         'Update'
+    approved_by:
+      merit_badge:  'Counselor'

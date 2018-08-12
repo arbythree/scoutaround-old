@@ -3,16 +3,16 @@ require 'rails_helper'
 RSpec.feature "Event registration features", :type => :feature do
   before do
     sign_in # see spec/support/feature_spec_helper
-    visit event_event_registrations_path(@event)
+    visit unit_event_event_registrations_path(@unit, @event)
   end
 
   it 'shows all registrations' do
-    expect(page).to have_current_path(event_event_registrations_path(@event))
+    expect(page).to have_current_path(unit_event_event_registrations_path(@unit, @event))
   end
 
   it 'shows a single registration' do
-    visit event_registration_path(@registration)
-    expect(page).to have_current_path(event_registration_path(@registration))
+    visit unit_event_event_registration_path(@unit, @event, @registration)
+    expect(page).to have_current_path(unit_event_event_registration_path(@unit, @event, @registration))
   end
 
   describe 'manipulates registrations' do
@@ -25,12 +25,12 @@ RSpec.feature "Event registration features", :type => :feature do
     end
 
     it 'adds a registration' do
-      expect(page).to have_current_path(event_event_registrations_path(@event))
+      expect(page).to have_current_path(unit_event_event_registrations_path(@unit, @event))
       # expect(page).to have_content(@new_user.full_name)
     end
 
     it 'removes a registration' do
-      visit event_registration_path(@registration)
+      visit unit_event_event_registration_path(@unit, @event, @registration)
       count = @event.event_registrations.count
       click_on I18n.t('registrations.destroy')
       @event.reload
