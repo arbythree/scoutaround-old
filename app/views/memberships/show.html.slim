@@ -4,7 +4,7 @@
 
 - content_for :title do
   - if @membership.advanceable?
-    = link_to t('advancement.title'), membership_achievements_path(@membership)
+    = link_to t('advancement.title'), unit_membership_achievements_path(@unit, @membership)
 
   = render partial: 'memberships/show/utilities' if @current_user_is_admin
   = content_tag 'h4', @user.rank.name if @user.rank.present?

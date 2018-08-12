@@ -27,7 +27,7 @@ table.table
       - progress = next_rank&.progress_for(user: user) || 0
 
       tr
-        td = link_to user.full_name, membership_achievements_path(membership)
+        td = link_to user.full_name, unit_membership_achievements_path(@unit, membership)
         td = user.rank&.name
         td = time_ago_in_words(achievement.earned_at || achievement.created_at) if achievement.present?
         td = user&.rank&.next_rank&.name

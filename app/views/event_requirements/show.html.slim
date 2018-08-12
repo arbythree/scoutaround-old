@@ -1,7 +1,7 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'),        unit_events_path(@unit)
-- crumbtrail link_to @event.name,              event_path(@event)
-- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
+- crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
+- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
 - crumbtrail @event_requirement.description
 
 - submissions = @event_requirement.event_submissions
@@ -35,27 +35,27 @@
     table.table
       tr
         td
-          = link_to event_requirement_event_submissions_path(@event_requirement, format: :pdf) do
+          = link_to unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :pdf) do
             span.glyph-wrapper
               i.fa-file-pdf.fas(style="font-size: 120%;")
             = t('event_requirements.download_all')
       tr
         td
-          = link_to event_requirement_event_submissions_path(@event_requirement, format: :zip) do
+          = link_to unit_event_event_requirement_event_submissions_path(@unit, @event, @event_requirement, format: :zip) do
             span.glyph-wrapper
               i.fa-file-archive.fas(style="font-size: 120%;")
             = t('event_requirements.download_zip')
 
       tr
         td
-          = link_to new_event_requirement_magic_link_path(@event_requirement) do
+          = link_to new_unit_event_event_requirement_magic_link_path(@unit, @event, @event_requirement) do
             span.glyph-wrapper
               i.fa-envelope.fas(style="font-size: 120%;")
             = t('event_requirements.send_magic_link')
 
       tr
         td
-          = link_to edit_event_requirement_path(@event_requirement) do
+          = link_to edit_unit_event_event_requirement_path(@unit, @event, @event_requirement) do
             span.glyph-wrapper
               i.fa-pencil.fas(style="font-size: 120%;")
             = 'Edit Event Requirements'

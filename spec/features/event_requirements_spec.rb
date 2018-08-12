@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.feature "Event requirements features", :type => :feature do
   before do
     sign_in # see spec/support/feature_spec_helper
-    visit event_event_registrations_path(@event)
+    visit unit_event_event_registrations_path(@unit, @event)
   end
 
   it 'shows an event' do
-    visit event_path(@event)
+    visit unit_event_path(@unit, @event)
   end
 
   it 'adds a new event requirement' do
@@ -20,6 +20,6 @@ RSpec.feature "Event requirements features", :type => :feature do
 
   it 'visits the edit page' do
     requirement = @event.event_requirements.create(type: 'DocumentEventRequirement', description: 'test')
-    visit edit_event_requirement_path(requirement)
+    visit edit_unit_event_requirement_path(@unit, requirement)
   end
 end

@@ -15,7 +15,7 @@ class EventRequirementsController < EventContextController
     @event_requirement.amount_adult = (@event_requirement.amount_adult || 0) * 100.0
 
     if @event_requirement.save
-      redirect_to event_event_registrations_path(@event)
+      redirect_to unit_event_event_registrations_path(@unit, @event)
       return
     end
 
@@ -32,9 +32,9 @@ class EventRequirementsController < EventContextController
 
     if @event_requirement.save
       flash[:notice] = I18n.t('event_requirements.confirm_update')
-      redirect_to event_event_registrations_path(@event)
+      redirect_to unit_event_event_registrations_path(@unit, @event)
     else
-      redirect_to event_event_requirement_path(@event, @event_requirement)
+      redirect_to unit_event_event_requirement_path(@unit, @event, @event_requirement)
     end
   end
 

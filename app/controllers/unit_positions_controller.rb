@@ -1,8 +1,8 @@
-class UnitPositionsController < AuthenticatedController
+class UnitPositionsController < UnitContextController
   before_action :find_unit_position, except: [:index, :create]
 
   def index
-    authorize UnitPosition
+    # authorize UnitPosition
     @unit_positions = @unit.unit_positions.order(:name)
   end
 

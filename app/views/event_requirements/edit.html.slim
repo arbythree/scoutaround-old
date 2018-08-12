@@ -1,7 +1,7 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'),        unit_events_path(@unit)
-- crumbtrail link_to @event.name,              event_path(@event)
-- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
+- crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
+- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
 - crumbtrail @event_requirement.description
 
 - submissions = @event_requirement.event_submissions
@@ -13,7 +13,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement.becomes(EventRequirement), url: event_requirement_path(@event_requirement) do |f|
+      = form_for [@unit.becomes(Unit), @event, @event_requirement.becomes(EventRequirement)] do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'
@@ -49,11 +49,11 @@
         - submissions.each do |submission|
           li = submission.user.full_name
 
-      = link_to t('event_requirements.download_all'),    event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'
+      = link_to t('event_requirements.download_all'),    unit_event_requirement_event_submissions_path(@unit, @event_requirement, format: :pdf), class: 'btn btn-primary'
       | &nbsp;
-      = link_to t('event_requirements.download_zip'),    event_requirement_event_submissions_path(@event_requirement, format: :zip), class: 'btn btn-primary'
+      = link_to t('event_requirements.download_zip'),    unit_event_requirement_event_submissions_path(@unit, @event_requirement, format: :zip), class: 'btn btn-primary'
       | &nbsp;
-      = link_to t('event_requirements.send_magic_link'), new_event_requirement_magic_link_path(@event_requirement), class: 'btn btn-primary'
+      = link_to t('event_requirements.send_magic_link'), new_unit_magic_link_path(@unit, @event_requirement), class: 'btn btn-primary'
 
 
 
@@ -62,7 +62,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement.becomes(EventRequirement), url: event_requirement_path(@event_requirement) do |f|
+      = form_for [@unit.becomes(Unit), @event, @event_requirement.becomes(EventRequirement)] do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'

@@ -7,8 +7,8 @@ RSpec.feature "Advancement features", :type => :feature do
   end
 
   it 'works' do
-    visit membership_achievements_path(@membership)
-    expect(page).to have_current_path(membership_achievements_path(@membership))
+    visit unit_membership_achievements_path(@unit, @membership)
+    expect(page).to have_current_path(unit_membership_achievements_path(@unit, @membership))
   end
 
   it 'unit advancement page works when a youth doesn\'t have a rank' do

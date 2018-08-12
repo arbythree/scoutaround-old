@@ -31,7 +31,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @registration.user
     @registration.destroy
     flash[:notice] = "Unregistered #{ user.full_name }"
-    redirect_to @event
+    redirect_to [@unit.becomes(Unit), @event]
   end
 
   private
@@ -50,7 +50,7 @@ class EventRegistrationsController < AuthenticatedController
     end
 
     flash[:notice] = "Registered #{ user_synopsis(users) }"
-    redirect_to event_event_registrations_path(@event)
+    redirect_to unit_event_event_registrations_path(@unit, @event)
   end
 
   def find_registration

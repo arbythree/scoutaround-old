@@ -3,7 +3,7 @@
     = render partial: 'layouts/campfire'
 
   .dropdown-menu.dropdown-menu-right
-    = link_to edit_event_path(@event), class: 'dropdown-item' do
+    = link_to edit_unit_event_path(@unit, @event), class: 'dropdown-item' do
       i.fa-tree.fal
       = t('events.edit')
 

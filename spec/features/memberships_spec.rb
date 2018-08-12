@@ -11,8 +11,8 @@ RSpec.feature "Membership features", :type => :feature do
   end
 
   it 'shows a membership' do
-    visit membership_path(@membership)
-    expect(page).to have_current_path(membership_path(@membership))
+    visit unit_membership_path(@unit, @membership)
+    expect(page).to have_current_path(unit_membership_path(@unit, @membership))
   end
 
   it 'adds a new Youth' do
@@ -24,17 +24,17 @@ RSpec.feature "Membership features", :type => :feature do
   end
 
   it 'displays the membership page' do
-    visit membership_path(@membership)
+    visit unit_membership_path(@unit, @membership)
   end
 
   it 'displays the membership edit page' do
-    visit edit_membership_path(@membership)
-    expect(page).to have_current_path(edit_membership_path(@membership))
+    visit edit_unit_membership_path(@unit, @membership)
+    expect(page).to have_current_path(edit_unit_membership_path(@unit, @membership))
   end
 
   describe 'editing' do
     it 'has adult positions when editing an adult' do
-      visit edit_membership_path(@membership)
+      visit edit_unit_membership_path(@unit, @membership)
       expect(page).to have_select('membership_unit_position_id', @membership.unit.unit_positions.map(&:name))
     end
   end

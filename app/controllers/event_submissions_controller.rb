@@ -1,8 +1,7 @@
 # this is the controller used when submitting at the Event level
 # (where the requirement being fulfilled isn't yet known)
 
-class EventSubmissionsController < AuthenticatedController
-  before_action :find_unit
+class EventSubmissionsController < UnitContextController
   before_action :find_event_requirement
   before_action :find_event_registration
   before_action :find_event

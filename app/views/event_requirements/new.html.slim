@@ -1,7 +1,7 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'),        unit_events_path(@unit)
-- crumbtrail link_to @event.name,              event_path(@event)
-- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
+- crumbtrail link_to @event.name,              unit_event_path(@unit, @event)
+- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit, @event)
 - crumbtrail t('event_requirements.new')
 
 - if params[:type] == 'document'
@@ -10,7 +10,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement, url: event_event_requirements_path(@event) do |f|
+      = form_for [@unit.becomes(Unit), @event, @event_requirement] do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'
@@ -45,7 +45,7 @@
 
   .row
     .col-md-6
-      = form_for @event_requirement, url: event_event_requirements_path(@event) do |f|
+      = form_for [@unit.becomes(Unit), @event, @event_requirement] do |f|
         .form-group
           = f.label :description
           = f.text_field :description, class: 'form-control'

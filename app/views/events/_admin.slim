@@ -18,7 +18,7 @@
 .modal#cancel-event-modal
   .modal-dialog
     .modal-content
-      = form_for event_path(@event), method: :delete do |f|
+      = form_for unit_event_path(@unit, @event), method: :delete do |f|
         .modal-header
           h5.modal-title = t('events.delete_title')
         .modal-body

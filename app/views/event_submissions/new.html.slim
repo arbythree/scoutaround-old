@@ -1,6 +1,6 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
-- crumbtrail link_to @event.name, event_path(@event)
+- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
 
 - if @event_requirement.present?
   - crumbtrail @event_requirement.description

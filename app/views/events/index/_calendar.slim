@@ -70,7 +70,7 @@
               - classes << 'attending' if family_registrants.count.positive?
 
               / render the event link
-              = link_to event_path(event), class: classes.join(' '), data: { toggle: 'tooltip' }, title: title do
+              = link_to unit_event_path(@unit, event), class: classes.join(' '), data: { toggle: 'tooltip' }, title: title do
                 span = event.name
                 | &nbsp;
 

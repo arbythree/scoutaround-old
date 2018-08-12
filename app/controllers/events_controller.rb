@@ -4,6 +4,8 @@
 
 class EventsController < UnitContextController
   before_action :find_event, except: [:index, :new, :create]
+  before_action :fetch_view_preference, only: [:index]
+  after_action  :store_view_preference, only: [:index]
   layout :choose_layout
 
   def choose_layout
@@ -87,9 +89,9 @@ class EventsController < UnitContextController
 
   def update
     if @event.update_attributes(event_params)
-      redirect_to event_path(@event)
+      redirect_to unit_event_path(@unit, @event)
     else
-      redirect_to edit_event_path(@event)
+      redirect_to edit_unit_event_path(@unit, @event)
     end
   end
 
@@ -110,5 +112,13 @@ class EventsController < UnitContextController
 
   def event_params
     params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration, :registration_closes_at)
+  end
+
+  def fetch_view_preference
+    @view = params[:view] || @current_user.preference_for(key: :unit_events, default: :list)
+  end
+
+  def store_view_preference
+    @current_user.save_preference_for(key: :unit_events, value: @view)
   end
 end

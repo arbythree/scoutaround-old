@@ -25,3 +25,4 @@
 //= require local-time
 // require jquery-ui // < commenting out on 1 July as it was messing up tooltips
 //= require bootstrap-tagsinput
+//= require activestorage

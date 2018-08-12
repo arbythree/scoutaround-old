@@ -36,4 +36,4 @@
       - submissions.each do |submission|
         li = submission.user.full_name
 
-    = link_to t('event_requirements.download_all'), event_requirement_event_submissions_path(@event_requirement, format: :pdf), class: 'btn btn-primary'
+    = link_to t('event_requirements.download_all'), unit_event_requirement_event_submissions_path(@unit, @event_requirement, format: :pdf), class: 'btn btn-primary'

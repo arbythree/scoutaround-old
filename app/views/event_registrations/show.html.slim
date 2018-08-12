@@ -1,7 +1,7 @@
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
-- crumbtrail link_to @event.name, event_path(@event)
-- crumbtrail link_to t('registrations.title'), event_event_registrations_path(@event)
+- crumbtrail link_to @event.name, [@unit.becomes(Unit), @event]
+- crumbtrail link_to t('registrations.title'), unit_event_event_registrations_path(@unit.becomes(Unit), @event)
 - crumbtrail @registration.user.full_name
 
 - content_for :title do
@@ -29,10 +29,10 @@ table.table
         td
         td
           - key = requirement.type == 'DocumentEventRequirement' ? 'submissions.upload_simple' : 'submissions.record_payment'
-          = link_to t(key), new_event_requirement_event_submission_path(requirement, registration: @registration)
+          = link_to t(key), new_unit_event_requirement_event_submission_path(@unit, requirement, registration: @registration)
 
 - content_for :utilities
   .card
     .card-header Manage
     .card-body
-      p = link_to t('registrations.destroy'), event_registration_path(@registration), method: :delete, prompt: 'Are you sure?'
+      p = link_to t('registrations.destroy'), [@unit.becomes(Unit), @event, @registration], method: :delete, prompt: 'Are you sure?'

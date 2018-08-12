@@ -1,6 +1,9 @@
-class MagicLinksController < ApplicationController
-  layout 'magic_links'
-  before_action :find_magic_link
+class MagicLinksController < UnitContextController
+  before_action :find_magic_link, except: [:index]
+
+  def index
+    @magic_links = @unit.magic_links
+  end
 
   def show
     if @magic_link.expired?

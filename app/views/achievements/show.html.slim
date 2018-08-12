@@ -1,0 +1,24 @@
+  - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
+  - crumbtrail link_to t('advancement.title'), unit_achievements_path(@unit)
+  - crumbtrail link_to @user.full_name, unit_membership_achievements_path(@unit, @membership)
+  - crumbtrail "#{ @achievement.name } #{ I18n.t('advancement.types.merit_badge') }"
+
+  = content_for :title do
+    h1 = @achievement.user.full_name
+    h2 = "#{ @achievement.name } #{ I18n.t('advancement.types.merit_badge') }"
+
+  = content_for :utilities do
+    = link_to t('edit'), edit_unit_membership_achievement_path(@unit, @membership, @achievement)
+
+  dl
+    dt = t('achievements.earned_on')
+    dd = @achievement.earned_at.to_formatted_s(:scoutaround)
+
+    dt = t('achievements.approved_by.merit_badge')
+    dd = @achievement.approved_by
+
+    dt Attachments
+    - @achievement.attachments.each do |attachment|
+      dd
+        = link_to rails_blob_path(attachment, disposition: 'attachment') do
+          = image_tag attachment.preview(resize: '200x200>')
