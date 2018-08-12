@@ -1,0 +1,16 @@
+h3 Shopping List
+
+table.table
+  tr.section-heading
+    td(colspan="10") Ranks
+  - @unit.achievements.unawarded.ranks.order('ordinal').group_by(&:name).each do |name, achievements|
+    tr
+      td = name
+      td = achievements.count
+
+  tr.section-heading
+    td(colspan="10") Merit Badges
+  - @unit.achievements.unawarded.merit_badges.order('name').group_by(&:name).each do |name, achievements|
+    tr
+      td = name
+      td = achievements.count

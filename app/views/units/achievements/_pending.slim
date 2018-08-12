@@ -1,0 +1,10 @@
+h3 Unawarded Achievements
+
+table.table
+  - @unit.achievements.unawarded.group_by(&:user_id).each do |user_id, achievements|
+    tr.section-heading
+      td(colspan="10") = User.find(user_id).full_name
+    - achievements.each do |achievement|
+      tr
+        td = achievement.name
+        td = achievement.type

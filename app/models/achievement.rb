@@ -5,7 +5,10 @@ class Achievement < ApplicationRecord
   validate :achievable_is_concrete
   delegate :type, to: :achievable
   delegate :name, to: :achievable
+  delegate :ordinal, to: :achievable
   scope :merit_badges, -> { joins(:achievable).where('achievables.type = ?', 'MeritBadge') }
+  scope :ranks, -> { joins(:achievable).where('achievables.type = ?', 'Rank') }
+  scope :unawarded, -> { where('awarded_at IS NULL') }
   has_many_attached :attachments
 
   #
@@ -14,5 +17,9 @@ class Achievement < ApplicationRecord
   #
   def achievable_is_concrete
     errors.add(:achievable, 'Must be concrete') unless self.achievable.concrete?
+  end
+
+  def awarded?
+    awarded_at.present?
   end
 end

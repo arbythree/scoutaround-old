@@ -1071,3 +1071,10 @@ tr.event {
     }
   }
 }
+
+tr.section-heading {
+  td {
+    @include sans-serif;
+    font-weight: 700;
+  }
+}

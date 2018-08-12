@@ -4,7 +4,7 @@ class Unit < ApplicationRecord
   has_many :memberships
   has_many :members, through: :memberships, source: 'user'
   has_many :document_library_items
-  has_many :achievements, through: :users
+  has_many :achievements, through: :members
   has_many :magic_links
   has_many :unit_positions
   belongs_to :primary_wiki_article, class_name: 'WikiArticle', optional: true
