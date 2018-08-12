@@ -17,4 +17,28 @@ RSpec.feature "Advancement features", :type => :feature do
     visit unit_achievements_path(@unit)
     expect(page).to have_current_path(unit_achievements_path(@unit))
   end
+
+  describe 'achievements' do
+    before do
+      @merit_badge = MeritBadge.create(name: 'Snorking')
+      @achievement = Achievement.create!(
+        user_id: @user.id,
+        achievable_id: @merit_badge.id
+      )
+    end
+
+    it 'visits an achievement without an earned_at date' do
+      visit(unit_membership_achievement_path(@unit, @membership, @achievement))
+      expect(page).to have_current_path(unit_membership_achievement_path(@unit, @membership, @achievement))
+    end
+
+    it 'visits an achievement with an earned_at date' do
+      @achievement.update!(earned_at: 2.weeks.ago)
+      visit(unit_membership_achievement_path(@unit, @membership, @achievement))
+      expect(page).to have_current_path(unit_membership_achievement_path(@unit, @membership, @achievement))
+
+      save_and_open_page
+      expect(page).to have_text(@achievement.earned_at.to_formatted_s(:scoutaround))
+    end
+  end
 end
