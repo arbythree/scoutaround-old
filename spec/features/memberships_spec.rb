@@ -23,12 +23,22 @@ RSpec.feature "Membership features", :type => :feature do
     click_on I18n.t('memberships.add_new')
   end
 
-  it 'displays the membership page' do
+  it 'displays the membership page for a guardee' do
     member = @membership.user
     guardian = FactoryBot.create(:adult)
     @unit.memberships.create(user_id: guardian.id)
     Guardianship.create(guardee_id: member.id, guardian_id: guardian.id)
     expect(member.guardians.count).to eq(1)
+    visit unit_membership_path(@unit, @membership)
+    expect(page).to have_current_path(unit_membership_path(@unit, @membership))
+  end
+
+  it 'displays the membership page for a guardian' do
+    member = @membership.user
+    guardee = FactoryBot.create(:youth)
+    @unit.memberships.create(user_id: guardee.id)
+    Guardianship.create(guardian_id: member.id, guardee_id: guardee.id)
+    expect(member.guardees.count).to eq(1)
     visit unit_membership_path(@unit, @membership)
     expect(page).to have_current_path(unit_membership_path(@unit, @membership))
   end
