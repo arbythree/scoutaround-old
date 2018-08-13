@@ -7,10 +7,11 @@ class Achievement < ApplicationRecord
   delegate :name, to: :achievable
   delegate :ordinal, to: :achievable
   delegate :program_code, to: :achievable
-  scope :merit_badges, -> { joins(:achievable).where('achievables.type = ?', 'MeritBadge') }
-  scope :ranks, -> { joins(:achievable).where('achievables.type = ?', 'Rank') }
+  scope :merit_badges,           -> { joins(:achievable).where('achievables.type = ?', 'MeritBadge') }
+  scope :ranks,                  -> { joins(:achievable).where('achievables.type = ?', 'Rank') }
   scope :non_advancement_awards, -> { joins(:achievable).where('achievables.type = ?', 'NonAdvancementAward') }
-  scope :unawarded, -> { where('awarded_at IS NULL') }
+  scope :awardable,              -> { joins(:achievable).where('achievables.type != ?', 'Requirement') }
+  scope :unawarded,              -> { where('awarded_at IS NULL') }
   has_many_attached :attachments
 
   #
