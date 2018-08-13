@@ -1,0 +1,45 @@
+javascript:
+  function revealSubRequirements(item) {
+    var $item = $(item);
+    var sublist = $item.siblings('ol').first();
+    sublist.toggle(150);
+    $item.html($item.html() == 'See more' ? 'See less' : 'See more');
+  }
+
+  function recordAchievement(box) {
+    var requirementId = $(box).val();
+    var achievementId = $(box).attr('data-achievement');
+    var childCount    = $(box).attr('data-children');
+
+    if (childCount > 0) {
+      alert('Complete all the sub-requirements and we\'ll check the box for you');
+      event.preventDefault();
+    } else if (achievementId == 0) {
+      // POST a new achievement
+      var path = "#{ unit_membership_achievements_path(@unit, @membership) }";
+      var json = ('{ "achievement" : { "achievable_id" : ' + requirementId + ' } }');
+      $.ajax({
+        type:         'POST',
+        dataType:     'json',
+        contentType:  'application/json',
+        url:          path,
+        data:         json,
+        success:      function() {
+          $('#requirements').load('/#{ @unit.id }/members/#{ @membership.id }/advancement #requirements');
+        }
+      });
+    } else {
+      // DELETE an existing achievement
+      var path = '/units/#{@unit.id}/advancement/' + achievementId;
+      $.ajax({
+        type:         'DELETE',
+        dataType:     'json',
+        contentType:  'application/json',
+        url:          path,
+        success:      function() {
+          $('#requirements').load('/#{ @unit.id }/members/#{ @membership.id }/advancement #requirements');
+        }
+      });
+      $(box).attr('data-achievement', '0');
+    }
+  }

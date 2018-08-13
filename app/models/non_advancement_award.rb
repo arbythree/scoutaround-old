@@ -1,0 +1,2 @@
+class NonAdvancementAward < Achievable
+end

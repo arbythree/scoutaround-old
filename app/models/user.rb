@@ -45,6 +45,10 @@ class User < ApplicationRecord
     "#{first_name[0]}#{last_name[0]}"
   end
 
+  def preferred_name
+    nickname || first_name
+  end
+
   def multiple_units?
     units.count > 1
   end

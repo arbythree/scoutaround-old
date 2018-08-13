@@ -20,6 +20,8 @@ en:
   ago:                  'ago'
   got_it:               "Got It. Let's Go"
   edit:                 'Edit'
+  profile:              'Your Profile'
+  guardee_profile:      "%{first_name}'s Profile"
 
   auth:
     sign_in:          'Sign In'
@@ -245,10 +247,14 @@ en:
   advancement:
     title: 'Advancement'
     types:
-      merit_badges: 'Merit Badges'
-      merit_badge:  'Merit Badge'
+      merit_badges:     'Merit Badges'
+      merit_badge:      'Merit Badge'
+      non_advancement:  'Other Awards'
     add:
       merit_badge: 'Record a Merit Badge'
+      non_advancement: 'Record a Non-Advancement Award'
+    start:
+      merit_badge: 'Start a Merit Badge'
     success:
       merit_badge: 'Recorded that %{name} has earned the %{badge} merit badge'
     target_rank: 'Progress Toward %{rank} Scout'

@@ -9,6 +9,7 @@ class AchievementsController < UnitContextController
 
   def index
     @next_rank = @user&.rank&.next_rank || Rank.find_by(ordinal: 0)
+    @view = params[:view] || 'rank_progress'
   end
 
   def new

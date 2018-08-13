@@ -9,5 +9,6 @@ FactoryBot.define do
 
   factory :troop, parent: :unit do
     type 'Troop'
+    program_code 'bsa'
   end
 end

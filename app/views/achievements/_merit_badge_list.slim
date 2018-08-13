@@ -1,0 +1,11 @@
+.title(style="position:relative;")
+  h3(style="display:inline-block;")
+    = t('advancement.types.merit_badges')
+  - if @user.achievements.merit_badges.count.positive?
+    .badge.badge-pill.badge-info(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
+      = @user.achievements.merit_badges.count
+table.table
+  = render partial: 'achievements/merit_badge', collection: @user.achievements.merit_badges
+  - if @current_user.type == 'Youth'
+    tr
+      td = link_to 'Start a Merit Badge', new_unit_membership_achievement_path(@unit, @membership, type: :merit_badge), class: 'btn btn-primary'
