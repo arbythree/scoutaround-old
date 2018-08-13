@@ -1,0 +1,15 @@
+  #requirements
+    .title(style="position:relative;")
+      h3(style="display:inline-block;")
+        = t('advancement.target_rank', rank: @next_rank.name)
+      .badge.badge-pill.badge-success(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
+        = number_to_percentage(@next_rank.progress_for(user: @user), precision: 0)
+
+    ol.requirements
+      = render partial: 'requirements/show/requirement', collection: @next_rank.requirements, locals: { include_checkboxes: true }
+
+    = render partial: 'achievements/requirements_scripts'
+
+  - content_for :utilities do
+    = render partial: 'achievements/merit_badge_list'
+    = render partial: 'achievements/non_advancement_award_list'

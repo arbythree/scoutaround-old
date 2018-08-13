@@ -1,0 +1,11 @@
+table.table
+  tr
+    th Date Earned
+    th Award
+    th Type
+
+  - @user.achievements.order(:earned_at).each do |achievement|
+    tr
+      td = achievement.earned_at&.to_formatted_s(:scoutaround)
+      td = achievement.name
+      td = AchievementPresenter.type(achievement)

@@ -1,0 +1,12 @@
+.title(style="position:relative;")
+  h3(style="display:inline-block;")
+    = t('advancement.types.non_advancement')
+  - if @user.achievements.non_advancement_awards.count.positive?
+    .badge.badge-pill.badge-info(style="position: absolute; top: 0.5rem; margin-left: 0.5rem;")
+      = @user.achievements.non_advancement_awards.count
+
+table.table
+  = render partial: 'achievements/merit_badge', collection: @user.achievements.non_advancement_awards
+  - if @current_user.type == 'Youth'
+    tr
+      td = link_to 'Start a Special Award', new_unit_membership_achievement_path(@unit, @membership, type: :non_advancement), class: 'btn btn-primary'

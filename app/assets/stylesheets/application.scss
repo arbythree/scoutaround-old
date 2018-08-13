@@ -1077,7 +1077,9 @@ tr.event {
 }
 
 tr.section-heading {
+
   td {
+    background: lighten($color_background, 5%);
     @include sans-serif;
     @include uppercase;
     font-weight: 700;

@@ -1,0 +1,26 @@
+- submit_caption = @achievement.new_record? ? t('achievements.add') : t('achievements.update')
+
+- content_for :title do
+  h1 = @user.full_name
+  h2 = t('advancement.start.merit_badge')
+
+  = form_for [@unit.becomes(Unit), @membership, @achievement] do |f|
+    .form-group
+      = f.label :name, 'Which Merit Badge are you starting?'
+      = f.collection_select :achievable_id, MeritBadge.all.order(:name), :id, :name, { prompt: 'Choose merit badge' }, class: 'form-control'
+
+    .form-group
+      = f.label :approved_by, 'Your Merit Badge Counselor\'s Name'
+      = f.text_field :approved_by, class: 'form-control'
+
+    .form-group
+      = f.submit 'Start', class: 'btn btn-primary'
+      span.or = t('or')
+      = link_to t('cancel'), unit_membership_achievements_path(@unit, @membership)
+
+javascript:
+  $(document).ready(function(){
+    $('.datepicker').datepicker({
+      format: "d MM yyyy"
+    });
+  });

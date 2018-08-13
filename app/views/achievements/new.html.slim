@@ -1,1 +1,6 @@
-= render 'achievements/merit_badge_form' if params[:type] == 'merit_badge'
+- case params[:type]
+- when 'merit_badge'
+  = render 'achievements/merit_badge_admin_form' if @current_user_is_admin
+  = render 'achievements/merit_badge_youth_form' if @user.type == 'Youth'
+- when 'non_advancement'
+  = render 'achievements/non_advancement_admin_form' if @current_user_is_admin

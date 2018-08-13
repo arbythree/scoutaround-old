@@ -12,7 +12,7 @@ class UsersController < AuthenticatedController
     @user.assign_attributes(user_params)
     if @user.save!
       flash[:notice] = 'Your profile has been updated'
-      redirect_to @user.becomes(User)
+      redirect_to root_path
     end
   end
 

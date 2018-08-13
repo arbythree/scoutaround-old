@@ -11,13 +11,12 @@ header#mobile
     .utilities
       .dropdown.dropright
         = link_to '#', data: {toggle: 'dropdown'} do
-          = t('hello', name: @current_user.first_name)
+          = t('hello', name: @current_user.preferred_name)
           | &nbsp;
           i.fa-chevron-down.fas
 
         .dropdown-menu
           = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
-          / = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
           .dropdown-divider
           = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 
@@ -27,24 +26,25 @@ header#primary
     .utilities
       .dropdown.hello
         = link_to '#', data: {toggle: 'dropdown'}, class: 'link' do
-          = t('hello', name: @current_user.first_name)
+          = t('hello', name: @current_user.preferred_name)
           | &nbsp;
           i.fa-chevron-down.fas
           .role = roles.join(' / ')
 
         .dropdown-menu
 
-          - if @current_user.units.count > 1
-            - @current_user.units.each do |unit|
-              = link_to unit_path(unit), class: 'dropdown-item' do
-                - if @unit == unit
-                  i.fa-check.fas
-                  | &nbsp;
-                = UnitPresenter.unit_display_name(unit)
-            .dropdown-divider
+          - @current_user.units.each do |unit|
+            = link_to unit_path(unit), class: 'dropdown-item' do
+              - if @unit == unit
+                i.fa-check.fas
+                | &nbsp;
+              = UnitPresenter.unit_display_name(unit)
+          .dropdown-divider
 
           = link_to t('profile'), edit_user_path(@current_user), class: 'dropdown-item'
-          / = link_to t('units.new'), new_unit_path, class: 'dropdown-item'
+          - @current_user.guardees.each do |guardee|
+            = link_to t('guardee_profile', first_name: guardee.first_name), [guardee.memberships.first.unit.becomes(Unit), guardee.memberships.first], class: 'dropdown-item'
+
           .dropdown-divider
           = link_to t('sign_out'), destroy_user_session_path, method: :delete, class: 'dropdown-item'
 

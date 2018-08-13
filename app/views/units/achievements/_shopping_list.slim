@@ -18,3 +18,10 @@ table.table
     tr
       td = name
       td.numeric = achievements.count
+
+  tr.section-heading
+    td(colspan="10") Non-Advancement Awards
+  - @unit.achievements.unawarded.non_advancement_awards.order('name').group_by(&:name).each do |name, achievements|
+    tr
+      td = name
+      td.numeric = achievements.count
