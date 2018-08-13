@@ -1,7 +1,7 @@
 h3 Unawarded Achievements
 
 table.table
-  - @unit.achievements.unawarded.joins(:user).group_by(&:user_id).each do |user_id, achievements|
+  - @unit.achievements.awardable.unawarded.joins(:user).order('users.first_name', 'users.last_name').group_by(&:user_id).each do |user_id, achievements|
     - user = User.find(user_id)
     - membership = @unit.membership_for(user: user)
     tr.section-heading
