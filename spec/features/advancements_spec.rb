@@ -38,5 +38,17 @@ RSpec.feature "Advancement features", :type => :feature do
       expect(page).to have_current_path(unit_membership_achievement_path(@unit, @membership, @achievement))
       expect(page).to have_text(@achievement.earned_at.to_formatted_s(:scoutaround))
     end
+
+    it 'visits an achievement show page' do
+      path = unit_membership_achievement_path(@unit.becomes(Unit), @unit.membership_for(user: @user), @achievement)
+      visit path
+      expect(page).to have_current_path(path)
+    end
+
+    it 'visits an achievement edit page' do
+      path = edit_unit_membership_achievement_path(@unit.becomes(Unit), @unit.membership_for(user: @user), @achievement)
+      visit path
+      expect(page).to have_current_path(path)
+    end
   end
 end
