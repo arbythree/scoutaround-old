@@ -38,7 +38,7 @@ class User < ApplicationRecord
   end
 
   def short_name
-    "#{first_name} #{last_name[0]}"
+    "#{ nickname.present? ? nickname : first_name } #{ last_name }"
   end
 
   def initials
