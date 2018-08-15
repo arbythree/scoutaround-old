@@ -296,3 +296,6 @@ en:
     update:         'Update'
     approved_by:
       merit_badge:  'Counselor'
+    award_checked:  'Award Checked Achievements'
+    success:
+      bulk_update:  "%{count} achivements were awarded"

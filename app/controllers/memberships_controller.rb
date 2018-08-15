@@ -32,7 +32,12 @@ class MembershipsController < UnitContextController
   end
 
   def show
-    @registrations = @unit.event_registrations.where(user_id: @membership.user_id)
+    @view = params[:view] || 'future'
+    if @view == 'future'
+      @registrations = @unit.event_registrations.future.where(user_id: @membership.user_id)
+    elsif @view == 'all_registrations'
+      @registrations = @unit.event_registrations.where(user_id: @membership.user_id)
+    end
   end
 
   def edit

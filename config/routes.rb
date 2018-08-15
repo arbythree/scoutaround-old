@@ -40,7 +40,7 @@ Rails.application.routes.draw do
       resources :achievements,          path: 'advancement'
     end
     scope module: 'units' do
-      resources :achievements, only: [:index], path: 'advancement'
+      resources :achievements, only: [:index, :update], path: 'advancement'
     end
     resources :document_library_items,  path: 'documents'
     resources :wiki_articles,           path: 'wiki'

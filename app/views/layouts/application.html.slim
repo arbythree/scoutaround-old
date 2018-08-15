@@ -48,8 +48,11 @@ html
               = flash[:error]
 
       .row
-        .col-md-12
+        .col-md-8
           = yield :title
+
+        .col-md-4(style="text-align:right;")
+          = yield :actions
 
       .row
 
