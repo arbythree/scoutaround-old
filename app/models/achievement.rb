@@ -11,6 +11,7 @@ class Achievement < ApplicationRecord
   scope :ranks,                  -> { joins(:achievable).where('achievables.type = ?', 'Rank') }
   scope :non_advancement_awards, -> { joins(:achievable).where('achievables.type = ?', 'NonAdvancementAward') }
   scope :awardable,              -> { joins(:achievable).where('achievables.type != ?', 'Requirement') }
+  scope :unapproved,             -> { where('earned_at IS NULL') }
   scope :unawarded,              -> { where('awarded_at IS NULL') }
   has_many_attached :attachments
 

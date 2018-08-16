@@ -46,7 +46,7 @@ class User < ApplicationRecord
   end
 
   def preferred_name
-    nickname || first_name
+    nickname.present? ? nickname : first_name
   end
 
   def multiple_units?
