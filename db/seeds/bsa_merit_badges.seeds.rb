@@ -27,4 +27,4 @@ merit_badge_names.each do |name|
   MeritBadge.where(program_code: 'bsa', name: name).first_or_create
 end
 
-puts "Merit Badges: #{MeritBadge.count}"
+print "Merit Badges: #{MeritBadge.count}\n"

@@ -1,4 +1,4 @@
-after :ranks, :unit_positions, :subscription_plans do
+after :bsa_ranks, :bsa_unit_positions, :subscription_plans do
   def create_user(type, first_name, last_name, date_of_birth, email, rank = nil)
     user = User.create_with(
       first_name: first_name,

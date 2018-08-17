@@ -48,7 +48,7 @@ class EventSubmissionsController < UnitContextController
     @event.event_registrations.each do |registration|
       if @current_user_is_admin
         @visible_event_registrations << registration
-      elsif registration.user == @current_user
+      elsif registration.user_id == @current_user.id
         @visible_event_registrations << registration
       elsif @current_user.guardees.include? registration.user
         @visible_event_registrations << registration

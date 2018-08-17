@@ -185,17 +185,6 @@ GEM
       railties (>= 3.2.16)
     jquery-validation-rails (1.16.0)
     json (2.1.0)
-    jsonapi-deserializable (0.2.0)
-    jsonapi-parser (0.1.1)
-    jsonapi-rails (0.3.1)
-      jsonapi-parser (~> 0.1.0)
-      jsonapi-rb (~> 0.5.0)
-    jsonapi-rb (0.5.0)
-      jsonapi-deserializable (~> 0.2.0)
-      jsonapi-serializable (~> 0.3.0)
-    jsonapi-renderer (0.2.0)
-    jsonapi-serializable (0.3.0)
-      jsonapi-renderer (~> 0.2.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     listen (3.1.5)
@@ -414,7 +403,6 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   jquery-validation-rails
-  jsonapi-rails
   launchy
   listen (>= 3.0.5, < 3.2)
   local_time

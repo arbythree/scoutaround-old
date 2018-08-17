@@ -73,6 +73,7 @@ gem 'tzinfo' #, git: 'https://github.com/tzinfo/tzinfo'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'capybara', '~> 2.13'
@@ -83,7 +84,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'awesome_print'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'guard-rspec', require: false
   gem 'scout_apm'

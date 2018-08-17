@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_12_160013) do
+ActiveRecord::Schema.define(version: 2018_08_16_204249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,10 @@ ActiveRecord::Schema.define(version: 2018_08_12_160013) do
     t.datetime "updated_at", null: false
     t.datetime "registration_closes_at"
     t.boolean "require_registration", default: false
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.string "postal_code"
   end
 
   create_table "guardianships", force: :cascade do |t|

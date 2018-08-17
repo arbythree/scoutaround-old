@@ -22,7 +22,7 @@ header#primary
     .utilities
       .dropdown.hello
         = link_to '#', data: {toggle: 'dropdown'}, class: 'link' do
-          = t('hello', name: @current_user.nickname.present? @current_user.nickname : @current_user.first_name)
+          = t('hello', name: @current_user.preferred_name)
           | &nbsp;
           i.fa-chevron-down.fas
 

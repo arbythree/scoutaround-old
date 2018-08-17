@@ -13,6 +13,7 @@ module FeatureSpecHelper
   def sign_in
     setup
     login_as(@user, scope: :user)
+    visit root_path
 
     # visit new_user_session_path
     # fill_in 'user_email',    with: @user.email
