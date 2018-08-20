@@ -23,6 +23,10 @@
         = f.phone_field :phone, class: 'form-control'
 
       .form-group
+        = f.label :date_of_birth
+        = f.text_field :date_of_birth, class: 'form-control datepicker'
+
+      .form-group
         = f.label :avatar, 'Photo'
         = image_tag rails_blob_path(@user.avatar), style: 'max-width: 100%;' if @user.avatar.attached?
         = f.file_field :avatar, class: 'form-control'

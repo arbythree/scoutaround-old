@@ -1,53 +1,57 @@
-.admin.dropdown
-  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('memberships.administration')}")
-      = render partial: 'layouts/campfire'
+- content_for :actions do
+  - if @current_user_is_admin
+    = link_to 'Add a Member', new_unit_membership_path(@unit), class: 'btn btn-primary', style: 'margin-right: 1rem;'
 
-  .dropdown-menu.dropdown-menu-right
-    - if @current_user_is_admin
-      = link_to new_unit_membership_path(@unit, type: 'youth'), class: 'dropdown-item' do
-        i.fa-tree.fal
-        = t('memberships.add.youth')
+  .admin.dropdown
+    = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+      span(data-toggle="tooltip" title="#{t('memberships.administration')}")
+        = render partial: 'layouts/campfire'
 
-      = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
-        i.fa-tree.fal
-        = t('memberships.add.adult')
+    .dropdown-menu.dropdown-menu-right
+      - if @current_user_is_admin
+        = link_to new_unit_membership_path(@unit, type: 'youth'), class: 'dropdown-item' do
+          i.fa-tree.fal
+          = t('memberships.add.youth')
 
-      = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
-        i.fa-tree.fal
-        = t('memberships.invite.adult')
+        = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
+          i.fa-tree.fal
+          = t('memberships.add.adult')
+
+        = link_to new_unit_membership_path(@unit, type: 'adult'), class: 'dropdown-item' do
+          i.fa-tree.fal
+          = t('memberships.invite.adult')
+
+        .dropdown-divider
+
+      = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-all', data: { hide: 'none' } do
+        | Show All
+        i.fa-check.fas
+
+      = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-youths', data: { hide: 'adults' } do
+        | Hide Adults
+        i.fa-check.fas
+
+      = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-adults', data: { hide: 'youths' } do
+        | Hide Youths
+        i.fa-check.fas
 
       .dropdown-divider
 
-    = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-all', data: { hide: 'none' } do
-      | Show All
-      i.fa-check.fas
+      = link_to '#', class: 'dropdown-item toggle-view-users-active', id: 'toggle-view-users-inactive', data: { hide: 'youths' } do
+        | Include Inactive Members
+        i.fa-check.fas
 
-    = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-youths', data: { hide: 'adults' } do
-      | Hide Adults
-      i.fa-check.fas
+  javascript:
+    $('.toggle-view-users').click(function() {
+      $('body').removeClass('hide-none');
+      $('body').removeClass('hide-adults');
+      $('body').removeClass('hide-youths');
 
-    = link_to '#', class: 'dropdown-item toggle-view-users', id: 'toggle-view-users-adults', data: { hide: 'youths' } do
-      | Hide Youths
-      i.fa-check.fas
+      var hide = $(this).attr('data-hide');
 
-    .dropdown-divider
+      $('body').addClass('hide-' + hide);
+    });
 
-    = link_to '#', class: 'dropdown-item toggle-view-users-active', id: 'toggle-view-users-inactive', data: { hide: 'youths' } do
-      | Include Inactive Members
-      i.fa-check.fas
-
-javascript:
-  $('.toggle-view-users').click(function() {
-    $('body').removeClass('hide-none');
-    $('body').removeClass('hide-adults');
-    $('body').removeClass('hide-youths');
-
-    var hide = $(this).attr('data-hide');
-
-    $('body').addClass('hide-' + hide);
-  });
-
-  $('#toggle-view-users-inactive').click(function() {
-    $('body').toggleClass('show-inactive');
-  });
+    $('#toggle-view-users-inactive').click(function() {
+      $('body').toggleClass('show-inactive');
+    });

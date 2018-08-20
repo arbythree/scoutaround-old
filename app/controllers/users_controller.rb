@@ -29,7 +29,8 @@ class UsersController < AuthenticatedController
       :nickname,
       :email,
       :phone,
-      :avatar
+      :avatar,
+      :date_of_birth
     )
   end
 end

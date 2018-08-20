@@ -13,6 +13,7 @@ class User < ApplicationRecord
   has_many :achievements
   has_many :user_preferences
   has_one  :payment_method
+  has_many :attendances
   has_one_attached :avatar
 
   #

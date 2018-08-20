@@ -159,7 +159,7 @@ class MembershipsController < UnitContextController
       :unit_position_id,
       user_attributes: [:id, :rank_id, :first_name, :last_name,
         :nickname, :post_nominal, :type, :email, :phone, :avatar,
-        guardeeships_attributes: [:id, :guardian_id, :_destroy]
+        :date_of_birth, guardeeships_attributes: [:id, :guardian_id, :_destroy]
       ]
     )
   end

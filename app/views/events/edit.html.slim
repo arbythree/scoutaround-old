@@ -7,7 +7,7 @@
   h1 = @event.name
 
 .row
-  .col-md-6
+  .col-md-12
     = form_for [@unit.becomes(Unit), @event] do |f|
       .form-group
         = f.label :name
@@ -22,6 +22,22 @@
         = f.text_field :registration_closes_at, class: 'form-control'
 
       .form-group
+        = f.label :banner_image_url
+        = f.text_field :banner_image_url, class: 'form-control'
+
+      .form-group
+        = f.label :description
+        = f.text_area :description, class: 'form-control'
+
+      .form-group
+        = f.label :minimum_age
+        = f.number_field :minimum_age, class: 'form-control'
+
+      .form-group
+        = f.label :attachments
+        = f.file_field :attachments, multiple: true, direct_upload: true
+
+      .form-group
         .row
           .col-md-6
             = f.label :starts_at
@@ -34,3 +50,18 @@
 
       .form-group
         = f.submit 'Update', class: 'btn btn-primary'
+
+
+        = link_to '#', id: 'cancel-event-item', title: t('admin_only'), data: { toggle: 'modal', target: '#cancel-event-modal' } do
+          i.fa-tree.fal
+          = t('events.delete_title')
+
+
+#cancel-event-dialog.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        h5.modal-title = t('events.delete_title')
+      .modal-body
+      .modal-footer
+        button

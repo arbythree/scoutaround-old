@@ -1,6 +1,5 @@
 class UnitSettingsController < UnitContextController
   include UnitContext
-  layout 'narrow'
 
   def index
     session[:unit_id] = @unit.id # kludge alert: the Stripe callback URL can't be dynamic, so we need to cache the unit we're setting up

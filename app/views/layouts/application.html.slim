@@ -10,7 +10,7 @@ html
     meta(http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: *")
 
     / Use the following line instead
-    meta(http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: *; style-src 'self' 'unsafe-inline' https://cloud.typography.com https://apm.scoutapp.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://pro.fontawesome.com https://apm.scoutapp.com; connect-src 'self' https://scoutaround-prod.s3.amazonaws.com https://api.stripe.com https://cloud.typography.com; frame-src 'self' https://js.stripe.com; font-src 'self' data:")
+    meta(http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: *; style-src 'self' 'unsafe-inline' https://cloud.typography.com https://use.typekit.net https://p.typekit.net https://apm.scoutapp.com; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com https://pro.fontawesome.com https://apm.scoutapp.com; connect-src 'self' https://scoutaround-prod.s3.amazonaws.com https://api.stripe.com https://cloud.typography.com; frame-src 'self' https://js.stripe.com https://www.google.com; font-src 'self' https://use.typekit.net data:")
 
     / <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' http://www.google.com">
     = csrf_meta_tags
@@ -47,11 +47,16 @@ html
             .alert.alert-danger
               = flash[:error]
 
+      - if content_for?(:banner)
+        .row
+          .col-md-12
+            = yield :banner
+
       .row
         .col-md-8
           = yield :title
 
-        .col-md-4(style="text-align:right;")
+        .col-md-4(style="text-align:right; float: right;")
           = yield :actions
 
       .row
@@ -73,4 +78,15 @@ html
   javascript:
     $(document).on("turbolinks:load", function() {
       return FontAwesome.dom.i2svg();
+    });
+
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
     });

@@ -1,11 +1,7 @@
 #event-calendar
-  - first_day_of_week = 0 # sunday
-  - last_day_of_week  = 6 # saturday
-  - current_date = Date.today.beginning_of_month
-
-  - if params[:month].present? && params[:year].present?
-    - current_date = Date.new(params[:year].to_i, params[:month].to_i, 1)
-
+  - first_day_of_week   = 0 # sunday
+  - last_day_of_week    = 6 # saturday
+  - current_date        = Date.new(@year.to_i, @month.to_i, 1)
   - previous_month_date = current_date.at_beginning_of_month - 1.month
   - next_month_date     = current_date.at_beginning_of_month.next_month
 

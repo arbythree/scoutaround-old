@@ -28,6 +28,10 @@ $color_text:        rgb(33, 37, 41);
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
 }
 
+@mixin serif {
+  font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
+}
+
 @mixin uppercase {
   text-transform: uppercase;
 }
@@ -37,12 +41,17 @@ $color_text:        rgb(33, 37, 41);
 }
 
 body {
-  font-family: 'Sentinel SSm A', 'Sentinel SSm B', Georgia, serif;
+  @include sans-serif;
+  font-weight:      300;
   background-color: $color_background;
   padding-bottom:   30px;
   padding-left:     15px;
   padding-right:    15px;
   position:         relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @include serif;
 }
 
 .sidebar {
@@ -96,7 +105,11 @@ h4 {
 }
 
 .btn {
-  font-weight: 700;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1px;
+  padding: 8px 16px;
 }
 
 .btn-primary {
@@ -177,7 +190,7 @@ header#primary {
 
       a {
         color: #333;
-        font-weight: 600;
+        font-weight: 300;
         display: inline-block;
         padding: 1rem;
         @include sans-serif;
@@ -219,12 +232,10 @@ main {
   }
 }
 
-// label {
-//   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
-//   text-transform: uppercase;
-//   font-size: 0.85rem;
-//   font-weight: 300;
-// }
+label {
+  text-transform: uppercase;
+  font-weight: 600;
+}
 
 #roster {
   tr.inactive {
@@ -393,15 +404,16 @@ table.checklist {
 }
 
 .admin.dropdown {
-  position: absolute;
-  top: 15px;
-  right: 15px;
+  // position: absolute;
+  // top: 15px;
+  // right: 15px;
+  float: right;
 
   a.glyph {
     display: inline-block;
     text-align: center;
     border: 1px solid darken($color_background, 30%);
-    border-radius: 50%;
+    border-radius: 5px;
     width: 30px;
     height: 30px;
     position: relative;
@@ -414,8 +426,8 @@ table.checklist {
     }
 
     &:hover {
-      background-color: $color_brand;
-      border-color: darken($color_brand, 10%);
+      background-color: $blue;
+      border-color: darken($blue, 10%);
 
       svg {
         color: $white;
@@ -424,7 +436,7 @@ table.checklist {
   }
 
   .dropdown-item svg {
-    color: $color_brand;
+    color: $blue;
     margin: 0 0.5rem;
     width: 16px;
   }
@@ -758,6 +770,10 @@ ol.requirements li.completed > ol {
   cursor: default;
 }
 
+body.admin main {
+  border-top: 10px solid $color_brand;
+}
+
 body.events.index {
   #nav-item-events a {
     @include active_nav;
@@ -866,10 +882,6 @@ body.memberships.index {
   border-radius: 6px;
 }
 
-label {
-  font-weight: 600;
-}
-
 a.unregister {
   color: darken($color_background, 40%);
   font-size: 90%;
@@ -966,6 +978,7 @@ label.error {
   .role {
     font-size: 70%;
     color: darken($color_background, 30%);
+    white-space: nowrap;
   }
 
   .link {
@@ -1092,4 +1105,49 @@ th.numeric, td.numeric {
 
 .form-control.stacked {
   margin-bottom: 0.5rem;
+}
+
+.banner {
+  height: 300px;
+  margin: -3rem -6rem 1rem -6rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 3rem 6rem;
+
+  h1 {
+    color: $white;
+  }
+}
+
+.form-control {
+  font-weight: 300;
+}
+
+.event-details {
+  p {
+    margin-bottom: 0;
+  }
+
+  .details {
+    margin-bottom: 3rem;
+  }
+}
+
+.dropdown-menu {
+  max-width: 300px;
+}
+
+#description {
+  p {
+    font-size: 120%;
+    line-height: 160%;
+  }
+}
+
+a.glyphed span.glyph {
+  display: inline-block;
+  width: 28px;
 }
