@@ -62,7 +62,7 @@ class User < ApplicationRecord
     [self].concat(self.guardees)
   end
 
-  def is_member_of?(unit: nil)
+  def member_of?(unit)
     return false unless unit.present?
     unit.memberships.exists?(user_id: self.id)
   end

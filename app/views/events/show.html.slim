@@ -7,7 +7,7 @@
 - action_required = false
 
 - @current_user.family.each do |user|
-  - next unless user.is_member_of?(unit: @unit)
+  - next unless user.member_of?(@unit)
   - registration = @event.event_registrations.find_by(user: user)
   - action_required = true unless registration&.complete?
   - non_registrants << user unless registration.present?
@@ -131,7 +131,7 @@ section#map
       iframe(width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_API_KEY']}&q=#{ @event.map_location }")
 
 
-#registrations.modal
+#registrations.modal.fade
   .modal-dialog.modal-lg
     .modal-content
       / = form_for [@unit.becomes(Unit), @event, @event.messages.new], remote: true do |f|
@@ -141,8 +141,11 @@ section#map
           button.close(data-dismiss="modal")
             span &times;
         .modal-body
-          .form-group
-
+          - @current_user.family.each do |user|
+            - next unless user.member_of?(@unit)
+            .form-group
+              = check_box_tag 'user_id[]', user.id
+              = label_tag user.first_name
 
         .modal-footer
           button.btn.btn-secondary(data-dismiss="modal") = t('cancel')

@@ -119,7 +119,7 @@ class EventSubmissionsController < UnitContextController
   def process_credit_card
     total = 0
     @current_user.family.each do |user|
-      if user.is_member_of?(unit: @unit)
+      if user.member_of?(@unit)
         registration = @event.event_registrations.find_by(user: user)
         if registration.present?
           user_fee = user.type == 'Youth' ? @event_requirement.amount_youth : @event_requirement.amount_adult
