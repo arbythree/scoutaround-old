@@ -18,11 +18,11 @@ class StripeController < AuthenticatedController
     json = JSON.parse(response.body)
     @unit = @current_user.units.find(session[:unit_id])
     @unit.stripe_user_id = json['stripe_user_id']
-    @unit.save
+    @unit.save!
 
     flash[:notice] = t('units.success.payment_setup')
     session[:unit_id] = nil
-    redirect_to unit_unit_path(@unit)
+    redirect_to edit_unit_unit_setting_path(@unit, :payments)
   end
 
   def show

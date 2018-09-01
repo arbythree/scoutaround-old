@@ -106,7 +106,7 @@ header#primary
 
         - if @membership.role == 'admin'
           li#nav-item-unit-settings
-            = link_to "/#{@unit.id}/settings" do
+            = link_to edit_unit_unit_setting_path(@unit, :basic) do
               span
                 i.fal.fa-screwdriver
               = t('units.settings.title', unit_type: @unit.type)

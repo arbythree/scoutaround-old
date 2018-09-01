@@ -2,8 +2,10 @@
 - crumbtrail t('documents.title')
 
 - content_for :title do
-  = render 'document_library_items/admin' if @current_user_is_admin
   h1 = t('documents.title')
+
+- content_for :actions do
+  = render 'document_library_items/admin' if @current_user_is_admin
 
 - if @document_library_items.count.zero?
   p

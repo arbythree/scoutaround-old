@@ -792,7 +792,7 @@ body.units.show {
   }
 }
 
-body.units.edit {
+body.unit_settings.edit {
   #nav-item-unit-settings a {
     @include active_nav;
   }
@@ -1150,4 +1150,27 @@ th.numeric, td.numeric {
 a.glyphed span.glyph {
   display: inline-block;
   width: 28px;
+}
+
+
+body.unit_settings {
+  &.basic {
+    #nav-basic a {
+      @include active_nav;
+    }
+  }
+
+  &.payments {
+    #nav-payments a {
+      @include active_nav;
+    }
+  }
+}
+
+h2.subtitle {
+  margin-top: -3rem;
+  margin-bottom: 3rem;
+  @include sans-serif;
+  font-size: 24px;
+  font-weight: 300;
 }

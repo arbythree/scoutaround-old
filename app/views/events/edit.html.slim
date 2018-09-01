@@ -3,11 +3,13 @@
 - crumbtrail link_to @event.name, unit_event_path(@unit, @event)
 - crumbtrail 'Edit Details'
 
-- content_for :title do
-  h1 = @event.name
-
 .row
-  .col-md-12
+  .col-md-3
+    = render partial: 'events/nav'
+
+  .col-md-9
+    h1 = @event.name
+
     = form_for [@unit.becomes(Unit), @event] do |f|
       .form-group
         = f.label :name

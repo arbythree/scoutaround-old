@@ -3,33 +3,32 @@
 - crumbtrail link_to @event.name, unit_event_path(@unit, @event)
 - crumbtrail t('registrations.title')
 
-- content_for :title do
-  = render partial: 'layouts/admin_badge'
-  h1 = @event.name
-  = render partial: 'event_registrations/admin' if @current_user_is_admin
-  - present @event do |event|
-    p
-      = event.dates
-      | &nbsp;&nbsp;/&nbsp;&nbsp;
-      = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
+.row
+  .col-md-3
+    = render partial: 'events/nav'
 
-h3.inline = I18n.t('registrations.title')
-.badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.complete.count)
+  .col-md-9
+    h1 = @event.name
+    = render partial: 'event_registrations/admin' if @current_user_is_admin
+    - present @event do |event|
+      p
+        = event.dates
+        | &nbsp;&nbsp;/&nbsp;&nbsp;
+        = link_to @event.location, google_maps_link(@event.location), target: '_blank' if @event.location.present?
 
-table.table
-  tr
-    th Name
-    th Status
-    th Action
-  = render partial: 'event_registrations/registration', collection: @event.event_registrations
+    h3.inline = I18n.t('registrations.title')
+    .badge.badge-secondary = I18n.t('registrations.completions', registration_count: @event.event_registrations.count, completion_count: @event.event_registrations.complete.count)
 
-- content_for :utilities do
-  = render partial: 'event_registrations/requirements'
-
-  br
-  br
-
-  = link_to t('registrations.ctas.message'), '#', class: 'btn btn-secondary', data: { toggle: 'modal', target: '#messaging' }
+    table.table
+      tr
+        th Name
+        th Status
+        th Action
+      = render partial: 'event_registrations/registration', collection: @event.event_registrations
 
 
-= render partial: 'event_registrations/messaging'
+
+    = link_to t('registrations.ctas.message'), '#', class: 'btn btn-secondary', data: { toggle: 'modal', target: '#messaging' }
+
+
+    = render partial: 'event_registrations/messaging'
