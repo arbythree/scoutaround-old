@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   # resources :magic_links,       path: 'retrieve',    only: [:show, :destroy]
   # resources :unit_positions,                         only: [:edit, :destroy]
   resources :units, path: '/' do
-    get '/', to: 'events#index'
+    get '/', to: 'announcements#index'
     get '/payments/setup', to: 'stripe#show' # return route for Stripe onboarding
 
     resources :events do

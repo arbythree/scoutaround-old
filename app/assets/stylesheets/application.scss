@@ -288,6 +288,12 @@ body.events.index {
   }
 }
 
+body.announcements.index {
+  #unit-nav-announcements {
+    @include active_link;
+  }
+}
+
 td.event-requirement {
   text-align: center;
   // width: 2.5rem;
@@ -772,6 +778,12 @@ ol.requirements li.completed > ol {
 
 body.admin main {
   border-top: 10px solid $color_brand;
+}
+
+body.announcements.index {
+  #nav-item-announcements a {
+    @include active_nav;
+  }
 }
 
 body.events.index {
