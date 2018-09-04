@@ -101,7 +101,7 @@ en:
     city:       'City'
     new:        'Set Up a New Unit On Scoutaround'
     success:
-      payment_setup:   'Your unit is ready to accept payments'
+      payment_setup:   'Your unit is now ready to accept payments'
     import:     'Import Members'
     settings:
       title:           "%{unit_type} Settings"

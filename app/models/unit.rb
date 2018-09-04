@@ -2,7 +2,7 @@ class Unit < ApplicationRecord
   has_many :events
   has_many :event_registrations, through: :events
   has_many :memberships
-  has_many :members, through: :memberships, source: 'user'
+  has_many :members, -> { where('memberships.active = true') }, through: :memberships, source: 'user'
   has_many :document_library_items
 
   # when fetching achievements for a unit, we only want those achievements belonging to

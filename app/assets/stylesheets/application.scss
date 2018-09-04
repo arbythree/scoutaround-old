@@ -1174,3 +1174,31 @@ h2.subtitle {
   font-size: 24px;
   font-weight: 300;
 }
+
+@mixin active_button_group {
+  background-color: $color_brand;
+  color: $white;
+}
+
+.btn-group .btn-secondary {
+  background-color: lighten($blue, 20%);
+  color: $black;
+}
+
+body.achievements.roster {
+  #toggle_roster {
+    @include active_button_group;
+  }
+}
+
+body.achievements.pending {
+  #toggle_pending {
+    @include active_button_group;
+  }
+}
+
+body.achievements.shopping_list {
+  #toggle_shopping_list {
+    @include active_button_group;
+  }
+}

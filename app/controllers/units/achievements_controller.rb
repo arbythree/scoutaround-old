@@ -3,6 +3,7 @@
 class Units::AchievementsController < UnitContextController
   def index
     @view = params[:view] || 'roster'
+    @body_classes = [@view]
   end
 
   def update

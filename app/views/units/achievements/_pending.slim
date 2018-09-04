@@ -1,22 +1,20 @@
 = form_tag unit_achievement_path(@unit, :all), method: :patch do
-
-  - content_for :actions do
-    = button_tag t('achievements.award_checked'), id: 'award_checked_button', class: 'btn btn-primary', data: { toggle: 'modal', target: '#awarding' }
-
   h3 Unawarded Achievements
 
   table.table
-    - @unit.achievements.awardable.unawarded.joins(:user).order('users.first_name', 'users.last_name').group_by(&:user_id).each do |user_id, achievements|
+    - @unit.achievements.awardable.earned.unawarded.joins(:user).order('users.first_name', 'users.last_name').group_by(&:user_id).each do |user_id, achievements|
       - user = User.find(user_id)
       - membership = @unit.membership_for(user: user)
       tr.section-heading
-        td(colspan="10") = link_to user.full_name, unit_membership_achievements_path(@unit, membership), title: "View #{ user.first_name }'s advancement record"
+        td(colspan="10") = link_to user.preferred_name, unit_membership_achievements_path(@unit, membership), title: "View #{ user.first_name }'s advancement record"
       - achievements.each do |achievement|
         tr
           td
             = check_box_tag "achievement[id][]", achievement.id, true
             = achievement.name
           td = AchievementPresenter.type(achievement)
+
+  = button_tag t('achievements.award_checked'), id: 'award_checked_button', class: 'btn btn-primary', data: { toggle: 'modal', target: '#awarding' }
 
   #awarding.modal
     .modal-dialog.modal-lg
