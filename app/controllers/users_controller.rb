@@ -1,11 +1,11 @@
 class UsersController < AuthenticatedController
   before_action :find_user
-  layout 'narrow'
 
   def show
   end
 
   def edit
+    @view = params[:view] || 'basic'
   end
 
   def update

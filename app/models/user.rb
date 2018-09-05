@@ -1,4 +1,10 @@
 class User < ApplicationRecord
+  include UserPreferences
+
+  preference :unit_announcement_notifications, 'always'
+  preference :event_announcement_notifications, 'always'
+  preference :notification_method, 'email'
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -11,7 +17,6 @@ class User < ApplicationRecord
   has_many :registered_events, through: :event_registrations, class_name: 'Event'
   has_many :events, through: :units
   has_many :achievements
-  has_many :user_preferences
   has_one  :payment_method
   has_many :attendances
   has_one_attached :avatar

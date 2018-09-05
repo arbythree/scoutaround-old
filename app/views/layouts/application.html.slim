@@ -22,8 +22,7 @@ html
     = javascript_include_tag 'https://js.stripe.com/v3/'
 
   body(class="authenticated #{additional_classes}")
-    - header_partial = @unit.present? ? 'header_unit_context' : 'header'
-    = render partial: "layouts/#{ header_partial }"
+    = render partial: @unit.present? ? 'layouts/header_unit_context' : 'layouts/header'
 
     main
       - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
