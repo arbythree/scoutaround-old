@@ -14,6 +14,7 @@
  *= require_self
  *= require bootstrap-datepicker
  *= require bootstrap-tagsinput
+ *= require trix
  */
 
 @import "bootstrap";
@@ -190,7 +191,7 @@ header#primary {
 
       a {
         color: #333;
-        font-weight: 300;
+        font-weight: 400;
         display: inline-block;
         padding: 1rem;
         @include sans-serif;

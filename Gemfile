@@ -66,6 +66,9 @@ gem 'smarter_csv'
 # credit card payments
 gem 'stripe'
 
+# markdown rich editor
+gem 'trix', git: 'https://github.com/bcoia/trix.git'
+
 # auto-completion
 gem 'twitter-typeahead-rails'
 gem 'turbolinks', '~> 5'
