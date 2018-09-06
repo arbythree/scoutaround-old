@@ -1,1 +1,8 @@
-= render partial: 'blank' unless @announcements.present?
+- if @current_user_is_admin
+  = content_for :actions do
+    = link_to 'New Announcement', '#', data: { toggle: 'modal', target: '#messaging' }, class: 'btn btn-primary'
+
+
+= render partial: 'blank' unless @messages.present?
+= render partial: 'messages'
+= render partial: 'new_message_modal'

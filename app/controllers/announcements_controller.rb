@@ -1,5 +1,5 @@
 class AnnouncementsController < UnitContextController
   def index
-    @announcements = @unit.messages
+    @messages = @unit.messages
   end
 end

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/bcoia/trix.git
+  revision: 56d84ae42e34488b0bb301bd9bd0f54fac7fc811
+  specs:
+    trix (0.11.1)
+      rails (> 4.1, <= 6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -235,9 +242,6 @@ GEM
       rack
     rack-test (1.0.0)
       rack (>= 1.0, < 3)
-    rack_session_access (0.2.0)
-      builder (>= 2.0.0)
-      rack (>= 1.0.0)
     rails (5.2.0)
       actioncable (= 5.2.0)
       actionmailer (= 5.2.0)
@@ -415,7 +419,6 @@ DEPENDENCIES
   pg
   puma (~> 3.7)
   pundit
-  rack_session_access
   rails (~> 5.2)
   redcarpet
   rspec-rails (~> 3.7)
@@ -437,6 +440,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   stripe
+  trix!
   turbolinks (~> 5)
   twitter-typeahead-rails
   tzinfo
