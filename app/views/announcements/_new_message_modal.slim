@@ -19,7 +19,6 @@
 
           .form-group
             = f.label :body, 'Message:'
-            / = f.text_area :body, as: :trix_editor
             = f.trix_editor :body
 
         .modal-footer

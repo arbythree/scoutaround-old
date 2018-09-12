@@ -22,10 +22,20 @@ html
     = javascript_include_tag 'https://js.stripe.com/v3/'
 
   body(class="authenticated #{additional_classes}")
-    = render partial: @unit.present? ? 'layouts/header_unit_context' : 'layouts/header'
+    - if flash[:notice].present? || flash[:alert].present? || flash[:error].present?
+      #alerts
+        - if flash[:notice]
+          .notice.alert.alert-success
+            = notice
+        - if flash[:alert]
+          .alert.alert.alert-warning
+            = alert
+        - if flash[:error].present?
+          .alert.alert-danger
+            = flash[:error]
 
-    main
-      - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
+    - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
+      #alerts
         .alert.alert-warning
           i.fa-exclamation-triangle.far
           | &nbsp;
@@ -34,17 +44,10 @@ html
             | &nbsp;
             = link_to 'Renew now', unit_subscription_path(@unit.id)
 
-      - if flash[:notice].present? || flash[:alert].present? || flash[:error].present?
-        #alerts
-          - if flash[:notice]
-            .notice.alert.alert-success
-              = notice
-          - if flash[:alert]
-            .alert.alert.alert-warning
-              = alert
-          - if flash[:error].present?
-            .alert.alert-danger
-              = flash[:error]
+    = render partial: @unit.present? ? 'layouts/header_unit_context' : 'layouts/header'
+
+    main
+
 
       - if content_for?(:banner)
         .row
