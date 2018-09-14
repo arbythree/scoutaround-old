@@ -30,7 +30,7 @@ Rails.application.routes.draw do
     #   resources :achievements
     # end
 
-    resources :messages
+    resources :messages,                path: 'announcements'
     resources :payments
     resources :membership_imports
     resources :event_requirements,      path: 'requirements' do
