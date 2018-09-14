@@ -59,7 +59,8 @@
       = render 'events/show/checklist'
 
 .row
-  .col-md-7#description
+  .col-md-6#description
+    h5 Overview
     p = @event.description
 
     - if @event.attachments.attached?
@@ -68,9 +69,12 @@
           = link_to rails_blob_path(attachment, disposition: 'attachment')
             = image_tag attachment.preview(resize: '100x100>')
 
-  .col-md-1
+  .col-md-3.messages
+    .details
+      h5 = t('messages.title')
+      = render 'events/show/messages'
 
-  .col-md-4.event-details
+  .col-md-3#event-details
     - if @user_can_administer_event
       .details
         h5
@@ -116,13 +120,6 @@
     .details
       h5 Who's Going?
       = render 'events/show/who'
-
-    br
-    br
-
-    .details
-      h5 = t('messages.title')
-      = render 'events/show/messages'
 
 section#map
   .row

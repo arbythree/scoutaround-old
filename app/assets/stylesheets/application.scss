@@ -1144,14 +1144,27 @@ th.numeric, td.numeric {
   font-weight: 300;
 }
 
-.event-details {
+#event-details {
+  font-size: 14px;
+  border-left: 1px solid $color_background;
+
+  h5 {
+    @include sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
   p {
     margin-bottom: 0;
   }
 
   .details {
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
   }
+}
+
+#map {
+  margin-top: 3rem;
 }
 
 .dropdown-menu {
