@@ -18,9 +18,25 @@
             = select_tag :pingees, options_for_select(targets), class: 'form-control'
 
           .form-group
+            = f.label :event, 'Related event:'
+            = f.collection_select :messagable_id, @unit.events.future, :id, :name, { include_blank: 'None' }, { class: 'form-control' }
+
+          .form-group
             = f.label :body, 'Message:'
             = f.trix_editor :body
 
         .modal-footer
           button.btn.btn-secondary(data-dismiss="modal") = t('cancel')
           = f.submit 'Send', class: 'btn btn-primary'
+          
+javascript:
+  $('#message_messagable_id').change(function() {
+    var val = $(this).val();
+    var attendeeOption = $('#pingees option[value="attendees"]');
+
+    if (val == '' && attendeeOption) {
+      attendeeOption.remove();
+    } else if (!attendeeOption) {
+
+    }
+  });
