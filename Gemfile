@@ -48,6 +48,9 @@ gem 'sass-rails', '~> 5.0'
 # better seeds
 gem 'seedbank'
 
+# autocomplete search functionality
+gem 'selectize-rails'
+
 # asynchronous job management
 gem 'sidekiq'
 

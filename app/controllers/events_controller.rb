@@ -41,6 +41,7 @@ class EventsController < UnitContextController
 
   def edit
     # TODO: pundit this
+    @body_classes = [:admin]
   end
 
   def new

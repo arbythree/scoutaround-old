@@ -115,7 +115,7 @@ en:
     item:              'Item'
     registrant:        'Registrant'
     submission_item:   'Submission Item'
-    add:               'Add Registrants'
+    add:               'Register Members'
     destroy:           'Unregister'
     completions:       '%{completion_count} of %{registration_count} completed'
     submission_due_in: 'Due in %{deictic}'
