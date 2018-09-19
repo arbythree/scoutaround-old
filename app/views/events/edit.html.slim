@@ -25,7 +25,8 @@
           .col-md-3
             = f.label :location
           .col-md-9
-            = f.text_field :location, class: 'form-control'
+            = f.text_field :location, class: 'form-control', autocomplete: 'off'
+            ul#location-suggestions
 
       .form-group
         .row
@@ -100,9 +101,57 @@
       .modal-footer
         button
 
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
+
+css:
+  #location-suggestions {
+    position: absolute;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 3px;
+    list-style: none;
+  }
+
+  #location-suggestions a {
+
+  }
+
 javascript:
   // look at https://developers.google.com/maps/documentation/javascript/places#find_place_from_query
-  
+  // also https://developers.google.com/maps/documentation/javascript/examples/places-queryprediction
+
+  var service = new google.maps.places.AutocompleteService();
+
+  var displaySuggestions = function(predictions, status) {
+    if (status != google.maps.places.PlacesServiceStatus.OK) {
+      alert(status);
+      return;
+    }
+
+    predictions.forEach(function(prediction) {
+      // var li = document.createElement('li');
+      // var a = document.createElement('a');
+
+      // li.appendChild(document.createTextNode(prediction.description));
+
+      $('#location-suggestions').append('<li><a href="#">' + prediction.description + '</a></li>');
+      document.getElementById('location-suggestions').appendChild(li);
+    });
+  }
+
+  $('#event_location').keydown(function() {
+    var term = $(this).val();
+
+    if (term === '') {
+      $('#location-suggestions').hide();
+    }
+
+    $('#location-suggestions li').remove();
+    $('#location-suggestions').show();
+    service.getPlacePredictions({ input: term }, displaySuggestions);
+  });
+
   // $('#event_location').selectize({
   //     searchField: 'name',
   //     options: [],
@@ -114,6 +163,16 @@ javascript:
   //     },
   //     load: function(query, callback) {
   //         if (!query.length) return callback();
+          
+  //         // var request = {
+  //         //   query: query,
+  //         //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+  //         // };
+
+  //         // service = new google.maps.places.AutocompleteService();
+  //         // service.getPlacePredictions(request, callback);
+
+
   //         $.ajax({
   //             url: 'https://maps.googleapis.com/maps/api/place/autocomplete/json',
   //             type: 'GET',
