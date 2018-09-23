@@ -6,14 +6,14 @@ class EventsController < UnitContextController
   before_action :find_event, except: [:index, :new, :create]
   before_action :fetch_view_preference, only: [:index]
   after_action  :store_view_preference, only: [:index]
-  layout :choose_layout
-
-  def choose_layout
-    'application'
-  end
 
   def index
-    @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
+    if @view == 'list'
+      @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
+    else
+      @events = @unit.present? ? @unit.events.order(:starts_at) : @current_user.events.order(:starts_at)
+    end
+
     @tracking_properties = { view: @view }
 
     # this is bound to be inefficient, but let's get it working first
@@ -41,6 +41,7 @@ class EventsController < UnitContextController
 
   def edit
     # TODO: pundit this
+    @body_classes = [:admin]
   end
 
   def new
@@ -111,14 +112,20 @@ class EventsController < UnitContextController
   end
 
   def event_params
-    params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration, :registration_closes_at)
+    params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration,
+      :registration_closes_at, :address, :city, :state, :postal_code, :banner_image_url,
+      :description, :minimum_age, attachments: [])
   end
 
   def fetch_view_preference
-    @view = params[:view] || @current_user.preference_for(key: :unit_events, default: :list)
+    @view  = params[:view]  || @current_user.preference_for(key: :unit_events_view,  default: :list)
+    @month = params[:month] || @current_user.preference_for(key: :unit_events_month, default: Date.today.month)
+    @year  = params[:year]  || @current_user.preference_for(key: :unit_events_year,  default: Date.today.year + 1)
   end
 
   def store_view_preference
-    @current_user.save_preference_for(key: :unit_events, value: @view)
+    @current_user.save_preference_for(key: :unit_events_view,  value: @view)
+    @current_user.save_preference_for(key: :unit_events_month, value: @month)
+    @current_user.save_preference_for(key: :unit_events_year,  value: @year)
   end
 end

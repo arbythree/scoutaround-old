@@ -36,11 +36,20 @@ module ApplicationHelper
     result
   end
 
-  def stripe_connect_path
+  def stripe_connect_path(unit)
     [
       'https://connect.stripe.com/express/oauth/authorize?client_id=',
       ENV['STRIPE_CONNECT_CLIENT_ID']
     ].join
+  end
+
+  def generate_crypt
+    len   = ActiveSupport::MessageEncryptor.key_len
+    # salt  = SecureRandom.random_bytes(len)
+    salt = 'salt'
+    key   = ActiveSupport::KeyGenerator.new(Rails.application.secrets.secret_key_base).generate_key(salt, len) # => "\x89\xE0\x156\xAC..."
+    crypt = ActiveSupport::MessageEncryptor.new(key)
+    crypt
   end
 
   def select_time(name, html_options = {}, tag_options = {})

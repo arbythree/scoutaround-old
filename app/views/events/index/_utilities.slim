@@ -1,21 +1,25 @@
-.admin.dropdown
-  = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-    span(data-toggle="tooltip" title="#{t('actions_and_options')}")
-      = render partial: 'layouts/campfire'
+- content_for :actions do
+  - if @current_user_is_admin
+    = link_to 'Add an Event', new_unit_event_path(@unit), class: 'btn btn-primary', style: 'margin-right: 1rem;'
 
-  .dropdown-menu.dropdown-menu-right
-    -if @current_user_is_admin
-      = link_to new_unit_event_path(@unit), class: 'dropdown-item admin', title: t('admin_only') do
-        i.fa-tree.fal
-        = t('events.add')
+  .admin.dropdown
+    = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
+      span(data-toggle="tooltip" title="#{t('actions_and_options')}")
+        = render partial: 'layouts/campfire'
 
-      .dropdown-divider
+    .dropdown-menu.dropdown-menu-right
+      -if @current_user_is_admin
+        = link_to new_unit_event_path(@unit), class: 'dropdown-item admin', title: t('admin_only') do
+          i.fa-tree.fal
+          = t('events.add')
 
-    = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if @view != 'calendar'
-    = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'),     class: 'dropdown-item' if @view == 'calendar'
-    = link_to t('events.feed'),          unit_events_path(@unit, format: :ics),     class: 'dropdown-item'
+        .dropdown-divider
 
-javascript:
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
+      = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if @view != 'calendar'
+      = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'),     class: 'dropdown-item' if @view == 'calendar'
+      = link_to t('events.feed'),          unit_events_path(@unit, format: :ics),     class: 'dropdown-item'
+
+  javascript:
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });

@@ -1,0 +1,29 @@
+- crumbtrail link_to UnitPresenter.unit_display_name(@event.unit), unit_path(@event.unit)
+- crumbtrail link_to t('events.title'), unit_events_path(@event.unit)
+- crumbtrail link_to @event.name, unit_event_path(@unit, @event)
+- crumbtrail 'Requirements'
+
+
+= content_for :title do
+  h1 = @event.name
+
+= content_for :actions do
+  .dropdown
+    = link_to 'Add a Requirement', '#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }
+
+    .dropdown-menu
+      = link_to 'Require a Form or Document', '#', class: 'dropdown-item'
+      = link_to 'Charge a Fee', '#', class: 'dropdown-item'
+
+.row
+  .col-md-3
+    = render partial: 'events/nav'
+
+  .col-md-9
+    h3 Event Requirements
+    
+    ul
+      - @event_requirements.each do |req|
+        li = req.description
+
+    = render partial: 'blank' unless @event_requirements.present?

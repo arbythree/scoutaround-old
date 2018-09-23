@@ -40,7 +40,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @unit.members.find(params[:user])
     @registration = @event.event_registrations.create(user: user)
     flash[:notice] = I18n.t('event_registrations.success.created.single', user_name: user.first_name, event_name: @event.name)
-    redirect_to @event
+    redirect_to [@unit.becomes(Unit), @event]
   end
 
   def perform_bulk_registration

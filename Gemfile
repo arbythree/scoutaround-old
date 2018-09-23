@@ -48,6 +48,9 @@ gem 'sass-rails', '~> 5.0'
 # better seeds
 gem 'seedbank'
 
+# autocomplete search functionality
+gem 'selectize-rails'
+
 # asynchronous job management
 gem 'sidekiq'
 
@@ -66,6 +69,9 @@ gem 'smarter_csv'
 # credit card payments
 gem 'stripe'
 
+# markdown rich editor
+gem 'trix', git: 'https://github.com/bcoia/trix.git'
+
 # auto-completion
 gem 'twitter-typeahead-rails'
 gem 'turbolinks', '~> 5'
@@ -73,6 +79,7 @@ gem 'tzinfo' #, git: 'https://github.com/tzinfo/tzinfo'
 gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
+  gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'dotenv-rails'
   gem 'capybara', '~> 2.13'
@@ -83,7 +90,6 @@ group :development, :test do
 end
 
 group :development do
-  gem 'awesome_print'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'guard-rspec', require: false
   gem 'scout_apm'
@@ -102,7 +108,6 @@ group :staging do
 end
 
 group :test do
-  # gem 'capybara-webkit'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false
   gem 'launchy'
