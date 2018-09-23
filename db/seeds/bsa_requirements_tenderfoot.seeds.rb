@@ -65,4 +65,4 @@ after :bsa_ranks do
   Requirement.where(program_code: 'bsa', achievable: req, name: 'Successfully complete your board of review for the Tenderfoot rank.').first_or_create
 end
 
-puts 'Tenderfoot requirements'
+print "BSA Tenderfoot requirements\n"

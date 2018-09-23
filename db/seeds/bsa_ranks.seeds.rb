@@ -7,5 +7,5 @@ after :bsa_merit_badges do
   life          = Rank.where(ordinal: 5, program_code: 'bsa', name: 'Life').first_or_create
   eagle         = Rank.where(ordinal: 6, program_code: 'bsa', name: 'Eagle').first_or_create
 
-  puts "Ranks: #{Rank.count}"
+  print "Ranks: #{Rank.count}\n"
 end

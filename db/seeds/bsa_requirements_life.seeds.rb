@@ -41,3 +41,5 @@ after :bsa_ranks do
   # 8 BOR
   Requirement.where(program_code: 'bsa', achievable: rank, name: 'Successfully complete your board of review for the Star rank.').first_or_create
 end
+
+print "BSA Life requirements\n"
