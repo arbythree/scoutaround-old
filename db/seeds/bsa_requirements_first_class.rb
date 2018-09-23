@@ -1,4 +1,4 @@
-after :ranks do
+after :bsa_ranks do
   rank = Rank.find_by(name: 'First Class')
 
   req = Requirement.where(program_code: 'bsa', achievable: rank, name: 'Camping and Outdoor Ethics').first_or_create

@@ -1,4 +1,4 @@
-after :merit_badges do
+after :bsa_merit_badges do
   scout         = Rank.where(ordinal: 0, program_code: 'bsa', name: 'Scout').first_or_create
   tenderfoot    = Rank.where(ordinal: 1, program_code: 'bsa', name: 'Tenderfoot').first_or_create
   second_class  = Rank.where(ordinal: 2, program_code: 'bsa', name: 'Second Class').first_or_create

@@ -1,4 +1,4 @@
-after :ranks do
+after :bsa_ranks do
   rank = Rank.find_by(name: 'Second Class')
 
   # Camping and Outdoor Ethics

@@ -121,7 +121,7 @@ en:
     submission_due_in: 'Due in %{deictic}'
     overdue_by:        'Overdue by %{deictic}'
     cta_payment:       'Click to pay'
-    cta_document:      "Click to upload %{name}\'s %{document}"
+    cta_document:      "Click to upload %{name}'s %{document}"
     ctas:
       register:        'Register'
       message:         'Post a Message'

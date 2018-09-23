@@ -15,7 +15,7 @@ class Unit < ApplicationRecord
   belongs_to :primary_wiki_article, class_name: 'WikiArticle', optional: true
   belongs_to :subscription_plan
   validates_presence_of :number, :city, :state, :subscription_expires_at
-  validates_uniqueness_of :number, scope: [:city, :state]
+  # validates_uniqueness_of :number, scope: [:city, :state]
   before_create :set_trial_expiration
   after_create :create_unit_positions
 
@@ -55,6 +55,7 @@ class Unit < ApplicationRecord
   end
 
   def set_trial_expiration
+    self.subscription_plan = SubscriptionPlan.first
     self.subscription_expires_at = 30.days.from_now
   end
 

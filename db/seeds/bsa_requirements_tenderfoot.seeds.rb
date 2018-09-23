@@ -1,4 +1,4 @@
-after :ranks do
+after :bsa_ranks do
   tenderfoot = Rank.find_by(name: 'Tenderfoot')
 
   # Camping and Outdoor Ethics
