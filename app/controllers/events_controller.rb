@@ -13,6 +13,12 @@ class EventsController < UnitContextController
     else
       @events = @unit.present? ? @unit.events.order(:starts_at) : @current_user.events.order(:starts_at)
     end
+    
+    # for modal
+    @event = Event.new
+    @event.starts_at = 6.weeks.from_now
+    @event.ends_at   = 6.weeks.from_now
+    @event.registration_closes_at = 5.weeks.from_now    
 
     @tracking_properties = { view: @view }
 

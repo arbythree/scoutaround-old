@@ -86,22 +86,21 @@
         section
           h6 Cancel Event
           p
-            = link_to '#', id: 'cancel-event-item', title: t('admin_only'), class: 'btn btn-danger', style: 'float: right; margin-left: 15px;', data: { toggle: 'modal', target: '#cancel-event-modal' } do
-              = t('events.delete_title')
+            = link_to t('events.delete_title'), '#cancel', id: 'cancel-event-item', title: t('admin_only'), class: 'btn btn-danger', style: 'float: right; margin-left: 15px;', data: { toggle: 'modal' }
 
             | Remove the event from the calendar and send out a cancellation notice to the entire unit. Once you cancel an event, there is no going back. Please be certain.
 
 
-#cancel-event-dialog.modal.fade
+#cancel.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
         h5.modal-title = t('events.delete_title')
       .modal-body
+        p Are you sure?
       .modal-footer
         button
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
 
 css:
   #location-suggestions {
@@ -116,6 +115,8 @@ css:
   #location-suggestions a {
 
   }
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
 
 javascript:
   // look at https://developers.google.com/maps/documentation/javascript/places#find_place_from_query

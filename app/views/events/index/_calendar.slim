@@ -39,7 +39,7 @@
 
           - today_events = @events.select { |e| current_date.to_date >= e.starts_at.to_date && current_date.to_date <= e.ends_at.to_date }
 
-          td(class="day-cell #{'today' if current_date == Date.today}")
+          td(class="day-cell #{'today' if current_date == Date.today}" data-date="#{ current_date }")
             .header
               - if current_date.month != current_month
                 span.month = current_date.strftime('%b')
@@ -76,3 +76,7 @@ javascript:
   $(function () {
     $('[data-toggle="tooltip"]').tooltip()
   })
+
+  $('.day-cell').click(function() {
+
+  });
