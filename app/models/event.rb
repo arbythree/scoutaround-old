@@ -12,8 +12,9 @@ class Event < ApplicationRecord
 
   validates_presence_of :name
   default_scope { order(:starts_at) }
-  scope :future, -> { where('ends_at >= ?', Date.today) }
-  scope :upcoming, -> { where('starts_at > ? AND starts_at < ?', Date.today, 4.weeks.from_now).order(:starts_at) }
+  scope :published, -> { where(published: true) }
+  scope :future,    -> { where('ends_at >= ?', Date.today) }
+  scope :upcoming,  -> { where('starts_at > ? AND starts_at < ?', Date.today, 4.weeks.from_now).order(:starts_at) }
 
   def registered_for?(user: nil)
     event_registrations.exists?(user_id: user.id)

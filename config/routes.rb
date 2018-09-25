@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :event_submissions,     path: 'submissions'
       resources :attendances,           path: 'attendance'
       resources :messages
+      post :publish
     end
 
     # resources :achievements,            path: 'advancement'

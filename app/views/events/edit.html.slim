@@ -58,6 +58,8 @@
           i.fa-tree.fal
           = t('events.delete_title')
 
+- if !@event.published && EventPolicy.new(@current_user, @event).publish?
+  = button_to 'Publish', unit_event_publish_path(@unit, @event), method: :post, class: 'btn btn-primary', style: 'margin: 0 15px;'
 
 #cancel-event-dialog.modal.fade
   .modal-dialog
