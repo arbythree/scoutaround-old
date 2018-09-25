@@ -1,4 +1,4 @@
-ruby '2.4.2'
+ruby '2.5.1'
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -47,6 +47,9 @@ gem 'sass-rails', '~> 5.0'
 
 # better seeds
 gem 'seedbank'
+
+# autocomplete search functionality
+gem 'selectize-rails'
 
 # asynchronous job management
 gem 'sidekiq'

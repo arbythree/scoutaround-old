@@ -3,69 +3,196 @@
 - crumbtrail link_to @event.name, unit_event_path(@unit, @event)
 - crumbtrail 'Edit Details'
 
+= content_for :title do
+  h1 = @event.name
+
+
 .row
   .col-md-3
     = render partial: 'events/nav'
 
   .col-md-9
-    h1 = @event.name
-
     = form_for [@unit.becomes(Unit), @event] do |f|
       .form-group
-        = f.label :name
-        = f.text_field :name, class: 'form-control'
-
-      .form-group
-        = f.label :location
-        = f.text_field :location, class: 'form-control'
-
-      .form-group
-        = f.label :registration_closes_at
-        = f.text_field :registration_closes_at, class: 'form-control'
-
-      .form-group
-        = f.label :banner_image_url
-        = f.text_field :banner_image_url, class: 'form-control'
-
-      .form-group
-        = f.label :description
-        = f.text_area :description, class: 'form-control'
-
-      .form-group
-        = f.label :minimum_age
-        = f.number_field :minimum_age, class: 'form-control'
-
-      .form-group
-        = f.label :attachments
-        = f.file_field :attachments, multiple: true, direct_upload: true
+        .row
+          .col-md-3
+            = f.label :name
+          .col-md-9
+            = f.text_field :name, class: 'form-control'
 
       .form-group
         .row
-          .col-md-6
+          .col-md-3
+            = f.label :location
+          .col-md-9
+            = f.text_field :location, class: 'form-control', autocomplete: 'off'
+            ul#location-suggestions
+
+      .form-group
+        .row
+          .col-md-3
             = f.label :starts_at
+          .col-md-3
             = f.text_field :starts_at, data: { provide: 'datepickerzzz' }, class: 'form-control'
 
-          .col-md-6
-            .form-group
-              = f.label :ends_at
-              = f.text_field :ends_at, data: { provide: 'datepickerzzz' }, class: 'form-control'
+      .form-group
+        .row
+          .col-md-3
+            = f.label :ends_at
+          .col-md-3
+            = f.text_field :ends_at, data: { provide: 'datepickerzzz' }, class: 'form-control'
+
+      .form-group
+        .row
+          .col-md-3
+            = f.label :registration_closes_at
+          .col-md-9      
+            = f.text_field :registration_closes_at, class: 'form-control'
+
+      .form-group
+        .row
+          .col-md-3
+            = f.label :banner_image_url
+          .col-md-9      
+            = f.text_field :banner_image_url, class: 'form-control'
+
+      .form-group
+        .row
+          .col-md-3
+            = f.label :description
+          .col-md-9     
+            = f.text_area :description, class: 'form-control'
+
+      .form-group
+        .row
+          .col-md-3
+            = f.label :minimum_age
+          .col-md-3
+            = f.number_field :minimum_age, class: 'form-control'
+
+      .form-group
+        .row
+          .col-md-3
+            = f.label :attachments
+          .col-md-9
+            = f.file_field :attachments, multiple: true, direct_upload: true
 
       .form-group
         = f.submit 'Update', class: 'btn btn-primary'
 
+    h2(style="margin-top: 60px;") Danger Zone
+    .card.border-danger
+      .card-body
+        section
+          h6 Cancel Event
+          p
+            = link_to t('events.delete_title'), '#cancel', id: 'cancel-event-item', title: t('admin_only'), class: 'btn btn-danger', style: 'float: right; margin-left: 15px;', data: { toggle: 'modal' }
 
-        = link_to '#', id: 'cancel-event-item', title: t('admin_only'), data: { toggle: 'modal', target: '#cancel-event-modal' } do
-          i.fa-tree.fal
-          = t('events.delete_title')
+            | Remove the event from the calendar and send out a cancellation notice to the entire unit. Once you cancel an event, there is no going back. Please be certain.
 
 - if !@event.published && EventPolicy.new(@current_user, @event).publish?
   = button_to 'Publish', unit_event_publish_path(@unit, @event), method: :post, class: 'btn btn-primary', style: 'margin: 0 15px;'
 
-#cancel-event-dialog.modal.fade
+#cancel.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
         h5.modal-title = t('events.delete_title')
       .modal-body
+        p Are you sure?
       .modal-footer
         button
+
+
+css:
+  #location-suggestions {
+    position: absolute;
+    z-index: 100;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 3px;
+    list-style: none;
+  }
+
+  #location-suggestions a {
+
+  }
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
+
+javascript:
+  // look at https://developers.google.com/maps/documentation/javascript/places#find_place_from_query
+  // also https://developers.google.com/maps/documentation/javascript/examples/places-queryprediction
+
+  var service = new google.maps.places.AutocompleteService();
+
+  var displaySuggestions = function(predictions, status) {
+    if (status != google.maps.places.PlacesServiceStatus.OK) {
+      alert(status);
+      return;
+    }
+
+    predictions.forEach(function(prediction) {
+      // var li = document.createElement('li');
+      // var a = document.createElement('a');
+
+      // li.appendChild(document.createTextNode(prediction.description));
+
+      $('#location-suggestions').append('<li><a href="#">' + prediction.description + '</a></li>');
+      document.getElementById('location-suggestions').appendChild(li);
+    });
+  }
+
+  $('#event_location').keydown(function() {
+    var term = $(this).val();
+
+    if (term === '') {
+      $('#location-suggestions').hide();
+    }
+
+    $('#location-suggestions li').remove();
+    $('#location-suggestions').show();
+    service.getPlacePredictions({ input: term }, displaySuggestions);
+  });
+
+  // $('#event_location').selectize({
+  //     searchField: 'name',
+  //     options: [],
+  //     create: false,
+  //     render: {
+  //         option: function(item, escape) {
+  //             // return '<div>' + escape(item['structured_formatting']['main_text']) +'</div>';
+  //         }
+  //     },
+  //     load: function(query, callback) {
+  //         if (!query.length) return callback();
+          
+  //         // var request = {
+  //         //   query: query,
+  //         //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
+  //         // };
+
+  //         // service = new google.maps.places.AutocompleteService();
+  //         // service.getPlacePredictions(request, callback);
+
+
+  //         $.ajax({
+  //             url: 'https://maps.googleapis.com/maps/api/place/autocomplete/json',
+  //             type: 'GET',
+  //             data: {
+  //               key: '#{ ENV['GOOGLE_PLACES_API_KEY'] }',
+  //               input: encodeURIComponent(query),
+  //               inputtype: 'textquery',
+  //               fields: 'name'
+  //             },
+  //             dataType: 'json',
+  //             error: function() {
+  //               callback();
+  //             },
+  //             success: function(res) {
+  //               alert(res);
+  //               // callback(res.predictions);
+  //             }
+  //         });
+  //     }
+  // });

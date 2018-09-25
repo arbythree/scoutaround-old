@@ -20,6 +20,12 @@ class EventsController < UnitContextController
       @events = @unit.events
     end
 
+    # for modal
+    @event = Event.new
+    @event.starts_at = 6.weeks.from_now
+    @event.ends_at   = 6.weeks.from_now
+    @event.registration_closes_at = 5.weeks.from_now
+
     @show_past_events = @view == 'calendar'
 
     @tracking_properties = { view: @view }
@@ -49,7 +55,7 @@ class EventsController < UnitContextController
 
   def edit
     # TODO: pundit this
-
+    @body_classes = [:admin]
   end
 
   def new

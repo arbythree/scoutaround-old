@@ -15,6 +15,8 @@
  *= require bootstrap-datepicker
  *= require bootstrap-tagsinput
  *= require trix
+ *= require selectize
+ *= require selectize.default
  */
 
 @import "bootstrap";
@@ -74,6 +76,10 @@ h1 {
 h3 {
   font-weight: 600;
   margin-bottom: 1rem;
+}
+
+h6 {
+  @include sans-serif;
 }
 
 h4 {
@@ -398,17 +404,17 @@ table.checklist {
   }
 }
 
-.card-header {
-  background: darken($color_background, 30%);
-  border-color: darken($color_background, 30%);
-  color: #fff;
-  font-weight: 600;
+// .card-header {
+//   background: darken($color_background, 30%);
+//   border-color: darken($color_background, 30%);
+//   color: #fff;
+//   font-weight: 600;
 
-  .badge {
-    background: #fff !important;
-    color: darken($color_background, 50%);
-  }
-}
+//   .badge {
+//     background: #fff !important;
+//     color: darken($color_background, 50%);
+//   }
+// }
 
 .admin.dropdown {
   // position: absolute;
@@ -1237,5 +1243,11 @@ body.achievements.shopping_list {
 ul#announcements {
   li {
     border-top: 1px solid $color_background;
+  }
+}
+
+.card-body {
+  section {
+    margin-bottom: 0;
   }
 }
