@@ -8,11 +8,25 @@ class EventsController < UnitContextController
   after_action  :store_view_preference, only: [:index]
 
   def index
-    if @view == 'list'
-      @events = @unit.present? ? @unit.events.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
-    else
-      @events = @unit.present? ? @unit.events.order(:starts_at) : @current_user.events.order(:starts_at)
+    # if @view == 'list'
+    #   @events = @unit.present? ? @unit.events.published.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
+    # else
+    #   @events = @unit.present? ? @unit.events.published.order(:starts_at) : @current_user.events.order(:starts_at)
+    # end
+
+    @events = @unit.events.published
+
+    if params[:include_unpublished] || 'no' == 'yes'
+      @events = @unit.events
     end
+
+    # for modal
+    @event = Event.new
+    @event.starts_at = 6.weeks.from_now
+    @event.ends_at   = 6.weeks.from_now
+    @event.registration_closes_at = 5.weeks.from_now
+
+    @show_past_events = @view == 'calendar'
 
     @tracking_properties = { view: @view }
 
@@ -57,6 +71,17 @@ class EventsController < UnitContextController
     @event.registration_closes_at = 5.weeks.from_now
   end
 
+  def publish
+    path = unit_event_path(@unit, @event)
+    @event.update_attributes(published: true)
+    @unit.messages.create(
+      author: @current_user,
+      body: "#{ @event.name} has been published to the #{ @unit.type } calendar. View details <a href='/units/#{ @unit.id }/events/#{ @event.id }'>here</a>."
+    )
+    flash[:notice] = "#{ @event.name} has been published to the calendar."
+    redirect_to path
+  end
+
   def create
     @event = @unit.events.new(event_params)
 
@@ -90,6 +115,7 @@ class EventsController < UnitContextController
       end
 
       flash[:notice] = t('events.confirm')
+      @body_classes = nil
       redirect_to unit_events_path(@unit)
     end
   end
@@ -112,6 +138,8 @@ class EventsController < UnitContextController
 
   def find_event
     @event = @current_user.events.find(params[:id] || params[:event_id])
+    @body_classes = @event.published ? ['published'] : ['unpublished']
+    flash[:alert] = 'This event is unpublished.' unless @event.published
     @unit = @event.unit
     @current_user_is_admin = @unit.role_for(user: @current_user) == 'admin'
     @membership = Membership.where(user: @current_user, unit: @event.unit).first

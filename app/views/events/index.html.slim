@@ -2,8 +2,8 @@
 - crumbtrail t('events.title')
 
 - content_for :title
-  = render 'events/index/utilities'
   h1 = t('events.title')
 
+= render 'events/index/utilities'
 = render partial: 'events/index/list' unless @view == 'calendar'
 = render partial: 'events/index/calendar' if @view == 'calendar'

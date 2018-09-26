@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_08_19_020312) do
+ActiveRecord::Schema.define(version: 2018_09_24_134014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -140,6 +140,7 @@ ActiveRecord::Schema.define(version: 2018_08_19_020312) do
     t.string "banner_image_url"
     t.text "description"
     t.integer "minimum_age"
+    t.boolean "published", default: false
   end
 
   create_table "guardianships", force: :cascade do |t|

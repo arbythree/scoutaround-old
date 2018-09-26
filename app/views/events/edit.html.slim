@@ -86,13 +86,14 @@
         section
           h6 Cancel Event
           p
-            = link_to '#cancel-event-dialog', id: 'cancel-event-item', title: t('admin_only'), class: 'btn btn-danger', style: 'float: right; margin-left: 30px;', data: { toggle: 'modal' } do
-              = t('events.delete_title')
+            = link_to t('events.delete_title'), '#cancel', id: 'cancel-event-item', title: t('admin_only'), class: 'btn btn-danger', style: 'float: right; margin-left: 15px;', data: { toggle: 'modal' }
 
             | Remove the event from the calendar and send out a cancellation notice to the entire unit. Once you cancel an event, there is no going back. Please be certain.
 
+- if !@event.published && EventPolicy.new(@current_user, @event).publish?
+  = button_to 'Publish', unit_event_publish_path(@unit, @event), method: :post, class: 'btn btn-primary', style: 'margin: 0 15px;'
 
-#cancel-event-dialog.modal.fade
+#cancel.modal.fade
   .modal-dialog
     .modal-content
       .modal-header
@@ -106,7 +107,6 @@
         = button_to 'Yes, Cancel Event', unit_event_path(@unit, @event), method: :delete, class: 'btn btn-danger'
         = button_tag 'No, Never Mind', class: 'btn btn-secondary', data: { dismiss: 'modal' }
 
-<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
 
 css:
   #location-suggestions {
@@ -127,6 +127,8 @@ css:
     display: inline-block;
     padding: 6px 15px;
   }
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
 
 javascript:
   // look at https://developers.google.com/maps/documentation/javascript/places#find_place_from_query

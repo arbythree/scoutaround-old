@@ -1,3 +1,5 @@
+print "BSA Merit Badges: "
+
 merit_badge_names = [
   'Personal Management', 'Swimming', 'Emergency Preparedness', 'Personal Fitness', 'First Aid',
   'Citizenship in the Community', 'Citizenship in the Nation', 'Citizenship in the World',
@@ -27,4 +29,4 @@ merit_badge_names.each do |name|
   MeritBadge.where(program_code: 'bsa', name: name).first_or_create
 end
 
-print "Merit Badges: #{MeritBadge.count}\n"
+print "#{MeritBadge.count}\n"
