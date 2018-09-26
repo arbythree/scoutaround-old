@@ -25,14 +25,17 @@ html
     - if flash[:notice].present? || flash[:alert].present? || flash[:error].present?
       #alerts
         - if flash[:notice]
-          .notice.alert.alert-success
-            = notice
+          .alert.alert-dark
+            .container
+              = notice
         - if flash[:alert]
-          .alert.alert.alert-warning
-            = alert
+          .alert.alert-warning
+            .container
+              = alert
         - if flash[:error].present?
           .alert.alert-danger
-            = flash[:error]
+            .container
+              = flash[:error]
 
     - if @unit.present? && @current_user_is_admin && @unit.subscription_expired?
       #alerts
@@ -45,20 +48,17 @@ html
             = link_to 'Renew now', unit_subscription_path(@unit.id)
 
     = render partial: @unit.present? ? 'layouts/header_unit_context' : 'layouts/header'
-
     main
-
-
       - if content_for?(:banner)
         .row
           .col-md-12
             = yield :banner
 
       .row
-        .col-md-8
+        .col-md-9
           = yield :title
 
-        .col-md-4(style="text-align:right; float: right;")
+        .col-md-3(style="text-align:right; float: right;")
           = yield :actions
 
       .row
@@ -96,3 +96,14 @@ html
     $(function () {
       $('[data-toggle="tooltip"]').tooltip()
     })
+
+  - if @needs_admin_coaching
+    javascript:
+      $(document).ready(function() {
+        $('h1').popover({
+          title: "You're in an admin-only view",
+          trigger: 'manual',
+          placement: 'top',
+          content: "Because you have admin permissions for this unit, you're able to access this admin-only view. The red line tells you you're in an admin-only area."
+        }).popover('show');
+      });
