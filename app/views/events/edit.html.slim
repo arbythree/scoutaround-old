@@ -26,7 +26,7 @@
             = f.label :location
           .col-md-9
             = f.text_field :location, class: 'form-control', autocomplete: 'off'
-            ul#location-suggestions
+            ul#location-suggestions(style="display:none;")
 
       .form-group
         .row
@@ -46,21 +46,21 @@
         .row
           .col-md-3
             = f.label :registration_closes_at
-          .col-md-9      
+          .col-md-9
             = f.text_field :registration_closes_at, class: 'form-control'
 
       .form-group
         .row
           .col-md-3
             = f.label :banner_image_url
-          .col-md-9      
+          .col-md-9
             = f.text_field :banner_image_url, class: 'form-control'
 
       .form-group
         .row
           .col-md-3
             = f.label :description
-          .col-md-9     
+          .col-md-9
             = f.text_area :description, class: 'form-control'
 
       .form-group
@@ -166,7 +166,7 @@ javascript:
   //     },
   //     load: function(query, callback) {
   //         if (!query.length) return callback();
-          
+
   //         // var request = {
   //         //   query: query,
   //         //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],

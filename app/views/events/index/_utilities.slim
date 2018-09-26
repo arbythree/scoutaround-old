@@ -1,29 +1,3 @@
-- content_for :actions do
-  - if @current_user_is_admin
-    = link_to 'Add an Event', '#new', class: 'btn btn-primary', style: 'margin-right: 1rem;', data: { toggle: 'modal' }
-
-  .admin.dropdown
-    = link_to '#', data: { toggle: 'dropdown' }, class: 'glyph' do
-      span(data-toggle="tooltip" title="#{t('actions_and_options')}")
-        = render partial: 'layouts/campfire'
-
-    .dropdown-menu.dropdown-menu-right
-      -if @current_user_is_admin
-        = link_to new_unit_event_path(@unit), class: 'dropdown-item admin', title: t('admin_only') do
-          i.fa-tree.fal
-          = t('events.add')
-
-        .dropdown-divider
-
-      = link_to t('events.view.calendar'), unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item' if @view != 'calendar'
-      = link_to t('events.view.list'),     unit_events_path(@unit, view: 'list'),     class: 'dropdown-item' if @view == 'calendar'
-      = link_to t('events.feed'),          unit_events_path(@unit, format: :ics),     class: 'dropdown-item'
-
-  javascript:
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-
 #new.modal.fade
   = form_for @event, url: unit_events_path(@unit) do |f|
     .modal-dialog.modal-lg
@@ -97,6 +71,9 @@
 
         .modal-footer
           .form-group
+            = f.check_box :published
+            = f.label :published, style: 'margin-right: 15px;'
+
             = f.submit t('events.add'), class: 'btn btn-primary'
             | &nbsp;&nbsp;
             = t('or')
@@ -114,12 +91,36 @@ javascript:
     $('#registration-details').toggle(250);
   });
 
+  // if starts_at_time is all day, then hide the ends_at time, since it's
+  // assumed to also be all-day
   $('#starts_at_time').change(function() {
     var startsAtTime = $('#starts_at_time option:selected').val();
     if (startsAtTime == "0") {
       $('#ends-at-time-details').hide(250);
     } else {
       $('#ends-at-time-details').show(250);
+    }
+  });
+
+  $('#event_starts_at').change(function() {
+    var startsAt = $(this).val();
+    var endsAt = $('#event_ends_at').val();
+    var registrationClosesAt = $('#event_registration_closes_at').val();
+    var startsAtDate = Date.parse(startsAt);
+    var endsAtDate = Date.parse(endsAt);
+    var registrationClosesAtDate = Date.parse(registrationClosesAt);
+
+    // is the end date before the start date?
+    // if so, let's change it
+    if (endsAtDate < startsAtDate) {
+      $('#event_ends_at').val(startsAt);
+    }
+
+    // similarly, if the registration close date is after the start date,
+    // then change it, too
+    if (registrationClosesAtDate > startsAtDate) {
+      registrationClosesAtDate = startsAtDate - (24 * 60 * 60 * 1000 * 5);
+      $('#event_registration_closes_at').val(moment(registrationClosesAtDate).format('DD MMMM YYYY'));
     }
   });
 

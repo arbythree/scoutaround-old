@@ -24,6 +24,7 @@ gem 'jquery-validation-rails'
 gem 'jquery-ui-rails'
 gem 'mini_magick'
 gem 'mixpanel-ruby'
+gem 'momentjs-rails'
 gem 'local_time'
 gem 'pdfjs_viewer-rails'
 

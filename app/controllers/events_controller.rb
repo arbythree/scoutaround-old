@@ -8,16 +8,12 @@ class EventsController < UnitContextController
   after_action  :store_view_preference, only: [:index]
 
   def index
-    # if @view == 'list'
-    #   @events = @unit.present? ? @unit.events.published.future.order(:starts_at) : @current_user.events.future.order(:starts_at)
-    # else
-    #   @events = @unit.present? ? @unit.events.published.order(:starts_at) : @current_user.events.order(:starts_at)
-    # end
+    @include_unpublished = params[:include_unpublished] || 'no'
 
-    @events = @unit.events.published
-
-    if params[:include_unpublished] || 'no' == 'yes'
+    if @include_unpublished == 'yes'
       @events = @unit.events
+    else
+      @events = @unit.events.published
     end
 
     # for modal

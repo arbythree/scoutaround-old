@@ -214,6 +214,8 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     mixpanel-ruby (2.2.0)
+    momentjs-rails (2.20.1)
+      railties (>= 3.1)
     multi_json (1.13.1)
     multipart-post (2.0.0)
     nenv (0.3.0)
@@ -416,6 +418,7 @@ DEPENDENCIES
   local_time
   mini_magick
   mixpanel-ruby
+  momentjs-rails
   pdfjs_viewer-rails
   pg
   puma (~> 3.7)
@@ -453,4 +456,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.3
+   1.16.5
