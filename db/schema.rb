@@ -141,7 +141,7 @@ ActiveRecord::Schema.define(version: 2018_09_26_173207) do
     t.text "description"
     t.integer "minimum_age"
     t.boolean "published", default: false
-    t.string "type"
+    t.string "event_type"
   end
 
   create_table "guardianships", force: :cascade do |t|

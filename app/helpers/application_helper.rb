@@ -63,4 +63,20 @@ module ApplicationHelper
     end
     select_tag(name, raw(values), html_options)
   end
+
+  def event_type_glyph_name(event_type)
+    return '' unless event_type.present?
+
+    map = {
+      unit_meeting:   'users',
+      hike:           'walking',
+      afloat:         'swimmer',
+      camping:        'tree',
+      ceremony:       'medal',
+      football:       'football-ball',
+      award_ceremony: 'medal',
+    }
+
+    map[event_type.to_sym]
+  end
 end

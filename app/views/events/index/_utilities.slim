@@ -36,19 +36,26 @@
         .modal-body
           .form-group
             .row
-              .col-md-4 = f.label :type
-              .col-md-8 = f.select :type, EventType.all.collect { |t| [t.name, t.id] }, {}, class: 'form-control'
+              .col-md-3 = f.label :event_type
+              .col-md-9 = f.select :event_type, EventType.all.collect { |t| [t.name, t.id] }, {}, class: 'form-control'
 
           .form-group
-            = f.label :name
-            = f.text_field :name, class: 'form-control'
-
-          .form-group
-            = f.label :location
-            = f.text_field :location, class: 'form-control stacked', placeholder: 'Venue name'
-            = f.text_field :address, class: 'form-control stacked', placeholder: 'Address'
             .row
-              .col-md-8
+              .col-md-3 = f.label :name
+              .col-md-9 = f.text_field :name, class: 'form-control'
+
+          .form-group
+            .row
+              .col-md-3 = f.label :location
+              .col-md-9 = f.text_field :location, class: 'form-control stacked', placeholder: 'Venue name'
+
+            .row
+              .col-md-3
+              .col-md-9 = f.text_field :address, class: 'form-control stacked', placeholder: 'Address'
+
+            .row
+              .col-md-3
+              .col-md-5
                 = f.text_field :city, class: 'form-control', placeholder: 'City'
               .col-md-2
                 = f.text_field :state, class: 'form-control', placeholder: 'State'
@@ -56,18 +63,15 @@
                 = f.text_field :postal_code, class: 'form-control', placeholder: 'Zip'
 
           .form-group
-            = f.label :starts_at
             .row
-              .col-md-8
-                = f.text_field :starts_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
-              .col-md-4
-                = select_time :starts_at_time, { class: 'form-control' }, { display_all_day_option: true }
+              .col-md-3 = f.label :starts_at
+              .col-md-5 = f.text_field :starts_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+              .col-md-4 = select_time :starts_at_time, { class: 'form-control' }, { display_all_day_option: true }
 
           .form-group
-            = f.label :ends_at
             .row
-              .col-md-8
-                = f.text_field :ends_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+              .col-md-3 = f.label :ends_at
+              .col-md-5 = f.text_field :ends_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
               .col-md-4
                 #ends-at-time-details(style="display:none")
                   = select_time :ends_at_time, class: 'form-control'
@@ -78,18 +82,18 @@
 
           #registration-details(style="display:none;")
             .form-group
-              = f.label :registration_closes_at, 'Registration closes on'
               .row
-                .col-md-8
-                  = f.text_field :registration_closes_at, value: @event.registration_closes_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+                .col-md-3 = f.label :registration_closes_at, 'Registration closes on'
+                .col-md-4 = f.text_field :registration_closes_at, value: @event.registration_closes_at.strftime('%d %B %Y'), class: 'form-control datepicker'
+
+          .form-group
+            .row
+              .col-md-3 = f.label :minimum_age
+              .col-md-4 = f.select :minimum_age, [['No minumum', nil], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18]], {}, class: 'form-control'
 
           .form-group
             = f.label :attachments
             = f.file_field :attachments, multiple: true, direct_upload: true
-
-          .form-group
-            = f.label :minimum_age
-            = f.number_field :minimum_age, class: 'form-control'
 
           .form-group
             = label_tag :repeat

@@ -1269,3 +1269,35 @@ ul#announcements {
     max-width: 1332px;
   }
 }
+
+tr.event {
+  border-left: 6px solid #fff;
+}
+
+tr.camping {
+  border-color: SIENNA;
+}
+
+tr.award_ceremony {
+  border-color: SEAGREEN;
+}
+
+tr.afloat {
+  border-color: CORNFLOWERBLUE;
+}
+
+tr.unit_meeting {
+  border-color: LIGHTBLUE;
+}
+
+tr.football {
+  border-color: FUCHSIA;
+}
+
+tr.hike {
+  border-color: CRIMSON;
+}
+
+tr.fundraiser {
+  border-color: #85bb65;
+}

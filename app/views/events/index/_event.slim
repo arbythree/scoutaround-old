@@ -1,5 +1,8 @@
-tr.event
+tr.event(class="#{ (event.event_type || '').underscore } foo")
   - present event do |e|
+    td.glyph(style="text-align: center;")
+      i.fal(class="fa-#{ event_type_glyph_name(event.event_type) }")
+
     td.name
       = link_to unit_event_path(@unit, event)
         .title
