@@ -19,6 +19,8 @@ class EventRegistrationsController < AuthenticatedController
   def create
     if params[:user].present?
       perform_single_registration
+    elsif params[:user_id].present?
+      perform_family_registration
     elsif params['event']['registrant_ids'].present?
       perform_bulk_registration
     end
@@ -51,6 +53,13 @@ class EventRegistrationsController < AuthenticatedController
 
     flash[:notice] = "Registered #{ user_synopsis(users) }"
     redirect_to unit_event_event_registrations_path(@unit, @event)
+  end
+
+  def perform_family_registration
+    users = @unit.members.find(params[:user_id])
+    users.each do |user|
+      @event.event_registrations.create(user: user)
+    end
   end
 
   def find_registration

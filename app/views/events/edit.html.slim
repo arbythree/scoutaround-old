@@ -26,7 +26,7 @@
             = f.label :location
           .col-md-9
             = f.text_field :location, class: 'form-control', autocomplete: 'off'
-            ul#location-suggestions(style="display:none;")
+            ul#location-suggestions(style="display: none;")
 
       .form-group
         .row
@@ -60,8 +60,13 @@
         .row
           .col-md-3
             = f.label :description
+<<<<<<< HEAD
           .col-md-9
             = f.text_area :description, class: 'form-control'
+=======
+          .col-md-9
+            = f.trix_editor :description, class: 'form-control'
+>>>>>>> 98bd6bcb87ab11e94029a52a2d44fe8f4b7719e9
 
       .form-group
         .row
@@ -98,10 +103,14 @@
     .modal-content
       .modal-header
         h5.modal-title = t('events.delete_title')
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       .modal-body
         p Are you sure?
       .modal-footer
-        button
+        = button_to 'Yes, Cancel Event', unit_event_path(@unit, @event), method: :delete, class: 'btn btn-danger'
+        = button_tag 'No, Never Mind', class: 'btn btn-secondary', data: { dismiss: 'modal' }
 
 
 css:
@@ -110,12 +119,18 @@ css:
     z-index: 100;
     background-color: #fff;
     border: 1px solid #ddd;
-    margin-top: 3px;
+    margin: 3px 30px 0 0;
+    padding: 0;
     list-style: none;
   }
 
-  #location-suggestions a {
+  #location-suggestions li {
 
+  }
+
+  #location-suggestions a {
+    display: inline-block;
+    padding: 6px 15px;
   }
 
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=#{ ENV['GOOGLE_PLACES_API_KEY'] }&libraries=places"></script>
@@ -126,24 +141,51 @@ javascript:
 
   var service = new google.maps.places.AutocompleteService();
 
+  // $('#event_location').selectize({
+  //   render: {
+  //     option: function(item, escape) {
+  //       alert(item);
+  //     }
+  //   },
+  //   load: function(query, callback) {
+  //     if (!query.length) return callback();
+
+  //     service.getPlacePredictions({ input: query }, callback);
+  //   }
+  // });
+
+  function hideSuggestions() {
+    $('#location-suggestions').hide();
+  }
+
   var displaySuggestions = function(predictions, status) {
     if (status != google.maps.places.PlacesServiceStatus.OK) {
-      alert(status);
+      $('#location-suggestions').hide();
       return;
     }
 
+    if (predictions.length > 0) {
+      $('#location-suggestions').show();
+    } else {
+      $('#location-suggestions').hide();
+    }
+
     predictions.forEach(function(prediction) {
-      // var li = document.createElement('li');
-      // var a = document.createElement('a');
+      $('#location-suggestions').append('<li><a class="suggestion" href="#" data-turbolinks="false">' + prediction.structured_formatting.main_text + '</a></li>');
+    });
 
-      // li.appendChild(document.createTextNode(prediction.description));
-
-      $('#location-suggestions').append('<li><a href="#">' + prediction.description + '</a></li>');
-      document.getElementById('location-suggestions').appendChild(li);
+    $('a.suggestion').click(function() {
+      $('#event_location').val($(this).text());
+      $('#location-suggestions').hide();
     });
   }
 
-  $('#event_location').keydown(function() {
+  $('#event_location').keydown(function(e) {
+    if (e.keyCode == 27) {
+      $('#location-suggestions').hide();
+      return;
+    }
+
     var term = $(this).val();
 
     if (term === '') {
@@ -155,6 +197,7 @@ javascript:
     service.getPlacePredictions({ input: term }, displaySuggestions);
   });
 
+<<<<<<< HEAD
   // $('#event_location').selectize({
   //     searchField: 'name',
   //     options: [],
@@ -196,3 +239,8 @@ javascript:
   //         });
   //     }
   // });
+=======
+  $('#event_location').blur(function() {
+    window.setTimeout(hideSuggestions, 200);
+  });
+>>>>>>> 98bd6bcb87ab11e94029a52a2d44fe8f4b7719e9

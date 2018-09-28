@@ -9,6 +9,7 @@
 - @current_user.family.each do |user|
   - next unless user.member_of?(@unit)
   - registration = @event.event_registrations.find_by(user: user)
+  - next unless registration.present?
   - action_required = true unless registration&.complete?
   - non_registrants << user unless registration.present?
   - next unless registration.present?
@@ -58,10 +59,13 @@
     .row
       = render 'events/show/checklist'
 
-.row
-  .col-md-6#description
+section#overview.row
+  .col-md-8#description
     h5 Overview
-    p = @event.description
+
+    = raw(@event.description)
+
+    / = raw(markdown.render @event.description)
 
     - if @event.attachments.attached?
       - @event.attachments.each do |attachment|
@@ -69,12 +73,7 @@
           = link_to rails_blob_path(attachment, disposition: 'attachment')
             = image_tag attachment.preview(resize: '100x100>')
 
-  .col-md-3.messages
-    .details
-      h5 = t('messages.title')
-      = render 'events/show/messages'
-
-  .col-md-3#event-details
+  .col-md-4#event-details
     - if @user_can_administer_event
       .details
         h5
@@ -117,9 +116,16 @@
         p = "#{ @event.city }, #{ @event.state }  #{ @event.postal_code }"
       p = link_to 'View Map', '#map'
 
+section#messages.row.ruled
+  .col-md-8.messages
+    .details
+      h5 = t('messages.title')
+      = render 'events/show/messages'
+
+  .col-md-4
     .details
       h5 Who's Going?
-      = render 'events/show/who'
+      = render 'events/show/who'      
 
 section#map
   .row
@@ -131,7 +137,7 @@ section#map
   .modal-dialog.modal-md
     .modal-content
       / = form_for [@unit.becomes(Unit), @event, @event.messages.new], remote: true do |f|
-      = form_tag unit_event_event_registrations_path(@unit, @event), remote: true
+      = form_tag unit_event_event_registrations_path(@unit, @event)
         .modal-header
           h5.modal-title Registrations
           button.close(data-dismiss="modal")
@@ -140,8 +146,8 @@ section#map
           - @current_user.family.each do |user|
             - next unless user.member_of?(@unit)
             .form-group
-              = check_box_tag 'user_id[]', user.id, family_registrations.map(&:user).include?(user)
-              = label_tag user.preferred_name
+              = check_box_tag 'user_id[]', user.id, family_registrations.map(&:user).include?(user), id: "user_id_#{ user.id }"
+              = label_tag "user_id_#{ user.id }", user.preferred_name
 
         .modal-footer
           button.btn.btn-secondary(data-dismiss="modal") = t('cancel')

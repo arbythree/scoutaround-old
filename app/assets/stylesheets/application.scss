@@ -540,6 +540,11 @@ $colors: (
 
 section {
   margin-bottom: 4rem;
+
+  &.ruled {
+    border-top: 1px solid $color_background;
+    padding-top: 4rem;
+  }
 }
 
 ul.message-list {
@@ -1183,9 +1188,14 @@ th.numeric, td.numeric {
 }
 
 #description {
-  p {
-    font-size: 120%;
-    line-height: 160%;
+  // div, li {
+  //   font-size: 120%;
+  //   line-height: 160%;
+  // }
+
+  ul {
+    list-style-position: outside;
+    padding-left: 0;
   }
 }
 
@@ -1263,5 +1273,11 @@ ul#announcements {
   .modal-header, .modal-body, .modal-footer {
     padding-left: 30px;
     padding-right: 30px;
+
+.alert {
+  margin: 0 -15px;
+
+  .container {
+    max-width: 1332px;
   }
 }
