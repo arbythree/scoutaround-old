@@ -1,0 +1,21 @@
+- content_for :actions do
+  .btn-group
+    = link_to 'Add an Event', '#new', class: 'btn btn-secondary', data: { toggle: 'modal' }
+    = link_to '', '#', class: 'btn btn-secondary dropdown-toggle-split dropdown-toggle', data: { toggle: 'dropdown' }
+
+    .dropdown-menu
+      = link_to 'Calendar', unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item'
+      = link_to 'List', unit_events_path(@unit, view: 'list'), class: 'dropdown-item'
+      = link_to 'Subscribe to feed', unit_events_path(@unit, format: 'ics'), class: 'dropdown-item'
+
+      - if @current_user_is_admin
+        .dropdown-divider
+        - if @include_unpublished == 'yes'
+          = link_to 'Show unpublished events', unit_events_path(@unit, view: @view, include_unpublished: 'no'), class: 'dropdown-item'
+        - else
+          = link_to 'Show unpublished events', unit_events_path(@unit, view: @view, include_unpublished: 'yes'), class: 'dropdown-item'
+
+javascript:
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });

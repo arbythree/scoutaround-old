@@ -27,4 +27,4 @@
 //= require bootstrap-tagsinput
 //= require activestorage
 //= require trix
-//= require selectize
+//= require moment

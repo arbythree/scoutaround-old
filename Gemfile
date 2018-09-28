@@ -25,6 +25,7 @@ gem 'jquery-validation-rails'
 gem 'jquery-ui-rails'
 gem 'mini_magick'
 gem 'mixpanel-ruby'
+gem 'momentjs-rails'
 gem 'local_time'
 gem 'pdfjs_viewer-rails'
 
@@ -70,8 +71,8 @@ gem 'smarter_csv'
 # credit card payments
 gem 'stripe'
 
-# markdown rich editor
-gem 'trix', git: 'https://github.com/bcoia/trix.git'
+# rich editor
+gem 'trix' #, git: 'https://github.com/bcoia/trix.git'
 
 # auto-completion
 gem 'twitter-typeahead-rails'
