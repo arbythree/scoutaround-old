@@ -6,4 +6,17 @@ table.table
     th.times     = t('events.table.times')
     th.attendees = t('events.table.attendees')
 
-  = render partial: 'events/index/event', collection: @events
+  - current_month = nil
+  - current_year = nil
+
+  - @events.each do |event|
+    - year = event.starts_at.year
+    - month = event.starts_at.month
+    - if month != current_month
+      tr.month
+        td(colspan="10") = event.starts_at.strftime("#{ current_year == year ? '%B' : '%B %Y' }")
+
+    = render partial: 'events/index/event', locals: { event: event }
+
+    - current_year = year
+    - current_month = month

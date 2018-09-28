@@ -34,6 +34,9 @@
           h5.modal-title = t('events.add')
 
         .modal-body
+          ///////////////////////////////////
+          / event name & type
+          ///////////////////////////////////        
           .form-group
             .row
               .col-md-3 = f.label :event_type
@@ -44,6 +47,9 @@
               .col-md-3 = f.label :name
               .col-md-9 = f.text_field :name, class: 'form-control'
 
+          ///////////////////////////////////
+          / location & address
+          ///////////////////////////////////
           .form-group
             .row
               .col-md-3 = f.label :location
@@ -62,6 +68,9 @@
               .col-md-2
                 = f.text_field :postal_code, class: 'form-control', placeholder: 'Zip'
 
+          ///////////////////////////////////
+          / start & end dates
+          ///////////////////////////////////
           .form-group
             .row
               .col-md-3 = f.label :starts_at
@@ -76,6 +85,33 @@
                 #ends-at-time-details(style="display:none")
                   = select_time :ends_at_time, class: 'form-control'
 
+          ///////////////////////////////////
+          / repeat
+          ///////////////////////////////////
+          .form-group
+            .row
+              .col-md-3 = label_tag :repeat
+              .col-md-5
+                select(id='repeat' name='repeat' class='form-control')
+                  option(value='never') Never
+                  option(value='weekly') Weekly
+
+          #repeat-details(style="display:none")
+            .form-group
+              = label_tag :end_repeat
+              = text_field_tag :repeat_until, 6.months.from_now.strftime('%d %B %Y'), class: 'form-control datepicker'
+
+          ///////////////////////////////////
+          / minimum age
+          ///////////////////////////////////
+          .form-group
+            .row
+              .col-md-3 = f.label :minimum_age
+              .col-md-5 = f.select :minimum_age, [['No minumum', nil], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18]], {}, class: 'form-control'
+
+          ///////////////////////////////////
+          / registration
+          ///////////////////////////////////
           .form-group
             = f.check_box :require_registration
             = f.label :require_registration
@@ -83,28 +119,13 @@
           #registration-details(style="display:none;")
             .form-group
               .row
-                .col-md-3 = f.label :registration_closes_at, 'Registration closes on'
-                .col-md-4 = f.text_field :registration_closes_at, value: @event.registration_closes_at.strftime('%d %B %Y'), class: 'form-control datepicker'
-
-          .form-group
-            .row
-              .col-md-3 = f.label :minimum_age
-              .col-md-4 = f.select :minimum_age, [['No minumum', nil], ['13', 13], ['14', 14], ['15', 15], ['16', 16], ['17', 17], ['18', 18]], {}, class: 'form-control'
+                .col-md-3 = f.label :registration_closes_at, 'Registration closes'
+                .col-md-5 = f.text_field :registration_closes_at, value: @event.registration_closes_at.strftime('%d %B %Y'), class: 'form-control datepicker'
 
           .form-group
             = f.label :attachments
             = f.file_field :attachments, multiple: true, direct_upload: true
 
-          .form-group
-            = label_tag :repeat
-            select(id='repeat' name='repeat' class='form-control')
-              option(value='never') Never
-              option(value='weekly') Weekly
-
-          #repeat-details(style="display:none")
-            .form-group
-              = label_tag :end_repeat
-              = text_field_tag :repeat_until, 6.months.from_now.strftime('%d %B %Y'), class: 'form-control datepicker'
 
         .modal-footer
           .form-group
