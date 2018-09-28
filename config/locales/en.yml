@@ -66,6 +66,9 @@ en:
     confirmations:
       cancel:         'Event was removed from unit calendar'
     messages_cta:     'View the Event Message Board'
+    show_earlier:     'Show Earlier Events'
+    show_later:       'Show Later Events'
+    show_less:        'Show Fewer Events'
 
   submissions:
     title:                'Submissions'

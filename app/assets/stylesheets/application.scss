@@ -131,6 +131,16 @@ h4 {
 //   }
 // }
 
+.btn-primary {
+  background-color: $color_brand;
+  border-color: darken($color_brand, 10%);
+
+  &:hover {
+    background-color: darken($color_brand, 5%);
+    border-color: darken($color_brand, 10%);
+  }
+}
+
 a {
   color: $color_brand;
   outline: 0;
@@ -1284,14 +1294,33 @@ ul#announcements {
   }
 }
 
+.alert-warning {
+  background-color: #fcc200;
+  color: darken(#fcc200, 40%);
+}
+
 tr.month {
-  td {
-    font-weight: 700;
+  // background-color: lighten($color_background, 5%);
+  font-weight: 700;
+
+  td:first-child {
+    // border-left: 6px solid lighten($color_background, 5%);
+    padding-left: 0;
   }
 }
 
 tr.event {
   border-left: 6px solid #fff;
+
+  &.unpublished {
+    background: repeating-linear-gradient(
+      -45deg,
+      #fff,
+      #fff 10px,
+      #e4e4e4 10px,
+      #e4e4e4 11px
+    );    
+  }
 }
 
 tr.camping {

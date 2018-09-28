@@ -72,7 +72,7 @@ gem 'smarter_csv'
 gem 'stripe'
 
 # rich editor
-gem 'trix' #, git: 'https://github.com/bcoia/trix.git'
+gem 'trix-rails', git: 'https://github.com/bcoia/trix.git', require: 'trix'
 
 # auto-completion
 gem 'twitter-typeahead-rails'
