@@ -156,7 +156,7 @@ class EventsController < UnitContextController
   def event_params
     params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration,
       :registration_closes_at, :address, :city, :state, :postal_code, :banner_image_url,
-      :description, :minimum_age, attachments: [])
+      :published, :event_type, :description, :minimum_age, attachments: [])
   end
 
   def fetch_view_preference

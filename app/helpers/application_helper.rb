@@ -65,18 +65,23 @@ module ApplicationHelper
   end
 
   def event_type_glyph_name(event_type)
-    return '' unless event_type.present?
+    return 'calendar' unless event_type.present?
 
     map = {
-      unit_meeting:   'users',
-      hike:           'walking',
-      afloat:         'swimmer',
-      camping:        'tree',
-      ceremony:       'medal',
-      football:       'football-ball',
-      award_ceremony: 'medal',
+      unit_meeting:       'users',
+      hiking:             'walking',
+      afloat:             'swimmer',
+      camping:            'tree',
+      ceremony:           'medal',
+      football:           'football-ball',
+      baseball:           'baseball-ball',
+      award_ceremony:     'medal',
+      fundraiser:         'money-bill',
+      community_service:  'hands-helping',
+      training:           'certificate',
+      swimming:           'swimmer',
     }
 
-    map[event_type.to_sym]
+    map[event_type.to_sym] || 'calendar'
   end
 end
