@@ -36,3 +36,5 @@ config/environments/*.local.yml
 Procfile.local
 
 .DS_Store
+
+/config/database.yml
