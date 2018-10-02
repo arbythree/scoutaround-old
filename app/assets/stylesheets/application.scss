@@ -19,13 +19,15 @@
  *= require selectize.default
  */
 
-@import "bootstrap";
-
 $blue:              #7D9E9C;
 $green:             #006B3F;
 $color_brand:       #BA160C; // eng
 $color_background:  #EBE9E8;
 $color_text:        rgb(33, 37, 41);
+$primary:           $color_brand;
+
+@import "bootstrap";
+
 
 @mixin sans-serif {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
@@ -111,34 +113,8 @@ h4 {
   }
 }
 
-// .btn {
-//   font-weight: 300;
-//   // text-transform: uppercase;
-//   // font-size: 12px;
-//   // letter-spacing: 1px;
-//   padding: 8px 16px;
-// }
-
-// .btn-primary {
-//   // background-color: rgb(182, 24, 24);
-//   background-color: $blue;
-//   border-color: darken($blue, 10%);
-//   min-width: 12rem;
-
-//   &:hover {
-//     background-color: darken($blue, 10%);
-//     border-color: darken($blue, 10%);
-//   }
-// }
-
-.btn-primary {
-  background-color: $color_brand;
-  border-color: darken($color_brand, 10%);
-
-  &:hover {
-    background-color: darken($color_brand, 5%);
-    border-color: darken($color_brand, 10%);
-  }
+.btn-nosquash {
+  min-width: 12rem;
 }
 
 a {

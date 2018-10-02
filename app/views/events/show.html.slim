@@ -2,156 +2,76 @@
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
 - crumbtrail @event.name
 
-- family_registrations = []
+- @family_registrations = []
 - non_registrants = []
-- action_required = false
+- @action_required = false
 
 - @current_user.family.each do |user|
   - next unless user.member_of?(@unit)
   - registration = @event.event_registrations.find_by(user: user)
   - next unless registration.present?
-  - action_required = true unless registration&.complete?
+  - @action_required = true unless registration&.complete?
   - non_registrants << user unless registration.present?
   - next unless registration.present?
-  - family_registrations << registration
+  - @family_registrations << registration
 
-- registrant_names = family_registrations.map{ |r| r.user_id == @current_user.id ? 'You' : r.user.first_name }
+- @registrant_names = @family_registrations.map{ |r| r.user_id == @current_user.id ? 'You' : r.user.first_name }
 
 - @user_can_administer_event = @current_user_is_admin
 
 - if @event.starts_at > Time.now
-  - attendance_link_data = { confirm: 'Are you sure you want to take attendance before the event has started?' }
+  - @attendance_link_data = { confirm: 'Are you sure you want to take attendance before the event has started?' }
 
 - if @event.banner_image_url.present?
   - content_for :banner do
     / .banner(style="background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0) ), url(#{ @event.banner_image_url })")
     .banner(style="background-image: url(#{ @event.banner_image_url })")
 
-
-.row(style="margin: 0 -6rem; padding: 0 80px; border-bottom: 1px solid #aaa; margin-bottom: 4rem;")
-  .col-md-8
-    h1(style="margin-bottom: 12px;") = @event.name
-
-  .col-md-4(style="padding-top: 10px;")
-    - if @event.require_registration && registrant_names.count.positive?
-      div(style="padding-top: 4px;")
-        - if action_required
-          a(data-toggle="tooltip" title="Action required. Click to view" href="#submissions")
-            i.fas.fa-exclamation-circle(style="color: gold; margin-right: 0.5rem;")
-        - else
-          i.fas.fa-check-circle(style="color: green; margin-right: 0.5rem;")
-
-        = "#{ registrant_names.join(' and ') } #{ registrant_names.count > 1 ? 'are' : 'is' } registered"
-        = link_to 'Change', '#', style: 'margin-left: 0.5rem; color: #888; font-size: 80%;'
-
-    - elsif @event.require_registration
-      = link_to 'Register', '#', class: 'btn btn-primary', data: { toggle: 'modal', target: '#registrations'}
-
-      - if @event.minimum_age.present?
-        span.advisory(title="Age restrictions apply" style="color: #888; margin-left: 0.5rem;" data-toggle="tooltip")
-          i.fal.fa-exclamation-triangle
-
-    - else
-      = link_to 'Check In', '#', class: 'btn btn-primary'
+= render partial: 'events/show/event_title'
+= render partial: 'events/show/nav'
 
 - if @event.event_requirements.present?
   section#submissions
     .row
       = render 'events/show/checklist'
 
-section#overview.row
-  .col-md-8#description
-    h5 Overview
+section
+  .tab-content
+    #overview.tab-pane.fade.show.active
+      .row
+        .col-md-8#description
+          h5 Overview
 
-    = raw(@event.description)
+          = raw(@event.description)
 
-    / = raw(markdown.render @event.description)
+          / = raw(markdown.render @event.description)
 
-    - if @event.attachments.attached?
-      - @event.attachments.each do |attachment|
-        p
-          = link_to rails_blob_path(attachment, disposition: 'attachment')
-            = image_tag attachment.preview(resize: '100x100>')
+          - if @event.attachments.attached?
+            - @event.attachments.each do |attachment|
+              p
+                = link_to rails_blob_path(attachment, disposition: 'attachment')
+                  = image_tag attachment.preview(resize: '100x100>')
 
-  .col-md-4#event-details
-    - if @user_can_administer_event
-      .details
-        h5
-          | Administration
-          i.fa-tree.fas(style="margin-left: 0.5rem; color: #aaa;")
+        .col-md-4#event-details
+          = render partial: 'events/show/details'
 
-        p(style="margin-bottom: 0.5rem;")
-          = link_to edit_unit_event_path(@unit, @event), title: t('admin_only'), class: 'glyphed' do
-            span.glyph
-              i.fal.fa-wrench(style="margin-right: 0.5rem;")
-            = t('events.edit')
+    #messages.tab-pane
+      .row
+        .col-md-8.messages
+          .details
+            h5 = t('messages.title')
+            = render 'events/show/messages'
 
-        p(style="margin-bottom: 0.5rem;")
-          = link_to unit_event_event_registrations_path(@unit, @event), title: t('admin_only'), class: 'glyphed' do
-            span.glyph
-              i.fal.fa-users(style="margin-right: 0.5rem;")
-            = t('events.registrations')
+    #attendees.tab-pane
+      .row
+        .col-md-4
+          .details
+            h5 Who's Going?
+            = render 'events/show/who'      
 
-        p(style="margin-bottom: 0.5rem;")
-          = link_to unit_event_attendances_path(@unit, @event), class: 'glyphed', data: attendance_link_data do
-            span.glyph
-              i.fal.fa-clipboard(style="margin-right: 0.5rem;")
-            | Take Attendance
+= render partial: 'events/show/map'
 
-    .details
-      h5 Date &amp; Time
-      time
-        p
-          = @event.starts_at.to_formatted_s(:scoutaround)
-          | &ndash;
-        p = @event.ends_at.to_formatted_s(:scoutaround)
-        p = link_to 'Add to Calendar'
-
-    .details
-      h5 Location
-      p = @event.location
-      - if @event.address.present?
-        p = @event.address
-      - if @event.city.present? && @event.state.present?
-        p = "#{ @event.city }, #{ @event.state }  #{ @event.postal_code }"
-      p = link_to 'View Map', '#map'
-
-section#messages.row.ruled
-  .col-md-8.messages
-    .details
-      h5 = t('messages.title')
-      = render 'events/show/messages'
-
-  .col-md-4
-    .details
-      h5 Who's Going?
-      = render 'events/show/who'      
-
-section#map
-  .row
-    .col-md-12
-      iframe(width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{ @event.map_location }")
-
-
-#registrations.modal.fade
-  .modal-dialog.modal-md
-    .modal-content
-      / = form_for [@unit.becomes(Unit), @event, @event.messages.new], remote: true do |f|
-      = form_tag unit_event_event_registrations_path(@unit, @event)
-        .modal-header
-          h5.modal-title Registrations
-          button.close(data-dismiss="modal")
-            span &times;
-        .modal-body
-          - @current_user.family.each do |user|
-            - next unless user.member_of?(@unit)
-            .form-group
-              = check_box_tag 'user_id[]', user.id, family_registrations.map(&:user).include?(user), id: "user_id_#{ user.id }"
-              = label_tag "user_id_#{ user.id }", user.preferred_name
-
-        .modal-footer
-          button.btn.btn-secondary(data-dismiss="modal") = t('cancel')
-          = submit_tag 'Send', class: 'btn btn-primary'
+= render partial: 'events/show/registration_modal'
 
 = params[:view]
 

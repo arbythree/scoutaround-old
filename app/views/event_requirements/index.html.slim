@@ -9,11 +9,11 @@
 
 = content_for :actions do
   .dropdown
-    = link_to 'Add a Requirement', '#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }
+    = link_to 'Add a Requirement', '#', class: 'btn btn-primary dropdown-toggle', data: { toggle: 'dropdown' }
 
-    .dropdown-menu
-      = link_to 'Require a Form or Document', '#document', class: 'dropdown-item', data: { target: 'modal' }
-      = link_to 'Charge a Fee', '#fee', class: 'dropdown-item', data: { target: 'modal' }
+    #add-requirement-dropdown.dropdown-menu
+      = link_to 'Require a Form or Document', '#document', class: 'dropdown-item', data: { toggle: 'modal' }
+      = link_to 'Charge a Fee', '#fee', class: 'dropdown-item', data: { toggle: 'modal' }
 
 .row
   .col-md-3
@@ -30,23 +30,53 @@
 
 
 #document.modal.fade
-  = form_for @event.event_requirements.new(type: 'DocumentEventRequirement'), url: unit_events_path(@unit) do |f|
-    .modal-dialog.modal-lg
+  = form_for @event.event_requirements.new(type: 'DocumentEventRequirement').becomes(EventRequirement), url: unit_event_event_requirements_path(@unit, @event) do |f|
+    .modal-dialog
       .modal-content
         .modal-header
-          h5.modal-title = t('events.add')
+          h5.modal-title Require a Form or Document
+          button.close(data-dismiss="modal")
+            span &times;
 
         .modal-body
           ///////////////////////////////////
           / event name & type
           ///////////////////////////////////        
           .form-group
-            .row
-              .col-md-3 = f.label :description
-              .col-md-9 = f.text_field :description, class: 'form-control'
+            = f.label :description
+            = f.text_field :description, class: 'form-control'
+
+          - if @unit.document_library_items.count > 0
+            .form-group
+              = f.label :document_library_item_id, 'Document Library'
+              = f.collection_select :document_library_item_id, @unit.document_library_items, :name, :id, {}, class: 'form-control'
+
+          .form-group
+            = f.label :audience
+
+            br
+
+            = f.radio_button :audience, 'everyone'
+            = f.label :audience, 'Everyone', for: :event_requirement_audience_everyone
+
+            |&nbsp;&nbsp;&nbsp;&nbsp;
+
+            = f.radio_button :audience, 'youth_only'
+            = f.label :audience, 'Youth', for: :event_requirement_audience_1        
+
+            |&nbsp;&nbsp;&nbsp;&nbsp;
+
+            = f.radio_button :audience, 'adults_only'
+            = f.label :audience, 'Adults', for: :event_requirement_audience_2
+
+          - if @event.event_registrations.count > 0
+            .form-group
+              = label_tag :messaging
+              br
+              = check_box_tag :ping_registrants
+              = label_tag 'ping_registrants', 'Notify existing registrants'
+
 
         .modal-footer
-          .form-group
-            = f.submit 'Add Event Requirement', class: 'btn btn-primary'
-            | &nbsp;&nbsp;
-            = link_to t('cancel'), unit_event_path(@unit, @event), class: 'cancel'
+          button.btn(data-dismiss="modal") Cancel
+          = f.submit 'Add Event Requirement', class: 'btn btn-primary'
