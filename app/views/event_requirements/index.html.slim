@@ -12,8 +12,8 @@
     = link_to 'Add a Requirement', '#', class: 'btn btn-secondary dropdown-toggle', data: { toggle: 'dropdown' }
 
     .dropdown-menu
-      = link_to 'Require a Form or Document', '#', class: 'dropdown-item'
-      = link_to 'Charge a Fee', '#', class: 'dropdown-item'
+      = link_to 'Require a Form or Document', '#document', class: 'dropdown-item', data: { target: 'modal' }
+      = link_to 'Charge a Fee', '#fee', class: 'dropdown-item', data: { target: 'modal' }
 
 .row
   .col-md-3
@@ -27,3 +27,26 @@
         li = req.description
 
     = render partial: 'blank' unless @event_requirements.present?
+
+
+#document.modal.fade
+  = form_for @event.event_requirements.new(type: 'DocumentEventRequirement'), url: unit_events_path(@unit) do |f|
+    .modal-dialog.modal-lg
+      .modal-content
+        .modal-header
+          h5.modal-title = t('events.add')
+
+        .modal-body
+          ///////////////////////////////////
+          / event name & type
+          ///////////////////////////////////        
+          .form-group
+            .row
+              .col-md-3 = f.label :description
+              .col-md-9 = f.text_field :description, class: 'form-control'
+
+        .modal-footer
+          .form-group
+            = f.submit 'Add Event Requirement', class: 'btn btn-primary'
+            | &nbsp;&nbsp;
+            = link_to t('cancel'), unit_event_path(@unit, @event), class: 'cancel'
