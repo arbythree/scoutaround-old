@@ -13,7 +13,13 @@
 ActiveRecord::Schema.define(version: 2018_09_26_173207) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
+  enable_extension "pgcrypto"
+  enable_extension "plperl"
   enable_extension "plpgsql"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
 
   create_table "achievables", force: :cascade do |t|
     t.string "type"
