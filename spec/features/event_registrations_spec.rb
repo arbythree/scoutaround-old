@@ -29,6 +29,7 @@ RSpec.feature "Event registration features", :type => :feature do
       end
 
       it 'adds a registration' do
+        visit unit_event_event_registrations_path(@unit, @event)
         expect(page).to have_current_path(unit_event_event_registrations_path(@unit, @event))
         # expect(page).to have_content(@new_user.full_name)
       end

@@ -42,7 +42,7 @@ en:
     confirm:          'Added event to unit calendar'
     add_requirement:
       generic:        'Add Event Requirement'
-      document:       'Require a Document'
+      document:       'Require a Form or Document'
       payment:        'Charge an Event Fee'
     accept:
       document:       'Add Required Document'

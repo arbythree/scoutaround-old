@@ -12,7 +12,7 @@
     = link_to 'Add a Requirement', '#', class: 'btn btn-primary dropdown-toggle', data: { toggle: 'dropdown' }
 
     #add-requirement-dropdown.dropdown-menu
-      = link_to 'Require a Form or Document', '#document', class: 'dropdown-item', data: { toggle: 'modal' }
+      = link_to t('events.add_requirement.document'), '#document', class: 'dropdown-item', data: { toggle: 'modal' }
       = link_to 'Charge a Fee', '#fee', class: 'dropdown-item', data: { toggle: 'modal' }
 
 .row
@@ -49,7 +49,7 @@
           - if @unit.document_library_items.count > 0
             .form-group
               = f.label :document_library_item_id, 'Document Library'
-              = f.collection_select :document_library_item_id, @unit.document_library_items, :name, :id, {}, class: 'form-control'
+              = f.collection_select :document_library_item_id, @unit.document_library_items, :id, :name, { include_blank: true }, class: 'form-control'
 
           .form-group
             = f.label :audience

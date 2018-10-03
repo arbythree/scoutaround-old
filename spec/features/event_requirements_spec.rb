@@ -16,10 +16,11 @@ RSpec.feature "Event requirements features", :type => :feature do
   end
 
   it 'adds a new event requirement' do
+    visit unit_event_event_requirements_path(@unit, @event)
     click_on I18n.t('events.add_requirement.document')
     requirement_name = "I can't believe it's not butter"
     fill_in :event_requirement_description, with: requirement_name
-    click_on I18n.t('events.accept.document')
+    click_on 'Add Event Requirement'
     # expect(page).to have_content(requirement_name)
   end
 

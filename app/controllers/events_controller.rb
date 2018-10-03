@@ -65,10 +65,6 @@ class EventsController < UnitContextController
     # TODO: pundit this
     @body_classes = [:admin]
     @needs_admin_coaching = @current_user.preference_for(key: :needs_admin_coaching, default: 'true') == 'true'
-
-    puts '$$$$$'
-    puts @needs_admin_coaching
-
     @current_user.save_preference_for(key: :needs_admin_coaching, value: 'false')
   end
 
