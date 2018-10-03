@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Event requirements features", :type => :feature do
+RSpec.feature "Event features", :type => :feature do
   before do
     sign_in # see spec/support/feature_spec_helper
     path = unit_events_path(@unit)

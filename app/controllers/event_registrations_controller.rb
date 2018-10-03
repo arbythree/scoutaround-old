@@ -35,7 +35,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @registration.user
     @registration.destroy
     flash[:notice] = "Unregistered #{ user.full_name }"
-    redirect_to [@unit.becomes(Unit), @event]
+    redirect_to unit_event_path(@unit, @event)
   end
 
   private
@@ -53,7 +53,6 @@ class EventRegistrationsController < AuthenticatedController
     end
 
     flash[:notice] = "Registered #{ user_synopsis(users) }"
-    redirect_to unit_event_event_registrations_path(@unit, @event)
   end
 
   def perform_family_registration

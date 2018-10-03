@@ -13,6 +13,6 @@ RSpec.feature "Login", type: :feature do
     fill_in 'user_password', with: 'goscoutaround'
     click_on I18n.t('auth.sign_in')
 
-    expect(page).to have_current_path(unit_events_path(@unit))
+    expect(page).to have_current_path(unit_path(@unit))
   end
 end
