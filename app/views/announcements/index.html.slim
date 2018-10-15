@@ -6,6 +6,10 @@
     = link_to 'New Announcement', '#messaging', data: { toggle: 'modal' }, class: 'btn btn-primary'
 
 
-= render partial: 'blank' unless @messages.present?
-= render partial: 'messages'
-= render partial: 'new_message_modal' if @current_user_is_admin
+.row
+  .col-md-9
+	= render partial: 'blank' unless @messages.present?
+	= render partial: 'messages'
+	= render partial: 'new_message_modal' if @current_user_is_admin
+
+  .col-md-3.pinned

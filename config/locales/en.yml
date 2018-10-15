@@ -42,7 +42,7 @@ en:
     confirm:          'Added event to unit calendar'
     add_requirement:
       generic:        'Add Event Requirement'
-      document:       'Require a Document'
+      document:       'Require a Form or Document'
       payment:        'Charge an Event Fee'
     accept:
       document:       'Add Required Document'
@@ -66,6 +66,9 @@ en:
     confirmations:
       cancel:         'Event was removed from unit calendar'
     messages_cta:     'View the Event Message Board'
+    show_earlier:     'Show Earlier Events'
+    show_later:       'Show Later Events'
+    show_less:        'Show Fewer Events'
 
   submissions:
     title:                'Submissions'

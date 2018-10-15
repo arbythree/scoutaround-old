@@ -1,7 +1,10 @@
 - content_for :actions do
-  .btn-group
-    = link_to 'Add an Event', '#new', class: 'btn btn-secondary', data: { toggle: 'modal' }
-    = link_to '', '#', class: 'btn btn-secondary dropdown-toggle-split dropdown-toggle', data: { toggle: 'dropdown' }
+  = link_to 'Add an Event', '#new', class: 'btn btn-primary', data: { toggle: 'modal' } if @current_user_is_admin
+
+  |&nbsp;
+
+  span
+    = link_to 'View', '#', class: 'btn btn-outline-secondary dropdown-toggle', data: { toggle: 'dropdown' }
 
     .dropdown-menu
       = link_to 'Calendar', unit_events_path(@unit, view: 'calendar'), class: 'dropdown-item'
@@ -10,10 +13,10 @@
 
       - if @current_user_is_admin
         .dropdown-divider
-        - if @include_unpublished == 'yes'
-          = link_to 'Show unpublished events', unit_events_path(@unit, view: @view, include_unpublished: 'no'), class: 'dropdown-item'
+        - if @include_unpublished
+          = link_to 'Hide unpublished events', unit_events_path(@unit, change: 'calendar_include_unpublished', to: 'no'),  class: 'dropdown-item'
         - else
-          = link_to 'Show unpublished events', unit_events_path(@unit, view: @view, include_unpublished: 'yes'), class: 'dropdown-item'
+          = link_to 'Show unpublished events', unit_events_path(@unit, change: 'calendar_include_unpublished', to: 'yes'), class: 'dropdown-item'
 
 javascript:
   $(function () {

@@ -1,3 +1,4 @@
+- EventType.unit = @unit
 - crumbtrail link_to UnitPresenter.unit_display_name(@unit), unit_path(@unit)
 - crumbtrail link_to t('events.title'), unit_events_path(@unit)
 - crumbtrail link_to @event.name, unit_event_path(@unit, @event)
@@ -19,6 +20,15 @@
             = f.label :name
           .col-md-9
             = f.text_field :name, class: 'form-control'
+
+      ///////////////////////////////////
+      / event name & type
+      ///////////////////////////////////
+      .form-group
+        .row
+          .col-md-3 = f.label :event_type
+          .col-md-9 = f.select :event_type, EventType.all.collect { |t| [t.name, t.id] }, {}, class: 'form-control'
+
 
       .form-group
         .row
@@ -60,13 +70,9 @@
         .row
           .col-md-3
             = f.label :description
-<<<<<<< HEAD
-          .col-md-9
-            = f.text_area :description, class: 'form-control'
-=======
+
           .col-md-9
             = f.trix_editor :description, class: 'form-control'
->>>>>>> 98bd6bcb87ab11e94029a52a2d44fe8f4b7719e9
 
       .form-group
         .row
@@ -197,50 +203,6 @@ javascript:
     service.getPlacePredictions({ input: term }, displaySuggestions);
   });
 
-<<<<<<< HEAD
-  // $('#event_location').selectize({
-  //     searchField: 'name',
-  //     options: [],
-  //     create: false,
-  //     render: {
-  //         option: function(item, escape) {
-  //             // return '<div>' + escape(item['structured_formatting']['main_text']) +'</div>';
-  //         }
-  //     },
-  //     load: function(query, callback) {
-  //         if (!query.length) return callback();
-
-  //         // var request = {
-  //         //   query: query,
-  //         //   fields: ['photos', 'formatted_address', 'name', 'rating', 'opening_hours', 'geometry'],
-  //         // };
-
-  //         // service = new google.maps.places.AutocompleteService();
-  //         // service.getPlacePredictions(request, callback);
-
-
-  //         $.ajax({
-  //             url: 'https://maps.googleapis.com/maps/api/place/autocomplete/json',
-  //             type: 'GET',
-  //             data: {
-  //               key: '#{ ENV['GOOGLE_PLACES_API_KEY'] }',
-  //               input: encodeURIComponent(query),
-  //               inputtype: 'textquery',
-  //               fields: 'name'
-  //             },
-  //             dataType: 'json',
-  //             error: function() {
-  //               callback();
-  //             },
-  //             success: function(res) {
-  //               alert(res);
-  //               // callback(res.predictions);
-  //             }
-  //         });
-  //     }
-  // });
-=======
   $('#event_location').blur(function() {
     window.setTimeout(hideSuggestions, 200);
   });
->>>>>>> 98bd6bcb87ab11e94029a52a2d44fe8f4b7719e9

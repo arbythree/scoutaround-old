@@ -15,22 +15,3 @@
         table.table.checklist.table-sm
           = render partial: 'events/show/requirement', collection: @event.event_requirements, locals: { user: user, registration: registration }
 
-- if non_registrants.count.positive?
-  .col-md-4
-    .card
-      .card-header
-        = t('event_registrations.non_registrants')
-      .card-body
-        table.table.checklist.table-sm
-          - non_registrants.each do |user|
-            tr
-              td
-                = user.first_name
-
-              td.event-requirement
-                = link_to unit_event_event_registrations_path(@unit, @event, user: user), method: :post, data: { toggle: 'tooltip' }, title: t('registrations.ctas.register'), id: "register_user_#{user.id}" do
-                  i.fal.fa-clipboard-list
-
-  .col-md-8
-    - if family_registrations.count.zero?
-      h2 No one in your family is registered :(

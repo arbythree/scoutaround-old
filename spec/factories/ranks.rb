@@ -1,14 +1,14 @@
 FactoryBot.define do
   factory :rank do
     sequence(:name) { |n| "rank #{n}"}
-    program_code 'bsa'
+    program_code { 'bsa' }
   end
 
   trait :scout do
-    name 'Scout'
+    name { 'Scout' }
   end
 
   trait :tenderfoot do
-    name 'Tenderfoot'
+    name { 'Tenderfoot' }
   end
 end

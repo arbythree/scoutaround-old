@@ -7,6 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 gem 'aws-sdk-s3', '~> 1.2'
+gem 'bootsnap', require: false
 gem 'bootstrap', '~> 4.1.1'
 gem 'bootstrap-datepicker-rails'
 gem 'bootstrap-tagsinput-rails'
@@ -35,7 +36,7 @@ gem 'puma', '~> 3.7'
 gem 'pundit'
 
 # the grand poobah
-gem 'rails', '~> 5.2'
+gem 'rails', '~> 5.2.1'
 
 # markdown rendering
 gem 'redcarpet'
@@ -70,8 +71,8 @@ gem 'smarter_csv'
 # credit card payments
 gem 'stripe'
 
-# markdown rich editor
-gem 'trix', git: 'https://github.com/bcoia/trix.git'
+# rich editor
+gem 'trix-rails', git: 'https://github.com/bcoia/trix.git', require: 'trix'
 
 # auto-completion
 gem 'twitter-typeahead-rails'

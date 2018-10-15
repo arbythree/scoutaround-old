@@ -24,6 +24,8 @@ class EventRegistrationsController < AuthenticatedController
     elsif params['event']['registrant_ids'].present?
       perform_bulk_registration
     end
+
+    redirect_to unit_event_path(@unit, @event)
   end
 
   def update
@@ -33,7 +35,7 @@ class EventRegistrationsController < AuthenticatedController
     user = @registration.user
     @registration.destroy
     flash[:notice] = "Unregistered #{ user.full_name }"
-    redirect_to [@unit.becomes(Unit), @event]
+    redirect_to unit_event_path(@unit, @event)
   end
 
   private
@@ -42,7 +44,6 @@ class EventRegistrationsController < AuthenticatedController
     user = @unit.members.find(params[:user])
     @registration = @event.event_registrations.create(user: user)
     flash[:notice] = I18n.t('event_registrations.success.created.single', user_name: user.first_name, event_name: @event.name)
-    redirect_to [@unit.becomes(Unit), @event]
   end
 
   def perform_bulk_registration
@@ -52,7 +53,6 @@ class EventRegistrationsController < AuthenticatedController
     end
 
     flash[:notice] = "Registered #{ user_synopsis(users) }"
-    redirect_to unit_event_event_registrations_path(@unit, @event)
   end
 
   def perform_family_registration

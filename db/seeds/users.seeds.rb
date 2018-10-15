@@ -103,17 +103,20 @@ after :bsa_ranks, :bsa_unit_positions, :subscription_plans do
 
   summer_camp = troop.events.create_with(
     starts_at: 8.weeks.from_now,
-    ends_at: 9.weeks.from_now
+    ends_at: 9.weeks.from_now,
+    published: true,
   ).find_or_create_by(name: '2018 Camp Itchyowie')
 
   troop.events.create_with(
     starts_at: 4.weeks.from_now,
-    ends_at: 4.weeks.from_now
+    ends_at: 4.weeks.from_now,
+    published: true,
   ).find_or_create_by(name: 'Whitewater Rafting')
 
   troop.events.create_with(
     starts_at: 56.weeks.ago,
-    ends_at: 55.weeks.ago
+    ends_at: 55.weeks.ago,
+    published: true,
   ).find_or_create_by(name: '2017 Summer Camp')
 
   puts "Events: #{Event.count}"

@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_24_134014) do
+ActiveRecord::Schema.define(version: 2018_10_13_112454) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "hstore"
+  enable_extension "pg_stat_statements"
+  enable_extension "pgcrypto"
+  enable_extension "plperl"
   enable_extension "plpgsql"
+  enable_extension "unaccent"
+  enable_extension "uuid-ossp"
 
   create_table "achievables", force: :cascade do |t|
     t.string "type"
@@ -80,6 +86,8 @@ ActiveRecord::Schema.define(version: 2018_09_24_134014) do
     t.integer "unit_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "type"
+    t.integer "parent_id"
   end
 
   create_table "event_registrations", force: :cascade do |t|
@@ -141,6 +149,7 @@ ActiveRecord::Schema.define(version: 2018_09_24_134014) do
     t.text "description"
     t.integer "minimum_age"
     t.boolean "published", default: false
+    t.string "event_type"
   end
 
   create_table "guardianships", force: :cascade do |t|

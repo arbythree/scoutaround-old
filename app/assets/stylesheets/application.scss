@@ -19,13 +19,15 @@
  *= require selectize.default
  */
 
-@import "bootstrap";
-
 $blue:              #7D9E9C;
 $green:             #006B3F;
 $color_brand:       #BA160C; // eng
 $color_background:  #EBE9E8;
 $color_text:        rgb(33, 37, 41);
+$primary:           $color_brand;
+
+@import "bootstrap";
+
 
 @mixin sans-serif {
   font-family: 'Ringside Regular SSm A', 'Ringside Regular SSm B', helvetica, arial, sans-serif;
@@ -41,6 +43,10 @@ $color_text:        rgb(33, 37, 41);
 
 @mixin smaller-text {
   font-size: 80%;
+}
+
+@mixin larger-text {
+  font-size: 120%;
 }
 
 body {
@@ -111,25 +117,9 @@ h4 {
   }
 }
 
-// .btn {
-//   font-weight: 300;
-//   // text-transform: uppercase;
-//   // font-size: 12px;
-//   // letter-spacing: 1px;
-//   padding: 8px 16px;
-// }
-
-// .btn-primary {
-//   // background-color: rgb(182, 24, 24);
-//   background-color: $blue;
-//   border-color: darken($blue, 10%);
-//   min-width: 12rem;
-
-//   &:hover {
-//     background-color: darken($blue, 10%);
-//     border-color: darken($blue, 10%);
-//   }
-// }
+.btn-nosquash {
+  min-width: 12rem;
+}
 
 a {
   color: $color_brand;
@@ -137,6 +127,10 @@ a {
 
   &:hover {
     color: rgb(172, 14, 14);
+  }
+
+  svg {
+    margin-right: 0.5rem;
   }
 }
 
@@ -466,18 +460,31 @@ ul.documents {
   padding: 0;
 
   li {
-    display: inline-block;
-    margin: 1rem;
-    width: 25%;
-    float: left;
-    // text-align: center;
+    border-bottom: 1px solid #ddd;
 
-    img {
-      border: 1px solid #ddd;
-      box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
+    a {
+      display: inline-block;
+      padding: 1rem 0;
+    }
+
+    &:first-child {
+      border-top: 1px solid #ddd;
     }
   }
+
+  // li {
+  //   display: inline-block;
+  //   margin: 1rem;
+  //   width: 25%;
+  //   float: left;
+  //   // text-align: center;
+
+  //   img {
+  //     border: 1px solid #ddd;
+  //     box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
+  //     margin-bottom: 1rem;
+  //   }
+  // }
 }
 
 ul.roster {
@@ -1273,11 +1280,99 @@ ul#announcements {
   .modal-header, .modal-body, .modal-footer {
     padding-left: 30px;
     padding-right: 30px;
+  }
+}
 
 .alert {
   margin: 0 -15px;
 
   .container {
     max-width: 1332px;
+  }
+}
+
+.alert-warning {
+  background-color: #fcc200;
+  color: darken(#fcc200, 40%);
+}
+
+tr.month {
+  // background-color: lighten($color_background, 5%);
+  font-weight: 700;
+
+  td:first-child {
+    // border-left: 6px solid lighten($color_background, 5%);
+    padding-left: 0;
+  }
+}
+
+tr.event {
+  border-left: 6px solid #fff;
+
+  &.unpublished {
+    background: repeating-linear-gradient(
+      -45deg,
+      #fff,
+      #fff 10px,
+      #e4e4e4 10px,
+      #e4e4e4 11px
+    );
+  }
+}
+
+tr.camping {
+  border-color: SIENNA;
+}
+
+tr.award_ceremony {
+  border-color: SEAGREEN;
+}
+
+tr.afloat {
+  border-color: CORNFLOWERBLUE;
+}
+
+tr.unit_meeting {
+  border-color: LIGHTBLUE;
+}
+
+tr.football {
+  border-color: FUCHSIA;
+}
+
+tr.hike {
+  border-color: CRIMSON;
+}
+
+tr.fundraiser {
+  border-color: #85bb65;
+}
+
+tr.community_service {
+  border-color: GOLDENROD;
+}
+
+tr.training {
+  border-color: DARKGREEN;
+}
+
+body.events.show {
+  #overview {
+    @include serif;
+    @include larger-text;
+    padding-right: 30px
+  }
+}
+
+.actions ul {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    padding: 0.5rem 0;
+  }
+
+  .btn {
+    width: 100%;
   }
 }

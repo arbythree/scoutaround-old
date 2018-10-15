@@ -31,4 +31,8 @@ class Event < ApplicationRecord
   def all_day?
     starts_at.hour == 0 && ends_at.hour == 0
   end
+
+  def past?
+    starts_at.compare_with_coercion(Date.today) == -1
+  end
 end

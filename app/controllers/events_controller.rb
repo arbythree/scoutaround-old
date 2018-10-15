@@ -8,21 +8,33 @@ class EventsController < UnitContextController
   after_action  :store_view_preference, only: [:index]
 
   def index
-    @include_unpublished = params[:include_unpublished] || 'no'
+    session[:calendar_list_start_date] ||= Date.today.to_s
+    session[:calendar_list_end_date]   ||= 6.months.from_now.to_s
+    session[:calendar_include_unpublished] ||= 'no'
 
-    if @include_unpublished == 'yes'
-      @events = @unit.events
-    else
-      @events = @unit.events.published
+    if params[:change].present? && params[:to].present?
+      session[params[:change]] = params[:to]
     end
+
+    @start_date = Date.parse(session[:calendar_list_start_date])
+    @end_date   = Date.parse(session[:calendar_list_end_date])
+    @earlier_start_date  = (@start_date - 1.day).beginning_of_year
+    @later_end_date      = @end_date + 6.months
+    @include_unpublished = session[:calendar_include_unpublished] == 'yes'
+
+    if @view == 'list'
+      @events = @unit.events.where('starts_at >= ? AND starts_at <= ?', @start_date, @end_date)
+    else
+      @events = @unit.events
+    end
+
+    @events = @events.published unless @include_unpublished
 
     # for modal
     @event = Event.new
     @event.starts_at = 6.weeks.from_now
     @event.ends_at   = 6.weeks.from_now
     @event.registration_closes_at = 5.weeks.from_now
-
-    @show_past_events = @view == 'calendar'
 
     @tracking_properties = { view: @view }
 
@@ -53,10 +65,6 @@ class EventsController < UnitContextController
     # TODO: pundit this
     @body_classes = [:admin]
     @needs_admin_coaching = @current_user.preference_for(key: :needs_admin_coaching, default: 'true') == 'true'
-
-    puts '$$$$$'
-    puts @needs_admin_coaching
-
     @current_user.save_preference_for(key: :needs_admin_coaching, value: 'false')
   end
 
@@ -144,7 +152,7 @@ class EventsController < UnitContextController
   def event_params
     params.require(:event).permit(:name, :location, :starts_at, :ends_at, :require_registration,
       :registration_closes_at, :address, :city, :state, :postal_code, :banner_image_url,
-      :description, :minimum_age, attachments: [])
+      :published, :event_type, :description, :minimum_age, attachments: [])
   end
 
   def fetch_view_preference
