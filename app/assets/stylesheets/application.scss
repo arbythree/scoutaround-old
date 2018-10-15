@@ -45,6 +45,10 @@ $primary:           $color_brand;
   font-size: 80%;
 }
 
+@mixin larger-text {
+  font-size: 120%;
+}
+
 body {
   @include sans-serif;
   font-weight:      300;
@@ -123,6 +127,10 @@ a {
 
   &:hover {
     color: rgb(172, 14, 14);
+  }
+
+  svg {
+    margin-right: 0.5rem;
   }
 }
 
@@ -452,18 +460,31 @@ ul.documents {
   padding: 0;
 
   li {
-    display: inline-block;
-    margin: 1rem;
-    width: 25%;
-    float: left;
-    // text-align: center;
+    border-bottom: 1px solid #ddd;
 
-    img {
-      border: 1px solid #ddd;
-      box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
-      margin-bottom: 1rem;
+    a {
+      display: inline-block;
+      padding: 1rem 0;
+    }
+
+    &:first-child {
+      border-top: 1px solid #ddd;
     }
   }
+
+  // li {
+  //   display: inline-block;
+  //   margin: 1rem;
+  //   width: 25%;
+  //   float: left;
+  //   // text-align: center;
+
+  //   img {
+  //     border: 1px solid #ddd;
+  //     box-shadow: 0, 0, 5px, 5px, rgba(0, 0, 0, 0.1);
+  //     margin-bottom: 1rem;
+  //   }
+  // }
 }
 
 ul.roster {
@@ -1333,4 +1354,25 @@ tr.community_service {
 
 tr.training {
   border-color: DARKGREEN;
+}
+
+body.events.show {
+  #overview {
+    @include serif;
+    @include larger-text;
+    padding-right: 30px
+  }
+}
+
+.actions ul {
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    padding: 0.5rem 0;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }

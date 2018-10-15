@@ -1,5 +1,5 @@
 class AnnouncementsController < UnitContextController
   def index
-    @messages = @unit.messages
+    @messages = @unit.messages.includes(:author)
   end
 end

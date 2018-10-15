@@ -30,18 +30,16 @@
 = render partial: 'events/show/event_title'
 = render partial: 'events/show/nav'
 
-- if @event.event_requirements.present?
-  section#submissions
-    .row
-      = render 'events/show/checklist'
+/ - if @event.event_requirements.present?
+/   section#submissions
+/     .row
+/       = render 'events/show/checklist'
 
 section
-  .tab-content
-    #overview.tab-pane.fade.show.active
-      .row
-        .col-md-8#description
-          h5 Overview
-
+  .row
+    .col-md-8
+      .tab-content
+        #overview.tab-pane.fade.show.active
           = raw(@event.description)
 
           / = raw(markdown.render @event.description)
@@ -52,22 +50,19 @@ section
                 = link_to rails_blob_path(attachment, disposition: 'attachment')
                   = image_tag attachment.preview(resize: '100x100>')
 
-        .col-md-4#event-details
-          = render partial: 'events/show/details'
-
-    #messages.tab-pane
-      .row
-        .col-md-8.messages
+        #messages.tab-pane
           .details
             h5 = t('messages.title')
             = render 'events/show/messages'
 
-    #attendees.tab-pane
-      .row
-        .col-md-4
+        #attendees.tab-pane
           .details
             h5 Who's Going?
-            = render 'events/show/who'      
+            = render 'events/show/who'
+
+    .col-md-4#event-details
+      = render partial: 'events/show/details'
+
 
 = render partial: 'events/show/map'
 
