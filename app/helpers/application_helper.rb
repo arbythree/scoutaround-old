@@ -52,7 +52,7 @@ module ApplicationHelper
     crypt
   end
 
-  def select_time(name, html_options = {}, tag_options = {})
+  def select_time_tag(name, html_options = {}, tag_options = {})
     values = ''
     values += '<option value="0">All day</option>' if tag_options[:display_all_day_option]
     (7..23).step(1).each do |hour|
@@ -61,7 +61,7 @@ module ApplicationHelper
       values += "<option value=\"#{ format('%02d', hour) }:00\">#{ display_hour }:00 #{ meridian }</option>"
       values += "<option value=\"#{ format('%02d', hour) }:30\">#{ display_hour }:30 #{ meridian }</option>"
     end
-    select_tag(name, raw(values), html_options)
+    select_tag(name.to_s, raw(values), html_options)
   end
 
   def event_type_glyph_name(event_type)

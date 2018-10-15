@@ -1,5 +1,12 @@
 - EventType.unit = @unit
 
+- values = ''
+- (7..23).step(1).each do |hour|
+  - meridian = hour >= 12 ? 'PM' : 'AM'
+  - display_hour = (hour > 12) ? hour - 12 : hour
+  - values += "<option value=\"#{ format('%02d', hour) }:00\">#{ display_hour }:00 #{ meridian }</option>"
+  - values += "<option value=\"#{ format('%02d', hour) }:30\">#{ display_hour }:30 #{ meridian }</option>"
+
 #new.modal.fade
   = form_for @event, url: unit_events_path(@unit) do |f|
     .modal-dialog.modal-lg
@@ -51,7 +58,9 @@
             .row
               .col-md-3 = f.label :starts_at
               .col-md-5 = f.text_field :starts_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
-              .col-md-4 = select_time(:starts_at_time, { class: 'form-control' }, { display_all_day_option: true })
+              .col-md-4
+                / = select_tag(:starts_at_time, raw(values))
+                = select_time_tag(:starts_at_time, { class: 'form-control' }, { display_all_day_option: true })
 
           .form-group
             .row
@@ -59,7 +68,7 @@
               .col-md-5 = f.text_field :ends_at, value: @event.starts_at.strftime('%d %B %Y'), class: 'form-control datepicker'
               .col-md-4
                 #ends-at-time-details(style="display:none")
-                  = select_time(:ends_at_time, class: 'form-control')
+                  = select_time_tag(:ends_at_time, class: 'form-control')
 
           ///////////////////////////////////
           / repeat
