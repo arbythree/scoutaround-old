@@ -9,7 +9,7 @@ class DocumentLibraryItemsController < UnitContextController
   end
 
   def new
-    @document_library_item = DocumentLibraryFile.new(unit: @unit)
+    @document_library_item = DocumentLibraryItem.new(unit: @unit)
   end
 
   def create
